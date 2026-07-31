@@ -65,8 +65,8 @@ Both projects are **completely free**. Pick whichever fits your workflow:
 
 | Project | Run Where | Features | Links |
 |---------|-----------|----------|-------|
-| **FreeShortVideoStudio** (this project) | Fully online, in the browser | Lightweight, zero install — **features under construction** | [Website](https://video.lichuanyang.top/en/studio) · [GitHub](https://github.com/lcy362/free-short-video-studio) |
-| **Agnes Video Generator** | Download & run locally | **More powerful** — TTS narration, auto subtitles, digital anchor, image-to-video, keyframes, manuscript-to-video, checkpoint resume & more | [GitHub](https://github.com/lcy362/agnes-video-generator) |
+| **[FreeShortVideoStudio](https://github.com/lcy362/free-short-video-studio)** (this project) | Fully online, in the browser | Lightweight, zero install — **features under construction** | [Website](https://video.lichuanyang.top/en/studio) · [GitHub](https://github.com/lcy362/free-short-video-studio) |
+| **[Agnes Video Generator](https://github.com/lcy362/agnes-video-generator)** | Download & run locally | **More powerful** — TTS narration, auto subtitles, digital anchor, image-to-video, keyframes, manuscript-to-video, checkpoint resume & more | [GitHub](https://github.com/lcy362/agnes-video-generator) |
 
 ## 📄 License
 
