@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased;
+  }
+
+  ::selection {
+    @apply bg-blue-500/30 text-white;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-950;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-800 rounded-full hover:bg-gray-700;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-blue-400 via-cyan-300 to-amber-400 bg-clip-text text-transparent;
+  }
+
+  .glow-blue {
+    box-shadow: 0 4px 20px rgba(59,130,246,0.3), 0 0 40px rgba(59,130,246,0.1);
+  }
+
+  .glow-amber {
+    box-shadow: 0 4px 20px rgba(245,158,11,0.3), 0 0 40px rgba(245,158,11,0.1);
+  }
+
+  .glass-card {
+    @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.07] rounded-2xl;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-card:hover {
+    @apply border-blue-500/20;
+    box-shadow: 0 0 20px rgba(59,130,246,0.06);
+  }
+}
