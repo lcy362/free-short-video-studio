@@ -2,13 +2,13 @@
 
 [![English](https://img.shields.io/badge/EN-English-blue)](/README.md)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Website](https://img.shields.io/badge/website-video.lichuanyang.top-8A2BE2)](https://video.lichuanyang.top/zh/studio)
+[![Website](https://img.shields.io/badge/website-video.lichuanyang.top-8A2BE2)](https://video.lichuanyang.top/studio)
 
 > **完全在线、完全免费的 AI 短视频生成器** —— 无需安装、无需显卡、无需信用卡。输入一个创意，AI 自动拆分为 2-5 个场景、逐段文生视频，并在浏览器内拼接成完整短视频。
 
 ## 🚀 立即体验 — 免安装
 
-**▶ [video.lichuanyang.top/zh/studio](https://video.lichuanyang.top/zh/studio)**
+**▶ [video.lichuanyang.top/studio](https://video.lichuanyang.top/studio)**
 
 > 填入免费 [Agnes AI](https://platform.agnes-ai.com) API Key（仅保存在浏览器 localStorage，不会上传任何服务器）即可零成本开始创作 AI 视频。
 
@@ -65,7 +65,7 @@ free-short-video-studio/
 
 | 项目 | 运行方式 | 功能定位 | 链接 |
 |------|---------|---------|------|
-| **[FreeShortVideoStudio](https://github.com/lcy362/free-short-video-studio)**（本项目） | 完全在线、浏览器内运行 | 轻量免安装，**功能建设中** | [在线体验](https://video.lichuanyang.top/zh/studio) · [GitHub](https://github.com/lcy362/free-short-video-studio) |
+| **[FreeShortVideoStudio](https://github.com/lcy362/free-short-video-studio)**（本项目） | 完全在线、浏览器内运行 | 轻量免安装，**功能建设中** | [在线体验](https://video.lichuanyang.top/studio) · [GitHub](https://github.com/lcy362/free-short-video-studio) |
 | **[Agnes Video Generator](https://github.com/lcy362/agnes-video-generator)** | 下载后本地运行 | **功能更强大** —— TTS 配音、自动字幕、数字人、图生视频、关键帧动画、文章成片、断点续传等 | [GitHub](https://github.com/lcy362/agnes-video-generator) |
 
 ## 📄 License

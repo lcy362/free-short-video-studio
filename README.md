@@ -2,13 +2,13 @@
 
 [![中文](https://img.shields.io/badge/CN-中文-red)](/README_ZH.md)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Website](https://img.shields.io/badge/website-video.lichuanyang.top-8A2BE2)](https://video.lichuanyang.top/en/studio)
+[![Website](https://img.shields.io/badge/website-video.lichuanyang.top-8A2BE2)](https://video.lichuanyang.top/studio)
 
 > **Fully online, completely free AI short video generator** — no install, no GPU, no credit card. Type in an idea, AI automatically splits it into 2-5 scenes, generates each scene with text-to-video, and stitches them into a complete short video right in your browser.
 
 ## 🚀 Try It Now — No Install Needed
 
-**▶ [video.lichuanyang.top/en/studio](https://video.lichuanyang.top/en/studio)**
+**▶ [video.lichuanyang.top/studio](https://video.lichuanyang.top/studio)**
 
 > Just paste a free [Agnes AI](https://platform.agnes-ai.com) API key (stored in your browser's localStorage, never uploaded to any server) and start creating AI videos at zero cost.
 
@@ -65,7 +65,7 @@ Both projects are **completely free**. Pick whichever fits your workflow:
 
 | Project | Run Where | Features | Links |
 |---------|-----------|----------|-------|
-| **[FreeShortVideoStudio](https://github.com/lcy362/free-short-video-studio)** (this project) | Fully online, in the browser | Lightweight, zero install — **features under construction** | [Website](https://video.lichuanyang.top/en/studio) · [GitHub](https://github.com/lcy362/free-short-video-studio) |
+| **[FreeShortVideoStudio](https://github.com/lcy362/free-short-video-studio)** (this project) | Fully online, in the browser | Lightweight, zero install — **features under construction** | [Website](https://video.lichuanyang.top/studio) · [GitHub](https://github.com/lcy362/free-short-video-studio) |
 | **[Agnes Video Generator](https://github.com/lcy362/agnes-video-generator)** | Download & run locally | **More powerful** — TTS narration, auto subtitles, digital anchor, image-to-video, keyframes, manuscript-to-video, checkpoint resume & more | [GitHub](https://github.com/lcy362/agnes-video-generator) |
 
 ## 📄 License
