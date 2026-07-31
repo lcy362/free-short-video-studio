@@ -1,48 +1,73 @@
-# FreeShortVideoStudio
+# 🎬 FreeShortVideoStudio — Free AI Short Video Generator (In-Browser)
 
-AI 免费在线生成短视频 / Free AI Short Video Generator。
+[![中文](https://img.shields.io/badge/CN-中文-red)](/README_ZH.md)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Website](https://img.shields.io/badge/website-video.lichuanyang.top-8A2BE2)](https://video.lichuanyang.top/en/studio)
 
-输入一个创意，AI 自动拆分为 2-5 个场景、逐段文生视频并在浏览器内拼接成完整短视频。
-完全免费、纯网页运行：无需安装、无需 GPU、无需信用卡，填入免费 Agnes API Key 即可使用。
+> **Fully online, completely free AI short video generator** — no install, no GPU, no credit card. Type in an idea, AI automatically splits it into 2-5 scenes, generates each scene with text-to-video, and stitches them into a complete short video right in your browser.
 
-## 快速开始
+## 🚀 Try It Now — No Install Needed
+
+**▶ [video.lichuanyang.top/en/studio](https://video.lichuanyang.top/en/studio)**
+
+> Just paste a free [Agnes AI](https://platform.agnes-ai.com) API key (stored in your browser's localStorage, never uploaded to any server) and start creating AI videos at zero cost.
+
+## ✨ Features
+
+- **Fully in-browser** — everything runs on your device: FFmpeg.js wasm stitching, localStorage-only API key, no backend server for video generation.
+- **Creative → Scenes → Video** — AI splits your idea into 2-5 scenes, generates each scene, then stitches the final video with optional audio.
+- **Multi-scene editing** — edit scene prompts, re-generate individual scenes, swap scene order before rendering.
+- **13 languages** — Chinese, English, Russian, Japanese, Korean, Malay, Indonesian, German, French, Dutch, Spanish, Portuguese, Italian.
+
+> ⚠️ **Status: under active construction** — core generation & stitching work; more features are being built continuously.
+
+## 🛠 Quick Start
 
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm run build      # 静态导出到 out/（Cloudflare Pages）
+npm run build      # static export to out/ (Cloudflare Pages)
 ```
 
-## 使用方式
+## 💡 How to Use
 
-1. 打开站点，点击「API Key」面板
-2. 到 [platform.agnes-ai.com](https://platform.agnes-ai.com) 获取免费 Agnes API Key（无需信用卡）
-3. 粘贴 Key（仅保存在浏览器 localStorage，不会上传任何服务器）
-4. 输入视频创意 → AI 拆分场景 → 逐段生成视频 → 浏览器内拼接导出
+1. Open the site and click the **API Key** panel.
+2. Get a free Agnes API key at [platform.agnes-ai.com](https://platform.agnes-ai.com) (no credit card required).
+3. Paste the key — it is saved only in your browser's `localStorage` and never uploaded anywhere.
+4. Enter your video idea → AI splits scenes → generate each scene → stitch & export in the browser.
 
-## 技术栈
+## 🧱 Tech Stack
 
 - Next.js 14 (App Router) + TypeScript + Tailwind CSS + next-intl
-- `@ffmpeg/ffmpeg`：浏览器内拼接视频（ffmpeg.wasm，从 CDN 加载）
-- Cloudflare Pages：静态导出 + `functions/` 视频下载 CORS 代理
+- `@ffmpeg/ffmpeg` (ffmpeg.wasm) — in-browser video stitching, loaded from CDN
+- Cloudflare Pages — static export + `functions/` video-download CORS proxy
 
-## 部署
+## 📦 Deploy
 
-- 平台：Cloudflare Pages，构建命令 `npm run build`，输出目录 `out/`
-- `functions/` 目录由 Cloudflare Pages 自动识别为 Pages Function（视频下载 CORS 代理），无需额外配置
-- 用户填入的 API Key 只存浏览器 localStorage，不上传任何服务器
+- Platform: Cloudflare Pages, build command `npm run build`, output directory `out/`.
+- The `functions/` directory is automatically recognized by Cloudflare Pages as a Pages Function (video-download CORS proxy) — no extra config needed.
+- User-provided API keys stay in the browser's `localStorage`; nothing is uploaded to any server.
 
-## 目录结构
+## 📁 Project Structure
 
 ```
 free-short-video-studio/
-├── app/                    # 页面外壳（Hero/Footer/语言切换）
-├── components/             # 外壳组件（StudioLanding）
-├── studio-core/            # Studio 核心（StudioClient + components/ + lib/ + types.ts）
-│   └── messages/<locale>.json   # next-intl 文案
-└── functions/api/video-download/[[path]].ts   # 视频下载 CORS 代理
+├── app/                    # Page shell (Hero/Footer/locale switcher)
+├── components/             # Shell components (StudioLanding)
+├── studio-core/            # Studio core (StudioClient + components/ + lib/ + types.ts)
+│   └── messages/<locale>.json   # next-intl messages
+└── functions/api/video-download/[[path]].ts   # Video-download CORS proxy
 ```
 
-## License
+## 🔗 Related Projects
+
+Both projects are **completely free**. Pick whichever fits your workflow:
+
+| Project | Run Where | Features | Links |
+|---------|-----------|----------|-------|
+| **FreeShortVideoStudio** (this project) | Fully online, in the browser | Lightweight, zero install — **features under construction** | [Website](https://video.lichuanyang.top/en/studio) · [GitHub](https://github.com/lcy362/free-short-video-studio) |
+| **Agnes Video Generator** | Download & run locally | **More powerful** — TTS narration, auto subtitles, digital anchor, image-to-video, keyframes, manuscript-to-video, checkpoint resume & more | [GitHub](https://github.com/lcy362/agnes-video-generator) |
+
+## 📄 License
 
 MIT
