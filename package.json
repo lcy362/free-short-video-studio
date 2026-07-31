@@ -2,6 +2,27 @@
   "name": "free-short-video-studio",
   "version": "1.0.0",
   "private": true,
+  "description": "Free AI short video generator that runs fully in the browser — no install, no GPU, no credit card. Type an idea, AI splits it into scenes, generates each scene and stitches a complete video.",
+  "license": "MIT",
+  "author": "lcy362",
+  "homepage": "https://video.lichuanyang.top/en/studio",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lcy362/free-short-video-studio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lcy362/free-short-video-studio/issues"
+  },
+  "keywords": [
+    "ai-video-generator",
+    "text-to-video",
+    "ai-video",
+    "video-generator",
+    "free",
+    "browser",
+    "ffmpeg-wasm",
+    "nextjs"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
