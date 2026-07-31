@@ -26,10 +26,12 @@ import { sleep } from './rate-limiter';
 const VIDEO_SUBMIT_URL = 'https://apihub.agnes-ai.com/v1/videos';
 const VIDEO_STATUS_URL = 'https://apihub.agnes-ai.com/agnesapi';
 
-/** 5 秒视频的帧数与帧率 */
+/** 各时长对应的帧数与帧率（24fps，帧数 = 时长×24+1；全部 ≤ 720p 档上限 409） */
 const DURATION_PRESETS: Record<number, [number, number]> = {
   5: [121, 24],
+  8: [193, 24],
   10: [241, 24],
+  12: [289, 24],
 };
 
 /** Video API 自定义错误 */

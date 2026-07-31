@@ -4,9 +4,10 @@ import { useTranslations } from 'next-intl';
 import {
   SCENE_COUNT_OPTIONS,
   STUDIO_RATIO_OPTIONS,
+  STUDIO_DURATION_OPTIONS,
   STYLE_OPTIONS,
 } from '../types';
-import type { StudioRatio, StudioStyle } from '../types';
+import type { StudioRatio, StudioDuration, StudioStyle } from '../types';
 
 interface Props {
   idea: string;
@@ -15,6 +16,8 @@ interface Props {
   setSceneCount: (v: number) => void;
   ratio: StudioRatio;
   setRatio: (v: StudioRatio) => void;
+  duration: StudioDuration;
+  setDuration: (v: StudioDuration) => void;
   style: StudioStyle;
   setStyle: (v: StudioStyle) => void;
   enableWatermark: boolean;
@@ -30,6 +33,8 @@ export default function IdeaInput({
   setSceneCount,
   ratio,
   setRatio,
+  duration,
+  setDuration,
   style,
   setStyle,
   enableWatermark,
@@ -57,7 +62,7 @@ export default function IdeaInput({
         <p className="mt-1.5 text-xs text-gray-500">{t('ideaHint')}</p>
       </div>
 
-      {/* 场景数 + 画面比例 */}
+      {/* 场景数 + 画面比例 + 场景时长 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-200 mb-2">
@@ -102,6 +107,30 @@ export default function IdeaInput({
             ))}
           </div>
         </div>
+      </div>
+
+      {/* 场景时长 */}
+      <div>
+        <label className="block text-sm font-medium text-gray-200 mb-2">
+          {t('durationLabel')}
+        </label>
+        <div className="flex gap-2">
+          {STUDIO_DURATION_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => setDuration(opt.value)}
+              disabled={loading}
+              className={`flex-1 py-2 text-sm rounded-lg border transition ${
+                duration === opt.value
+                  ? 'bg-blue-600/20 border-blue-500/50 text-blue-300'
+                  : 'bg-gray-800/50 border-gray-700/50 text-gray-400 hover:text-gray-200'
+              }`}
+            >
+              {t(opt.labelKey)}
+            </button>
+          ))}
+        </div>
+        <p className="mt-1.5 text-xs text-gray-500">{t('durationHint')}</p>
       </div>
 
       {/* 风格选择 */}

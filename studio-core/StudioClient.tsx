@@ -28,10 +28,14 @@ import {
   readFileAsBlobURL,
   deleteFile,
 } from './lib/ffmpeg-service';
+import {
+  STUDIO_RATIO_DIMS,
+} from './types';
 import type {
   StudioPhase,
   Scene,
   StudioRatio,
+  StudioDuration,
   StudioStyle,
   StudioProject,
 } from './types';
@@ -62,6 +66,7 @@ export default function StudioClient() {
   const [idea, setIdea] = useState('');
   const [sceneCount, setSceneCount] = useState(3);
   const [ratio, setRatio] = useState<StudioRatio>('16:9');
+  const [duration, setDuration] = useState<StudioDuration>(5);
   const [style, setStyle] = useState<StudioStyle>('cinematic');
   const [enableWatermark, setEnableWatermark] = useState(false);
   const [scenes, setScenes] = useState<Scene[]>([]);
@@ -77,15 +82,15 @@ export default function StudioClient() {
   const currentProjectIdRef = useRef<string | null>(null);
   const createdAtRef = useRef<number>(Date.now());
   const metaRef = useRef({
-    idea, sceneCount, ratio, style, enableWatermark, phase, errorMsg, finalVideoUrl,
+    idea, sceneCount, ratio, duration, style, enableWatermark, phase, errorMsg, finalVideoUrl,
   });
   const persistTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingProjectRef = useRef<StudioProject | null>(null);
 
   useEffect(() => { currentProjectIdRef.current = currentProjectId; }, [currentProjectId]);
   useEffect(() => {
-    metaRef.current = { idea, sceneCount, ratio, style, enableWatermark, phase, errorMsg, finalVideoUrl };
-  }, [idea, sceneCount, ratio, style, enableWatermark, phase, errorMsg, finalVideoUrl]);
+    metaRef.current = { idea, sceneCount, ratio, duration, style, enableWatermark, phase, errorMsg, finalVideoUrl };
+  }, [idea, sceneCount, ratio, duration, style, enableWatermark, phase, errorMsg, finalVideoUrl]);
 
   useEffect(() => { setProjects(loadProjects()); }, []);
 
@@ -111,7 +116,8 @@ export default function StudioClient() {
     if (!id) return;
     const m = metaRef.current;
     pendingProjectRef.current = {
-      id, idea: m.idea, sceneCount: m.sceneCount, ratio: m.ratio, style: m.style,
+      id, idea: m.idea, sceneCount: m.sceneCount, ratio: m.ratio, duration: m.duration,
+      style: m.style,
       enableWatermark: m.enableWatermark, scenes: upcomingScenes, phase: m.phase,
       errorMsg: m.errorMsg || undefined, createdAt: createdAtRef.current,
       updatedAt: Date.now(), finalVideoUrl: m.finalVideoUrl || undefined,
@@ -151,7 +157,7 @@ export default function StudioClient() {
       studioLogger.success('system', `Scene split complete, ${newScenes.length} scenes`);
 
       pendingProjectRef.current = {
-        id, idea: idea.trim(), sceneCount, ratio, style, enableWatermark,
+        id, idea: idea.trim(), sceneCount, ratio, duration, style, enableWatermark,
         scenes: newScenes, phase: 'script_ready', createdAt: createdAtRef.current, updatedAt: Date.now(),
       };
       flushPersist();
@@ -165,13 +171,18 @@ export default function StudioClient() {
   };
 
   /** 启动编排器 */
-  const startOrchestrator = async (initialScenes: Scene[], ratioOverride?: StudioRatio) => {
+  const startOrchestrator = async (
+    initialScenes: Scene[],
+    ratioOverride?: StudioRatio,
+    durationOverride?: StudioDuration,
+  ) => {
     if (!apiKey) return;
     abortRef.current?.abort();
     const ac = new AbortController();
     abortRef.current = ac;
 
     const useRatio = ratioOverride ?? ratio;
+    const useDuration = durationOverride ?? duration;
     const orch = new VideoOrchestrator(
       apiKey, useRatio,
       {
@@ -186,6 +197,7 @@ export default function StudioClient() {
         onPersist: (sc) => persist(sc),
       },
       ac.signal,
+      useDuration,
     );
     metaRef.current.phase = 'videos_generating';
     setPhase('videos_generating');
@@ -214,19 +226,20 @@ export default function StudioClient() {
     abortRef.current?.abort();
     const restored = project.scenes.map((s) => ({ ...s, videoUrl: undefined }));
     setIdea(project.idea); setSceneCount(project.sceneCount); setRatio(project.ratio);
-    setStyle(project.style); setEnableWatermark(project.enableWatermark);
+    setDuration(project.duration ?? 5); setStyle(project.style); setEnableWatermark(project.enableWatermark);
     setScenes(restored); setCurrentProjectId(project.id);
     createdAtRef.current = project.createdAt;
     setFinalVideoUrl(''); setErrorMsg(project.errorMsg ?? '');
     metaRef.current = {
       idea: project.idea, sceneCount: project.sceneCount, ratio: project.ratio,
+      duration: project.duration ?? 5,
       style: project.style, enableWatermark: project.enableWatermark,
       phase: 'videos_generating', errorMsg: project.errorMsg ?? '', finalVideoUrl: '',
     };
     studioLogger.info('system', `Resuming project: ${project.idea.slice(0, 40)}`);
 
     if (isResumable(project)) {
-      startOrchestrator(restored, project.ratio);
+      startOrchestrator(restored, project.ratio, project.duration ?? 5);
     } else if (project.phase === 'completed') {
       setPhase('all_videos_ready');
     } else {
@@ -270,7 +283,7 @@ export default function StudioClient() {
         studioLogger.success('ffmpeg', 'ffmpeg.wasm loaded');
       }
       setPhase('concatenating');
-      const [width, height] = ratio === '16:9' ? [1152, 768] : ratio === '9:16' ? [768, 1360] : [1024, 1024];
+      const [width, height] = STUDIO_RATIO_DIMS[ratio];
 
       const scaledNames: string[] = [];
       for (let i = 0; i < scenes.length; i++) {
@@ -356,6 +369,7 @@ export default function StudioClient() {
               idea={idea} setIdea={setIdea}
               sceneCount={sceneCount} setSceneCount={setSceneCount}
               ratio={ratio} setRatio={setRatio}
+              duration={duration} setDuration={setDuration}
               style={style} setStyle={setStyle}
               enableWatermark={enableWatermark} setEnableWatermark={setEnableWatermark}
               loading={phase === 'script_generating'}

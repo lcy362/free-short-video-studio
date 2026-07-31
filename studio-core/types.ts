@@ -25,6 +25,9 @@ export type SceneStatus =
 /** 视频画面比例 */
 export type StudioRatio = '16:9' | '9:16' | '1:1';
 
+/** 单场景视频时长（秒）。帧数上限：720p 档 409 帧（≈17s）、1080p 档 169 帧（≈7s）。 */
+export type StudioDuration = 5 | 8 | 10 | 12;
+
 /** 单个场景定义（LLM 拆分结果） */
 export interface Scene {
   /** 场景序号（从 1 开始） */
@@ -74,11 +77,15 @@ export interface SceneSplitItem {
   narration: string;
 }
 
-/** 视频画面比例对应的分辨率 */
+/**
+ * 视频画面比例对应的分辨率（取 720p 档位内的最大尺寸，帧数上限 409 ≈ 17s）。
+ * 注意：像素一旦超过 1280×720（921600）即落入 1080p 档，帧数上限骤降至 169 ≈ 7s，
+ * 因此 9:16 / 1:1 选择恰好不超阈值的 720×1280 / 960×960。
+ */
 export const STUDIO_RATIO_DIMS: Record<StudioRatio, [number, number]> = {
   '16:9': [1152, 768],
-  '9:16': [768, 1360],
-  '1:1': [1024, 1024],
+  '9:16': [720, 1280],
+  '1:1': [960, 960],
 };
 
 /** 画面比例选项 */
@@ -86,6 +93,14 @@ export const STUDIO_RATIO_OPTIONS: { value: StudioRatio; labelKey: string }[] = 
   { value: '16:9', labelKey: 'landscape' },
   { value: '9:16', labelKey: 'portrait' },
   { value: '1:1', labelKey: 'square' },
+];
+
+/** 场景时长选项 */
+export const STUDIO_DURATION_OPTIONS: { value: StudioDuration; labelKey: string }[] = [
+  { value: 5, labelKey: 'duration5' },
+  { value: 8, labelKey: 'duration8' },
+  { value: 10, labelKey: 'duration10' },
+  { value: 12, labelKey: 'duration12' },
 ];
 
 /** 场景数量选项 */
@@ -135,6 +150,8 @@ export interface StudioProject {
   sceneCount: number;
   /** 画面比例 */
   ratio: StudioRatio;
+  /** 单场景视频时长（秒） */
+  duration: StudioDuration;
   /** 视觉风格 */
   style: StudioStyle;
   /** 是否启用水印 */

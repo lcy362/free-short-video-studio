@@ -8,7 +8,7 @@
 //     remoteVideoUrl 重新下载。
 //   - 日志：在提交/轮询/重试/完成/失败等关键节点写入 studioLogger，供页面日志面板展示。
 
-import type { Scene, StudioPhase, StudioRatio } from '../types';
+import type { Scene, StudioDuration, StudioPhase, StudioRatio } from '../types';
 import {
   POLL_INTERVAL,
   MAX_POLL_TIME,
@@ -55,6 +55,7 @@ function sceneScope(index: number): string {
 export class VideoOrchestrator {
   private apiKey: string;
   private ratio: StudioRatio;
+  private duration: StudioDuration;
   private cb: OrchestratorCallbacks;
   private signal?: AbortSignal;
   /** 内部 scenes 副本（权威来源，避免 React 异步状态时序问题） */
@@ -65,9 +66,11 @@ export class VideoOrchestrator {
     ratio: StudioRatio,
     callbacks: OrchestratorCallbacks,
     signal?: AbortSignal,
+    duration: StudioDuration = 5,
   ) {
     this.apiKey = apiKey;
     this.ratio = ratio;
+    this.duration = duration;
     this.cb = callbacks;
     this.signal = signal;
   }
@@ -175,7 +178,7 @@ export class VideoOrchestrator {
         this.apiKey,
         scene.visualPrompt,
         this.ratio,
-        5,
+        this.duration,
         (attempt, delayMs) => {
           // 提交重试中
           this.update(index, {
