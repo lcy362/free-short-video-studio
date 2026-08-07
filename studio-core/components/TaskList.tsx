@@ -35,7 +35,7 @@ export default function TaskList({
         </button>
       </div>
 
-      <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
+      <div className="space-y-2 max-h-72 overflow-y-auto pe-1">
         {projects.map((p) => {
           const total = p.scenes.length;
           const done = p.scenes.filter((s) => s.status === 'completed').length;

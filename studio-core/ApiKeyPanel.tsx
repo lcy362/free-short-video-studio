@@ -54,7 +54,7 @@ export default function ApiKeyPanel({
     <div className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/60 rounded-2xl p-4 sm:p-6">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="flex items-center justify-between w-full text-left group"
+        className="flex items-center justify-between w-full text-start group"
         aria-expanded={expanded}
         aria-controls="apikey-panel-body"
       >
@@ -87,7 +87,7 @@ export default function ApiKeyPanel({
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder={t('apiKey.placeholder')}
-                className="w-full bg-gray-800/80 border border-gray-700 rounded-lg pl-4 pr-10 py-2.5 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-blue-500/70 focus:ring-1 focus:ring-blue-500/30 transition"
+                className="w-full bg-gray-800/80 border border-gray-700 rounded-lg ps-4 pe-10 py-2.5 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-blue-500/70 focus:ring-1 focus:ring-blue-500/30 transition"
                 aria-label={t('apiKey.label')}
               />
               <button
