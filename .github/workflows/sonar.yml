@@ -1,0 +1,87 @@
+name: SonarQube
+
+# SonarQube 扫描：先跑出覆盖率，再带着 lcov 扫一次。
+#
+# 为什么必须走 CI 扫描：SonarCloud 的 Automatic Analysis 无法导入测试覆盖率
+# （两者互斥），而覆盖率是 Sonar way 质量门的条件之一（新代码 ≥ 80%）。
+# 因此在 SonarCloud 侧要关掉 Automatic Analysis（项目 Settings → Analysis Method）。
+#
+# 覆盖率作业必须先成功：缺 lcov，源码所有文件都会被判为未覆盖，
+# 面板上会出现一次并不存在的覆盖率暴跌，所以 scan 用 needs 卡住。
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sonar-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  coverage:
+    name: Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        # --ignore-scripts：不执行依赖自带的安装脚本，规避供应链投毒
+        run: npm ci --no-audit --no-fund --ignore-scripts
+
+      - name: Test with coverage
+        # vitest.config.ts 的 thresholds(80%) 卡在这：不达标即失败，lcov 落在 coverage/
+        run: npm run test:coverage
+
+      - name: Upload coverage
+        uses: actions/upload-artifact@v6
+        with:
+          name: sonar-coverage
+          path: coverage/lcov.info
+          retention-days: 1
+
+  scan:
+    name: Scan
+    runs-on: ubuntu-latest
+    needs: coverage
+    # SONAR_TOKEN 未配置（首次接入 / fork PR）时跳过扫描而不是让作业失败：
+    # secrets 不能直接用在 job if，落到 job env 再用 env context 判断
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    if: >-
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Skip notice (SONAR_TOKEN not set)
+        if: env.SONAR_TOKEN == ''
+        run: echo "SONAR_TOKEN 未配置，跳过 SonarCloud 扫描（配置 secret 后重跑 workflow 即可）"
+
+      - name: Checkout
+        if: env.SONAR_TOKEN != ''
+        uses: actions/checkout@v5
+        with:
+          # Sonar 读 git blame 判定「新代码」，浅克隆会让它两眼一抹黑
+          fetch-depth: 0
+
+      - name: Download coverage
+        if: env.SONAR_TOKEN != ''
+        uses: actions/download-artifact@v6
+        with:
+          name: sonar-coverage
+
+      - name: Scan
+        if: env.SONAR_TOKEN != ''
+        uses: SonarSource/sonarqube-scan-action@v8
+        env:
+          # SonarCloud 是扫描 action 的默认宿主，故无需 SONAR_HOST_URL
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}

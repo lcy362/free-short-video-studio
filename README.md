@@ -3,6 +3,11 @@
 [![中文](https://img.shields.io/badge/CN-中文-red)](/README_ZH.md)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Website](https://img.shields.io/badge/website-video.lichuanyang.top-8A2BE2)](https://video.lichuanyang.top/studio)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=lcy362_free-short-video-studio&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=lcy362_free-short-video-studio)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=lcy362_free-short-video-studio&metric=coverage)](https://sonarcloud.io/summary/new_code?id=lcy362_free-short-video-studio)
+[![Reliability](https://sonarcloud.io/api/project_badges/measure?project=lcy362_free-short-video-studio&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=lcy362_free-short-video-studio)
+[![Security](https://sonarcloud.io/api/project_badges/measure?project=lcy362_free-short-video-studio&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=lcy362_free-short-video-studio)
+[![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=lcy362_free-short-video-studio&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=lcy362_free-short-video-studio)
 
 > **Fully online, completely free AI short video generator** — no install, no GPU, no credit card. Type in an idea, AI automatically splits it into 2-5 scenes, generates each scene with text-to-video, and stitches them into a complete short video right in your browser.
 
