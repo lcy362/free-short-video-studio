@@ -73,9 +73,20 @@ export function clearAllProjects(): void {
   }
 }
 
-/** 生成项目 ID */
+/** 生成项目 ID（Sonar S2245：不用 Math.random，伪随机可预测） */
+let idSeq = 0;
+
 export function genProjectId(): string {
-  return `proj_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  const bytes = new Uint8Array(4);
+  if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
+    crypto.getRandomValues(bytes);
+  }
+  const rnd = Array.from(bytes, (b) => b.toString(36).padStart(2, '0'))
+    .join('')
+    .slice(0, 6);
+  // 自增后缀：crypto 不可用（SSR）时仍保证同毫秒内唯一
+  idSeq = (idSeq + 1) % 36;
+  return `proj_${Date.now()}_${rnd}${idSeq.toString(36)}`;
 }
 
 /**

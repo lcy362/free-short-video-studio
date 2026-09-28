@@ -1,8 +1,9 @@
+/* @import 必须位于所有规则之前（Sonar css:S8778） */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
 
 /* Hallmark · genre: atmospheric · theme: Midnight (custom) · design-system: design.md
  * theme-modes: dark (:root 默认) / light ([data-theme='light'] 同族反转) · toggle: system/light/dark
