@@ -78,6 +78,9 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: sonar-coverage
+          # 上传的是单个文件（artifact 根目录就是 lcov.info），
+          # 不指定 path 会解压到工作区根，sonar.javascript.lcov.reportPaths 找不到 → 覆盖率 0%
+          path: coverage
 
       - name: Scan
         if: env.SONAR_TOKEN != ''
