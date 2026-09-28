@@ -1,5 +1,17 @@
 {
   "studio": {
+    "modelLabel": "Mô hình video",
+    "modelV2": "Video 2.0",
+    "modelV2Desc": "Mô hình cũ miễn phí: thời lượng 5-12 giây và ba tỷ lệ khung hình, tạo chậm hơn.",
+    "modelV25Flash": "Video 2.5 Flash",
+    "modelV25FlashDesc": "Mô hình thế hệ mới, miễn phí có thời hạn: cố định 720P, nhanh và ổn định hơn.",
+    "modelFree": "Miễn phí",
+    "modelFreeLimited": "Miễn phí có thời hạn",
+    "domainLabel": "Tên miền API",
+    "domainCom": "Quốc tế",
+    "domainCnBak": "Đường dự phòng",
+    "domainCn": "Trung Quốc",
+    "domainHint": "Tên miền Trung Quốc cần API Key riêng cho Trung Quốc; đường dự phòng dùng được với cả hai khóa. Nếu tên miền hiện tại không kết nối được, các đường khác sẽ được thử tự động.",
     "seoTitle": "Tạo video ngắn trực tuyến miễn phí bằng AI — FreeShortVideo Studio",
     "seoDescription": "FreeShortVideo Studio: tạo video ngắn trực tuyến miễn phí bằng AI. Nhập một ý tưởng, AI chia thành 2-5 cảnh, tạo clip text-to-video và ghép nối ngay trong trình duyệt của bạn. Không cài đặt, không GPU, không thẻ tín dụng — chỉ cần khóa API Agnes miễn phí.",
     "seoH1": "Tạo video ngắn trực tuyến miễn phí bằng AI — FreeShortVideo Studio",

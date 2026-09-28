@@ -1,6 +1,8 @@
 // Studio 网页版类型定义
 // 轮询/重试/限速参数对齐原项目 agnes-video-generator（Python/FastAPI）
 
+import type { StudioVideoModelId } from './lib/video-models';
+
 /** Studio 整体流程状态机 */
 export type StudioPhase =
   | 'idle' // 初始状态
@@ -156,6 +158,8 @@ export interface StudioProject {
   style: StudioStyle;
   /** 是否启用水印 */
   enableWatermark: boolean;
+  /** 视频模型（v6.2 迁移；老项目缺省按 v2.0 处理） */
+  model?: StudioVideoModelId;
   /** 场景列表（含 videoId/状态/进度，用于续传） */
   scenes: Scene[];
   /** 当前流程阶段 */

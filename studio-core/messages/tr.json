@@ -1,5 +1,17 @@
 {
   "studio": {
+    "modelLabel": "Video modeli",
+    "modelV2": "Video 2.0",
+    "modelV2Desc": "Ücretsiz eski model: 5-12 saniye süre ve üç en-boy oranı, üretim daha yavaş.",
+    "modelV25Flash": "Video 2.5 Flash",
+    "modelV25FlashDesc": "Yeni nesil model, sınırlı süre ücretsiz: sabit 720P, daha hızlı ve kararlı.",
+    "modelFree": "Ücretsiz",
+    "modelFreeLimited": "Sınırlı süre ücretsiz",
+    "domainLabel": "API alan adı",
+    "domainCom": "Uluslararası",
+    "domainCnBak": "Yedek hat",
+    "domainCn": "Çin",
+    "domainHint": "Çin alan adı, Çin'e özel API Anahtarı gerektirir; yedek hat her iki anahtarla da çalışır. Geçerli alan adı erişilemezse diğerleri otomatik denenir.",
     "seoTitle": "Yapay Zekâ ile Çevrimiçi Ücretsiz Kısa Video Oluştur — FreeShortVideo Studio",
     "seoDescription": "FreeShortVideo Studio: yapay zekâ ile çevrimiçi ücretsiz kısa video oluşturun. Bir fikir girin, yapay zekâ onu 2-5 sahneye böler, metinden video klipleri üretir ve tarayıcınızda birleştirir. Kurulum yok, GPU yok, kredi kartı yok — ücretsiz Agnes API Key yeterli.",
     "seoH1": "Yapay Zekâ ile Çevrimiçi Ücretsiz Kısa Video Oluştur — FreeShortVideo Studio",

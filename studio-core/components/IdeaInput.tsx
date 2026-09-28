@@ -8,6 +8,11 @@ import {
   STYLE_OPTIONS,
 } from '../types';
 import type { StudioRatio, StudioDuration, StudioStyle } from '../types';
+import {
+  STUDIO_VIDEO_MODELS,
+  getStudioModelCap,
+  type StudioVideoModelId,
+} from '../lib/video-models';
 
 interface Props {
   idea: string;
@@ -22,6 +27,8 @@ interface Props {
   setStyle: (v: StudioStyle) => void;
   enableWatermark: boolean;
   setEnableWatermark: (v: boolean) => void;
+  model: StudioVideoModelId;
+  setModel: (v: StudioVideoModelId) => void;
   loading: boolean;
   onGenerate: () => void;
 }
@@ -39,10 +46,13 @@ export default function IdeaInput({
   setStyle,
   enableWatermark,
   setEnableWatermark,
+  model,
+  setModel,
   loading,
   onGenerate,
 }: Props) {
   const t = useTranslations('studio');
+  const selectedModel = getStudioModelCap(model);
 
   return (
     <div className="card-surface rounded-2xl p-6 sm:p-8 space-y-5">
@@ -62,6 +72,40 @@ export default function IdeaInput({
         <p className="mt-1.5 text-xs text-muted">{t('ideaHint')}</p>
       </div>
 
+      {/* 视频模型（v6.2 迁移：v2.0 / 2.5-flash 双协议） */}
+      <div>
+        <label className="block text-sm font-medium text-ink-2 mb-2">
+          {t('modelLabel')}
+        </label>
+        <div className="flex gap-2">
+          {STUDIO_VIDEO_MODELS.map((m) => (
+            <button
+              key={m.id}
+              onClick={() => setModel(m.id)}
+              disabled={loading}
+              className={`flex-1 py-2 text-sm rounded-lg border transition ${
+                model === m.id
+                  ? 'bg-accent border-accent text-accent-ink shadow-sm'
+                  : 'bg-paper border-rule text-muted hover:text-ink-2 hover:bg-paper-3'
+              }`}
+              aria-pressed={model === m.id}
+            >
+              {t(m.labelKey)}
+              <span
+                className={`ms-1.5 text-xs ${
+                  model === m.id ? 'text-accent-ink/80' : 'text-muted/70'
+                }`}
+              >
+                {t(m.badgeKey)}
+              </span>
+            </button>
+          ))}
+        </div>
+        <p className="mt-1.5 text-xs text-muted leading-relaxed">
+          {t(selectedModel.descKey)}
+        </p>
+      </div>
+
       {/* 场景数 + 画面比例 + 场景时长 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
@@ -76,7 +120,7 @@ export default function IdeaInput({
                 disabled={loading}
                 className={`flex-1 py-2 text-sm rounded-lg border transition ${
                   sceneCount === n
-                    ? 'bg-accent/15 border-accent/50 text-accent'
+                    ? 'bg-accent border-accent text-accent-ink shadow-sm'
                     : 'bg-paper border-rule text-muted hover:text-ink-2 hover:bg-paper-3'
                 }`}
               >
@@ -98,7 +142,7 @@ export default function IdeaInput({
                 disabled={loading}
                 className={`flex-1 py-2 text-sm rounded-lg border transition ${
                   ratio === opt.value
-                    ? 'bg-accent/15 border-accent/50 text-accent'
+                    ? 'bg-accent border-accent text-accent-ink shadow-sm'
                     : 'bg-paper border-rule text-muted hover:text-ink-2 hover:bg-paper-3'
                 }`}
               >
@@ -122,7 +166,7 @@ export default function IdeaInput({
               disabled={loading}
               className={`flex-1 py-2 text-sm rounded-lg border transition ${
                 duration === opt.value
-                  ? 'bg-accent/15 border-accent/50 text-accent'
+                  ? 'bg-accent border-accent text-accent-ink shadow-sm'
                   : 'bg-paper border-rule text-muted hover:text-ink-2 hover:bg-paper-3'
               }`}
             >
@@ -146,7 +190,7 @@ export default function IdeaInput({
               disabled={loading}
               className={`px-3 py-1.5 text-sm rounded-lg border transition ${
                 style === s
-                  ? 'bg-accent/15 border-accent/50 text-accent'
+                  ? 'bg-accent border-accent text-accent-ink shadow-sm'
                   : 'bg-paper border-rule text-muted hover:text-ink-2 hover:bg-paper-3'
               }`}
             >

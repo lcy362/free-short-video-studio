@@ -1,5 +1,17 @@
 {
   "studio": {
+    "modelLabel": "视频模型",
+    "modelV2": "Video 2.0",
+    "modelV2Desc": "免费旧版模型：支持 5-12 秒时长与三种画面比例，生成较慢。",
+    "modelV25Flash": "Video 2.5 Flash",
+    "modelV25FlashDesc": "限时免费的新一代模型：固定 720P，生成更快、画面更稳定。",
+    "modelFree": "免费",
+    "modelFreeLimited": "限时免费",
+    "domainLabel": "API 域名",
+    "domainCom": "国际站",
+    "domainCnBak": "备用线路",
+    "domainCn": "国内站",
+    "domainHint": "国内站需使用国内站专属 API Key；备用线路两种 Key 均可用。当前线路网络不通时会自动尝试其他线路。",
     "seoTitle": "AI 免费在线生成短视频 — FreeShortVideo Studio 网页版",
     "seoDescription": "FreeShortVideo Studio（免费短视频工坊）：AI 免费在线生成短视频。输入创意自动拆分 2-5 个场景、逐段文生视频并在浏览器内拼接成片，无需安装、无需显卡、无需信用卡，填入免费 Agnes API Key 即可使用。",
     "seoH1": "AI 免费在线生成短视频 — FreeShortVideo Studio",

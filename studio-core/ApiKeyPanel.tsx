@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
+import { AGNES_DOMAINS, type AgnesDomainId } from './lib/api-domains';
 
 const STORAGE_KEY = 'agnes_api_key';
 
@@ -35,11 +36,15 @@ export default function ApiKeyPanel({
   hasKey,
   saveKey,
   clearKey,
+  domain,
+  onDomainChange,
 }: {
   apiKey: string;
   hasKey: boolean;
   saveKey: (k: string) => void;
   clearKey: () => void;
+  domain: AgnesDomainId;
+  onDomainChange: (id: AgnesDomainId) => void;
 }) {
   const t = useTranslations('studio');
   const [inputValue, setInputValue] = useState(apiKey);
@@ -77,7 +82,7 @@ export default function ApiKeyPanel({
 
       <div
         id="apikey-panel-body"
-        className={`overflow-hidden transition-all duration-300 ${expanded ? 'mt-4 max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+        className={`overflow-hidden transition-all duration-300 ${expanded ? 'mt-4 max-h-[36rem] opacity-100' : 'max-h-0 opacity-0'}`}
       >
         <div className="space-y-3">
           <div className="flex gap-2">
@@ -138,6 +143,32 @@ export default function ApiKeyPanel({
               platform.agnes-ai.com
             </a>
           </p>
+
+          {/* API 域名选择（对齐源项目 agnes-video-generator 的域名配置） */}
+          <div>
+            <span className="block text-xs font-medium text-muted mb-1.5">
+              {t('domainLabel')}
+            </span>
+            <div className="flex gap-2">
+              {AGNES_DOMAINS.map((d) => (
+                <button
+                  key={d.id}
+                  onClick={() => onDomainChange(d.id)}
+                  className={`flex-1 py-1.5 text-xs rounded-lg border transition ${
+                    domain === d.id
+                      ? 'bg-accent border-accent text-accent-ink shadow-sm'
+                      : 'bg-paper border-rule text-muted hover:text-ink-2 hover:bg-paper-3'
+                  }`}
+                  aria-pressed={domain === d.id}
+                >
+                  {t(d.labelKey)}
+                </button>
+              ))}
+            </div>
+            <p className="mt-1.5 text-xs text-muted leading-relaxed">
+              {t('domainHint')}
+            </p>
+          </div>
 
           <div className="flex items-start gap-1.5 text-xs text-ink-2 bg-paper-3 rounded-lg p-2.5 border border-rule">
             <svg className="w-3.5 h-3.5 mt-px shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">

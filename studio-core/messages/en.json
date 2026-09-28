@@ -1,5 +1,17 @@
 {
   "studio": {
+    "modelLabel": "Video model",
+    "modelV2": "Video 2.0",
+    "modelV2Desc": "Free legacy model: 5-12s durations and three aspect ratios, slower generation.",
+    "modelV25Flash": "Video 2.5 Flash",
+    "modelV25FlashDesc": "New-generation model, free for a limited time: fixed 720P, faster and more stable.",
+    "modelFree": "Free",
+    "modelFreeLimited": "Free for a limited time",
+    "domainLabel": "API domain",
+    "domainCom": "International",
+    "domainCnBak": "Backup line",
+    "domainCn": "China",
+    "domainHint": "The China domain requires a China-specific API Key; the backup line works with both. If the current domain is unreachable, other lines are tried automatically.",
     "seoTitle": "Generate Short Videos Online Free with AI — FreeShortVideo Studio",
     "seoDescription": "FreeShortVideo Studio: generate short videos online free with AI. Enter an idea, AI splits it into 2-5 scenes, generates text-to-video clips, and concatenates them in your browser. No install, no GPU, no credit card — free Agnes API Key required.",
     "seoH1": "Generate Short Videos Online Free with AI — FreeShortVideo Studio",

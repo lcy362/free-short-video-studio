@@ -1,5 +1,17 @@
 {
   "studio": {
+    "modelLabel": "비디오 모델",
+    "modelV2": "Video 2.0",
+    "modelV2Desc": "무료 구형 모델: 5-12초 길이와 3가지 화면 비율 지원, 생성 속도는 느림.",
+    "modelV25Flash": "Video 2.5 Flash",
+    "modelV25FlashDesc": "한정 기간 무료 신세대 모델: 720P 고정, 더 빠르고 안정적.",
+    "modelFree": "무료",
+    "modelFreeLimited": "한정 기간 무료",
+    "domainLabel": "API 도메인",
+    "domainCom": "국제",
+    "domainCnBak": "백업 라인",
+    "domainCn": "중국",
+    "domainHint": "중국 도메인은 중국 전용 API Key가 필요하며, 백업 라인은 두 키 모두 사용 가능합니다. 현재 도메인 연결 실패 시 다른 라인을 자동으로 시도합니다.",
     "seoTitle": "AI 무료 온라인 숏폼 영상 생성 — FreeShortVideo Studio",
     "seoDescription": "FreeShortVideo Studio: AI 무료 온라인 숏폼 영상 생성. 아이디어를 입력하면 AI가 2~5개 장면으로 자동 분할하고, 장면별 영상을 생성해 브라우저에서 결합합니다. 설치 불필요, GPU 불필요, 신용카드 불필요.",
     "seoH1": "AI 무료 온라인 숏폼 영상 생성 — FreeShortVideo Studio",

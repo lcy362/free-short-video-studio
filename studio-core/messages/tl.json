@@ -1,5 +1,17 @@
 {
   "studio": {
+    "modelLabel": "Model ng video",
+    "modelV2": "Video 2.0",
+    "modelV2Desc": "Libreng lumang model: 5-12 segundo ang haba at tatlong aspect ratio, mas mabagal ang generation.",
+    "modelV25Flash": "Video 2.5 Flash",
+    "modelV25FlashDesc": "Bagong henerasyon na model, libre sa limitadong panahon: fixed na 720P, mas mabilis at matatag.",
+    "modelFree": "Libre",
+    "modelFreeLimited": "Libre sa limitadong panahon",
+    "domainLabel": "API domain",
+    "domainCom": "Internasyonal",
+    "domainCnBak": "Backup line",
+    "domainCn": "China",
+    "domainHint": "Ang China domain ay nangangailangan ng China-specific na API Key; gagana ang backup line sa alinmang key. Kapag hindi maabot ang kasalukuyang domain, awtomatikong susubukan ang iba.",
     "seoTitle": "Gumawa ng Short Videos Online Libre gamit ang AI — FreeShortVideo Studio",
     "seoDescription": "FreeShortVideo Studio: gumawa ng short videos online libre gamit ang AI. Maglagay ng ideya, hinahati ito ng AI sa 2-5 scenes, bumubuo ng text-to-video clips, at pinagsasama-sama ang mga ito sa iyong browser. Walang install, walang GPU, walang credit card — kailangan lang ang libreng Agnes API Key.",
     "seoH1": "Gumawa ng Short Videos Online Libre gamit ang AI — FreeShortVideo Studio",

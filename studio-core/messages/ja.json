@@ -1,5 +1,17 @@
 {
   "studio": {
+    "modelLabel": "動画モデル",
+    "modelV2": "Video 2.0",
+    "modelV2Desc": "無料の旧モデル：5〜12秒の長さと3つのアスペクト比に対応、生成はやや遅め。",
+    "modelV25Flash": "Video 2.5 Flash",
+    "modelV25FlashDesc": "期間限定無料の新世代モデル：720P固定、より高速で安定。",
+    "modelFree": "無料",
+    "modelFreeLimited": "期間限定無料",
+    "domainLabel": "APIドメイン",
+    "domainCom": "国際版",
+    "domainCnBak": "バックアップ回線",
+    "domainCn": "中国版",
+    "domainHint": "中国ドメインには中国専用のAPI Keyが必要です。バックアップ回線はどちらのKeyでも利用できます。現在のドメインに接続できない場合、他の回線を自動的に試します。",
     "seoTitle": "AIで無料オンライン動画生成 — FreeShortVideo Studio",
     "seoDescription": "FreeShortVideo Studio：AIで無料オンライン動画生成。アイデアを入力するとAIが2〜5シーンに自動分割し、テキストから動画を生成してブラウザ内で結合。インストール不要、GPU不要、クレジットカード不要。",
     "seoH1": "AIで無料オンライン動画生成 — FreeShortVideo Studio",

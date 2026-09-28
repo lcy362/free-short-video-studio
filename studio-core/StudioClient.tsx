@@ -3,6 +3,19 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import ApiKeyPanel, { useApiKey } from './ApiKeyPanel';
+import {
+  loadStudioModel,
+  saveStudioModel,
+  DEFAULT_STUDIO_VIDEO_MODEL,
+  type StudioVideoModelId,
+} from './lib/video-models';
+import {
+  loadAgnesDomain,
+  saveAgnesDomain,
+  getAgnesBase,
+  DEFAULT_AGNES_DOMAIN,
+  type AgnesDomainId,
+} from './lib/api-domains';
 import IdeaInput from './components/IdeaInput';
 import SceneList from './components/SceneList';
 import FFmpegLoader from './components/FFmpegLoader';
@@ -69,6 +82,8 @@ export default function StudioClient() {
   const [duration, setDuration] = useState<StudioDuration>(5);
   const [style, setStyle] = useState<StudioStyle>('cinematic');
   const [enableWatermark, setEnableWatermark] = useState(false);
+  const [model, setModel] = useState<StudioVideoModelId>(DEFAULT_STUDIO_VIDEO_MODEL);
+  const [domain, setDomain] = useState<AgnesDomainId>(DEFAULT_AGNES_DOMAIN);
   const [scenes, setScenes] = useState<Scene[]>([]);
   const [ffmpegProgress, setFFmpegProgress] = useState(0);
   const [ffmpegLoaded, setFFmpegLoaded] = useState(false);
@@ -82,17 +97,33 @@ export default function StudioClient() {
   const currentProjectIdRef = useRef<string | null>(null);
   const createdAtRef = useRef<number>(Date.now());
   const metaRef = useRef({
-    idea, sceneCount, ratio, duration, style, enableWatermark, phase, errorMsg, finalVideoUrl,
+    idea, sceneCount, ratio, duration, style, enableWatermark, model, phase, errorMsg, finalVideoUrl,
   });
   const persistTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingProjectRef = useRef<StudioProject | null>(null);
 
   useEffect(() => { currentProjectIdRef.current = currentProjectId; }, [currentProjectId]);
   useEffect(() => {
-    metaRef.current = { idea, sceneCount, ratio, duration, style, enableWatermark, phase, errorMsg, finalVideoUrl };
-  }, [idea, sceneCount, ratio, duration, style, enableWatermark, phase, errorMsg, finalVideoUrl]);
+    metaRef.current = { idea, sceneCount, ratio, duration, style, enableWatermark, model, phase, errorMsg, finalVideoUrl };
+  }, [idea, sceneCount, ratio, duration, style, enableWatermark, model, phase, errorMsg, finalVideoUrl]);
 
   useEffect(() => { setProjects(loadProjects()); }, []);
+
+  // 模型/域名选择从 localStorage 恢复（SSR 后水合，避免不一致）
+  useEffect(() => {
+    setModel(loadStudioModel());
+    setDomain(loadAgnesDomain());
+  }, []);
+
+  const handleModelChange = (m: StudioVideoModelId) => {
+    setModel(m);
+    saveStudioModel(m);
+  };
+
+  const handleDomainChange = (id: AgnesDomainId) => {
+    setDomain(id);
+    saveAgnesDomain(id);
+  };
 
   useEffect(() => {
     return () => {
@@ -118,7 +149,7 @@ export default function StudioClient() {
     pendingProjectRef.current = {
       id, idea: m.idea, sceneCount: m.sceneCount, ratio: m.ratio, duration: m.duration,
       style: m.style,
-      enableWatermark: m.enableWatermark, scenes: upcomingScenes, phase: m.phase,
+      enableWatermark: m.enableWatermark, model: m.model, scenes: upcomingScenes, phase: m.phase,
       errorMsg: m.errorMsg || undefined, createdAt: createdAtRef.current,
       updatedAt: Date.now(), finalVideoUrl: m.finalVideoUrl || undefined,
     };
@@ -157,7 +188,7 @@ export default function StudioClient() {
       studioLogger.success('system', `Scene split complete, ${newScenes.length} scenes`);
 
       pendingProjectRef.current = {
-        id, idea: idea.trim(), sceneCount, ratio, duration, style, enableWatermark,
+        id, idea: idea.trim(), sceneCount, ratio, duration, style, enableWatermark, model,
         scenes: newScenes, phase: 'script_ready', createdAt: createdAtRef.current, updatedAt: Date.now(),
       };
       flushPersist();
@@ -175,6 +206,7 @@ export default function StudioClient() {
     initialScenes: Scene[],
     ratioOverride?: StudioRatio,
     durationOverride?: StudioDuration,
+    modelOverride?: StudioVideoModelId,
   ) => {
     if (!apiKey) return;
     abortRef.current?.abort();
@@ -183,6 +215,7 @@ export default function StudioClient() {
 
     const useRatio = ratioOverride ?? ratio;
     const useDuration = durationOverride ?? duration;
+    const useModel = modelOverride ?? model;
     const orch = new VideoOrchestrator(
       apiKey, useRatio,
       {
@@ -198,6 +231,8 @@ export default function StudioClient() {
       },
       ac.signal,
       useDuration,
+      useModel,
+      getAgnesBase(domain),
     );
     metaRef.current.phase = 'videos_generating';
     setPhase('videos_generating');
@@ -225,21 +260,23 @@ export default function StudioClient() {
   const handleResume = (project: StudioProject) => {
     abortRef.current?.abort();
     const restored = project.scenes.map((s) => ({ ...s, videoUrl: undefined }));
+    const resumeModel = project.model ?? DEFAULT_STUDIO_VIDEO_MODEL;
     setIdea(project.idea); setSceneCount(project.sceneCount); setRatio(project.ratio);
     setDuration(project.duration ?? 5); setStyle(project.style); setEnableWatermark(project.enableWatermark);
+    setModel(resumeModel);
     setScenes(restored); setCurrentProjectId(project.id);
     createdAtRef.current = project.createdAt;
     setFinalVideoUrl(''); setErrorMsg(project.errorMsg ?? '');
     metaRef.current = {
       idea: project.idea, sceneCount: project.sceneCount, ratio: project.ratio,
       duration: project.duration ?? 5,
-      style: project.style, enableWatermark: project.enableWatermark,
+      style: project.style, enableWatermark: project.enableWatermark, model: resumeModel,
       phase: 'videos_generating', errorMsg: project.errorMsg ?? '', finalVideoUrl: '',
     };
     studioLogger.info('system', `Resuming project: ${project.idea.slice(0, 40)}`);
 
     if (isResumable(project)) {
-      startOrchestrator(restored, project.ratio, project.duration ?? 5);
+      startOrchestrator(restored, project.ratio, project.duration ?? 5, resumeModel);
     } else if (project.phase === 'completed') {
       setPhase('all_videos_ready');
     } else {
@@ -354,7 +391,10 @@ export default function StudioClient() {
         />
       )}
 
-      <ApiKeyPanel apiKey={apiKey} hasKey={hasKey} saveKey={saveKey} clearKey={clearKey} />
+      <ApiKeyPanel
+        apiKey={apiKey} hasKey={hasKey} saveKey={saveKey} clearKey={clearKey}
+        domain={domain} onDomainChange={handleDomainChange}
+      />
 
       {!hasKey ? (
         <div className="text-center py-12 card-surface rounded-2xl">
@@ -372,6 +412,7 @@ export default function StudioClient() {
               duration={duration} setDuration={setDuration}
               style={style} setStyle={setStyle}
               enableWatermark={enableWatermark} setEnableWatermark={setEnableWatermark}
+              model={model} setModel={handleModelChange}
               loading={phase === 'script_generating'}
               onGenerate={handleSplitScenes}
             />

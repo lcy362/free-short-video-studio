@@ -1,5 +1,17 @@
 {
   "studio": {
+    "modelLabel": "Model video",
+    "modelV2": "Video 2.0",
+    "modelV2Desc": "Model lama gratis: durasi 5-12 detik dan tiga rasio aspek, pembuatan lebih lambat.",
+    "modelV25Flash": "Video 2.5 Flash",
+    "modelV25FlashDesc": "Model generasi baru, gratis untuk waktu terbatas: 720P tetap, lebih cepat dan stabil.",
+    "modelFree": "Gratis",
+    "modelFreeLimited": "Gratis untuk waktu terbatas",
+    "domainLabel": "Domain API",
+    "domainCom": "Internasional",
+    "domainCnBak": "Cadangan",
+    "domainCn": "Tiongkok",
+    "domainHint": "Domain Tiongkok memerlukan API Key khusus Tiongkok; jalur cadangan dapat digunakan dengan kedua kunci. Jika domain saat ini tidak dapat dijangkau, jalur lain dicoba otomatis.",
     "seoTitle": "Buat Video Pendek Online Gratis dengan AI — FreeShortVideo Studio",
     "seoDescription": "FreeShortVideo Studio: buat video pendek online gratis dengan AI. Masukkan ide, AI membaginya menjadi 2-5 adegan, membuat video, dan menggabungkannya di browser. Tanpa instalasi, tanpa GPU, tanpa kartu kredit.",
     "seoH1": "Buat Video Pendek Online Gratis dengan AI — FreeShortVideo Studio",

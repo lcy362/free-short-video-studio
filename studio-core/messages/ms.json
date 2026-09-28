@@ -1,5 +1,17 @@
 {
   "studio": {
+    "modelLabel": "Model video",
+    "modelV2": "Video 2.0",
+    "modelV2Desc": "Model lama percuma: tempoh 5-12 saat dan tiga nisbah aspek, penjanaan lebih perlahan.",
+    "modelV25Flash": "Video 2.5 Flash",
+    "modelV25FlashDesc": "Model generasi baharu, percuma untuk masa terhad: 720P tetap, lebih pantas dan stabil.",
+    "modelFree": "Percuma",
+    "modelFreeLimited": "Percuma untuk masa terhad",
+    "domainLabel": "Domain API",
+    "domainCom": "Antarabangsa",
+    "domainCnBak": "Sandaran",
+    "domainCn": "China",
+    "domainHint": "Domain China memerlukan API Key khas China; talian sandaran boleh digunakan dengan kedua-dua kunci. Jika domain semasa tidak dapat dihubungi, talian lain akan dicuba secara automatik.",
     "seoTitle": "Jana Video Pendek Dalam Talian Secara Percuma dengan AI — FreeShortVideo Studio",
     "seoDescription": "FreeShortVideo Studio: jana video pendek dalam talian secara percuma dengan AI. Masukkan idea, AI memecahnya kepada 2-5 adegan, menjana video dan mencantum dalam pelayar. Tanpa pemasangan, tanpa GPU, tanpa kad kredit.",
     "seoH1": "Jana Video Pendek Dalam Talian Secara Percuma dengan AI — FreeShortVideo Studio",

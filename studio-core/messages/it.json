@@ -1,5 +1,17 @@
 {
   "studio": {
+    "modelLabel": "Modello video",
+    "modelV2": "Video 2.0",
+    "modelV2Desc": "Vecchio modello gratuito: durate 5-12 s e tre rapporti d'aspetto, generazione più lenta.",
+    "modelV25Flash": "Video 2.5 Flash",
+    "modelV25FlashDesc": "Modello di nuova generazione, gratuito per tempo limitato: 720P fisso, più veloce e stabile.",
+    "modelFree": "Gratuito",
+    "modelFreeLimited": "Gratuito per tempo limitato",
+    "domainLabel": "Dominio API",
+    "domainCom": "Internazionale",
+    "domainCnBak": "Linea di riserva",
+    "domainCn": "Cina",
+    "domainHint": "Il dominio Cina richiede una chiave API specifica per la Cina; la linea di riserva funziona con entrambe le chiavi. Se il dominio attuale non è raggiungibile, vengono provate automaticamente le altre.",
     "seoTitle": "Creare video brevi online gratis con l'IA — FreeShortVideo Studio",
     "seoDescription": "FreeShortVideo Studio: crea video brevi online gratis con l'IA. Inserisci un'idea, l'IA la divide in 2-5 scene, genera i video e li concatena nel browser. Nessuna installazione, nessuna GPU, nessuna carta di credito.",
     "seoH1": "Creare video brevi online gratis con l'IA — FreeShortVideo Studio",

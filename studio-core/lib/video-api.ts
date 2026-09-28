@@ -21,10 +21,12 @@ import {
   MAX_SUBMIT_RETRIES,
   RETRY_BASE_DELAY,
 } from '../types';
+import { isV25StudioModel, type StudioVideoModelId } from './video-models';
+import { fetchWithDomainFailback } from './api-domains';
 import { sleep } from './rate-limiter';
 
-const VIDEO_SUBMIT_URL = 'https://apihub.agnes-ai.com/v1/videos';
-const VIDEO_STATUS_URL = 'https://apihub.agnes-ai.com/agnesapi';
+const VIDEO_SUBMIT_PATH = '/v1/videos';
+const VIDEO_STATUS_PATH = '/agnesapi';
 
 /** 各时长对应的帧数与帧率（24fps，帧数 = 时长×24+1；全部 ≤ 720p 档上限 409） */
 const DURATION_PRESETS: Record<number, [number, number]> = {
@@ -66,30 +68,55 @@ async function submitOnce(
   prompt: string,
   ratio: StudioRatio,
   duration: number = 5,
+  model: StudioVideoModelId = 'agnes-video-v2.0',
+  base: string = 'https://apihub.agnes-ai.com',
 ): Promise<{ videoId: string }> {
-  const [numFrames, frameRate] = DURATION_PRESETS[duration] || [121, 24];
-  const [width, height] = STUDIO_RATIO_DIMS[ratio];
-  const pixels = width * height;
-  const maxFrames = pixels > 1280 * 720 ? 169 : pixels > 854 * 480 ? 409 : 961;
-  const finalFrames = Math.min(numFrames, maxFrames);
+  const isV25 = isV25StudioModel(model);
+  let body: Record<string, unknown>;
+
+  if (isV25) {
+    // ── 2.5 系列新协议：mode / seconds / size / aspect_ratio ──
+    // 固定 720P；不传 width/height/num_frames（v2.0 参数会导致 400 forbidden field）
+    body = {
+      model,
+      prompt: prompt.trim(),
+      mode: 'text',
+      seconds: String(duration),
+      size: '720P',
+      aspect_ratio: ratio,
+    };
+  } else {
+    // ── v2.0 协议：width / height / num_frames / frame_rate ──
+    const [numFrames, frameRate] = DURATION_PRESETS[duration] || [121, 24];
+    const [width, height] = STUDIO_RATIO_DIMS[ratio];
+    const pixels = width * height;
+    const maxFrames = pixels > 1280 * 720 ? 169 : pixels > 854 * 480 ? 409 : 961;
+    const finalFrames = Math.min(numFrames, maxFrames);
+
+    body = {
+      model,
+      prompt: prompt.trim(),
+      width,
+      height,
+      num_frames: finalFrames,
+      frame_rate: frameRate,
+    };
+  }
 
   let resp: Response;
   try {
-    resp = await fetch(VIDEO_SUBMIT_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
+    resp = await fetchWithDomainFailback(
+      VIDEO_SUBMIT_PATH,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(body),
       },
-      body: JSON.stringify({
-        model: 'agnes-video-v2.0',
-        prompt: prompt.trim(),
-        width,
-        height,
-        num_frames: finalFrames,
-        frame_rate: frameRate,
-      }),
-    });
+      base,
+    );
   } catch {
     throw new VideoApiError('network', 'Network error, please check your connection');
   }
@@ -114,23 +141,34 @@ async function submitOnce(
   return { videoId: String(videoId) };
 }
 
+/** 提交参数（模型与 API 域名由 StudioClient 传入） */
+export interface SubmitVideoParams {
+  apiKey: string;
+  prompt: string;
+  ratio: StudioRatio;
+  duration: number;
+  model: StudioVideoModelId;
+  /** API 域名 base（如 https://apihub.agnes-ai.com） */
+  base: string;
+  onAttempt?: (attempt: number, delayMs: number) => void;
+  signal?: AbortSignal;
+}
+
 /**
  * 提交视频生成任务（含重试）。
  * 线性退避：delay = RETRY_BASE_DELAY * (attempt + 1)，最多 MAX_SUBMIT_RETRIES 次。
  */
 export async function submitVideoWithRetry(
-  apiKey: string,
-  prompt: string,
-  ratio: StudioRatio,
-  duration: number = 5,
-  onAttempt?: (attempt: number, delayMs: number) => void,
-  signal?: AbortSignal,
+  params: SubmitVideoParams,
 ): Promise<{ videoId: string }> {
+  const {
+    apiKey, prompt, ratio, duration, model, base, onAttempt, signal,
+  } = params;
   let lastErr: unknown;
   for (let attempt = 0; attempt < MAX_SUBMIT_RETRIES; attempt++) {
     if (signal?.aborted) throw new VideoApiError('aborted', 'Cancelled');
     try {
-      return await submitOnce(apiKey, prompt, ratio, duration);
+      return await submitOnce(apiKey, prompt, ratio, duration, model, base);
     } catch (e) {
       lastErr = e;
       if (!isRetryableError(e) || attempt === MAX_SUBMIT_RETRIES - 1) {
@@ -148,20 +186,27 @@ export async function submitVideoWithRetry(
 /** 保留无重试版本以兼容旧调用 */
 export const submitVideo = submitOnce;
 
-/** 查询视频状态 */
+/** 查询视频状态（2.5 系列轮询需带 model_name，v2.0 无需） */
 export async function checkVideoStatus(
   apiKey: string,
   videoId: string,
+  model: StudioVideoModelId = 'agnes-video-v2.0',
+  base: string = 'https://apihub.agnes-ai.com',
 ): Promise<{
   status: string;
   progress: number;
   videoUrl: string | null;
 }> {
+  const modelParam = isV25StudioModel(model)
+    ? `&model_name=${encodeURIComponent(model)}`
+    : '';
   let resp: Response;
   try {
-    resp = await fetch(`${VIDEO_STATUS_URL}?video_id=${encodeURIComponent(videoId)}`, {
-      headers: { Authorization: `Bearer ${apiKey}` },
-    });
+    resp = await fetchWithDomainFailback(
+      `${VIDEO_STATUS_PATH}?video_id=${encodeURIComponent(videoId)}${modelParam}`,
+      { headers: { Authorization: `Bearer ${apiKey}` } },
+      base,
+    );
   } catch {
     throw new VideoApiError('network', 'Network error, please check your connection');
   }

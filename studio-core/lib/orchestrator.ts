@@ -16,6 +16,9 @@ import {
   MAX_SUBMIT_RETRIES,
   RETRY_BASE_DELAY,
 } from '../types';
+import type { StudioVideoModelId } from './video-models';
+import { DEFAULT_STUDIO_VIDEO_MODEL } from './video-models';
+import { DEFAULT_AGNES_DOMAIN, getAgnesBase } from './api-domains';
 import { submitLimiter, sleep } from './rate-limiter';
 import {
   submitVideoWithRetry,
@@ -56,6 +59,8 @@ export class VideoOrchestrator {
   private apiKey: string;
   private ratio: StudioRatio;
   private duration: StudioDuration;
+  private model: StudioVideoModelId;
+  private base: string;
   private cb: OrchestratorCallbacks;
   private signal?: AbortSignal;
   /** 内部 scenes 副本（权威来源，避免 React 异步状态时序问题） */
@@ -67,10 +72,14 @@ export class VideoOrchestrator {
     callbacks: OrchestratorCallbacks,
     signal?: AbortSignal,
     duration: StudioDuration = 5,
+    model: StudioVideoModelId = DEFAULT_STUDIO_VIDEO_MODEL,
+    base: string = getAgnesBase(DEFAULT_AGNES_DOMAIN),
   ) {
     this.apiKey = apiKey;
     this.ratio = ratio;
     this.duration = duration;
+    this.model = model;
+    this.base = base;
     this.cb = callbacks;
     this.signal = signal;
   }
@@ -174,20 +183,22 @@ export class VideoOrchestrator {
       });
       studioLogger.info(sc, 'Submitting...');
 
-      const { videoId } = await submitVideoWithRetry(
-        this.apiKey,
-        scene.visualPrompt,
-        this.ratio,
-        this.duration,
-        (attempt, delayMs) => {
+      const { videoId } = await submitVideoWithRetry({
+        apiKey: this.apiKey,
+        prompt: scene.visualPrompt,
+        ratio: this.ratio,
+        duration: this.duration,
+        model: this.model,
+        base: this.base,
+        onAttempt: (attempt, delayMs) => {
           // 提交重试中
           this.update(index, {
             submitAttempts: attempt + 1,
             error: `retrying:${attempt}:${Math.round(delayMs / 1000)}`,
           });
         },
-        this.signal,
-      );
+        signal: this.signal,
+      });
 
       studioLogger.success(sc, `Submission successful, videoId=${videoId}`);
 
@@ -272,7 +283,7 @@ export class VideoOrchestrator {
         }
 
         try {
-          const result = await checkVideoStatus(this.apiKey, videoId);
+          const result = await checkVideoStatus(this.apiKey, videoId, this.model, this.base);
           const pollN = (scene.pollCount ?? 0) + 1;
           this.update(index, {
             progress: result.progress,

@@ -1,5 +1,17 @@
 {
   "studio": {
+    "modelLabel": "Videomodell",
+    "modelV2": "Video 2.0",
+    "modelV2Desc": "Kostenloses älteres Modell: 5-12 Sekunden Länge und drei Seitenverhältnisse, langsamere Generierung.",
+    "modelV25Flash": "Video 2.5 Flash",
+    "modelV25FlashDesc": "Modell der neuen Generation, zeitlich begrenzt kostenlos: festes 720P, schneller und stabiler.",
+    "modelFree": "Kostenlos",
+    "modelFreeLimited": "Zeitlich begrenzt kostenlos",
+    "domainLabel": "API-Domain",
+    "domainCom": "International",
+    "domainCnBak": "Backup-Leitung",
+    "domainCn": "China",
+    "domainHint": "Die China-Domain benötigt einen speziellen China-API-Key; die Backup-Leitung funktioniert mit beiden Keys. Ist die aktuelle Domain nicht erreichbar, werden automatisch andere probiert.",
     "seoTitle": "Kostenlos KI-Kurzvideos online erstellen — FreeShortVideo Studio",
     "seoDescription": "FreeShortVideo Studio: Kostenlos KI-Kurzvideos online erstellen. Idee eingeben, KI teilt sie in 2-5 Szenen, generiert Videos und verkettet sie im Browser. Keine Installation, keine GPU, keine Kreditkarte.",
     "seoH1": "Kostenlos KI-Kurzvideos online erstellen — FreeShortVideo Studio",

@@ -1,5 +1,17 @@
 {
   "studio": {
+    "modelLabel": "Videomodel",
+    "modelV2": "Video 2.0",
+    "modelV2Desc": "Gratis oud model: 5-12 seconden duur en drie beeldverhoudingen, langzamere generatie.",
+    "modelV25Flash": "Video 2.5 Flash",
+    "modelV25FlashDesc": "Nieuwgeneratiemodel, tijdelijk gratis: vaste 720P, sneller en stabieler.",
+    "modelFree": "Gratis",
+    "modelFreeLimited": "Tijdelijk gratis",
+    "domainLabel": "API-domein",
+    "domainCom": "Internationaal",
+    "domainCnBak": "Back-uplijn",
+    "domainCn": "China",
+    "domainHint": "Het Chinese domein vereist een speciale Chinese API-key; de back-uplijn werkt met beide keys. Als het huidige domein onbereikbaar is, worden automatisch andere geprobeerd.",
     "seoTitle": "Gratis AI-korte video's online genereren — FreeShortVideo Studio",
     "seoDescription": "FreeShortVideo Studio: gratis AI-korte video's online genereren. Voer een idee in, AI splitst het in 2-5 scènes, genereert video's en voegt ze samen in de browser. Geen installatie, geen GPU, geen creditcard.",
     "seoH1": "Gratis AI-korte video's online genereren — FreeShortVideo Studio",
