@@ -1,8 +1,6 @@
 {
   "studio": {
     "modelLabel": "Model video",
-    "modelV2": "Video 2.0",
-    "modelV2Desc": "Model lama percuma: tempoh 5-12 saat dan tiga nisbah aspek, penjanaan lebih perlahan.",
     "modelV25Flash": "Video 2.5 Flash",
     "modelV25FlashDesc": "Model generasi baharu, percuma untuk masa terhad: 720P tetap, lebih pantas dan stabil.",
     "modelFree": "Percuma",

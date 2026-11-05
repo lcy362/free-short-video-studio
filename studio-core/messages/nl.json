@@ -1,8 +1,6 @@
 {
   "studio": {
     "modelLabel": "Videomodel",
-    "modelV2": "Video 2.0",
-    "modelV2Desc": "Gratis oud model: 5-12 seconden duur en drie beeldverhoudingen, langzamere generatie.",
     "modelV25Flash": "Video 2.5 Flash",
     "modelV25FlashDesc": "Nieuwgeneratiemodel, tijdelijk gratis: vaste 720P, sneller en stabieler.",
     "modelFree": "Gratis",

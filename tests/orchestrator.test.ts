@@ -60,7 +60,7 @@ function runAll(scenes: Scene[]) {
     },
     undefined,
     5,
-    'agnes-video-v2.0',
+    'agnes-video-2.5-flash',
     'https://apihub.agnes-ai.com',
   );
   return { promise: orch.runAll(scenes), patches };
@@ -142,7 +142,7 @@ describe('VideoOrchestrator', () => {
     expect(mockCheck).toHaveBeenCalledWith(
       'key',
       'v9',
-      'agnes-video-v2.0',
+      'agnes-video-2.5-flash',
       'https://apihub.agnes-ai.com',
     );
   });

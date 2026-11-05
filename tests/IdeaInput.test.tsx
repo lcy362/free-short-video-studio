@@ -23,7 +23,7 @@ const baseProps = {
   setStyle: noop,
   enableWatermark: false,
   setEnableWatermark: noop,
-  model: 'agnes-video-v2.0' as const,
+  model: 'agnes-video-2.5-flash' as const,
   setModel: noop,
   loading: false,
   onGenerate: noop,
@@ -61,17 +61,16 @@ describe('IdeaInput', () => {
     expect(onGenerate).toHaveBeenCalledTimes(1);
   });
 
-  it('模型二选一：aria-pressed 高亮，点击切换回调', async () => {
+  it('只提供 2.5-flash 模型：默认高亮且不再渲染 v2.0', async () => {
     const user = userEvent.setup();
     const setModel = vi.fn();
-    rerenderWith({ model: 'agnes-video-v2.0', setModel });
+    rerenderWith({ setModel });
 
-    // 可访问名称为 "modelV2 modelFree"（label + badge 两个文本节点），用前缀正则区分
-    const v2 = screen.getByRole('button', { name: /^modelV2 / });
+    // 可访问名称为 "modelV25Flash modelFreeLimited"（label + badge 两个文本节点）
     const v25 = screen.getByRole('button', { name: /^modelV25Flash / });
-    expect(v2).toHaveAttribute('aria-pressed', 'true');
-    expect(v25).toHaveAttribute('aria-pressed', 'false');
-    expect(screen.getByText('modelV2Desc')).toBeInTheDocument();
+    expect(v25).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.queryByRole('button', { name: /^modelV2 / })).toBeNull();
+    expect(screen.getByText('modelV25FlashDesc')).toBeInTheDocument();
 
     await user.click(v25);
     expect(setModel).toHaveBeenCalledWith('agnes-video-2.5-flash');
@@ -125,7 +124,7 @@ describe('IdeaInput', () => {
 
     expect(screen.getByRole('textbox')).toBeDisabled();
     expect(screen.getByRole('checkbox')).toBeDisabled();
-    for (const name of [/^modelV2 /, /^modelV25Flash /, 'portrait', 'duration12', 'style_anime']) {
+    for (const name of [/^modelV25Flash /, 'portrait', 'duration12', 'style_anime']) {
       expect(screen.getByRole('button', { name })).toBeDisabled();
     }
   });

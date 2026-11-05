@@ -158,7 +158,7 @@ export interface StudioProject {
   style: StudioStyle;
   /** 是否启用水印 */
   enableWatermark: boolean;
-  /** 视频模型（v6.2 迁移；老项目缺省按 v2.0 处理） */
+  /** 视频模型（旧版 v2.0 已下线；老项目缺省回退默认的 2.5-flash） */
   model?: StudioVideoModelId;
   /** 场景列表（含 videoId/状态/进度，用于续传） */
   scenes: Scene[];

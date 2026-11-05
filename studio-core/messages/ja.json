@@ -1,8 +1,6 @@
 {
   "studio": {
     "modelLabel": "動画モデル",
-    "modelV2": "Video 2.0",
-    "modelV2Desc": "無料の旧モデル：5〜12秒の長さと3つのアスペクト比に対応、生成はやや遅め。",
     "modelV25Flash": "Video 2.5 Flash",
     "modelV25FlashDesc": "期間限定無料の新世代モデル：720P固定、より高速で安定。",
     "modelFree": "無料",

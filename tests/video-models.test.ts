@@ -9,19 +9,15 @@ import {
 } from '../studio-core/lib/video-models';
 
 describe('video-models', () => {
-  it('exports two models with correct protocol flags', () => {
-    expect(STUDIO_VIDEO_MODELS).toHaveLength(2);
-    expect(STUDIO_VIDEO_MODELS[0].id).toBe('agnes-video-v2.0');
-    expect(STUDIO_VIDEO_MODELS[0].isV25).toBe(false);
-    expect(STUDIO_VIDEO_MODELS[1].id).toBe('agnes-video-2.5-flash');
-    expect(STUDIO_VIDEO_MODELS[1].isV25).toBe(true);
-    for (const m of STUDIO_VIDEO_MODELS) {
-      expect(m.durations).toEqual([5, 8, 10, 12]);
-    }
+  it('only keeps the 2.5-flash model after v2.0 retirement', () => {
+    expect(STUDIO_VIDEO_MODELS).toHaveLength(1);
+    expect(STUDIO_VIDEO_MODELS[0].id).toBe('agnes-video-2.5-flash');
+    expect(STUDIO_VIDEO_MODELS[0].isV25).toBe(true);
+    expect(STUDIO_VIDEO_MODELS[0].durations).toEqual([5, 8, 10, 12]);
   });
 
-  it('defaults to v2.0', () => {
-    expect(DEFAULT_STUDIO_VIDEO_MODEL).toBe('agnes-video-v2.0');
+  it('defaults to 2.5-flash', () => {
+    expect(DEFAULT_STUDIO_VIDEO_MODEL).toBe('agnes-video-2.5-flash');
   });
 
   it('getStudioModelCap resolves by id and falls back to first model', () => {
@@ -31,7 +27,6 @@ describe('video-models', () => {
   });
 
   it('isV25StudioModel reflects the model flag', () => {
-    expect(isV25StudioModel('agnes-video-v2.0')).toBe(false);
     expect(isV25StudioModel('agnes-video-2.5-flash')).toBe(true);
   });
 
@@ -41,12 +36,17 @@ describe('video-models', () => {
     });
 
     it('loadStudioModel falls back to default when nothing saved', () => {
-      expect(loadStudioModel()).toBe('agnes-video-v2.0');
+      expect(loadStudioModel()).toBe('agnes-video-2.5-flash');
+    });
+
+    it('loadStudioModel falls back on the retired v2.0 value', () => {
+      localStorage.setItem('agnes_studio_model', 'agnes-video-v2.0');
+      expect(loadStudioModel()).toBe('agnes-video-2.5-flash');
     });
 
     it('loadStudioModel falls back on invalid value', () => {
       localStorage.setItem('agnes_studio_model', 'bogus');
-      expect(loadStudioModel()).toBe('agnes-video-v2.0');
+      expect(loadStudioModel()).toBe('agnes-video-2.5-flash');
     });
 
     it('save + load round-trip', () => {

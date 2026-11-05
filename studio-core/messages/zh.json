@@ -1,8 +1,6 @@
 {
   "studio": {
     "modelLabel": "视频模型",
-    "modelV2": "Video 2.0",
-    "modelV2Desc": "免费旧版模型：支持 5-12 秒时长与三种画面比例，生成较慢。",
     "modelV25Flash": "Video 2.5 Flash",
     "modelV25FlashDesc": "限时免费的新一代模型：固定 720P，生成更快、画面更稳定。",
     "modelFree": "免费",

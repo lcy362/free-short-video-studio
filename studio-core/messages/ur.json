@@ -1,8 +1,6 @@
 {
   "studio": {
     "modelLabel": "ویڈیو ماڈل",
-    "modelV2": "Video 2.0",
-    "modelV2Desc": "مفت پرانا ماڈل: 5-12 سیکنڈ دورانیہ اور تین اسپیکٹ ریٹیو، تخلیق سست۔",
     "modelV25Flash": "Video 2.5 Flash",
     "modelV25FlashDesc": "نئی نسل کا ماڈل، محدود وقت کے لیے مفت: مقررہ 720P، تیز اور زیادہ مستقل۔",
     "modelFree": "مفت",

@@ -14,27 +14,18 @@
 
 import type { StudioRatio } from '../types';
 import {
-  STUDIO_RATIO_DIMS,
   POLL_INTERVAL,
   MAX_POLL_TIME,
   MAX_CONSECUTIVE_FAILURES,
   MAX_SUBMIT_RETRIES,
   RETRY_BASE_DELAY,
 } from '../types';
-import { isV25StudioModel, type StudioVideoModelId } from './video-models';
+import { DEFAULT_STUDIO_VIDEO_MODEL, type StudioVideoModelId } from './video-models';
 import { fetchWithDomainFailback } from './api-domains';
 import { sleep } from './rate-limiter';
 
 const VIDEO_SUBMIT_PATH = '/v1/videos';
 const VIDEO_STATUS_PATH = '/agnesapi';
-
-/** 各时长对应的帧数与帧率（24fps，帧数 = 时长×24+1；全部 ≤ 720p 档上限 409） */
-const DURATION_PRESETS: Record<number, [number, number]> = {
-  5: [121, 24],
-  8: [193, 24],
-  10: [241, 24],
-  12: [289, 24],
-};
 
 /** Video API 自定义错误 */
 export class VideoApiError extends Error {
@@ -68,40 +59,19 @@ async function submitOnce(
   prompt: string,
   ratio: StudioRatio,
   duration: number = 5,
-  model: StudioVideoModelId = 'agnes-video-v2.0',
+  model: StudioVideoModelId = DEFAULT_STUDIO_VIDEO_MODEL,
   base: string = 'https://apihub.agnes-ai.com',
 ): Promise<{ videoId: string }> {
-  const isV25 = isV25StudioModel(model);
-  let body: Record<string, unknown>;
-
-  if (isV25) {
-    // ── 2.5 系列新协议：mode / seconds / size / aspect_ratio ──
-    // 固定 720P；不传 width/height/num_frames（v2.0 参数会导致 400 forbidden field）
-    body = {
-      model,
-      prompt: prompt.trim(),
-      mode: 'text',
-      seconds: String(duration),
-      size: '720P',
-      aspect_ratio: ratio,
-    };
-  } else {
-    // ── v2.0 协议：width / height / num_frames / frame_rate ──
-    const [numFrames, frameRate] = DURATION_PRESETS[duration] || [121, 24];
-    const [width, height] = STUDIO_RATIO_DIMS[ratio];
-    const pixels = width * height;
-    const maxFrames = pixels > 1280 * 720 ? 169 : pixels > 854 * 480 ? 409 : 961;
-    const finalFrames = Math.min(numFrames, maxFrames);
-
-    body = {
-      model,
-      prompt: prompt.trim(),
-      width,
-      height,
-      num_frames: finalFrames,
-      frame_rate: frameRate,
-    };
-  }
+  // ── 2.5 系列协议：mode / seconds / size / aspect_ratio ──
+  // 固定 720P；不传 width/height/num_frames（旧版 v2.0 参数会返回 400 forbidden field）
+  const body: Record<string, unknown> = {
+    model,
+    prompt: prompt.trim(),
+    mode: 'text',
+    seconds: String(duration),
+    size: '720P',
+    aspect_ratio: ratio,
+  };
 
   let resp: Response;
   try {
@@ -186,20 +156,18 @@ export async function submitVideoWithRetry(
 /** 保留无重试版本以兼容旧调用 */
 export const submitVideo = submitOnce;
 
-/** 查询视频状态（2.5 系列轮询需带 model_name，v2.0 无需） */
+/** 查询视频状态（2.5 系列轮询需带 model_name） */
 export async function checkVideoStatus(
   apiKey: string,
   videoId: string,
-  model: StudioVideoModelId = 'agnes-video-v2.0',
+  model: StudioVideoModelId = DEFAULT_STUDIO_VIDEO_MODEL,
   base: string = 'https://apihub.agnes-ai.com',
 ): Promise<{
   status: string;
   progress: number;
   videoUrl: string | null;
 }> {
-  const modelParam = isV25StudioModel(model)
-    ? `&model_name=${encodeURIComponent(model)}`
-    : '';
+  const modelParam = `&model_name=${encodeURIComponent(model)}`;
   let resp: Response;
   try {
     resp = await fetchWithDomainFailback(

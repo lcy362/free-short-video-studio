@@ -1,8 +1,6 @@
 {
   "studio": {
     "modelLabel": "Videomodell",
-    "modelV2": "Video 2.0",
-    "modelV2Desc": "Kostenloses älteres Modell: 5-12 Sekunden Länge und drei Seitenverhältnisse, langsamere Generierung.",
     "modelV25Flash": "Video 2.5 Flash",
     "modelV25FlashDesc": "Modell der neuen Generation, zeitlich begrenzt kostenlos: festes 720P, schneller und stabiler.",
     "modelFree": "Kostenlos",

@@ -1,8 +1,6 @@
 {
   "studio": {
     "modelLabel": "Video modeli",
-    "modelV2": "Video 2.0",
-    "modelV2Desc": "Ücretsiz eski model: 5-12 saniye süre ve üç en-boy oranı, üretim daha yavaş.",
     "modelV25Flash": "Video 2.5 Flash",
     "modelV25FlashDesc": "Yeni nesil model, sınırlı süre ücretsiz: sabit 720P, daha hızlı ve kararlı.",
     "modelFree": "Ücretsiz",

@@ -1,8 +1,6 @@
 {
   "studio": {
     "modelLabel": "비디오 모델",
-    "modelV2": "Video 2.0",
-    "modelV2Desc": "무료 구형 모델: 5-12초 길이와 3가지 화면 비율 지원, 생성 속도는 느림.",
     "modelV25Flash": "Video 2.5 Flash",
     "modelV25FlashDesc": "한정 기간 무료 신세대 모델: 720P 고정, 더 빠르고 안정적.",
     "modelFree": "무료",

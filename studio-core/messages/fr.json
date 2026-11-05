@@ -1,8 +1,6 @@
 {
   "studio": {
     "modelLabel": "Modèle vidéo",
-    "modelV2": "Video 2.0",
-    "modelV2Desc": "Ancien modèle gratuit : durées de 5 à 12 s et trois rapports d'aspect, génération plus lente.",
     "modelV25Flash": "Video 2.5 Flash",
     "modelV25FlashDesc": "Modèle nouvelle génération, gratuit pendant une durée limitée : 720P fixe, plus rapide et plus stable.",
     "modelFree": "Gratuit",

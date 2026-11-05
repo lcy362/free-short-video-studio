@@ -1,8 +1,6 @@
 {
   "studio": {
     "modelLabel": "Mô hình video",
-    "modelV2": "Video 2.0",
-    "modelV2Desc": "Mô hình cũ miễn phí: thời lượng 5-12 giây và ba tỷ lệ khung hình, tạo chậm hơn.",
     "modelV25Flash": "Video 2.5 Flash",
     "modelV25FlashDesc": "Mô hình thế hệ mới, miễn phí có thời hạn: cố định 720P, nhanh và ổn định hơn.",
     "modelFree": "Miễn phí",

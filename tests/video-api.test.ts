@@ -23,37 +23,17 @@ function baseParams(overrides: Record<string, unknown> = {}) {
     prompt: 'a cat',
     ratio: '16:9' as const,
     duration: 5,
-    model: 'agnes-video-v2.0' as const,
+    model: 'agnes-video-2.5-flash' as const,
     base: BASE,
     ...overrides,
   };
 }
 
-describe('video-api submit (dual protocol)', () => {
+describe('video-api submit (2.5 protocol)', () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => {
     vi.useRealTimers();
     vi.restoreAllMocks();
-  });
-
-  it('v2.0 protocol sends width/height/num_frames/frame_rate', async () => {
-    const spy = vi
-      .spyOn(globalThis, 'fetch')
-      .mockResolvedValue(jsonResponse({ video_id: 'vid1' }));
-    const { videoId } = await submitVideoWithRetry(baseParams());
-    expect(videoId).toBe('vid1');
-    const [url, init] = spy.mock.calls[0];
-    expect(url).toBe(SUBMIT_URL);
-    const body = JSON.parse((init as RequestInit).body as string);
-    expect(body).toMatchObject({
-      model: 'agnes-video-v2.0',
-      prompt: 'a cat',
-      width: 1152,
-      height: 768,
-      num_frames: 121,
-      frame_rate: 24,
-    });
-    expect(body.mode).toBeUndefined();
   });
 
   it('2.5 protocol sends mode/seconds/size/aspect_ratio', async () => {
@@ -148,15 +128,6 @@ describe('video-api submit (dual protocol)', () => {
 describe('video-api checkVideoStatus', () => {
   afterEach(() => vi.restoreAllMocks());
 
-  it('v2.0 polls without model_name', async () => {
-    const spy = vi
-      .spyOn(globalThis, 'fetch')
-      .mockResolvedValue(jsonResponse({ status: 'pending', progress: 10 }));
-    const r = await checkVideoStatus('key', 'v1', 'agnes-video-v2.0', BASE);
-    expect(r).toEqual({ status: 'pending', progress: 10, videoUrl: null });
-    expect(spy.mock.calls[0][0]).toBe(`${BASE}/agnesapi?video_id=v1`);
-  });
-
   it('2.5 polls with model_name', async () => {
     const spy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
       jsonResponse({ status: 'completed', progress: 100, video_url: 'https://x/v.mp4' }),
@@ -171,7 +142,9 @@ describe('video-api checkVideoStatus', () => {
 
   it('maps HTTP errors to poll_error', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(jsonResponse({}, 500));
-    await expect(checkVideoStatus('key', 'v1', 'agnes-video-v2.0', BASE)).rejects.toMatchObject({
+    await expect(
+      checkVideoStatus('key', 'v1', 'agnes-video-2.5-flash', BASE),
+    ).rejects.toMatchObject({
       code: 'poll_error',
     });
   });

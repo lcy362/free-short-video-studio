@@ -1,8 +1,6 @@
 {
   "studio": {
     "modelLabel": "Video model",
-    "modelV2": "Video 2.0",
-    "modelV2Desc": "Free legacy model: 5-12s durations and three aspect ratios, slower generation.",
     "modelV25Flash": "Video 2.5 Flash",
     "modelV25FlashDesc": "New-generation model, free for a limited time: fixed 720P, faster and more stable.",
     "modelFree": "Free",

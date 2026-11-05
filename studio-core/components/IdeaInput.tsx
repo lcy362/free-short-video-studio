@@ -72,7 +72,7 @@ export default function IdeaInput({
         <p className="mt-1.5 text-xs text-muted">{t('ideaHint')}</p>
       </div>
 
-      {/* 视频模型（v6.2 迁移：v2.0 / 2.5-flash 双协议） */}
+      {/* 视频模型（旧版 v2.0 已下线，仅保留 2.5-flash） */}
       <div>
         <label className="block text-sm font-medium text-ink-2 mb-2">
           {t('modelLabel')}

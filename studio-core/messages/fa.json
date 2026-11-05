@@ -1,8 +1,6 @@
 {
   "studio": {
     "modelLabel": "مدل ویدیو",
-    "modelV2": "Video 2.0",
-    "modelV2Desc": "مدل قدیمی رایگان: مدت ۵ تا ۱۲ ثانیه و سه نسبت تصویر، تولید کندتر.",
     "modelV25Flash": "Video 2.5 Flash",
     "modelV25FlashDesc": "مدل نسل جدید، رایگان برای مدت محدود: 720P ثابت، سریع‌تر و پایدارتر.",
     "modelFree": "رایگان",

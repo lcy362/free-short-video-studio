@@ -18,7 +18,7 @@ function makeProject(over: Partial<StudioProject> = {}): StudioProject {
     duration: 5,
     style: 'cinematic',
     enableWatermark: false,
-    model: 'agnes-video-v2.0',
+    model: 'agnes-video-2.5-flash',
     domain: 'com',
     phase: 'videos_generating',
     createdAt: Date.parse('2026-09-28T10:00:00Z'),
