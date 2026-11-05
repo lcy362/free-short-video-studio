@@ -329,7 +329,7 @@ export class VideoOrchestrator {
             reject(new VideoApiError('aborted', 'Cancelled'));
             return;
           }
-          tick();
+          void tick();
         } catch (e) {
           const raw = e instanceof Error ? e.message : String(e);
           const newFails = fails + 1;
@@ -345,10 +345,10 @@ export class VideoOrchestrator {
             reject(new VideoApiError('aborted', 'Cancelled'));
             return;
           }
-          tick();
+          void tick();
         }
       };
-      tick();
+      void tick();
     });
   }
 

@@ -238,19 +238,28 @@ export default function StudioClient() {
     setPhase('videos_generating');
     setErrorMsg('');
 
-    const { ok, failedIndices } = await orch.runAll(initialScenes);
-    flushPersist();
+    try {
+      const { ok, failedIndices } = await orch.runAll(initialScenes);
+      flushPersist();
 
-    if (ok) {
-      metaRef.current.phase = 'all_videos_ready';
-      setPhase('all_videos_ready');
-    } else if (failedIndices.length === initialScenes.length) {
+      if (ok) {
+        metaRef.current.phase = 'all_videos_ready';
+        setPhase('all_videos_ready');
+      } else if (failedIndices.length === initialScenes.length) {
+        metaRef.current.phase = 'error';
+        setPhase('error');
+        setErrorMsg('sceneFailed');
+      } else {
+        metaRef.current.phase = 'all_videos_ready';
+        setPhase('all_videos_ready');
+      }
+    } catch (e) {
+      // 兜底：编排器异常不冒泡成未处理的 Promise rejection
+      const msg = e instanceof Error ? e.message : String(e);
+      studioLogger.error('system', `Orchestrator failed: ${msg}`);
       metaRef.current.phase = 'error';
       setPhase('error');
       setErrorMsg('sceneFailed');
-    } else {
-      metaRef.current.phase = 'all_videos_ready';
-      setPhase('all_videos_ready');
     }
   };
 
@@ -276,7 +285,7 @@ export default function StudioClient() {
     studioLogger.info('system', `Resuming project: ${project.idea.slice(0, 40)}`);
 
     if (isResumable(project)) {
-      startOrchestrator(restored, project.ratio, project.duration ?? 5, resumeModel);
+      void startOrchestrator(restored, project.ratio, project.duration ?? 5, resumeModel);
     } else if (project.phase === 'completed') {
       setPhase('all_videos_ready');
     } else {
