@@ -134,6 +134,221 @@
     "errorHint_aborted": "Generation cancelled. Click \"Retry Failed Scenes\" to continue unfinished parts.",
     "errorHint_scriptFailed": "Scene splitting failed. Check your API Key or network.",
     "partialFailedHint": "Some scenes failed. Retry failed scenes or concatenate only completed ones.",
-    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped)."
+    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped).",
+    "tabs": {
+      "label": "Elige un modo de creación",
+      "image": "Imagen",
+      "simple": "Vídeo simple",
+      "creative": "Vídeo creativo",
+      "imageHint": "Describe una imagen y obtén una imagen con IA en formato cuadrado, horizontal o vertical.",
+      "simpleHint": "Un prompt, un clip de vídeo con IA: texto a vídeo o imagen a vídeo, 4–12 segundos, seis proporciones.",
+      "creativeHint": "Una idea; la IA la divide en 2–5 escenas, genera cada clip y las une en tu navegador (beta)."
+    }
+  },
+  "demo": {
+    "title": "Probar demo en línea",
+    "subtitle": "Ingresa un prompt y genera videos e imágenes IA al instante",
+    "githubLink": "Ver en GitHub",
+    "githubNote": "Esta demo web ofrece funciones básicas. Para el conjunto completo, descarga la app desde GitHub.",
+    "githubFree": "Completamente gratis",
+    "promptLabel": "Prompt",
+    "tabs": {
+      "textToVideo": "Generación de video",
+      "textToImage": "Generación de imágenes"
+    },
+    "apiKey": {
+      "title": "Configuración de API Key",
+      "label": "Clave API de Agnes",
+      "placeholder": "Ingresa tu clave API de Agnes...",
+      "save": "Guardar",
+      "clear": "Limpiar",
+      "hint": "Obtén tu clave API gratuita de:",
+      "show": "Mostrar",
+      "hide": "Ocultar",
+      "saved": "Guardado",
+      "required": "Configura primero tu clave API",
+      "requiredHint": "Comienza con una clave API gratuita de Agnes AI.",
+      "getKey": "Obtener clave API gratuita",
+      "localOnly": "Tu clave se almacena solo en el localStorage de tu navegador."
+    },
+    "image": {
+      "generate": "Generar imagen",
+      "generating": "Generando imagen...",
+      "promptPlaceholder": "Describe la imagen deseada",
+      "samplePrompts": [
+        "Un Shiba Inu sonriendo bajo cerezos en flor, fondo bokeh suave, luz cálida de primavera",
+        "Un pueblo encantado de casas en los árboles en un bosque brumoso, luces de hadas brillando entre robles centenarios",
+        "Una calle cyberpunk futurista de noche, letreros de neón reflejándose en el pavimento mojado, autos voladores sobre la ciudad",
+        "Un rincón de lectura acogedor junto a una ventana lluviosa, luz cálida de lámpara, pilas de libros viejos, una taza de té humeante",
+        "Un majestuoso tigre blanco caminando por un bosque de pinos nevado, luz suave y difusa, composición cinematográfica"
+      ],
+      "size": "Tamaño de imagen"
+    },
+    "video": {
+      "generate": "Generar video",
+      "submitting": "Enviando tarea...",
+      "generating": "Generando video",
+      "estimatedTime": "Tiempo estimado: ~{minutes} min",
+      "promptPlaceholder": "Describe el video deseado",
+      "timeHint": "La generación de video suele tardar entre 3 y 5 minutos. Por favor, tenga paciencia.",
+      "samplePrompts": [
+        "Olas en cámara lenta rompiendo contra costas rocosas en la hora dorada, toma de dron ascendiendo gradualmente para revelar la extensa línea costera",
+        "Un bosque de bambú brumoso al amanecer, suave luz dorada filtrándose entre las hojas, viento suave meciendo los tallos altos",
+        "Toma aérea con dron sobrevolando un lago de montaña turquesa rodeado de picos nevados, reflejos perfectos como un espejo",
+        "Una acogedora calle de pueblo en otoño, farolas cálidas brillando entre hojas doradas cayendo, charcos reflejando la luz ámbar",
+        "Time-lapse del cielo estrellado sobre un cañón desértico, la Vía Láctea girando lentamente sobre antiguas formaciones rocosas"
+      ],
+      "duration": "Duración",
+      "ratio": "Relación de aspecto",
+      "notSupported": "Tu navegador no admite reproducción de video",
+      "elapsed": "Transcurrido",
+      "pollCount": "Consultas",
+      "lastPoll": "Último resultado",
+      "model": "Modelo de video",
+      "mode": "Modo de generación",
+      "modelV25Flash": "Video 2.5 Flash",
+      "modelV25FlashDesc": "Nuevo modelo gratuito (por tiempo limitado): 720P fijo, duración 4–12 s, admite referencia de imagen (imagen a video); sin prompts negativos.",
+      "modeText": "Texto a video",
+      "modeImage": "Imagen a video (1 referencia)",
+      "refImage": "Imagen de referencia",
+      "chooseImage": "Elegir imagen",
+      "noImage": "No se ha seleccionado imagen",
+      "imageSelected": "Seleccionado: {name}",
+      "clearImage": "Quitar",
+      "refImageHint": "Sube una imagen de referencia (opcional); el video conservará el personaje, el estilo y los elementos de la escena.",
+      "refImageRequired": "El modo imagen a video requiere primero una imagen de referencia",
+      "free": "Gratis",
+      "freeLimited": "Gratis (por tiempo limitado)",
+      "modelModesLabel": "Modos",
+      "modelDurationsLabel": "Duración",
+      "modelRatiosLabel": "Relación de aspecto",
+      "dimsLandscape": "Horizontal 1280×720",
+      "dimsPortrait": "Vertical 768×1152",
+      "dimsSquare": "Cuadrado 1024×1024",
+      "selfHostMinVersion": "Autoalojado: se requiere v{version} o superior para los mismos niveles",
+      "portraitRotationHint": "Problema conocido del proveedor: los clips 9:16 de Video 2.5 Flash pueden reproducirse girados 90°. Gira el archivo tras descargarlo."
+    },
+    "download": "Descargar",
+    "downloading": "Descargando...",
+    "retry": "Reintentar",
+    "square": "1:1 Cuadrado",
+    "landscape": "16:9 Horizontal",
+    "portrait": "9:16 Vertical",
+    "5s": "5 segundos",
+    "10s": "10 segundos",
+    "4s": "4 segundos",
+    "6s": "6 segundos",
+    "8s": "8 segundos",
+    "12s": "12 segundos",
+    "ratio_21_9": "21:9 Ultra panorámico",
+    "ratio_4_3": "4:3 Estándar",
+    "ratio_3_4": "3:4 Vertical",
+    "errors": {
+      "missingApiKey": "Configura primero tu clave API",
+      "invalidApiKey": "Clave API inválida",
+      "rateLimited": "Límite de velocidad alcanzado. Los límites son por modelo — espera un momento y reintenta.",
+      "timeout": "Tiempo de espera agotado",
+      "emptyPrompt": "Ingresa un prompt",
+      "promptTooLong": "El prompt excede 2000 caracteres",
+      "network": "Error de red",
+      "internal": "Error del servidor",
+      "upstream": "Error del servicio IA",
+      "noResult": "Sin resultado",
+      "videoFailed": "La generación falló en el proveedor. Reintenta más tarde o cambia de modelo.",
+      "pollTimeout": "Sin resultado tras 15 minutos. Compruébalo más tarde con el ID de tarea de abajo.",
+      "unknown": "Error desconocido",
+      "checkApiKey": "Verifica tu clave",
+      "pollTimeoutQueued": "Sigue en cola en el proveedor tras 15 minutos: la cola gratuita está ocupada. Reintenta en otro momento o autoaloja.",
+      "pollTimeoutRendering": "Sigue generándose tras 15 minutos: se alcanzó el límite de espera local.",
+      "upstreamStuck": "El proveedor detuvo esta tarea: la inferencia no terminó a tiempo.",
+      "queueFull": "La cola gratuita del proveedor está llena — reintentando {current}/{total}…",
+      "queueFullExhausted": "La cola sigue llena tras {total} reintentos. Prueba en otro momento o autoaloja.",
+      "copyVideoId": "Copiar ID de tarea",
+      "checkLater": "Ver resultado más tarde"
+    },
+    "seoTitle": "Generador de videos IA gratis en línea | Agnes Video Generator",
+    "seoDescription": "Generador de videos e imágenes IA gratis en línea. Escribe un prompt para crear videos IA (texto a video) e imágenes IA (texto a imagen). Sin tarjeta de crédito, sin instalación—solo añade tu clave API Agnes gratuita.",
+    "seoH1": "Generador de videos e imágenes IA en línea gratis",
+    "seoIntro": "Agnes Video Generator es una herramienta de creación de IA web completamente gratuita. Abra el navegador, ingrese un aviso de texto y puede llamar al modelo de IA de Agnes en línea para convertir el texto en un video de IA (video de Vincent) o una imagen de IA (imagen de Vincent). Completamente gratuito, listo para abrir y usar, no es necesario instalar software ni tarjetas de crédito; Simplemente complete su propia clave API gratuita de Agnes en el front-end antes de comenzar (solo existe en el navegador local y no se cargará al servidor). Desde la inspiración hasta la película completa, unos pocos pasos son suficientes.",
+    "seoFeatures": [
+      {
+        "title": "Totalmente gratis, sin tarjeta de crédito",
+        "desc": "La herramienta es gratuita; solo necesitas tu propia clave API Agnes gratuita. Sin pago, sin tarjeta de crédito."
+      },
+      {
+        "title": "En línea y sin instalación",
+        "desc": "Funciona totalmente en el navegador. Abre la página y crea—sin software que descargar, funciona en escritorio y móvil."
+      },
+      {
+        "title": "Texto a video",
+        "desc": "Escribe un prompt y agnes-video-v2.0 lo convierte en un video IA de 5/10 segundos en varias proporciones."
+      },
+      {
+        "title": "Texto a imagen",
+        "desc": "Escribe un prompt y agnes-image-2.1-flash genera imágenes IA e ilustraciones artísticas de alta calidad."
+      }
+    ],
+    "seoUseCases": [
+      {
+        "title": "Paisajes y naturaleza en movimiento",
+        "desc": "Genera olas fluidas, nubes a la deriva, luz de bosque y otros movimientos naturales a partir de un prompt."
+      },
+      {
+        "title": "Clips promocionales de producto",
+        "desc": "Crea rápidamente animaciones de muestra de producto para e-commerce o páginas de aterrizaje—sin filmación ni edición."
+      },
+      {
+        "title": "Videos sociales verticales",
+        "desc": "Genera clips verticales 9:16 listos para TikTok, Reels, Shorts y más."
+      },
+      {
+        "title": "Arte e ilustración IA",
+        "desc": "Convierte una frase en arte conceptual, recursos de póster o imágenes de estilo guofeng / cyberpunk."
+      },
+      {
+        "title": "Conceptos y visuales para blog",
+        "desc": "Produce visuales y conceptos personalizados para artículos, diapositivas y presentaciones en segundos."
+      },
+      {
+        "title": "Avatares y personajes",
+        "desc": "Boceta retratos de personajes, avatares de juegos o personas virtuales a partir de texto."
+      }
+    ],
+    "seoFaq": [
+      {
+        "q": "¿Es gratis este generador de videos IA?",
+        "a": "Sí. Agnes Video Generator es totalmente gratuito. Solo necesitas tu propia clave API Agnes gratuita (introducida en el navegador, guardada localmente)—sin pago, sin tarjeta de crédito."
+      },
+      {
+        "q": "¿Necesito descargar o instalar software?",
+        "a": "No. Es una herramienta totalmente basada en la web; ábrela en el navegador para generar videos e imágenes IA en línea, en escritorio o móvil."
+      },
+      {
+        "q": "¿Soporta texto a video?",
+        "a": "Sí. Escribe un prompt y agnes-video-v2.0 genera un video IA de 5 o 10 segundos en varias proporciones."
+      },
+      {
+        "q": "¿Soporta texto a imagen?",
+        "a": "Sí. Escribe un prompt y agnes-image-2.1-flash genera imágenes IA e ilustraciones artísticas."
+      },
+      {
+        "q": "¿Necesito tarjeta de crédito?",
+        "a": "Sin tarjeta de crédito y sin pago. La herramienta es gratuita; solo introduces tu propia clave API Agnes gratuita."
+      },
+      {
+        "q": "¿Se suben mis prompts y recursos?",
+        "a": "Tu clave API Agnes solo se guarda en el localStorage de tu navegador y nunca se sube a nuestros servidores; la generación se ejecuta directamente desde tu navegador a los modelos Agnes."
+      },
+      {
+        "q": "¿Hay límites en la versión gratuita?",
+        "a": "La generación de video admite duraciones de 5s y 10s y varias proporciones; tu cuota disponible depende de la clave API Agnes gratuita que proporciones."
+      },
+      {
+        "q": "¿Puedo usar los videos e imágenes con fines comerciales?",
+        "a": "El uso comercial depende de los términos de licencia de la clave API Agnes; por favor confirma los derechos de uso de tu clave antes del uso comercial."
+      }
+    ],
+    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "copied": "Copiado"
   }
 }

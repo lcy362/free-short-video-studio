@@ -134,6 +134,221 @@
     "errorHint_aborted": "Generation cancelled. Click \"Retry Failed Scenes\" to continue unfinished parts.",
     "errorHint_scriptFailed": "Scene splitting failed. Check your API Key or network.",
     "partialFailedHint": "Some scenes failed. Retry failed scenes or concatenate only completed ones.",
-    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped)."
+    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped).",
+    "tabs": {
+      "label": "制作モードを選択",
+      "image": "画像生成",
+      "simple": "シンプル動画",
+      "creative": "クリエイティブ動画",
+      "imageHint": "一枚のイメージを書くだけで AI 画像を生成。正方形・横長・縦長の3サイズに対応。",
+      "simpleHint": "1つのプロンプトで1本の AI 動画を生成。テキスト→動画／画像→動画、4〜12秒、6種類の比率。",
+      "creativeHint": "アイデアを渡すと AI が2〜5シーンに分割し、各シーンを生成してブラウザ内で結合します（Beta）。"
+    }
+  },
+  "demo": {
+    "title": "オンラインデモ",
+    "subtitle": "プロンプトを入力してAI動画・画像を生成",
+    "githubLink": "GitHubで見る",
+    "githubFree": "完全無料",
+    "promptLabel": "プロンプト",
+    "tabs": {
+      "textToVideo": "動画生成",
+      "textToImage": "画像生成"
+    },
+    "apiKey": {
+      "title": "API Key 設定",
+      "label": "Agnes API Key",
+      "placeholder": "API Keyを入力...",
+      "save": "保存",
+      "clear": "削除",
+      "hint": "無料API Keyの取得先:",
+      "show": "表示",
+      "hide": "非表示",
+      "saved": "保存済み",
+      "required": "最初にAPI Keyを設定してください",
+      "requiredHint": "Agnes AIの無料APIキーで始めましょう。クレカ不要。",
+      "getKey": "無料API Keyを取得",
+      "localOnly": "Key はブラウザの localStorage にのみ保存され、サーバーにアップロードされることはありません。ブラウザデータをクリアした後は再入力が必要です。"
+    },
+    "image": {
+      "generate": "画像を生成",
+      "generating": "生成中...",
+      "promptPlaceholder": "例：桜の下で微笑む柴犬",
+      "samplePrompts": [
+        "桜の花びらが舞う中で微笑む柴犬、柔らかなボケ背景、暖かい春の日差し",
+        "霧深い森の中の魔法のツリーハウス村、古いオークの木の間に光る妖精のライト",
+        "夜の未来的なサイバーパンクの街、ネオンサインが濡れた舗装に反射し、上空を空飛ぶ車が通り過ぎる",
+        "雨の降る窓辺の居心地の良い読書スペース、暖かいランプの明かり、積み重ねられた古い本、湯気の立つお茶",
+        "雪に覆われた松林を歩く威厳のある白い虎、柔らかい拡散光、映画的な構図"
+      ],
+      "size": "サイズ"
+    },
+    "video": {
+      "generate": "動画を生成",
+      "submitting": "送信中...",
+      "generating": "動画生成中",
+      "estimatedTime": "約{minutes}分",
+      "promptPlaceholder": "例：岩に打ち寄せる波のスローモーション",
+      "timeHint": "動画生成には通常3〜5分かかります。しばらくお待ちください。",
+      "samplePrompts": [
+        "ゴールデンアワーに岩場に打ち寄せる波のスローモーション、徐々に上昇して広大な海岸線を明らかにするドローンショット",
+        "夜明けの霧深い竹林、葉の間から差し込む柔らかな金色の光、長い竹の茎を揺らす穏やかな風",
+        "雪を頂いた峰に囲まれたターコイズブルーの山の湖上空を飛行するドローン、鏡のような完璧な反射",
+        "秋の居心地の良い村の通り、降り注ぐ金色の葉の間から暖かい街灯が輝き、水たまりに琥珀色の光が反射している",
+        "砂漠の峡谷上空の星空のタイムラプス、古代の岩層の上でゆっくりと回転する天の川"
+      ],
+      "duration": "長さ",
+      "ratio": "アスペクト比",
+      "notSupported": "動画再生非対応",
+      "elapsed": "経過時間",
+      "lastPoll": "前回結果",
+      "model": "動画モデル",
+      "mode": "生成モード",
+      "modelV25Flash": "Video 2.5 Flash",
+      "modelV25FlashDesc": "期間限定無料の新モデル：720P固定、4〜12秒、画像参照（画像→動画）対応。ネガティブプロンプト非対応。",
+      "modeText": "テキスト→動画",
+      "modeImage": "画像→動画（参照画像1枚）",
+      "refImage": "参照画像",
+      "chooseImage": "画像を選択",
+      "noImage": "画像未選択",
+      "imageSelected": "選択中：{name}",
+      "clearImage": "削除",
+      "refImageHint": "参照画像をアップロード（任意）。動画には画像のキャラクターやスタイル、シーン要素が引き継がれます。",
+      "refImageRequired": "画像→動画モードでは先に参照画像をアップロードしてください",
+      "free": "無料",
+      "freeLimited": "期間限定無料",
+      "modelModesLabel": "モード",
+      "modelDurationsLabel": "時間",
+      "modelRatiosLabel": "アスペクト比",
+      "pollCount": "ポーリング回数",
+      "dimsLandscape": "横長 1280×720",
+      "dimsPortrait": "縦長 768×1152",
+      "dimsSquare": "正方形 1024×1024",
+      "selfHostMinVersion": "セルフホストで同じ設定を使うには v{version} 以降が必要です",
+      "portraitRotationHint": "upstream の既知の問題です：Video 2.5 Flash の 9:16 動画は横向きに再生される場合があります。ダウンロード後に回転してください。"
+    },
+    "download": "ダウンロード",
+    "downloading": "ダウンロード中...",
+    "retry": "再試行",
+    "square": "1:1 正方形",
+    "landscape": "16:9 横長",
+    "portrait": "9:16 縦長",
+    "5s": "5秒",
+    "10s": "10秒",
+    "4s": "4秒",
+    "6s": "6秒",
+    "8s": "8秒",
+    "12s": "12秒",
+    "ratio_21_9": "21:9 超ワイド",
+    "ratio_4_3": "4:3 標準",
+    "ratio_3_4": "3:4 縦",
+    "errors": {
+      "missingApiKey": "API Keyを設定してください",
+      "invalidApiKey": "無効なAPI Key",
+      "rateLimited": "レート制限に達しました。制限はモデルごとに適用されます。少し待ってから再試行してください。",
+      "timeout": "タイムアウト。短いプロンプトで再試行",
+      "emptyPrompt": "プロンプトを入力",
+      "promptTooLong": "2000文字を超えています",
+      "network": "ネットワークエラー",
+      "internal": "サーバーエラー",
+      "upstream": "AIサービスエラー",
+      "noResult": "結果なし。再試行",
+      "videoFailed": "upstream 側で生成が失敗しました。時間をおいて再試行するか、別のモデルをお試しください。",
+      "pollTimeout": "15 分経過しても結果がありません。下のタスク ID で後から確認できます。",
+      "unknown": "不明なエラー",
+      "checkApiKey": "キーを確認するかAgnes AIで再取得",
+      "pollTimeoutQueued": "15 分経過しても upstream のキューで待機中です。無料キューが混雑しています。時間をずらすか、セルフホストをご利用ください。",
+      "pollTimeoutRendering": "15 分経過しても upstream で生成中です（ローカルの待機上限に到達）。",
+      "upstreamStuck": "upstream がこのタスクを停止しました：推論が時間内に完了しませんでした。",
+      "queueFull": "upstream の無料キューが満杯です — {current}/{total} 回目を再試行中…",
+      "queueFullExhausted": "{total} 回再試行してもキューが満杯です。時間をずらすか、セルフホストをご検討ください。",
+      "copyVideoId": "タスク ID をコピー",
+      "checkLater": "後で結果を確認"
+    },
+    "githubNote": "ウェブ版は基本的なテキスト→画像 / テキスト→動画のみ対応しています。完全な機能（クリエイティブ長編動画、原稿動画、AIデジタルアンカー、TTSナレーション、自動字幕、レジューム機能など）は GitHub からデスクトップ版をダウンロードしてください。",
+    "seoTitle": "無料オンライン AI 動画ジェネレーター | Agnes Video Generator",
+    "seoDescription": "無料オンラインの AI 動画・画像ジェネレーター：プロンプトを入力するだけで AI 動画と画像を生成。テキストから動画・テキストから画像に対応。クレジットカード不要、インストール不要。無料の Agnes API Key を入力するだけで使えます。",
+    "seoH1": "無料オンライン AI 動画・画像ジェネレーター",
+    "seoIntro": "Agnes Video Generator は完全に无料の Web サイド AI 作成ツールです。ブラウザを開き、テキストプロンプトワードを入力すると、オンラインでAgnes AIモデルを呼び出し、テキストをAIビデオ（ビンセントビデオ）またはAI画像（ビンセント図）に変えることができます。完全に無料で、開いてすぐに使え、ソフトウェアをインストールしなくても、クレジットカードを使わなくてもいい。开始する前に、フロントエンドに独自の无料 Agnes API Key を入力してください (ローカル ブラウザのみに存在し、サーバーにはアップロードされません)。インスピレーションから完成まで、数歩で十分です。",
+    "seoFeatures": [
+      {
+        "title": "完全無料、クレジットカード不要",
+        "desc": "ツール自体は完全無料。ご自身の無料 Agnes API Key があれば十分で、支払いもカード登録も不要です。"
+      },
+      {
+        "title": "オンライン、インストール不要",
+        "desc": "完全にブラウザで動作します。ページを開けばすぐ作成開始。ダウンロードは不要で、PC とスマホの両方で利用できます。"
+      },
+      {
+        "title": "テキストから動画",
+        "desc": "プロンプトを入力すると agnes-video-v2.0 が、複数のアスペクト比で 5/10 秒の AI 動画を生成します。"
+      },
+      {
+        "title": "テキストから画像",
+        "desc": "プロンプトを入力すると agnes-image-2.1-flash が、高品質な AI 画像とアートイラストを生成します。"
+      }
+    ],
+    "seoUseCases": [
+      {
+        "title": "風景と自然の動き",
+        "desc": "プロンプトから、流れる波、漂う雲、森の光など自然の動きを生成します。"
+      },
+      {
+        "title": "商品プロモ動画",
+        "desc": "eコマースやランディングページ向けに、撮影や編集なしで商品紹介アニメーションをすばやく作成。"
+      },
+      {
+        "title": "縦型ソーシャル動画",
+        "desc": "TikTok、Reels、Shorts などに対応した 9:16 縦型クリップを生成。"
+      },
+      {
+        "title": "AI アートとイラスト",
+        "desc": "一文からコンセプトアート、ポスター素材、国風やサイバーパンク風の画像を生成。"
+      },
+      {
+        "title": "コンセプトとブログ用ビジュアル",
+        "desc": "記事やスライド、プレゼン向けのオリジナルビジュアルとコンセプトを数秒で作成。"
+      },
+      {
+        "title": "アバターとキャラクター",
+        "desc": "テキストから人物のポートレート、ゲームキャラ、バーチャルアバターのラフ案を生成。"
+      }
+    ],
+    "seoFaq": [
+      {
+        "q": "この AI 動画ジェネレーターは無料ですか？",
+        "a": "はい。Agnes Video Generator は完全無料です。ご自身の無料 Agnes API Key（ブラウザに入力、ローカル保存）があれば十分で、支払いもクレジットカードも不要です。"
+      },
+      {
+        "q": "ソフトをダウンロード・インストールする必要がありますか？",
+        "a": "いいえ。完全にブラウザ型のツールなので、ブラウザで開くだけで PC でもスマホでもオンラインで AI 動画と画像を生成できます。"
+      },
+      {
+        "q": "テキストから動画（テキストto動画）に対応していますか？",
+        "a": "対応しています。プロンプトを入力すると agnes-video-v2.0 が、複数のアスペクト比で 5 または 10 秒の AI 動画を生成します。"
+      },
+      {
+        "q": "テキストから画像（テキストto画像）に対応していますか？",
+        "a": "対応しています。プロンプトを入力すると agnes-image-2.1-flash が AI 画像とアートイラストを生成します。"
+      },
+      {
+        "q": "クレジットカードは必要ですか？",
+        "a": "クレジットカードも支払いも不要です。ツールは無料で、ご自身の無料 Agnes API Key を入力するだけです。"
+      },
+      {
+        "q": "私のプロンプトや生成素材はアップロードされますか？",
+        "a": "お使いの Agnes API Key はブラウザの localStorage にのみ保存され、当社のサーバーには送信されません。生成リクエストはブラウザから Agnes モデルへ直接送信されます。"
+      },
+      {
+        "q": "無料版に回数や時間の制限はありますか？",
+        "a": "動画生成は 5 秒と 10 秒の長さ、複数のアスペクト比に対応します。利用可能な枠はお使いの無料 Agnes API Key の割り当てによります。"
+      },
+      {
+        "q": "生成した動画や画像は商用利用できますか？",
+        "a": "商用利用は Agnes API Key のライセンス条項に依存します。商用利用前にご利用の Key の権利範囲をご確認ください。"
+      }
+    ],
+    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "copied": "コピーしました"
   }
 }

@@ -134,6 +134,221 @@
     "errorHint_aborted": "Penjanaan dibatalkan. Klik \"Cuba Semula Babak Gagal\" untuk menyambung bahagian yang belum selesai.",
     "errorHint_scriptFailed": "Pembahagian babak gagal. Semak API Key atau rangkaian anda.",
     "partialFailedHint": "Sebahagian babak gagal. Cuba semula babak yang gagal atau gabungkan hanya yang selesai.",
-    "errorHint_sceneFailed": "Sebahagian babak gagal. Klik \"Cuba Semula Babak Gagal\" untuk cuba semula secara automatik (babak yang selesai akan dilangkau)."
+    "errorHint_sceneFailed": "Sebahagian babak gagal. Klik \"Cuba Semula Babak Gagal\" untuk cuba semula secara automatik (babak yang selesai akan dilangkau).",
+    "tabs": {
+      "label": "Pilih mod penciptaan",
+      "image": "Imej",
+      "simple": "Video ringkas",
+      "creative": "Video kreatif",
+      "imageHint": "Tulis satu penerangan dan dapatkan imej AI dalam saiz segi empat sama, landskap atau potret.",
+      "simpleHint": "Satu gesaan, satu klip video AI — teks-ke-video atau imej-ke-video, 4–12 saat, enam nisbah.",
+      "creativeHint": "Beri satu idea; AI memecahkannya kepada 2–5 babak, menjana setiap klip dan mencantumnya dalam pelayar anda (Beta)."
+    }
+  },
+  "demo": {
+    "title": "Demo Dalam Talian",
+    "subtitle": "Masukkan prompt dan hasilkan video dan imej AI",
+    "githubLink": "Lihat di GitHub",
+    "githubFree": "Percuma Sepenuhnya",
+    "promptLabel": "Prompt",
+    "tabs": {
+      "textToVideo": "Penjanaan Video",
+      "textToImage": "Penjanaan Imej"
+    },
+    "apiKey": {
+      "title": "Tetapan API Key",
+      "label": "Agnes API Key",
+      "placeholder": "Masukkan API Key anda...",
+      "save": "Simpan",
+      "clear": "Padam",
+      "hint": "Dapatkan API Key percuma dari:",
+      "show": "Tunjuk",
+      "hide": "Sembunyi",
+      "saved": "Disimpan",
+      "required": "Sila tetapkan API Key dahulu",
+      "requiredHint": "Mulakan dengan API key Agnes AI percuma. Tiada kad kredit.",
+      "getKey": "Dapatkan API Key Percuma",
+      "localOnly": "Kunci hanya disimpan dalam localStorage pelayar anda dan tidak pernah dimuat naik ke mana-mana pelayan. Anda perlu memasukkannya semula selepas membersihkan data pelayar."
+    },
+    "image": {
+      "generate": "Hasilkan Imej",
+      "generating": "Menjana...",
+      "promptPlaceholder": "Contoh: Seekor Shiba Inu tersenyum di bawah bunga sakura",
+      "samplePrompts": [
+        "Seekor Shiba Inu tersenyum di bawah kelopak sakura yang berguguran, latar belakang bokeh lembut, cahaya matahari musim bunga yang hangat",
+        "Kampung rumah pokok ajaib di dalam hutan berkabus, lampu pari-pari bercahaya antara pokok oak purba",
+        "Jalan bandar cyberpunk futuristik pada waktu malam, papan tanda neon memantul di atas turapan basah, kereta terbang melintas di atas",
+        "Sudut membaca yang selesa di tepi tingkap hujan, cahaya lampu hangat, timbunan buku lama dan secawan teh panas",
+        "Harimau putih gagah berjalan melalui hutan pain bersalji, cahaya lembut tersebar, komposisi sinematik"
+      ],
+      "size": "Saiz"
+    },
+    "video": {
+      "generate": "Hasilkan Video",
+      "submitting": "Menghantar...",
+      "generating": "Menjana video",
+      "estimatedTime": "Anggaran ~{minutes} min",
+      "promptPlaceholder": "Contoh: Ombak menghempas batu dalam gerak perlahan",
+      "timeHint": "Penjanaan video biasanya mengambil masa 3–5 minit. Sila bersabar.",
+      "samplePrompts": [
+        "Ombak perlahan menghempas pantai berbatu pada waktu keemasan, rakaman dron naik perlahan-lahan mendedahkan garis pantai yang luas",
+        "Hutan buluh berkabus pada waktu subuh, cahaya keemasan lembut meresap melalui dedaunan, angin sepoi-sepoi menghayun batang buluh yang tinggi",
+        "Rakaman dron terbang di atas tasik gunung berwarna pirus dikelilingi puncak bersalji, pantulan sempurna seperti cermin",
+        "Jalan kampung yang selesa pada musim luruh, lampu jalan hangat bercahaya melalui daun keemasan yang jatuh, kolam air memantulkan cahaya ambar",
+        "Selang masa langit berbintang di atas ngarai gurun, Bima Sakti berputar perlahan di atas formasi batu purba"
+      ],
+      "duration": "Tempoh",
+      "ratio": "Nisbah Aspek",
+      "notSupported": "Pelayar tidak menyokong video",
+      "elapsed": "Berlalu",
+      "lastPoll": "Keputusan Terakhir",
+      "model": "Model Video",
+      "mode": "Mod Penjanaan",
+      "modelV25Flash": "Video 2.5 Flash",
+      "modelV25FlashDesc": "Model baharu percuma (masa terhad): 720P tetap, tempoh 4–12 saat, menyokong rujukan imej (imej ke video); tanpa prompt negatif.",
+      "modeText": "Teks ke video",
+      "modeImage": "Imej ke video (1 rujukan)",
+      "refImage": "Imej Rujukan",
+      "chooseImage": "Pilih Imej",
+      "noImage": "Tiada imej dipilih",
+      "imageSelected": "Dipilih: {name}",
+      "clearImage": "Buang",
+      "refImageHint": "Muat naik imej rujukan (pilihan); video akan mengekalkan watak, gaya dan elemen latar daripadanya.",
+      "refImageRequired": "Mod imej ke video memerlukan imej rujukan terlebih dahulu",
+      "free": "Percuma",
+      "freeLimited": "Percuma (masa terhad)",
+      "modelModesLabel": "Mod",
+      "modelDurationsLabel": "Tempoh",
+      "modelRatiosLabel": "Nisbah",
+      "pollCount": "Bilangan Poll",
+      "dimsLandscape": "Landskap 1280×720",
+      "dimsPortrait": "Potret 768×1152",
+      "dimsSquare": "Segi empat sama 1024×1024",
+      "selfHostMinVersion": "Self-host memerlukan v{version} atau lebih baru untuk pilihan yang sama",
+      "portraitRotationHint": "Isu hulu yang diketahui: klip 9:16 daripada Video 2.5 Flash mungkin dimainkan terputar 90°. Putarkan fail selepas muat turun."
+    },
+    "download": "Muat Turun",
+    "downloading": "Memuat turun...",
+    "retry": "Cuba Lagi",
+    "square": "1:1 Segi Empat",
+    "landscape": "16:9 Lanskap",
+    "portrait": "9:16 Potret",
+    "5s": "5 saat",
+    "10s": "10 saat",
+    "4s": "4 saat",
+    "6s": "6 saat",
+    "8s": "8 saat",
+    "12s": "12 saat",
+    "ratio_21_9": "21:9 Ultra Lebar",
+    "ratio_4_3": "4:3 Standard",
+    "ratio_3_4": "3:4 Potret",
+    "errors": {
+      "missingApiKey": "Sila tetapkan API Key",
+      "invalidApiKey": "API Key tidak sah",
+      "rateLimited": "Had kadar dicapai. Had dikira mengikut model — tunggu sebentar dan cuba lagi.",
+      "timeout": "Masa tamat. Cuba prompt lebih pendek",
+      "emptyPrompt": "Masukkan prompt",
+      "promptTooLong": "Prompt melebihi 2000 aksara",
+      "network": "Ralat rangkaian",
+      "internal": "Ralat pelayan",
+      "upstream": "Ralat perkhidmatan AI",
+      "noResult": "Tiada hasil. Cuba lagi",
+      "videoFailed": "Penjanaan gagal di hulu. Cuba lagi kemudian atau tukar model.",
+      "pollTimeout": "Tiada hasil selepas 15 minit. Semak kemudian dengan ID tugas di bawah.",
+      "unknown": "Ralat tidak diketahui",
+      "checkApiKey": "Sahkan kunci atau dapatkan baru dari Agnes AI",
+      "pollTimeoutQueued": "Masih dalam barisan hulu selepas 15 minit — barisan percuma sibuk. Cuba di luar waktu puncak atau self-host.",
+      "pollTimeoutRendering": "Masih menjana di hulu selepas 15 minit — had menunggu setempat dicapai.",
+      "upstreamStuck": "Hulu menghentikan tugas ini: inferens tidak selesai dalam masa.",
+      "queueFull": "Barisan percuma hulu penuh — mencuba semula {current}/{total}…",
+      "queueFullExhausted": "Barisan masih penuh selepas {total} percubaan. Cuba di luar waktu puncak atau self-host.",
+      "copyVideoId": "Salin ID tugas",
+      "checkLater": "Semak hasil kemudian"
+    },
+    "githubNote": "Demo web ini hanya menyediakan fungsi asas teks-ke-imej dan teks-ke-video. Untuk set lengkap (video kreatif panjang, video skrip, penyampai digital AI, narasi TTS, sari kata automatik, sambung semula, dan banyak lagi), muat turun aplikasi desktop dari GitHub.",
+    "seoTitle": "Penjana Video AI Percuma Dalam Talian | Agnes Video Generator",
+    "seoDescription": "Penjana video & imej AI percuma dalam talian. Taipkan prompt untuk menghasilkan video AI (teks ke video) dan imej AI (teks ke imej). Tanpa kad kredit, tanpa pemasangan—cuma masukkan Agnes API Key percuma anda.",
+    "seoH1": "Penjana Video & Imej AI Dalam Talian Percuma",
+    "seoIntro": "Agnes Video Generator ialah alat penciptaan AI hujung web yang percuma sepenuhnya. Buka pelayar, taip satu perenggan prompt, terus boleh panggil model Agnes AI dalam talian, ubah teks menjadi video AI (teks-ke-video) atau gambar AI (teks-ke-gambar). Percuma sepenuhnya, buka terus guna, tak perlu pasang perisian, tak perlu kad kredit; sebelum mula hanya perlu isi API Key Agnes percuma anda di hujung hadapan (hanya disimpan dalam pelayar tempatan, tidak dimuat naik ke pelayan). Dari inspirasi sehinggalah hasil siap, beberapa langkah sahaja.",
+    "seoFeatures": [
+      {
+        "title": "Sepenuhnya percuma, tanpa kad kredit",
+        "desc": "Alat ini percuma untuk digunakan; cuma bawa Agnes API Key percuma anda sendiri. Tiada bayaran, tiada kad kredit diperlukan."
+      },
+      {
+        "title": "Dalam talian & tanpa pemasangan",
+        "desc": "Berjalan sepenuhnya dalam pelayar. Buka halaman dan cipta—tiada perisian untuk dimuat turun, berfungsi di desktop dan mudah alih."
+      },
+      {
+        "title": "Teks ke video",
+        "desc": "Taipkan prompt dan agnes-video-v2.0 menukarnya menjadi video AI 5/10 saat dalam pelbagai nisbah aspek."
+      },
+      {
+        "title": "Teks ke imej",
+        "desc": "Taipkan prompt dan agnes-image-2.1-flash menjana imej AI dan ilustrasi seni berkualiti tinggi."
+      }
+    ],
+    "seoUseCases": [
+      {
+        "title": "Pemandangan & gerakan alam",
+        "desc": "Hasilkan ombak yang mengalir, awan yang hanyut, cahaya hutan dan gerakan alam lain daripada prompt."
+      },
+      {
+        "title": "Klip promosi produk",
+        "desc": "Cipta animasi paparan produk untuk e-dagang atau halaman pendaratan dengan pantas—tanpa penggambaran atau penyuntingan."
+      },
+      {
+        "title": "Video sosial menegak",
+        "desc": "Jana klip menegak 9:16 sedia untuk TikTok, Reels, Shorts dan lain-lain."
+      },
+      {
+        "title": "Seni & ilustrasi AI",
+        "desc": "Tukar ayat menjadi seni konsep, aset poster, atau imej gaya guofeng / cyberpunk."
+      },
+      {
+        "title": "Konsep & visual blog",
+        "desc": "Hasilkan visual dan konsep tersuai untuk artikel, slaid dan dek dalam beberapa saat."
+      },
+      {
+        "title": "Avatar & watak",
+        "desc": "Lakar potret watak, avatar permainan atau persona maya daripada teks."
+      }
+    ],
+    "seoFaq": [
+      {
+        "q": "Adakah penjana video AI ini percuma?",
+        "a": "Ya. Agnes Video Generator sepenuhnya percuma. Anda hanya perlukan Agnes API Key percuma anda sendiri (dimasukkan dalam pelayar, disimpan setempat)—tiada bayaran, tiada kad kredit."
+      },
+      {
+        "q": "Perlu muat turun atau pasang perisian?",
+        "a": "Tidak. Ia alat berasaskan web sepenuhnya; buka dalam pelayar untuk menjana video dan imej AI dalam talian, di desktop atau mudah alih."
+      },
+      {
+        "q": "Adakah ia menyokong teks ke video?",
+        "a": "Ya. Taipkan prompt dan agnes-video-v2.0 menjana video AI 5 atau 10 saat dalam pelbagai nisbah aspek."
+      },
+      {
+        "q": "Adakah ia menyokong teks ke imej?",
+        "a": "Ya. Taipkan prompt dan agnes-image-2.1-flash menjana imej AI dan ilustrasi seni."
+      },
+      {
+        "q": "Perlukan kad kredit?",
+        "a": "Tiada kad kredit dan tiada bayaran. Alat ini percuma; anda hanya masukkan Agnes API Key percuma anda sendiri."
+      },
+      {
+        "q": "Adakah prompt dan aset saya dimuat naik?",
+        "a": "Agnes API Key anda hanya disimpan dalam localStorage pelayar anda dan tidak pernah dimuat naik ke pelayan kami; penjanaan berjalan terus dari pelayar anda ke model Agnes."
+      },
+      {
+        "q": "Adakah terdapat had pada versi percuma?",
+        "a": "Penjanaan video menyokong tempoh 5s dan 10s serta pelbagai nisbah aspek; kuota tersedia anda bergantung pada Agnes API Key percuma yang anda berikan."
+      },
+      {
+        "q": "Bolehkah saya gunakan video dan imej secara komersial?",
+        "a": "Penggunaan komersial bergantung pada terma lesen Agnes API Key; sila sahkan hak penggunaan Key anda sebelum kegunaan komersial."
+      }
+    ],
+    "studioLinkCta": "Studio video kreatif pelbagai babak (Beta) →",
+    "copied": "Disalin"
   }
 }

@@ -134,6 +134,221 @@
     "errorHint_aborted": "Generation cancelled. Click \"Retry Failed Scenes\" to continue unfinished parts.",
     "errorHint_scriptFailed": "Scene splitting failed. Check your API Key or network.",
     "partialFailedHint": "Some scenes failed. Retry failed scenes or concatenate only completed ones.",
-    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped)."
+    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped).",
+    "tabs": {
+      "label": "Modus wählen",
+      "image": "Bild",
+      "simple": "Einfaches Video",
+      "creative": "Kreativvideo",
+      "imageHint": "Eine Bildbeschreibung genügt – fertig ist das KI-Bild in Quadrat, Quer- oder Hochformat.",
+      "simpleHint": "Ein Prompt, ein KI-Videoclip – Text-zu-Video oder Bild-zu-Video, 4–12 Sekunden, sechs Seitenverhältnisse.",
+      "creativeHint": "Eine Idee – die KI teilt sie in 2–5 Szenen, erzeugt jeden Clip und fügt sie im Browser zusammen (Beta)."
+    }
+  },
+  "demo": {
+    "title": "Online-Demo testen",
+    "subtitle": "Geben Sie einen Prompt ein und generieren Sie sofort KI-Videos und -Bilder",
+    "githubLink": "Auf GitHub ansehen",
+    "githubNote": "Diese Web-Demo bietet grundlegende Text-zu-Bild- und Text-zu-Video-Funktionen. Für den vollen Funktionsumfang laden Sie die Desktop-App von GitHub herunter.",
+    "githubFree": "Völlig kostenlos",
+    "promptLabel": "Prompt",
+    "tabs": {
+      "textToVideo": "Video-Generierung",
+      "textToImage": "Bild-Generierung"
+    },
+    "apiKey": {
+      "title": "API-Key-Einstellungen",
+      "label": "Agnes API Key",
+      "placeholder": "Geben Sie Ihren Agnes API Key ein...",
+      "save": "Speichern",
+      "clear": "Löschen",
+      "hint": "Holen Sie sich Ihren kostenlosen API-Key von:",
+      "show": "Anzeigen",
+      "hide": "Verbergen",
+      "saved": "Gespeichert",
+      "required": "Bitte setzen Sie zuerst Ihren API Key",
+      "requiredHint": "Starten Sie mit einem kostenlosen Agnes AI API-Key.",
+      "getKey": "Kostenlosen API-Key holen",
+      "localOnly": "Ihr Key wird nur im localStorage Ihres Browsers gespeichert."
+    },
+    "image": {
+      "generate": "Bild generieren",
+      "generating": "Bild wird generiert...",
+      "promptPlaceholder": "Beschreiben Sie das gewünschte Bild",
+      "samplePrompts": [
+        "Ein Shiba Inu lächelt unter Kirschblüten, sanftes Bokeh im Hintergrund, warmes Frühlingslicht",
+        "Ein verzaubertes Baumhausdorf in einem nebligen Wald, Lichterketten glühen zwischen alten Eichen",
+        "Eine futuristische Cyberpunk-Straße bei Nacht, Neonreklamen spiegeln sich auf nassem Asphalt, fliegende Autos über Kopf",
+        "Eine gemütliche Leseecke am regnerischen Fenster, warmes Lampenlicht, Stapel alter Bücher, eine dampfende Tasse Tee",
+        "Ein majestätischer weißer Tiger spaziert durch einen verschneiten Kiefernwald, sanftes diffuses Licht, filmische Komposition"
+      ],
+      "size": "Bildgröße"
+    },
+    "video": {
+      "generate": "Video generieren",
+      "submitting": "Aufgabe wird eingereicht...",
+      "generating": "Video wird generiert",
+      "estimatedTime": "Geschätzte Zeit: ~{minutes} Min.",
+      "promptPlaceholder": "Beschreiben Sie das gewünschte Video",
+      "timeHint": "Die Videogenerierung dauert in der Regel 3–5 Minuten. Bitte haben Sie etwas Geduld.",
+      "samplePrompts": [
+        "Zeitlupe: Wellen brechen an felsigen Küsten zur goldenen Stunde, Drohnenaufnahme steigt langsam auf und enthüllt die weite Küstenlinie",
+        "Ein nebliger Bambuswald im Morgengrauen, sanftes goldenes Licht filtert durch die Blätter, leichter Wind wiegt die hohen Halme",
+        "Drohnenaufnahme über einem türkisfarbenen Bergsee umgeben von schneebedeckten Gipfeln, spiegelglatte Reflexionen",
+        "Eine gemütliche Dorfstraße im Herbst, warme Laternen leuchten durch fallende goldene Blätter, Pfützen spiegeln das bernsteinfarbene Licht",
+        "Zeitraffer des Sternenhimmels über einer Wüstenschlucht, die Milchstraße dreht sich langsam über uralten Felsformationen"
+      ],
+      "duration": "Dauer",
+      "ratio": "Seitenverhältnis",
+      "notSupported": "Ihr Browser unterstützt keine Videowiedergabe",
+      "elapsed": "Verstrichen",
+      "pollCount": "Abfragen",
+      "lastPoll": "Letztes Ergebnis",
+      "model": "Videomodell",
+      "mode": "Generierungsmodus",
+      "modelV25Flash": "Video 2.5 Flash",
+      "modelV25FlashDesc": "Neues, zeitlich begrenzt kostenloses Modell: feste 720P, 4–12 s Dauer, Bildreferenz (Bild-zu-Video) unterstützt; keine Negativ-Prompts.",
+      "modeText": "Text zu Video",
+      "modeImage": "Bild zu Video (1 Referenz)",
+      "refImage": "Referenzbild",
+      "chooseImage": "Bild auswählen",
+      "noImage": "Kein Bild ausgewählt",
+      "imageSelected": "Ausgewählt: {name}",
+      "clearImage": "Entfernen",
+      "refImageHint": "Laden Sie optional ein Referenzbild hoch; das Video behält Figur, Stil und Szenenelemente daraus.",
+      "refImageRequired": "Für Bild-zu-Video muss zuerst ein Referenzbild hochgeladen werden",
+      "free": "Kostenlos",
+      "freeLimited": "Kostenlos (zeitlich begrenzt)",
+      "modelModesLabel": "Modi",
+      "modelDurationsLabel": "Dauer",
+      "modelRatiosLabel": "Seitenverhältnis",
+      "dimsLandscape": "Querformat 1280×720",
+      "dimsPortrait": "Hochformat 768×1152",
+      "dimsSquare": "Quadrat 1024×1024",
+      "selfHostMinVersion": "Selbst gehostet: v{version} oder neuer für dieselben Stufen",
+      "portraitRotationHint": "Bekanntes Problem beim Anbieter: 9:16-Clips von Video 2.5 Flash können um 90° gedreht wiedergegeben werden. Datei nach dem Download drehen."
+    },
+    "download": "Herunterladen",
+    "downloading": "Wird heruntergeladen...",
+    "retry": "Erneut versuchen",
+    "square": "1:1 Quadrat",
+    "landscape": "16:9 Querformat",
+    "portrait": "9:16 Hochformat",
+    "5s": "5 Sekunden",
+    "10s": "10 Sekunden",
+    "4s": "4 Sekunden",
+    "6s": "6 Sekunden",
+    "8s": "8 Sekunden",
+    "12s": "12 Sekunden",
+    "ratio_21_9": "21:9 Ultrabreit",
+    "ratio_4_3": "4:3 Standard",
+    "ratio_3_4": "3:4 Hochformat",
+    "errors": {
+      "missingApiKey": "Bitte setzen Sie zuerst Ihren API Key",
+      "invalidApiKey": "Ungültiger API Key",
+      "rateLimited": "Ratenlimit erreicht. Limits gelten pro Modell — kurz warten und erneut versuchen.",
+      "timeout": "Zeitüberschreitung bei der Generierung",
+      "emptyPrompt": "Bitte geben Sie einen Prompt ein",
+      "promptTooLong": "Prompt überschreitet 2000 Zeichen",
+      "network": "Netzwerkfehler",
+      "internal": "Serverfehler",
+      "upstream": "KI-Dienstfehler",
+      "noResult": "Kein Ergebnis generiert",
+      "videoFailed": "Generierung beim Anbieter fehlgeschlagen. Später erneut versuchen oder Modell wechseln.",
+      "pollTimeout": "Nach 15 Minuten kein Ergebnis. Später mit der Aufgaben-ID unten prüfen.",
+      "unknown": "Unbekannter Fehler",
+      "checkApiKey": "Bitte überprüfen Sie Ihren Key",
+      "pollTimeoutQueued": "Nach 15 Minuten noch in der Warteschlange des Anbieters — die kostenlose Queue ist ausgelastet. Zu einer ruhigeren Zeit versuchen oder selbst hosten.",
+      "pollTimeoutRendering": "Nach 15 Minuten noch in der Renderung — lokales Warte-Limit erreicht.",
+      "upstreamStuck": "Der Anbieter hat diese Aufgabe abgebrochen: Inferenz nicht rechtzeitig beendet.",
+      "queueFull": "Kostenlose Warteschlange des Anbieters ist voll — Wiederholung {current}/{total}…",
+      "queueFullExhausted": "Warteschlange nach {total} Versuchen weiter voll. Zu einer ruhigeren Zeit versuchen oder selbst hosten.",
+      "copyVideoId": "Aufgaben-ID kopieren",
+      "checkLater": "Ergebnis später prüfen"
+    },
+    "seoTitle": "Kostenloser Online-KI-Videogenerator | Agnes Video Generator",
+    "seoDescription": "Kostenloser Online-KI-Video- & Bildgenerator. Geben Sie einen Prompt ein, um KI-Videos (Text zu Video) und KI-Bilder (Text zu Bild) zu erstellen. Keine Kreditkarte, keine Installation—geben Sie einfach Ihren kostenlosen Agnes API Key ein.",
+    "seoH1": "Kostenloser Online-KI-Video- & Bildgenerator",
+    "seoIntro": "Agnes Video Generator ist ein völlig kostenloses KI-Erstellungstool auf der Webseite. Öffnen Sie den Browser, geben Sie eine Textaufforderung ein und rufen Sie das Agnes AI-Modell online auf, um den Text in ein KI-Video (Vincent-Video) oder ein KI-Bild (Vincent-Bild) umzuwandeln. Völlig kostenlos, sofort zum Öffnen und Verwenden, keine Software oder Kreditkarte erforderlich; Füllen Sie einfach Ihren eigenen kostenlosen Agnes API-Schlüssel im Front-End aus, bevor Sie beginnen (nur im lokalen Browser vorhanden, wird nicht zum Server hochgeladen). Von der Inspiration bis zum Film reichen ein paar Schritte aus.",
+    "seoFeatures": [
+      {
+        "title": "Völlig kostenlos, keine Kreditkarte",
+        "desc": "Das Werkzeug ist kostenlos nutzbar; Sie benötigen nur Ihren eigenen kostenlosen Agnes API Key. Keine Zahlung, keine Kreditkarte nötig."
+      },
+      {
+        "title": "Online & ohne Installation",
+        "desc": "Läuft vollständig im Browser. Seite öffnen und erstellen—keine Software zum Herunterladen, funktioniert auf Desktop und Mobil."
+      },
+      {
+        "title": "Text zu Video",
+        "desc": "Geben Sie einen Prompt ein und agnes-video-v2.0 verwandelt ihn in ein 5/10 Sekunden langes KI-Video in mehreren Seitenverhältnissen."
+      },
+      {
+        "title": "Text zu Bild",
+        "desc": "Geben Sie einen Prompt ein und agnes-image-2.1-flash erzeugt hochwertige KI-Bilder und Kunstillustrationen."
+      }
+    ],
+    "seoUseCases": [
+      {
+        "title": "Landschaft & Natur in Bewegung",
+        "desc": "Erzeugen Sie fließende Wellen, treibende Wolken, Waldlicht und andere Naturbewegungen aus einem Prompt."
+      },
+      {
+        "title": "Produkt-Promoclips",
+        "desc": "Erstellen Sie schnell Produktvorführ-Animationen für E-Commerce oder Landingpages—ohne Aufnahme oder Schnitt."
+      },
+      {
+        "title": "Vertikale Social-Videos",
+        "desc": "Erzeugen Sie vertikale 9:16-Clips für TikTok, Reels, Shorts und mehr."
+      },
+      {
+        "title": "KI-Kunst & Illustration",
+        "desc": "Verwandeln Sie einen Satz in Konzeptkunst, Poster-Assets oder guofeng-/Cyberpunk-Stile."
+      },
+      {
+        "title": "Konzepte & Blog-Visuals",
+        "desc": "Erstellen Sie maßgeschneiderte Visuals und Konzepte für Artikel, Folien und Decks in Sekunden."
+      },
+      {
+        "title": "Avatare & Charaktere",
+        "desc": "Skizzieren Sie Charakterporträts, Game-Avatare oder virtuelle Personas aus Text."
+      }
+    ],
+    "seoFaq": [
+      {
+        "q": "Ist dieser KI-Videogenerator kostenlos?",
+        "a": "Ja. Agnes Video Generator ist vollständig kostenlos. Sie benötigen nur Ihren eigenen kostenlosen Agnes API Key (im Browser eingegeben, lokal gespeichert)—keine Zahlung, keine Kreditkarte."
+      },
+      {
+        "q": "Muss ich Software herunterladen oder installieren?",
+        "a": "Nein. Es ist ein vollständig webbasiertes Werkzeug; öffnen Sie es im Browser, um KI-Videos und -Bilder online zu erzeugen, auf Desktop oder mobil."
+      },
+      {
+        "q": "Unterstützt es Text zu Video?",
+        "a": "Ja. Geben Sie einen Prompt ein und agnes-video-v2.0 erzeugt ein 5- oder 10-sekündiges KI-Video in mehreren Seitenverhältnissen."
+      },
+      {
+        "q": "Unterstützt es Text zu Bild?",
+        "a": "Ja. Geben Sie einen Prompt ein und agnes-image-2.1-flash erzeugt KI-Bilder und Kunstillustrationen."
+      },
+      {
+        "q": "Benötige ich eine Kreditkarte?",
+        "a": "Keine Kreditkarte und keine Zahlung. Das Werkzeug ist kostenlos; Sie geben einfach Ihren eigenen kostenlosen Agnes API Key ein."
+      },
+      {
+        "q": "Werden meine Prompts und Assets hochgeladen?",
+        "a": "Ihr Agnes API Key wird nur im localStorage Ihres Browsers gespeichert und niemals auf unsere Server hochgeladen; die Erzeugung läuft direkt von Ihrem Browser zu den Agnes-Modellen."
+      },
+      {
+        "q": "Gibt es Grenzen in der kostenlosen Version?",
+        "a": "Die Videogenerierung unterstützt 5s- und 10s-Dauer sowie mehrere Seitenverhältnisse; Ihr verfügbares Kontingent hängt vom bereitgestellten kostenlosen Agnes API Key ab."
+      },
+      {
+        "q": "Kann ich die Videos und Bilder kommerziell nutzen?",
+        "a": "Die kommerzielle Nutzung hängt von den Lizenzbedingungen des Agnes API Key ab; bitte bestätigen Sie die Nutzungsrechte Ihres Key vor der kommerziellen Nutzung."
+      }
+    ],
+    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "copied": "Kopiert"
   }
 }

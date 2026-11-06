@@ -134,6 +134,221 @@
     "errorHint_aborted": "已取消生成。可点击「重试失败场景」继续未完成的部分。",
     "errorHint_scriptFailed": "场景拆分失败，可能是 API Key 无效或网络问题。",
     "partialFailedHint": "部分场景失败，可重试失败场景或仅拼接已完成的场景。",
-    "errorHint_sceneFailed": "部分场景生成失败。可点击「重试失败场景」自动重试（已完成的场景会跳过）。"
+    "errorHint_sceneFailed": "部分场景生成失败。可点击「重试失败场景」自动重试（已完成的场景会跳过）。",
+    "tabs": {
+      "label": "选择创作模式",
+      "image": "图像生成",
+      "simple": "简单视频",
+      "creative": "创意视频",
+      "imageHint": "写一句画面描述，直接生成 AI 图片：方形 / 横屏 / 竖屏三档尺寸。",
+      "simpleHint": "一句提示词生成单段 AI 视频，支持文生视频与图生视频，4–12 秒、6 种画面比例。",
+      "creativeHint": "给一个创意，AI 自动拆成 2–5 个场景逐段生成，并在浏览器内拼接成片（Beta）。"
+    }
+  },
+  "demo": {
+    "title": "在线体验",
+    "subtitle": "输入提示词，即刻生成 AI 视频和图片",
+    "githubLink": "查看 GitHub 仓库",
+    "githubNote": "网页版提供基础文生图 / 文生视频 / 图生视频体验。完整功能（创意长视频、稿件视频、数字人口播、AI 配音字幕、断点续传等）请前往 GitHub 下载桌面版使用。",
+    "githubFree": "功能完全免费",
+    "promptLabel": "创作提示词",
+    "tabs": {
+      "textToVideo": "视频生成",
+      "textToImage": "图像生成"
+    },
+    "apiKey": {
+      "title": "API Key 设置",
+      "label": "Agnes API Key",
+      "placeholder": "请输入您的 Agnes API Key...",
+      "save": "保存",
+      "clear": "清除",
+      "hint": "从以下地址获取免费 API Key：",
+      "show": "显示",
+      "hide": "隐藏",
+      "saved": "已保存",
+      "required": "请先设置 API Key",
+      "requiredHint": "使用 Agnes AI 的免费 API Key 即可开始创作。无需信用卡，无需付费。",
+      "getKey": "获取免费 API Key",
+      "localOnly": "Key 仅保存在你的浏览器本地（localStorage），不会上传到任何服务器。清除浏览器数据后需要重新输入。"
+    },
+    "image": {
+      "generate": "生成图片",
+      "generating": "正在生成图片...",
+      "promptPlaceholder": "描述你想要的图片，例如：一只柴犬在樱花树下微笑",
+      "samplePrompts": [
+        "樱花树下一只柴犬灿烂微笑，柔和虚化背景，温暖春日阳光",
+        "迷雾森林中的魔法树屋村落，古老橡树间闪烁着精灵灯",
+        "夜晚的未来赛博朋克城市街道，霓虹灯倒映在湿漉漉的路面，空中飞车掠过",
+        "雨窗旁温馨的阅读角落，温暖灯光，堆满旧书，一杯冒着热气的茶",
+        "雪松林中漫步的威武白虎，柔和漫射光，电影感构图"
+      ],
+      "size": "图片尺寸"
+    },
+    "video": {
+      "generate": "生成视频",
+      "submitting": "正在提交任务...",
+      "generating": "正在生成视频",
+      "estimatedTime": "预计需要 {minutes} 分钟左右",
+      "promptPlaceholder": "描述你想要的视频内容，例如：海浪拍打岩石的慢动作镜头",
+      "timeHint": "视频生成通常需要 3–5 分钟，请耐心等待。",
+      "samplePrompts": [
+        "黄金时刻海浪慢动作拍打礁石，无人机镜头缓缓上升展现壮阔海岸线",
+        "清晨雾气弥漫的竹林，柔和金光透过竹叶洒落，微风轻拂竹竿摇曳",
+        "航拍无人机飞越碧绿高山湖泊，四周雪峰环绕，湖面倒影如镜",
+        "秋日温馨的小镇街道，暖黄路灯透过飘落金叶，水洼映出琥珀色光芒",
+        "沙漠峡谷上空星空延时摄影，银河在古老岩层上方缓缓旋转"
+      ],
+      "duration": "视频时长",
+      "ratio": "画面比例",
+      "notSupported": "您的浏览器不支持视频播放",
+      "elapsed": "已等待",
+      "pollCount": "轮询次数",
+      "lastPoll": "上次结果",
+      "model": "视频模型",
+      "mode": "生成模式",
+      "modelV25Flash": "Video 2.5 Flash",
+      "modelV25FlashDesc": "限时免费的新一代模型：固定 720P、4–12 秒时长，支持图片参考（图生视频），不支持负面提示词。",
+      "modeText": "文生视频",
+      "modeImage": "图生视频（1 张参考图）",
+      "refImage": "参考图片",
+      "chooseImage": "选择图片",
+      "noImage": "未选择图片",
+      "imageSelected": "已选择：{name}",
+      "clearImage": "移除",
+      "refImageHint": "上传一张图片作为参考（可选），视频会保留图中的角色、风格与场景元素。",
+      "refImageRequired": "图生视频需要先上传参考图片",
+      "free": "免费",
+      "freeLimited": "限时免费",
+      "modelModesLabel": "生成模式",
+      "modelDurationsLabel": "时长",
+      "modelRatiosLabel": "画面比例",
+      "dimsLandscape": "横屏 1280×720",
+      "dimsPortrait": "竖屏 768×1152",
+      "dimsSquare": "方形 1024×1024",
+      "selfHostMinVersion": "自托管需 ≥ v{version} 才有相同档位",
+      "portraitRotationHint": "已知上游问题：Video 2.5 Flash 的 9:16 成片画面可能躺倒 90°，下载后请自行旋转。"
+    },
+    "download": "下载",
+    "downloading": "下载中...",
+    "retry": "重新生成",
+    "square": "1:1 方形",
+    "landscape": "16:9 横屏",
+    "portrait": "9:16 竖屏",
+    "5s": "5 秒",
+    "10s": "10 秒",
+    "4s": "4 秒",
+    "6s": "6 秒",
+    "8s": "8 秒",
+    "12s": "12 秒",
+    "ratio_21_9": "21:9 超宽",
+    "ratio_4_3": "4:3 标准",
+    "ratio_3_4": "3:4 竖版",
+    "errors": {
+      "missingApiKey": "请先设置 API Key",
+      "invalidApiKey": "API Key 无效，请检查后重试",
+      "rateLimited": "已达速率上限。限流按模型分池，请稍候再试。",
+      "timeout": "生成超时，请重试或缩短提示词",
+      "emptyPrompt": "请输入提示词",
+      "promptTooLong": "提示词过长，请控制在 2000 字符以内",
+      "network": "网络错误，请检查连接后重试",
+      "internal": "服务异常，请稍后重试",
+      "upstream": "AI 服务异常，请稍后重试",
+      "noResult": "未生成结果，请重试",
+      "videoFailed": "上游生成失败。请稍候重试，或换一个模型。",
+      "pollTimeout": "15 分钟后仍无结果。稍后可用下方的任务 ID 回查。",
+      "unknown": "未知错误，请重试",
+      "checkApiKey": "请确认 Key 正确，或前往 Agnes AI 平台重新获取",
+      "pollTimeoutQueued": "15 分钟后上游仍在排队：免费队列繁忙。建议错峰重试，或改用自托管。",
+      "pollTimeoutRendering": "15 分钟后上游仍在渲染，已超出本地等待上限。",
+      "upstreamStuck": "上游已终止该任务：推理未按时完成。",
+      "queueFull": "上游免费队列已满，自动重试中 {current}/{total}…",
+      "queueFullExhausted": "重试 {total} 次后队列仍饱和。建议错峰重试或自托管。",
+      "copyVideoId": "复制任务 ID",
+      "checkLater": "稍后查看结果"
+    },
+    "seoTitle": "免费在线 AI 视频生成器 | Agnes Video Generator",
+    "seoDescription": "免费在线 AI 视频生成器与图片生成器：图像生成、单段文生视频 / 图生视频、多场景创意视频三种模式一站式完成。输入提示词即生成 AI 视频与图片，无需信用卡、无需安装，填入免费 Agnes API Key 即可使用。",
+    "seoH1": "免费在线 AI 视频生成器与图片生成器（图像 · 简单视频 · 创意视频）",
+    "seoIntro": "Agnes Video Generator 是个完全免费的网页端 AI 创作工具。打开浏览器，输入一段文字提示词，就能在线调用 Agnes AI 模型，把文字变成 AI 图片、AI 视频或完整短片。页面按「图像生成 / 简单视频 / 创意视频」分三档：一句描述出图、一句提示词出单段视频（文生视频 / 图生视频）、一个创意自动拆成多个场景再拼成完整短片。完全免费、打开即用，不用装软件、不用信用卡；开始前只要在前端填上你自己的免费 Agnes API Key（只存在本地浏览器，不会上传服务器）。",
+    "seoFeatures": [
+      {
+        "title": "完全免费，无需信用卡",
+        "desc": "工具本身完全免费，你只需自备一个免费的 Agnes API Key，无需付费、无需绑定信用卡。"
+      },
+      {
+        "title": "在线即用，无需安装",
+        "desc": "纯网页端运行，打开浏览器即可创作，无需下载或安装任何软件，手机与电脑都能用。"
+      },
+      {
+        "title": "文字 / 图片生成视频（文生视频 · 图生视频）",
+        "desc": "输入提示词生成 AI 视频，或上传参考图进行图生视频；使用限时免费的 Video 2.5 Flash 模型（4–12 秒、多种画面比例）。"
+      },
+      {
+        "title": "文字生成图片（文生图）",
+        "desc": "输入提示词，调用 agnes-image-2.1-flash，快速生成高质量 AI 图片与艺术插画。"
+      }
+    ],
+    "seoUseCases": [
+      {
+        "title": "风景与自然动态",
+        "desc": "用提示词生成流动的海浪、飘动的云、森林光影等自然动态画面。"
+      },
+      {
+        "title": "产品宣传短片",
+        "desc": "为电商或落地页快速生成产品展示动画，无需拍摄与剪辑。"
+      },
+      {
+        "title": "社媒竖屏视频",
+        "desc": "直接生成 9:16 竖屏短视频，适配抖音、Reels、Shorts 等平台。"
+      },
+      {
+        "title": "AI 艺术插画",
+        "desc": "一句话生成概念插画、海报素材，以及国风或赛博朋克风格的艺术图。"
+      },
+      {
+        "title": "概念图与配图",
+        "desc": "为文章、PPT、演示文稿快速生成专属配图与视觉概念。"
+      },
+      {
+        "title": "头像与角色设定",
+        "desc": "生成人物头像、游戏角色或虚拟形象的概念草图。"
+      }
+    ],
+    "seoFaq": [
+      {
+        "q": "这个 AI 视频生成器免费吗？",
+        "a": "是的，Agnes Video Generator 完全免费。你只需要自备一个免费的 Agnes API Key（在前端填入，仅存本地浏览器），无需付费或绑定信用卡。"
+      },
+      {
+        "q": "需要下载或安装软件吗？",
+        "a": "不需要。它是纯网页端工具，用浏览器打开即可在线生成 AI 视频和图片，手机和电脑都能用。"
+      },
+      {
+        "q": "支持文生视频 / 图生视频吗？",
+        "a": "支持。输入提示词即可文生视频，也可以上传参考图进行图生视频；使用限时免费的 Video 2.5 Flash 模型（4–12 秒、多种画面比例）。"
+      },
+      {
+        "q": "支持文字生成图片（文生图）吗？",
+        "a": "支持。输入提示词调用 agnes-image-2.1-flash，即可生成 AI 图片与艺术插画。"
+      },
+      {
+        "q": "使用需要信用卡吗？",
+        "a": "不需要信用卡，也无需任何付费。工具本身免费，你只需填入自己的免费 Agnes API Key。"
+      },
+      {
+        "q": "我的提示词和生成的素材会被上传吗？",
+        "a": "你的 Agnes API Key 仅保存在本地浏览器（localStorage），不会上传到我们的服务器；生成请求由你的浏览器直接调用 Agnes 模型完成。"
+      },
+      {
+        "q": "免费版有次数或时长限制吗？",
+        "a": "视频生成支持 4–12 秒多种时长与多种画面比例；具体可用额度取决于你所用免费 Agnes API Key 的额度。"
+      },
+      {
+        "q": "生成的视频和图片可以商用吗？",
+        "a": "能否商用取决于 Agnes API Key 对应的使用条款，建议在使用前确认你的 Key 的授权范围。"
+      }
+    ],
+    "studioLinkCta": "多场景创意视频工作室（Beta） →",
+    "copied": "已复制"
   }
 }

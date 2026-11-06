@@ -134,6 +134,221 @@
     "errorHint_aborted": "Generation cancelled. Click \"Retry Failed Scenes\" to continue unfinished parts.",
     "errorHint_scriptFailed": "Scene splitting failed. Check your API Key or network.",
     "partialFailedHint": "Some scenes failed. Retry failed scenes or concatenate only completed ones.",
-    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped)."
+    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped).",
+    "tabs": {
+      "label": "제작 모드 선택",
+      "image": "이미지 생성",
+      "simple": "간단 영상",
+      "creative": "크리에이티브 영상",
+      "imageHint": "한 줄 설명으로 AI 이미지를 생성합니다. 정사각형·가로·세로 세 가지 크기.",
+      "simpleHint": "프롬프트 하나로 AI 영상 한 편을 생성합니다. 텍스트→영상 또는 이미지→영상, 4~12초, 6가지 비율.",
+      "creativeHint": "아이디어를 입력하면 AI가 2~5개 장면으로 나눠 각각 생성하고 브라우저에서 이어 붙입니다(Beta)."
+    }
+  },
+  "demo": {
+    "title": "온라인 데모",
+    "subtitle": "프롬프트를 입력하고 AI 비디오와 이미지를 생성하세요",
+    "githubLink": "GitHub에서 보기",
+    "githubFree": "완전 무료",
+    "promptLabel": "프롬프트",
+    "tabs": {
+      "textToVideo": "비디오 생성",
+      "textToImage": "이미지 생성"
+    },
+    "apiKey": {
+      "title": "API Key 설정",
+      "label": "Agnes API Key",
+      "placeholder": "API Key를 입력하세요...",
+      "save": "저장",
+      "clear": "삭제",
+      "hint": "무료 API Key 받기:",
+      "show": "표시",
+      "hide": "숨기기",
+      "saved": "저장됨",
+      "required": "먼저 API Key를 설정해주세요",
+      "requiredHint": "Agnes AI 무료 API 키로 시작하세요. 신용카드 불필요.",
+      "getKey": "무료 API Key 받기",
+      "localOnly": "Key는 브라우저의 localStorage에만 저장되며 서버에 업로드되지 않습니다. 브라우저 데이터를 삭제한 후 다시 입력해야 합니다."
+    },
+    "image": {
+      "generate": "이미지 생성",
+      "generating": "생성 중...",
+      "promptPlaceholder": "예: 벚꽃 아래 웃는 시바견",
+      "samplePrompts": [
+        "벚꽃이 흩날리는 가운데 미소 짓는 시바견, 부드러운 보케 배경, 따뜻한 봄 햇살",
+        "안개 낀 숲속의 동화 같은 트리하우스 마을, 고대 참나무 사이에서 빛나는 요정의 불빛",
+        "밤의 미래지향적 사이버펑크 도시 거리, 젖은 보도에 반사되는 네온사인과 머리 위를 지나는 플라잉카",
+        "비 오는 창가의 아늑한 독서 공간, 따뜻한 램프 불빛 아래 쌓인 오래된 책과 김이 모락모락 나는 차",
+        "눈 덮인 소나무 숲을 걷는 위풍당당한 흰 호랑이, 부드러운 확산 조명, 시네마틱 구도"
+      ],
+      "size": "크기"
+    },
+    "video": {
+      "generate": "비디오 생성",
+      "submitting": "제출 중...",
+      "generating": "비디오 생성 중",
+      "estimatedTime": "약 {minutes}분",
+      "promptPlaceholder": "예: 바위에 부딪히는 파도의 슬로우모션",
+      "timeHint": "비디오 생성에는 보통 3~5분 정도 걸립니다. 잠시만 기다려 주세요.",
+      "samplePrompts": [
+        "골든아워에 바위에 부딪히는 파도의 슬로우모션, 해안선을 드러내며 서서히 상승하는 드론 샷",
+        "새벽 안개 낀 대나무 숲, 잎 사이로 스며드는 부드러운 황금빛과 키 큰 대나무를 흔드는 잔잔한 바람",
+        "눈 덮인 산봉우리로 둘러싸인 청록빛 산정 호수 위를 나는 드론, 거울처럼 완벽한 수면 반사",
+        "가을의 아늑한 마을 거리, 흩날리는 황금빛 잎 사이로 빛나는 따뜻한 가로등과 호박빛이 비치는 물웅덩이",
+        "사막 협곡 위 별하늘의 타임랩스, 고대 암석 지대 위에서 천천히 회전하는 은하수"
+      ],
+      "duration": "길이",
+      "ratio": "화면비",
+      "notSupported": "비디오 재생 불가",
+      "elapsed": "경과 시간",
+      "lastPoll": "마지막 결과",
+      "model": "비디오 모델",
+      "mode": "생성 모드",
+      "modelV25Flash": "Video 2.5 Flash",
+      "modelV25FlashDesc": "기간 한정 무료 신모델: 720P 고정, 4–12초, 이미지 참조(이미지로 비디오) 지원. 네거티브 프롬프트 미지원.",
+      "modeText": "텍스트로 비디오",
+      "modeImage": "이미지로 비디오 (참고 이미지 1장)",
+      "refImage": "참고 이미지",
+      "chooseImage": "이미지 선택",
+      "noImage": "이미지 미선택",
+      "imageSelected": "선택됨: {name}",
+      "clearImage": "제거",
+      "refImageHint": "참고 이미지를 업로드하세요(선택). 비디오에 이미지의 캐릭터, 스타일, 장면 요소가 유지됩니다.",
+      "refImageRequired": "이미지로 비디오 모드는 먼저 참고 이미지를 업로드해야 합니다",
+      "free": "무료",
+      "freeLimited": "기간 한정 무료",
+      "modelModesLabel": "모드",
+      "modelDurationsLabel": "시간",
+      "modelRatiosLabel": "화면 비율",
+      "pollCount": "폴링 횟수",
+      "dimsLandscape": "가로 1280×720",
+      "dimsPortrait": "세로 768×1152",
+      "dimsSquare": "정사각형 1024×1024",
+      "selfHostMinVersion": "셀프 호스트에서 동일한 옵션을 쓰려면 v{version} 이상이 필요합니다",
+      "portraitRotationHint": "업스트림 알려진 문제: Video 2.5 Flash의 9:16 영상은 90° 회전된 상태로 재생될 수 있습니다. 다운로드 후 직접 회전하세요."
+    },
+    "download": "다운로드",
+    "downloading": "다운로드 중...",
+    "retry": "다시 시도",
+    "square": "1:1 정사각형",
+    "landscape": "16:9 가로",
+    "portrait": "9:16 세로",
+    "5s": "5초",
+    "10s": "10초",
+    "4s": "4초",
+    "6s": "6초",
+    "8s": "8초",
+    "12s": "12초",
+    "ratio_21_9": "21:9 울트라와이드",
+    "ratio_4_3": "4:3 표준",
+    "ratio_3_4": "3:4 세로",
+    "errors": {
+      "missingApiKey": "API Key를 설정하세요",
+      "invalidApiKey": "잘못된 API Key",
+      "rateLimited": "요청 한도에 도달했습니다. 한도는 모델별로 적용되니 잠시 후 다시 시도하세요.",
+      "timeout": "시간 초과. 짧은 프롬프트로 재시도",
+      "emptyPrompt": "프롬프트 입력",
+      "promptTooLong": "2000자 초과",
+      "network": "네트워크 오류",
+      "internal": "서버 오류",
+      "upstream": "AI 서비스 오류",
+      "noResult": "결과 없음. 재시도",
+      "videoFailed": "업스트림에서 생성이 실패했습니다. 나중에 다시 시도하거나 다른 모델을 사용하세요.",
+      "pollTimeout": "15분이 지나도 결과가 없습니다. 아래 작업 ID로 나중에 확인하세요.",
+      "unknown": "알 수 없는 오류",
+      "checkApiKey": "키 확인 또는 Agnes AI에서 재발급",
+      "pollTimeoutQueued": "15분이 지나도 업스트림 무료 큐에서 대기 중입니다. 한가한 시간에 다시 시도하거나 셀프 호스트를 이용하세요.",
+      "pollTimeoutRendering": "15분이 지나도 업스트림에서 렌더링 중입니다(로컬 대기 한도 도달).",
+      "upstreamStuck": "업스트림이 이 작업을 중단했습니다: 추론이 제시간에 끝나지 않았습니다.",
+      "queueFull": "업스트림 무료 큐가 가득 찼습니다 — {current}/{total}회 재시도 중…",
+      "queueFullExhausted": "{total}회 재시도 후에도 큐가 가득 찼습니다. 한가한 시간에 다시 시도하거나 셀프 호스트를 이용하세요.",
+      "copyVideoId": "작업 ID 복사",
+      "checkLater": "나중에 결과 확인"
+    },
+    "githubNote": "웹 버전은 기본 텍스트→이미지 / 텍스트→비디오만 지원합니다. 전체 기능(크리에이티브 장편 비디오, 원고 비디오, AI 디지털 앵커, TTS 내레이션, 자동 자막, 재개 기능 등)은 GitHub에서 데스크톱 버전을 다운로드하세요.",
+    "seoTitle": "무료 온라인 AI 비디오 생성기 | Agnes Video Generator",
+    "seoDescription": "무료 온라인 AI 비디오 및 이미지 생성기: 프롬프트를 입력하면 AI 비디오와 이미지가 생성됩니다. 텍스트 투 비디오, 텍스트 투 이미지 지원. 신용카드는 필요 없고 설치도 불필요. 무료 Agnes API Key만 입력하면 됩니다.",
+    "seoH1": "무료 온라인 AI 비디오 및 이미지 생성기",
+    "seoIntro": "Agnes Video Generator는 완전히 무료로 사용할 수 있는 웹 AI 작성 도구입니다. 브라우저를 열고 텍스트 프롬프트를 입력하면 온라인으로 Agnes AI 모델을 호출하여 텍스트를 AI 비디오(빈생 비디오) 또는 AI 그림(빈생 그림)으로 바꿀 수 있습니다. 완전 무료, 열면 바로 사용, 소프트웨어 설치, 신용카드 없음; 시작하기 전에 프런트엔드에 무료 Agnes API 키를 입력하십시오(로컬 브라우저에만 존재하며 서버에 업로드되지 않습니다). 영감에서 완성까지 몇 걸음이면 충분합니다.",
+    "seoFeatures": [
+      {
+        "title": "완전 무료, 신용카드 불필요",
+        "desc": "도구 자체는 완전 무료이며, 본인의 무료 Agnes API Key만 있으면 결제나 카드 등록이 필요 없습니다."
+      },
+      {
+        "title": "온라인, 설치 불필요",
+        "desc": "브라우저에서 완전히 작동합니다. 페이지를 열면 바로 만들기 시작하며, 다운로드 없이 PC와 모바일 모두에서 이용할 수 있습니다."
+      },
+      {
+        "title": "텍스트 투 비디오",
+        "desc": "프롬프트를 입력하면 agnes-video-v2.0이 여러 화면 비율로 5/10초 분량의 AI 비디오를 생성합니다."
+      },
+      {
+        "title": "텍스트 투 이미지",
+        "desc": "프롬프트를 입력하면 agnes-image-2.1-flash가 고품질 AI 이미지와 아트 일러스트를 생성합니다."
+      }
+    ],
+    "seoUseCases": [
+      {
+        "title": "풍경과 자연의 움직임",
+        "desc": "프롬프트로 흐르는 파도, 떠가는 구름, 숲의 빛 등 자연의 움직임을 생성합니다."
+      },
+      {
+        "title": "제품 홍보 영상",
+        "desc": "이커머스나 랜딩 페이지를 위해 촬영이나 편집 없이 제품 소개 애니메이션을 빠르게 제작."
+      },
+      {
+        "title": "세로 소셜 비디오",
+        "desc": "TikTok, Reels, Shorts 등에 맞는 9:16 세로 클립을 생성."
+      },
+      {
+        "title": "AI 아트와 일러스트",
+        "desc": "한 문장으로 컨셉 아트, 포스터 소재, 국풍이나 사이버펑크 스타일 이미지를 생성."
+      },
+      {
+        "title": "컨셉과 블로그용 비주얼",
+        "desc": "기사, 슬라이드, 프레젠테이션용 오리지널 비주얼과 컨셉을 몇 초 만에 제작."
+      },
+      {
+        "title": "아바타와 캐릭터",
+        "desc": "텍스트로 인물 초상화, 게임 캐릭터, 버추얼 아바타의 스케치를 생성."
+      }
+    ],
+    "seoFaq": [
+      {
+        "q": "이 AI 비디오 생성기는 무료인가요?",
+        "a": "네. Agnes Video Generator는 완전 무료입니다. 본인의 무료 Agnes API Key(브라우저에 입력, 로컬 저장)만 있으면 결제나 신용카드가 필요 없습니다."
+      },
+      {
+        "q": "소프트웨어를 다운로드하거나 설치해야 하나요?",
+        "a": "아니요. 완전한 브라우저 기반 도구라 브라우저에서 열기만 하면 PC나 모바일에서 온라인으로 AI 비디오와 이미지를 생성할 수 있습니다."
+      },
+      {
+        "q": "텍스트 투 비디오를 지원하나요?",
+        "a": "지원합니다. 프롬프트를 입력하면 agnes-video-v2.0이 여러 화면 비율로 5 또는 10초 분량의 AI 비디오를 생성합니다."
+      },
+      {
+        "q": "텍스트 투 이미지를 지원하나요?",
+        "a": "지원합니다. 프롬프트를 입력하면 agnes-image-2.1-flash가 AI 이미지와 아트 일러스트를 생성합니다."
+      },
+      {
+        "q": "신용카드가 필요한가요?",
+        "a": "신용카드도 결제도 필요 없습니다. 도구는 무료이며 본인의 무료 Agnes API Key를 입력하기만 하면 됩니다."
+      },
+      {
+        "q": "제 프롬프트와 생성된 자료는 업로드되나요?",
+        "a": "사용자의 Agnes API Key는 브라우저의 localStorage에만 저장되며 당사 서버로는 전송되지 않습니다. 생성 요청은 브라우저에서 Agnes 모델로 직접 전송됩니다."
+      },
+      {
+        "q": "무료 버전에 횟수나 길이 제한이 있나요?",
+        "a": "비디오 생성은 5초와 10초 길이, 여러 화면 비율을 지원합니다. 사용 가능한 할당량은 사용하는 무료 Agnes API Key에 따라 달라집니다."
+      },
+      {
+        "q": "생성한 비디오와 이미지를 상업적으로 사용할 수 있나요?",
+        "a": "상업적 사용 여부는 Agnes API Key의 라이선스 약관에 따릅니다. 상업적 사용 전에 본인 Key의 이용 권한 범위를 확인하시기 바랍니다."
+      }
+    ],
+    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "copied": "복사됨"
   }
 }

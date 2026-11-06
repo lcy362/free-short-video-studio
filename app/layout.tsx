@@ -4,7 +4,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'FreeShortVideoStudio — Free AI Short Video Generator',
   description:
-    'FreeShortVideoStudio: AI-powered free online short video generator. Type an idea, the AI splits it into 2-5 scenes, generates each with text-to-video and stitches them into a complete video in your browser. No install, no GPU, no credit card — just a free Agnes API key.',
+    'FreeShortVideoStudio: a free online AI creator with three modes — image generation, single-clip text-to-video, and multi-scene creative video. Everything runs in your browser: no install, no GPU, no credit card — just a free Agnes API key.',
 };
 
 export const viewport: Viewport = {

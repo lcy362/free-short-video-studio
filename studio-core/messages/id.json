@@ -134,6 +134,221 @@
     "errorHint_aborted": "Generation cancelled. Click \"Retry Failed Scenes\" to continue unfinished parts.",
     "errorHint_scriptFailed": "Scene splitting failed. Check your API Key or network.",
     "partialFailedHint": "Some scenes failed. Retry failed scenes or concatenate only completed ones.",
-    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped)."
+    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped).",
+    "tabs": {
+      "label": "Pilih mode pembuatan",
+      "image": "Gambar",
+      "simple": "Video sederhana",
+      "creative": "Video kreatif",
+      "imageHint": "Tulis satu deskripsi dan dapatkan gambar AI dalam ukuran persegi, lanskap, atau potret.",
+      "simpleHint": "Satu prompt, satu klip video AI — teks-ke-video atau gambar-ke-video, 4–12 detik, enam rasio.",
+      "creativeHint": "Beri satu ide; AI memecahnya menjadi 2–5 adegan, membuat tiap klip, lalu menyambungnya di browser Anda (Beta)."
+    }
+  },
+  "demo": {
+    "title": "Demo Online",
+    "subtitle": "Masukkan prompt dan hasilkan video dan gambar AI",
+    "githubLink": "Lihat di GitHub",
+    "githubFree": "Sepenuhnya Gratis",
+    "promptLabel": "Prompt",
+    "tabs": {
+      "textToVideo": "Pembuatan Video",
+      "textToImage": "Pembuatan Gambar"
+    },
+    "apiKey": {
+      "title": "Pengaturan API Key",
+      "label": "Agnes API Key",
+      "placeholder": "Masukkan API Key Anda...",
+      "save": "Simpan",
+      "clear": "Hapus",
+      "hint": "Dapatkan API Key gratis dari:",
+      "show": "Tampilkan",
+      "hide": "Sembunyikan",
+      "saved": "Tersimpan",
+      "required": "Silakan atur API Key terlebih dahulu",
+      "requiredHint": "Mulai dengan API key Agnes AI gratis. Tanpa kartu kredit.",
+      "getKey": "Dapatkan API Key Gratis",
+      "localOnly": "Kunci hanya disimpan di localStorage browser Anda dan tidak pernah diunggah ke server mana pun. Anda perlu memasukkannya kembali setelah menghapus data browser."
+    },
+    "image": {
+      "generate": "Hasilkan Gambar",
+      "generating": "Menghasilkan...",
+      "promptPlaceholder": "Contoh: Shiba Inu tersenyum di bawah pohon sakura",
+      "samplePrompts": [
+        "Seekor Shiba Inu tersenyum di bawah kelopak sakura yang beterbangan, latar bokeh lembut, cahaya matahari musim semi yang hangat",
+        "Desa rumah pohon ajaib di hutan berkabut, lampu peri bercahaya di antara pohon oak kuno",
+        "Jalanan kota cyberpunk futuristik di malam hari, papan neon memantul di trotoar basah, mobil terbang melintas di atas",
+        "Sudut baca yang nyaman di dekat jendela hujan, cahaya lampu hangat, tumpukan buku tua dan secangkir teh panas mengepul",
+        "Harimau putih megah berjalan melalui hutan pinus bersalju, cahaya lembut tersebar, komposisi sinematik"
+      ],
+      "size": "Ukuran"
+    },
+    "video": {
+      "generate": "Hasilkan Video",
+      "submitting": "Mengirim...",
+      "generating": "Menghasilkan video",
+      "estimatedTime": "Perkiraan ~{minutes} mnt",
+      "promptPlaceholder": "Contoh: Ombak menghantam karang dalam gerak lambat",
+      "timeHint": "Pembuatan video biasanya memakan waktu 3–5 menit. Mohon bersabar.",
+      "samplePrompts": [
+        "Ombak yang menghantam karang pantai dalam gerak lambat saat golden hour, drone perlahan naik mengungkap garis pantai yang membentang luas",
+        "Hutan bambu berkabut di waktu fajar, cahaya keemasan lembut menembus dedaunan, angin sepoi-sepoi mengayunkan batang bambu yang menjulang",
+        "Drone melintas di atas danau pegunungan berwarna toska dikelilingi puncak bersalju, pantulan sempurna bak cermin",
+        "Jalanan desa yang asri di musim gugur, lampu jalan hangat berpijar di balik daun keemasan yang berjatuhan, genangan memantulkan cahaya keemasan",
+        "Time-lapse langit berbintang di atas ngarai gurun, Bima Sakti berputar perlahan di atas formasi batuan kuno"
+      ],
+      "duration": "Durasi",
+      "ratio": "Rasio Aspek",
+      "notSupported": "Browser tidak mendukung video",
+      "elapsed": "Berlalu",
+      "lastPoll": "Hasil Terakhir",
+      "model": "Model Video",
+      "mode": "Mode Pembuatan",
+      "modelV25Flash": "Video 2.5 Flash",
+      "modelV25FlashDesc": "Model baru gratis (waktu terbatas): 720P tetap, durasi 4–12 detik, mendukung referensi gambar (gambar ke video); tanpa prompt negatif.",
+      "modeText": "Teks ke video",
+      "modeImage": "Gambar ke video (1 referensi)",
+      "refImage": "Gambar Referensi",
+      "chooseImage": "Pilih Gambar",
+      "noImage": "Belum ada gambar",
+      "imageSelected": "Dipilih: {name}",
+      "clearImage": "Hapus",
+      "refImageHint": "Unggah gambar referensi (opsional); video akan mempertahankan karakter, gaya, dan elemen latar darinya.",
+      "refImageRequired": "Mode gambar ke video memerlukan gambar referensi terlebih dahulu",
+      "free": "Gratis",
+      "freeLimited": "Gratis (waktu terbatas)",
+      "modelModesLabel": "Mode",
+      "modelDurationsLabel": "Durasi",
+      "modelRatiosLabel": "Rasio",
+      "pollCount": "Jumlah Poll",
+      "dimsLandscape": "Lanskap 1280×720",
+      "dimsPortrait": "Potret 768×1152",
+      "dimsSquare": "Persegi 1024×1024",
+      "selfHostMinVersion": "Self-host memerlukan v{version} atau lebih baru untuk opsi yang sama",
+      "portraitRotationHint": "Masalah hulu yang diketahui: klip 9:16 dari Video 2.5 Flash bisa diputar miring 90°. Putar file setelah diunduh."
+    },
+    "download": "Unduh",
+    "downloading": "Mengunduh...",
+    "retry": "Coba Lagi",
+    "square": "1:1 Persegi",
+    "landscape": "16:9 Lanskap",
+    "portrait": "9:16 Potret",
+    "5s": "5 detik",
+    "10s": "10 detik",
+    "4s": "4 detik",
+    "6s": "6 detik",
+    "8s": "8 detik",
+    "12s": "12 detik",
+    "ratio_21_9": "21:9 Ultra Lebar",
+    "ratio_4_3": "4:3 Standar",
+    "ratio_3_4": "3:4 Potret",
+    "errors": {
+      "missingApiKey": "Silakan atur API Key",
+      "invalidApiKey": "API Key tidak valid",
+      "rateLimited": "Batas laju tercapai. Batas dihitung per model — tunggu sebentar lalu coba lagi.",
+      "timeout": "Waktu habis. Coba prompt lebih pendek",
+      "emptyPrompt": "Masukkan prompt",
+      "promptTooLong": "Prompt > 2000 karakter",
+      "network": "Kesalahan jaringan",
+      "internal": "Kesalahan server",
+      "upstream": "Kesalahan layanan AI",
+      "noResult": "Tidak ada hasil. Coba lagi",
+      "videoFailed": "Pembuatan gagal di hulu. Coba lagi nanti atau ganti model.",
+      "pollTimeout": "Tidak ada hasil setelah 15 menit. Periksa nanti dengan ID tugas di bawah.",
+      "unknown": "Kesalahan tidak diketahui",
+      "checkApiKey": "Verifikasi kunci atau dapatkan baru dari Agnes AI",
+      "pollTimeoutQueued": "Masih mengantre di hulu setelah 15 menit — antrean gratis sedang sibuk. Coba di luar jam sibuk atau jalankan sendiri.",
+      "pollTimeoutRendering": "Masih diproses di hulu setelah 15 menit — batas tunggu lokal tercapai.",
+      "upstreamStuck": "Hulu menghentikan tugas ini: inferensi tidak selesai tepat waktu.",
+      "queueFull": "Antrean gratis hulu penuh — mencoba ulang {current}/{total}…",
+      "queueFullExhausted": "Antrean masih penuh setelah {total} percobaan. Coba di luar jam sibuk atau jalankan sendiri.",
+      "copyVideoId": "Salin ID tugas",
+      "checkLater": "Periksa hasil nanti"
+    },
+    "githubNote": "Demo web ini hanya menyediakan fungsi dasar teks-ke-gambar dan teks-ke-video. Untuk fitur lengkap (video kreatif panjang, video naskah, pembawa acara digital AI, narasi TTS, subtitle otomatis, lanjutkan, dan lainnya), unduh aplikasi desktop dari GitHub.",
+    "seoTitle": "Generator Video AI Gratis Online | Agnes Video Generator",
+    "seoDescription": "Generator video & gambar AI gratis online. Ketik prompt untuk membuat video AI (teks ke video) dan gambar AI (teks ke gambar). Tanpa kartu kredit, tanpa instalasi—cukup masukkan Agnes API Key gratis Anda.",
+    "seoH1": "Generator Video & Gambar AI Online Gratis",
+    "seoIntro": "Agnes Video Generator adalah tools kreasi AI berbasis web yang gratis sepenuhnya. Buka browser, ketik satu paragraf prompt, langsung bisa panggil model Agnes AI secara online, ubah teks jadi video AI (text-to-video) atau gambar AI (text-to-image). Gratis sepenuhnya, buka langsung pakai, tidak perlu install software, tidak perlu kartu kredit; sebelum mulai cukup isi API Key Agnes gratis kamu di frontend (hanya disimpan di browser lokal, tidak diupload ke server). Dari inspirasi sampai hasil jadi, beberapa langkah saja.",
+    "seoFeatures": [
+      {
+        "title": "Sepenuhnya gratis, tanpa kartu kredit",
+        "desc": "Alat ini gratis digunakan; cukup bawa Agnes API Key gratis Anda sendiri. Tanpa pembayaran, tanpa kartu kredit."
+      },
+      {
+        "title": "Online & tanpa instalasi",
+        "desc": "Berjalan sepenuhnya di browser. Buka halaman dan buat—tanpa perangkat lunak yang diunduh, berfungsi di desktop dan seluler."
+      },
+      {
+        "title": "Teks ke video",
+        "desc": "Ketik prompt dan agnes-video-v2.0 mengubahnya menjadi video AI 5/10 detik dalam beberapa rasio aspek."
+      },
+      {
+        "title": "Teks ke gambar",
+        "desc": "Ketik prompt dan agnes-image-2.1-flash menghasilkan gambar AI dan ilustrasi seni berkualitas tinggi."
+      }
+    ],
+    "seoUseCases": [
+      {
+        "title": "Pemandangan & gerakan alam",
+        "desc": "Hasilkan ombak yang mengalir, awan yang melayang, cahaya hutan, dan gerakan alam lainnya dari prompt."
+      },
+      {
+        "title": "Klip promosi produk",
+        "desc": "Buat animasi tayangan produk untuk e-commerce atau landing page dengan cepat—tanpa pemotretan atau penyuntingan."
+      },
+      {
+        "title": "Video sosial vertikal",
+        "desc": "Hasilkan klip vertikal 9:16 untuk TikTok, Reels, Shorts, dan lainnya."
+      },
+      {
+        "title": "Seni & ilustrasi AI",
+        "desc": "Ubah kalimat menjadi seni konsep, aset poster, atau gambar gaya guofeng / cyberpunk."
+      },
+      {
+        "title": "Konsep & visual blog",
+        "desc": "Hasilkan visual dan konsep khusus untuk artikel, slide, dan dek dalam hitungan detik."
+      },
+      {
+        "title": "Avatar & karakter",
+        "desc": "Sketsa potret karakter, avatar game, atau persona virtual dari teks."
+      }
+    ],
+    "seoFaq": [
+      {
+        "q": "Apakah generator video AI ini gratis?",
+        "a": "Ya. Agnes Video Generator sepenuhnya gratis. Anda hanya perlu Agnes API Key gratis Anda sendiri (dimasukkan di browser, disimpan lokal)—tanpa pembayaran, tanpa kartu kredit."
+      },
+      {
+        "q": "Perlu mengunduh atau memasang perangkat lunak?",
+        "a": "Tidak. Ini alat berbasis web sepenuhnya; buka di browser untuk membuat video dan gambar AI secara online, di desktop atau seluler."
+      },
+      {
+        "q": "Apakah mendukung teks ke video?",
+        "a": "Ya. Ketik prompt dan agnes-video-v2.0 menghasilkan video AI 5 atau 10 detik dalam beberapa rasio aspek."
+      },
+      {
+        "q": "Apakah mendukung teks ke gambar?",
+        "a": "Ya. Ketik prompt dan agnes-image-2.1-flash menghasilkan gambar AI dan ilustrasi seni."
+      },
+      {
+        "q": "Perlu kartu kredit?",
+        "a": "Tanpa kartu kredit dan tanpa pembayaran. Alat ini gratis; Anda cukup masukkan Agnes API Key gratis Anda sendiri."
+      },
+      {
+        "q": "Apakah prompt dan aset saya diunggah?",
+        "a": "Agnes API Key Anda hanya disimpan di localStorage browser Anda dan tidak pernah diunggah ke server kami; pembuatan berjalan langsung dari browser Anda ke model Agnes."
+      },
+      {
+        "q": "Apakah ada batasan pada versi gratis?",
+        "a": "Pembuatan video mendukung durasi 5s dan 10s serta beberapa rasio aspek; kuota tersedia Anda bergantung pada Agnes API Key gratis yang Anda berikan."
+      },
+      {
+        "q": "Bolehkah saya menggunakan video dan gambar secara komersial?",
+        "a": "Penggunaan komersial bergantung pada ketentuan lisensi Agnes API Key; harap konfirmasi hak penggunaan Key Anda sebelum penggunaan komersial."
+      }
+    ],
+    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "copied": "Disalin"
   }
 }

@@ -134,6 +134,221 @@
     "errorHint_aborted": "Oluşturma iptal edildi. Tamamlanmayan kısımlara devam etmek için \"Başarısız Sahneleri Yeniden Dene\"ye tıklayın.",
     "errorHint_scriptFailed": "Sahne ayrımı başarısız. API Key'inizi veya ağ bağlantınızı kontrol edin.",
     "partialFailedHint": "Bazı sahneler başarısız oldu. Başarısız sahneleri yeniden deneyin veya yalnızca tamamlananları birleştirin.",
-    "errorHint_sceneFailed": "Bazı sahneler başarısız oldu. Otomatik deneme için \"Başarısız Sahneleri Yeniden Dene\"ye tıklayın (tamamlanan sahneler atlanır)."
+    "errorHint_sceneFailed": "Bazı sahneler başarısız oldu. Otomatik deneme için \"Başarısız Sahneleri Yeniden Dene\"ye tıklayın (tamamlanan sahneler atlanır).",
+    "tabs": {
+      "label": "Oluşturma modu seçin",
+      "image": "Görsel",
+      "simple": "Basit video",
+      "creative": "Yaratıcı video",
+      "imageHint": "Tek bir açıklama yazın; kare, yatay veya dikey boyutta AI görseli alın.",
+      "simpleHint": "Tek istem, tek AI video klibi — metinden videoya veya görselden videoya, 4–12 saniye, altı oran.",
+      "creativeHint": "Bir fikir verin; AI bunu 2–5 sahneye böler, her klibi üretir ve tarayıcınızda birleştirir (Beta)."
+    }
+  },
+  "demo": {
+    "title": "Çevrimiçi Demo'yu Dene",
+    "subtitle": "Bir prompt girin ve anında yapay zekâ videoları ve görselleri oluşturun",
+    "githubLink": "GitHub'da Görüntüle",
+    "githubNote": "Bu web demosu temel metinden görsele ve metinden videoya özellikleri sunar. Tam özellik seti (yaratıcı uzun videolar, senaryo tabanlı videolar, yapay zekâ dijital sunucu, TTS anlatım, otomatik altyazı, kaldığı yerden devam ve daha fazlası) için masaüstü uygulamasını GitHub'dan indirin.",
+    "githubFree": "Tamamen Ücretsiz",
+    "promptLabel": "Prompt",
+    "tabs": {
+      "textToVideo": "Video Üretimi",
+      "textToImage": "Görsel Üretimi"
+    },
+    "apiKey": {
+      "title": "API Anahtarı Ayarları",
+      "label": "Agnes API Anahtarı",
+      "placeholder": "Agnes API Anahtarınızı girin...",
+      "save": "Kaydet",
+      "clear": "Temizle",
+      "hint": "Ücretsiz API anahtarınızı şuradan alın:",
+      "show": "Göster",
+      "hide": "Gizle",
+      "saved": "Kaydedildi",
+      "required": "Lütfen önce API Anahtarınızı ayarlayın",
+      "requiredHint": "Ücretsiz bir Agnes AI API anahtarıyla başlayın. Kredi kartı yok, ödeme gerekmez.",
+      "getKey": "Ücretsiz API Anahtarı Alın",
+      "localOnly": "Anahtarınız yalnızca tarayıcınızın localStorage'ında saklanır. Asla hiçbir sunucuya yüklenmez. Tarayıcı verilerini temizledikten sonra yeniden girmeniz gerekir."
+    },
+    "image": {
+      "generate": "Görsel Oluştur",
+      "generating": "Görsel oluşturuluyor...",
+      "promptPlaceholder": "İstediğiniz görseli tarif edin, örn.: Kiraz çiçeklerinin altında gülümseyen bir Shiba Inu",
+      "samplePrompts": [
+        "Kiraz çiçeklerinin altında gülümseyen bir Shiba Inu, yumuşak bokeh arka plan, sıcak bahar güneşi",
+        "Sisli bir ormanda büyülü bir ağaç ev köyü, antik meşelerin arasında parlayan peri ışıkları",
+        "Geceleri fütüristik bir cyberpunk şehir caddesi, ıslak kaldırıma yansıyan neon tabelalar, tepede uçan arabalar",
+        "Yağmurlu bir pencerenin yanında rahat bir okuma köşesi, sıcak lamba ışığı, eski kitap yığınları, buharı tüten bir fincan çay",
+        "Karla kaplı bir çam ormanında yürüyen görkemli bir beyaz kaplan, yumuşak dağınık ışık, sinematik kompozisyon"
+      ],
+      "size": "Görsel Boyutu"
+    },
+    "video": {
+      "generate": "Video Oluştur",
+      "submitting": "Görev gönderiliyor...",
+      "generating": "Video oluşturuluyor",
+      "estimatedTime": "Tahmini süre: ~{minutes} dk",
+      "promptPlaceholder": "İstediğiniz videoyu tarif edin, örn.: Kayalara çarpan ağır çekim dalgalar",
+      "timeHint": "Video oluşturma genellikle 3-5 dakika sürer. Lütfen sabırlı olun.",
+      "samplePrompts": [
+        "Altın saatte kayalık kıyılara çarpan ağır çekim dalgalar, geniş kıyı şeridini ortaya çıkarmak için yavaşça yükselen drone çekimi",
+        "Şafakta sisli bir bambu ormanı, yaprakların arasından süzülen yumuşak altın ışık, uzun gövdeleri sallayan hafif rüzgâr",
+        "Karla kaplı zirvelerle çevrili turkuaz bir dağ gölü üzerinde uçan havadan drone çekimi, ayna gibi kusursuz yansımalar",
+        "Sonbaharda rahat bir köy caddesi, düşen altın yaprakların arasından parlayan sıcak sokak lambaları, kehribar ışığı yansıtan su birikintileri",
+        "Çöl kanyonu üzerinde yıldızlı gökyüzünün time-lapse'ı, antik kaya oluşumlarının üzerinde yavaşça dönen Samanyolu"
+      ],
+      "duration": "Süre",
+      "ratio": "En-Boy Oranı",
+      "notSupported": "Tarayıcınız video oynatmayı desteklemiyor",
+      "elapsed": "Geçen Süre",
+      "pollCount": "Sorgulama",
+      "lastPoll": "Son Sonuç",
+      "model": "Video Modeli",
+      "mode": "Üretim Modu",
+      "modelV25Flash": "Video 2.5 Flash",
+      "modelV25FlashDesc": "Sınırlı süre ücretsiz yeni model: sabit 720P, 4–12 saniye süre, görsel referans (görüntüden video) desteği; negatif prompt yok.",
+      "modeText": "Metinden video",
+      "modeImage": "Görüntüden video (1 referans)",
+      "refImage": "Referans Görsel",
+      "chooseImage": "Görsel Seç",
+      "noImage": "Görsel seçilmedi",
+      "imageSelected": "Seçildi: {name}",
+      "clearImage": "Kaldır",
+      "refImageHint": "Bir referans görsel yükleyin (isteğe bağlı); video içindeki karakteri, stili ve sahne öğelerini korur.",
+      "refImageRequired": "Görüntüden video modu önce bir referans görsel gerektirir",
+      "free": "Ücretsiz",
+      "freeLimited": "Sınırlı süre ücretsiz",
+      "modelModesLabel": "Modlar",
+      "modelDurationsLabel": "Süre",
+      "modelRatiosLabel": "Oran",
+      "dimsLandscape": "Yatay 1280×720",
+      "dimsPortrait": "Dikey 768×1152",
+      "dimsSquare": "Kare 1024×1024",
+      "selfHostMinVersion": "Kendi sunucunuzda aynı seçenekler için v{version} veya üzeri gerekir",
+      "portraitRotationHint": "Sağlayıcıdan kaynaklanan bilinen sorun: Video 2.5 Flash 9:16 klipler 90° dönük oynatılabilir. İndirdikten sonra dosyayı döndürün."
+    },
+    "download": "İndir",
+    "downloading": "İndiriliyor...",
+    "retry": "Tekrar Dene",
+    "square": "1:1 Kare",
+    "landscape": "16:9 Yatay",
+    "portrait": "9:16 Dikey",
+    "5s": "5 saniye",
+    "10s": "10 saniye",
+    "4s": "4 saniye",
+    "6s": "6 saniye",
+    "8s": "8 saniye",
+    "12s": "12 saniye",
+    "ratio_21_9": "21:9 Ultra Geniş",
+    "ratio_4_3": "4:3 Standart",
+    "ratio_3_4": "3:4 Dikey",
+    "errors": {
+      "missingApiKey": "Lütfen önce API anahtarınızı ayarlayın",
+      "invalidApiKey": "Geçersiz API anahtarı. Lütfen kontrol edip tekrar deneyin",
+      "rateLimited": "Hız limitine ulaşıldı. Limitler modele göredir — biraz bekleyip tekrar deneyin.",
+      "timeout": "Oluşturma zaman aşımına uğradı. Tekrar deneyin veya prompt'unuzu kısaltın",
+      "emptyPrompt": "Lütfen bir prompt girin",
+      "promptTooLong": "Prompt, 2000 karakterlik limiti aşıyor",
+      "network": "Ağ hatası. Lütfen bağlantınızı kontrol edin",
+      "internal": "Sunucu hatası. Lütfen daha sonra tekrar deneyin",
+      "upstream": "Yapay zekâ hizmeti hatası. Lütfen daha sonra tekrar deneyin",
+      "noResult": "Sonuç üretilemedi. Lütfen tekrar deneyin",
+      "videoFailed": "Üretim sağlayıcı tarafında başarısız oldu. Sonra tekrar deneyin veya model değiştirin.",
+      "pollTimeout": "15 dakika sonra sonuç yok. Aşağıdaki görev ID’si ile sonra kontrol edin.",
+      "unknown": "Bilinmeyen hata. Lütfen tekrar deneyin",
+      "checkApiKey": "Lütfen anahtarınızın doğru olduğunu kontrol edin veya Agnes AI'dan yeni bir anahtar alın",
+      "pollTimeoutQueued": "15 dakika sonra hâlâ sağlayıcı kuyruğunda — ücretsiz kuyruk yoğun. Yoğun olmayan bir saatte deneyin veya kendiniz barındırın.",
+      "pollTimeoutRendering": "15 dakika sonra hâlâ işleniyor — yerel bekleme sınırına ulaşıldı.",
+      "upstreamStuck": "Sağlayıcı bu görevi durdurdu: çıkarım süresinde tamamlanmadı.",
+      "queueFull": "Sağlayıcının ücretsiz kuyruğu dolu — {current}/{total} yeniden deneniyor…",
+      "queueFullExhausted": "{total} denemeden sonra kuyruk hâlâ dolu. Yoğun olmayan saatte deneyin veya kendiniz barındırın.",
+      "copyVideoId": "Görev ID’sini kopyala",
+      "checkLater": "Sonucu sonra kontrol et"
+    },
+    "seoTitle": "Çevrimiçi Ücretsiz Yapay Zekâ Video Oluşturucu | Agnes Video Generator",
+    "seoDescription": "Ücretsiz çevrimiçi yapay zekâ video ve görsel oluşturucu. Yapay zekâ videosu (metinden videoya) ve yapay zekâ görselleri (metinden görsele) oluşturmak için bir prompt yazın. Kredi kartı yok, kurulum yok — yalnızca ücretsiz Agnes API Anahtarınızı ekleyin.",
+    "seoH1": "Ücretsiz Çevrimiçi Yapay Zekâ Video ve Görsel Oluşturucu",
+    "seoIntro": "Agnes Video Generator tamamen ücretsiz bir web yapay zeka oluşturma aracıdır. Tarayıcıyı açın, bir metin istemi girin ve Agnes AI modelini çevrimiçi olarak çağırabilir ve metni AI videolarına (Vincent Videoları) veya AI resimlerine (Vincent Resimleri) dönüştürebilirsiniz. Tamamen ücretsiz, açılıp kullanılabilir, yazılım yüklemeye veya kredi kartı yüklemeye gerek yok; Başlamadan önce ön ucunuza kendi ücretsiz Agnes API anahtarınızı doldurun (yalnızca yerel tarayıcıda mevcuttur, sunucuya yüklenmez). İlhamdan filme kadar birkaç adım yeterlidir.",
+    "seoFeatures": [
+      {
+        "title": "Tamamen ücretsiz, kredi kartı yok",
+        "desc": "Araç ücretsizdir; yalnızca kendi ücretsiz Agnes API Anahtarınızı getirin. Ödeme yok, kredi kartı gerekmez."
+      },
+      {
+        "title": "Çevrimiçi ve kurulum yok",
+        "desc": "Tamamen tarayıcıda çalışır. Sayfayı açın ve oluşturun — indirilecek yazılım yok, masaüstü ve mobilde çalışır."
+      },
+      {
+        "title": "Metinden videoya",
+        "desc": "Bir prompt yazın ve agnes-video-v2.0 onu birden çok en-boy oranında 5/10 saniyelik bir yapay zekâ videosuna dönüştürür."
+      },
+      {
+        "title": "Metinden görsele",
+        "desc": "Bir prompt yazın ve agnes-image-2.1-flash yüksek kaliteli yapay zekâ görselleri ve sanat illüstrasyonları üretir."
+      }
+    ],
+    "seoUseCases": [
+      {
+        "title": "Manzara ve doğa hareketi",
+        "desc": "Bir prompt'tan akan dalgalar, süzülen bulutlar, orman ışığı ve diğer doğal hareketler üretin."
+      },
+      {
+        "title": "Ürün tanıtım klipleri",
+        "desc": "E-ticaret veya açılış sayfaları için hızlıca ürün vitrin animasyonları oluşturun — çekim veya kurgu yok."
+      },
+      {
+        "title": "Dikey sosyal videolar",
+        "desc": "TikTok, Reels, Shorts ve daha fazlası için hazır 9:16 dikey klipler üretin."
+      },
+      {
+        "title": "Yapay zekâ sanatı ve illüstrasyon",
+        "desc": "Bir cümleyi konsept sanata, afiş varlıklarına veya guofeng / cyberpunk tarzı görsellere dönüştürün."
+      },
+      {
+        "title": "Konsept ve blog görselleri",
+        "desc": "Makaleler, slaytlar ve sunumlar için saniyeler içinde özel görseller ve konseptler üretin."
+      },
+      {
+        "title": "Avatarlar ve karakterler",
+        "desc": "Metinden karakter portreleri, oyun avatarları veya sanal kişilikler çizin."
+      }
+    ],
+    "seoFaq": [
+      {
+        "q": "Bu yapay zekâ video oluşturucu ücretsiz mi?",
+        "a": "Evet. Agnes Video Generator tamamen ücretsizdir. Yalnızca kendi ücretsiz Agnes API Anahtarınıza ihtiyacınız var (tarayıcıya girilir, yerel olarak saklanır) — ödeme yok, kredi kartı yok."
+      },
+      {
+        "q": "Yazılım indirmem veya kurmam gerekir mi?",
+        "a": "Hayır. Tamamen web tabanlı bir araçtır; masaüstünde veya mobilde, tarayıcıda açarak çevrimiçi yapay zekâ videosu ve görseli üretebilirsiniz."
+      },
+      {
+        "q": "Metinden videoyu destekliyor mu?",
+        "a": "Evet. Bir prompt yazın ve agnes-video-v2.0 birden çok en-boy oranında 5 veya 10 saniyelik bir yapay zekâ videosu üretir."
+      },
+      {
+        "q": "Metinden görseli destekliyor mu?",
+        "a": "Evet. Bir prompt yazın ve agnes-image-2.1-flash yapay zekâ görselleri ve sanat illüstrasyonları üretir."
+      },
+      {
+        "q": "Kredi kartı gerekir mi?",
+        "a": "Kredi kartı ve ödeme yok. Araç ücretsizdir; yalnızca kendi ücretsiz Agnes API Anahtarınızı girersiniz."
+      },
+      {
+        "q": "Prompt'larım ve varlıklarım yükleniyor mu?",
+        "a": "Agnes API Anahtarınız yalnızca tarayıcınızın localStorage'ında saklanır ve asla sunucularımıza yüklenmez; üretim doğrudan tarayıcınızdan Agnes modellerine çalışır."
+      },
+      {
+        "q": "Ücretsiz sürümde limit var mı?",
+        "a": "Video üretimi 5s ve 10s süreleri ve birden çok en-boy oranını destekler; mevcut kotanız, sağladığınız ücretsiz Agnes API Anahtarına bağlıdır."
+      },
+      {
+        "q": "Video ve görselleri ticari olarak kullanabilir miyim?",
+        "a": "Ticari kullanım, Agnes API Anahtarının lisans koşullarına bağlıdır; ticari kullanımdan önce lütfen Anahtarınızın kullanım haklarını teyit edin."
+      }
+    ],
+    "studioLinkCta": "Çok sahneli yaratıcı video stüdyosu (Beta) →",
+    "copied": "Kopyalandı"
   }
 }

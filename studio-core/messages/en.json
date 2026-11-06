@@ -134,6 +134,221 @@
     "errorHint_aborted": "Generation cancelled. Click \"Retry Failed Scenes\" to continue unfinished parts.",
     "errorHint_scriptFailed": "Scene splitting failed. Check your API Key or network.",
     "partialFailedHint": "Some scenes failed. Retry failed scenes or concatenate only completed ones.",
-    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped)."
+    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped).",
+    "tabs": {
+      "label": "Choose a creation mode",
+      "image": "Image",
+      "simple": "Simple video",
+      "creative": "Creative video",
+      "imageHint": "Describe a single frame and get an AI image in square, landscape or portrait size.",
+      "simpleHint": "One prompt, one AI video clip — text-to-video or image-to-video, 4–12 seconds, six aspect ratios.",
+      "creativeHint": "Give one idea; the AI splits it into 2–5 scenes, generates each clip and stitches them in your browser (Beta)."
+    }
+  },
+  "demo": {
+    "title": "Try Online Demo",
+    "subtitle": "Enter a prompt and generate AI videos and images instantly",
+    "githubLink": "View on GitHub",
+    "githubNote": "This web demo offers basic text-to-image, text-to-video and image-to-video. For the full feature set (creative long videos, script-based videos, AI digital anchor, TTS narration, auto subtitles, resume from breakpoint, and more), download the desktop app from GitHub.",
+    "githubFree": "Completely Free",
+    "promptLabel": "Prompt",
+    "tabs": {
+      "textToVideo": "Video Generation",
+      "textToImage": "Image Generation"
+    },
+    "apiKey": {
+      "title": "API Key Settings",
+      "label": "Agnes API Key",
+      "placeholder": "Enter your Agnes API Key...",
+      "save": "Save",
+      "clear": "Clear",
+      "hint": "Get your free API key from:",
+      "show": "Show",
+      "hide": "Hide",
+      "saved": "Saved",
+      "required": "Please set your API Key first",
+      "requiredHint": "Get started with a free Agnes AI API key. No credit card, no payment required.",
+      "getKey": "Get Free API Key",
+      "localOnly": "Your key is stored only in your browser's localStorage. It is never uploaded to any server. You'll need to re-enter it after clearing browser data."
+    },
+    "image": {
+      "generate": "Generate Image",
+      "generating": "Generating image...",
+      "promptPlaceholder": "Describe the image you want, e.g.: A Shiba Inu smiling under cherry blossoms",
+      "samplePrompts": [
+        "A Shiba Inu smiling under cherry blossoms, soft bokeh background, warm spring sunlight",
+        "An enchanted treehouse village in a misty forest, fairy lights glowing between ancient oaks",
+        "A futuristic cyberpunk city street at night, neon signs reflecting on wet pavement, flying cars overhead",
+        "A cozy reading nook by a rainy window, warm lamplight, stacks of old books, a steaming cup of tea",
+        "A majestic white tiger walking through a snow-covered pine forest, soft diffused light, cinematic composition"
+      ],
+      "size": "Image Size"
+    },
+    "video": {
+      "generate": "Generate Video",
+      "submitting": "Submitting task...",
+      "generating": "Generating video",
+      "estimatedTime": "Estimated time: ~{minutes} min",
+      "promptPlaceholder": "Describe the video you want, e.g.: Slow motion waves crashing against rocks",
+      "timeHint": "Video generation typically takes 3–5 minutes. Please be patient.",
+      "samplePrompts": [
+        "Slow motion waves crashing against rocky shores at golden hour, drone shot gradually ascending to reveal the vast coastline",
+        "A misty bamboo forest at dawn, soft golden light filtering through the leaves, gentle wind swaying the tall stalks",
+        "Aerial drone shot flying over a turquoise mountain lake surrounded by snow-capped peaks, mirror-perfect reflections",
+        "A cozy village street in autumn, warm streetlights glowing through falling golden leaves, puddles reflecting the amber light",
+        "Time-lapse of a starry night sky over a desert canyon, the Milky Way slowly rotating above ancient rock formations"
+      ],
+      "duration": "Duration",
+      "ratio": "Aspect Ratio",
+      "notSupported": "Your browser does not support video playback",
+      "elapsed": "Elapsed",
+      "pollCount": "Polls",
+      "lastPoll": "Last Result",
+      "model": "Video Model",
+      "mode": "Generation Mode",
+      "modelV25Flash": "Video 2.5 Flash",
+      "modelV25FlashDesc": "New free model (limited time): fixed 720P, 4–12s durations, supports image reference (image-to-video); no negative prompts.",
+      "modeText": "Text to video",
+      "modeImage": "Image to video (1 reference)",
+      "refImage": "Reference Image",
+      "chooseImage": "Choose Image",
+      "noImage": "No image selected",
+      "imageSelected": "Selected: {name}",
+      "clearImage": "Remove",
+      "refImageHint": "Upload an image as a reference (optional); the video will keep the character, style and scene elements from it.",
+      "refImageRequired": "Image-to-video requires a reference image first",
+      "free": "Free",
+      "freeLimited": "Free (limited time)",
+      "modelModesLabel": "Modes",
+      "modelDurationsLabel": "Duration",
+      "modelRatiosLabel": "Aspect Ratio",
+      "dimsLandscape": "Landscape 1280×720",
+      "dimsPortrait": "Portrait 768×1152",
+      "dimsSquare": "Square 1024×1024",
+      "selfHostMinVersion": "Self-hosted needs v{version} or newer for the same tiers",
+      "portraitRotationHint": "Known upstream issue: 9:16 clips from Video 2.5 Flash may play rotated 90°. Rotate the file after download."
+    },
+    "download": "Download",
+    "downloading": "Downloading...",
+    "retry": "Try Again",
+    "square": "1:1 Square",
+    "landscape": "16:9 Landscape",
+    "portrait": "9:16 Portrait",
+    "5s": "5 seconds",
+    "10s": "10 seconds",
+    "4s": "4 seconds",
+    "6s": "6 seconds",
+    "8s": "8 seconds",
+    "12s": "12 seconds",
+    "ratio_21_9": "21:9 Ultrawide",
+    "ratio_4_3": "4:3 Standard",
+    "ratio_3_4": "3:4 Portrait",
+    "errors": {
+      "missingApiKey": "Please set your API key first",
+      "invalidApiKey": "Invalid API key. Please check and try again",
+      "rateLimited": "Rate limit reached. Limits are per model — wait a moment and retry.",
+      "timeout": "Generation timed out. Try again or shorten your prompt",
+      "emptyPrompt": "Please enter a prompt",
+      "promptTooLong": "Prompt exceeds 2000 character limit",
+      "network": "Network error. Please check your connection",
+      "internal": "Server error. Please try again later",
+      "upstream": "AI service error. Please try again later",
+      "noResult": "No result generated. Please try again",
+      "videoFailed": "Generation failed upstream. Retry later or switch model.",
+      "pollTimeout": "No result after 15 minutes. Use the task ID below to check later.",
+      "unknown": "Unknown error. Please try again",
+      "checkApiKey": "Please verify your key is correct, or get a new one from Agnes AI",
+      "pollTimeoutQueued": "Still queued upstream after 15 minutes — the free queue is busy. Retry off-peak or self-host.",
+      "pollTimeoutRendering": "Still rendering upstream after 15 minutes — local wait limit reached.",
+      "upstreamStuck": "Upstream stopped this task: inference did not finish in time.",
+      "queueFull": "Upstream free queue is full — retrying {current}/{total}…",
+      "queueFullExhausted": "Queue still full after {total} retries. Retry off-peak or self-host.",
+      "copyVideoId": "Copy task ID",
+      "checkLater": "Check result later"
+    },
+    "seoTitle": "Free AI Video Generator Online | Agnes Video Generator",
+    "seoDescription": "Free online AI video and image generator with three modes in one place: image generation, single-clip text-to-video / image-to-video, and multi-scene creative video. No credit card, no install — just a free Agnes API key.",
+    "seoH1": "Free Online AI Video Generator and Image Generator (Image · Simple Video · Creative Video)",
+    "seoIntro": "Agnes Video Generator is a completely free AI creation tool that runs in your browser. Type one prompt and the site calls the Agnes models to turn text into an AI image, a single AI video clip, or a full multi-scene short film. Everything is organised into three tabs: Image generation, Simple video (text-to-video and image-to-video), and Creative video (an idea split into scenes and stitched together). No install, no GPU, no credit card — just paste your free Agnes API key, which stays in your browser and is never uploaded.",
+    "seoFeatures": [
+      {
+        "title": "Completely free, no credit card",
+        "desc": "The tool is free to use; just bring your own free Agnes API Key. No payment, no credit card required."
+      },
+      {
+        "title": "Online & no install",
+        "desc": "Runs entirely in the browser. Open the page and create—no software to download, works on desktop and mobile."
+      },
+      {
+        "title": "Text & image to video",
+        "desc": "Generate AI video from a prompt, or upload a reference image for image-to-video; powered by the limited-time-free Video 2.5 Flash model (4–12s, multiple aspect ratios)."
+      },
+      {
+        "title": "Text to image",
+        "desc": "Type a prompt and agnes-image-2.1-flash generates high-quality AI images and art illustrations."
+      }
+    ],
+    "seoUseCases": [
+      {
+        "title": "Landscape & nature motion",
+        "desc": "Generate flowing waves, drifting clouds, forest light and other natural motion from a prompt."
+      },
+      {
+        "title": "Product promo clips",
+        "desc": "Quickly create product showcase animations for e-commerce or landing pages—no shooting or editing."
+      },
+      {
+        "title": "Vertical social videos",
+        "desc": "Generate 9:16 vertical clips ready for TikTok, Reels, Shorts and more."
+      },
+      {
+        "title": "AI art & illustration",
+        "desc": "Turn a sentence into concept art, poster assets, or guofeng / cyberpunk style images."
+      },
+      {
+        "title": "Concept & blog visuals",
+        "desc": "Produce custom visuals and concepts for articles, slides and decks in seconds."
+      },
+      {
+        "title": "Avatars & characters",
+        "desc": "Sketch character portraits, game avatars or virtual personas from text."
+      }
+    ],
+    "seoFaq": [
+      {
+        "q": "Is this AI video generator free?",
+        "a": "Yes. Agnes Video Generator is completely free. You only need your own free Agnes API Key (entered in the browser, stored locally)—no payment, no credit card."
+      },
+      {
+        "q": "Do I need to download or install software?",
+        "a": "No. It's a fully web-based tool; open it in a browser to generate AI video and images online, on desktop or mobile."
+      },
+      {
+        "q": "Does it support text-to-video / image-to-video?",
+        "a": "Yes. Type a prompt for text-to-video, or upload a reference image for image-to-video; it runs on the limited-time-free Video 2.5 Flash model (4–12s, multiple aspect ratios)."
+      },
+      {
+        "q": "Does it support text to image?",
+        "a": "Yes. Type a prompt and agnes-image-2.1-flash generates AI images and art illustrations."
+      },
+      {
+        "q": "Do I need a credit card?",
+        "a": "No credit card and no payment. The tool is free; you just enter your own free Agnes API Key."
+      },
+      {
+        "q": "Are my prompts and assets uploaded?",
+        "a": "Your Agnes API Key is stored only in your browser's localStorage and is never uploaded to our servers; generation runs directly from your browser to the Agnes models."
+      },
+      {
+        "q": "Are there limits on the free version?",
+        "a": "Video generation supports durations of 4–12s and multiple aspect ratios; your available quota depends on the free Agnes API Key you provide."
+      },
+      {
+        "q": "Can I use the videos and images commercially?",
+        "a": "Commercial use depends on the Agnes API Key's license terms; please confirm your Key's usage rights before commercial use."
+      }
+    ],
+    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "copied": "Copied"
   }
 }

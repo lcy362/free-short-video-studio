@@ -134,6 +134,221 @@
     "errorHint_aborted": "Quá trình tạo đã bị hủy. Nhấn 'Thử lại các cảnh thất bại' để tiếp tục phần chưa hoàn thành.",
     "errorHint_scriptFailed": "Chia phân cảnh thất bại. Kiểm tra khóa API hoặc mạng của bạn.",
     "partialFailedHint": "Một số cảnh thất bại. Thử lại các cảnh thất bại hoặc chỉ ghép nối các cảnh đã hoàn thành.",
-    "errorHint_sceneFailed": "Một số cảnh thất bại. Nhấn 'Thử lại các cảnh thất bại' để tự động thử lại (các cảnh đã hoàn thành sẽ được bỏ qua)."
+    "errorHint_sceneFailed": "Một số cảnh thất bại. Nhấn 'Thử lại các cảnh thất bại' để tự động thử lại (các cảnh đã hoàn thành sẽ được bỏ qua).",
+    "tabs": {
+      "label": "Chọn chế độ sáng tạo",
+      "image": "Hình ảnh",
+      "simple": "Video đơn giản",
+      "creative": "Video sáng tạo",
+      "imageHint": "Nhập một mô tả, nhận ảnh AI ở khung vuông, ngang hoặc dọc.",
+      "simpleHint": "Một câu lệnh, một clip video AI — văn bản thành video hoặc ảnh thành video, 4–12 giây, sáu tỉ lệ.",
+      "creativeHint": "Đưa một ý tưởng; AI chia thành 2–5 cảnh, tạo từng clip rồi ghép lại ngay trong trình duyệt (Beta)."
+    }
+  },
+  "demo": {
+    "title": "Dùng thử Demo trực tuyến",
+    "subtitle": "Nhập prompt và tạo video cùng hình ảnh AI ngay lập tức",
+    "githubLink": "Xem trên GitHub",
+    "githubNote": "Demo web này cung cấp text-to-image và text-to-video cơ bản. Để có đầy đủ tính năng (video sáng tạo dài, video theo kịch bản, người dẫn chương trình AI, lồng tiếng TTS, phụ đề tự động, tiếp tục từ điểm dừng, v.v.), hãy tải ứng dụng desktop từ GitHub.",
+    "githubFree": "Hoàn toàn miễn phí",
+    "promptLabel": "Prompt",
+    "tabs": {
+      "textToVideo": "Tạo video",
+      "textToImage": "Tạo hình ảnh"
+    },
+    "apiKey": {
+      "title": "Cài đặt khóa API",
+      "label": "Khóa API Agnes",
+      "placeholder": "Nhập khóa API Agnes của bạn...",
+      "save": "Lưu",
+      "clear": "Xóa",
+      "hint": "Lấy khóa API miễn phí tại:",
+      "show": "Hiện",
+      "hide": "Ẩn",
+      "saved": "Đã lưu",
+      "required": "Vui lòng đặt khóa API của bạn trước",
+      "requiredHint": "Bắt đầu với khóa API Agnes AI miễn phí. Không cần thẻ tín dụng, không cần thanh toán.",
+      "getKey": "Lấy khóa API miễn phí",
+      "localOnly": "Khóa của bạn chỉ được lưu trong localStorage của trình duyệt. Không bao giờ được tải lên máy chủ nào. Bạn sẽ cần nhập lại sau khi xóa dữ liệu trình duyệt."
+    },
+    "image": {
+      "generate": "Tạo hình ảnh",
+      "generating": "Đang tạo hình ảnh...",
+      "promptPlaceholder": "Mô tả hình ảnh bạn muốn, ví dụ: Một chú chó Shiba Inu mỉm cười dưới hoa anh đào",
+      "samplePrompts": [
+        "Một chú chó Shiba Inu mỉm cười dưới hoa anh đào, hậu cảnh bokeh mềm mại, ánh nắng xuân ấm áp",
+        "Một ngôi làng nhà cây kỳ diệu trong khu rừng sương mù, đèn cổ tích lung linh giữa những cây sồi cổ thụ",
+        "Một con phố thành phố cyberpunk tương lai về đêm, đèn neon phản chiếu trên mặt đường ướt, xe bay trên đầu",
+        "Một góc đọc sách ấm cúng bên cửa sổ mưa, ánh đèn vàng ấm áp, những chồng sách cũ, tách trà bốc khói",
+        "Một con hổ trắng uy nghi bước qua khu rừng thông phủ tuyết, ánh sáng khuếch tán dịu nhẹ, bố cục điện ảnh"
+      ],
+      "size": "Kích thước hình ảnh"
+    },
+    "video": {
+      "generate": "Tạo video",
+      "submitting": "Đang gửi tác vụ...",
+      "generating": "Đang tạo video",
+      "estimatedTime": "Thời gian dự kiến: ~{minutes} phút",
+      "promptPlaceholder": "Mô tả video bạn muốn, ví dụ: Sóng chuyển động chậm vỗ vào đá",
+      "timeHint": "Tạo video thường mất 3–5 phút. Vui lòng kiên nhẫn.",
+      "samplePrompts": [
+        "Sóng chuyển động chậm vỗ vào bờ đá lúc giờ vàng, máy bay không người lái bay lên dần để lộ đường bờ biển rộng lớn",
+        "Một rừng tre mờ sương lúc bình minh, ánh sáng vàng dịu xuyên qua tán lá, gió nhẹ đung đưa những thân tre cao",
+        "Cảnh quay từ máy bay không người lái bay qua hồ núi màu ngọc lam được bao quanh bởi đỉnh núi phủ tuyết, phản chiếu như gương",
+        "Một con phố làng quê ấm áp vào mùa thu, đèn đường lung linh xuyên qua những chiếc lá vàng rơi, vũng nước phản chiếu ánh đèn hổ phách",
+        "Time-lapse bầu trời đầy sao trên hẻm núi sa mạc, dải Ngân Hà từ từ xoay trên những khối đá cổ"
+      ],
+      "duration": "Thời lượng",
+      "ratio": "Tỷ lệ khung hình",
+      "notSupported": "Trình duyệt của bạn không hỗ trợ phát video",
+      "elapsed": "Đã trôi qua",
+      "pollCount": "Lần thăm dò",
+      "lastPoll": "Kết quả cuối",
+      "model": "Mô hình video",
+      "mode": "Chế độ tạo",
+      "modelV25Flash": "Video 2.5 Flash",
+      "modelV25FlashDesc": "Mô hình mới miễn phí (có thời hạn): cố định 720P, thời lượng 4–12 giây, hỗ trợ ảnh tham chiếu (ảnh thành video); không hỗ trợ prompt phủ định.",
+      "modeText": "Văn bản thành video",
+      "modeImage": "Hình ảnh thành video (1 ảnh tham chiếu)",
+      "refImage": "Ảnh tham chiếu",
+      "chooseImage": "Chọn ảnh",
+      "noImage": "Chưa chọn ảnh",
+      "imageSelected": "Đã chọn: {name}",
+      "clearImage": "Xóa",
+      "refImageHint": "Tải lên ảnh tham chiếu (không bắt buộc); video sẽ giữ nhân vật, phong cách và các yếu tố cảnh trong ảnh.",
+      "refImageRequired": "Chế độ ảnh thành video cần tải lên ảnh tham chiếu trước",
+      "free": "Miễn phí",
+      "freeLimited": "Miễn phí (có thời hạn)",
+      "modelModesLabel": "Chế độ",
+      "modelDurationsLabel": "Thời lượng",
+      "modelRatiosLabel": "Tỷ lệ khung hình",
+      "dimsLandscape": "Ngang 1280×720",
+      "dimsPortrait": "Dọc 768×1152",
+      "dimsSquare": "Vuông 1024×1024",
+      "selfHostMinVersion": "Tự host cần v{version} trở lên để có cùng các mức này",
+      "portraitRotationHint": "Lỗi đã biết phía nhà cung cấp: clip 9:16 từ Video 2.5 Flash có thể phát bị xoay 90°. Hãy xoay file sau khi tải về."
+    },
+    "download": "Tải xuống",
+    "downloading": "Đang tải xuống...",
+    "retry": "Thử lại",
+    "square": "1:1 Vuông",
+    "landscape": "16:9 Ngang",
+    "portrait": "9:16 Dọc",
+    "5s": "5 giây",
+    "10s": "10 giây",
+    "4s": "4 giây",
+    "6s": "6 giây",
+    "8s": "8 giây",
+    "12s": "12 giây",
+    "ratio_21_9": "21:9 Siêu rộng",
+    "ratio_4_3": "4:3 Tiêu chuẩn",
+    "ratio_3_4": "3:4 Dọc",
+    "errors": {
+      "missingApiKey": "Vui lòng đặt khóa API của bạn trước",
+      "invalidApiKey": "Khóa API không hợp lệ. Vui lòng kiểm tra và thử lại",
+      "rateLimited": "Đã đạt giới hạn tốc độ. Giới hạn tính theo từng mô hình — chờ một lát rồi thử lại.",
+      "timeout": "Tạo video hết thời gian. Thử lại hoặc rút ngắn prompt của bạn",
+      "emptyPrompt": "Vui lòng nhập prompt",
+      "promptTooLong": "Prompt vượt quá giới hạn 2000 ký tự",
+      "network": "Lỗi mạng. Vui lòng kiểm tra kết nối của bạn",
+      "internal": "Lỗi máy chủ. Vui lòng thử lại sau",
+      "upstream": "Lỗi dịch vụ AI. Vui lòng thử lại sau",
+      "noResult": "Không có kết quả nào được tạo. Vui lòng thử lại",
+      "videoFailed": "Tạo video thất bại ở phía nhà cung cấp. Thử lại sau hoặc đổi mô hình.",
+      "pollTimeout": "Sau 15 phút vẫn chưa có kết quả. Dùng ID tác vụ bên dưới để kiểm tra sau.",
+      "unknown": "Lỗi không xác định. Vui lòng thử lại",
+      "checkApiKey": "Vui lòng kiểm tra khóa của bạn có đúng không, hoặc lấy khóa mới từ Agnes AI",
+      "pollTimeoutQueued": "Sau 15 phút vẫn còn trong hàng đợi của nhà cung cấp — hàng đợi miễn phí đang bận. Thử vào giờ thấp điểm hoặc tự host.",
+      "pollTimeoutRendering": "Sau 15 phút vẫn đang render — đã đạt giới hạn chờ cục bộ.",
+      "upstreamStuck": "Nhà cung cấp đã dừng tác vụ này: suy luận không hoàn thành đúng hạn.",
+      "queueFull": "Hàng đợi miễn phí của nhà cung cấp đã đầy — thử lại lần {current}/{total}…",
+      "queueFullExhausted": "Sau {total} lần thử lại, hàng đợi vẫn đầy. Thử vào giờ thấp điểm hoặc tự host.",
+      "copyVideoId": "Sao chép ID tác vụ",
+      "checkLater": "Kiểm tra kết quả sau"
+    },
+    "seoTitle": "Trình tạo video AI miễn phí trực tuyến | Agnes Video Generator",
+    "seoDescription": "Trình tạo video & hình ảnh AI miễn phí trực tuyến. Gõ prompt để tạo video AI (text-to-video) và hình ảnh AI (text-to-image). Không cần thẻ tín dụng, không cần cài đặt — chỉ cần thêm khóa API Agnes miễn phí của bạn.",
+    "seoH1": "Trình tạo video & hình ảnh AI miễn phí trực tuyến",
+    "seoIntro": "Agnes Video Generator là một công cụ tạo AI trên web hoàn toàn miễn phí. Mở trình duyệt, nhập lời nhắc văn bản và bạn có thể gọi mô hình Agnes AI trực tuyến để biến văn bản thành video AI (video Vincent) hoặc hình ảnh AI (hình ảnh Vincent). Hoàn toàn miễn phí, mở và sử dụng, không cần cài đặt phần mềm, không cần thẻ tín dụng; Chỉ cần điền vào khóa API Agnes miễn phí của riêng bạn ở phía trước trước trước khi bắt đầu (chỉ tồn tại trong trình duyệt cục bộ, không tải lên máy chủ). Từ cảm hứng đến bộ phim, chỉ cần vài bước là đủ.",
+    "seoFeatures": [
+      {
+        "title": "Hoàn toàn miễn phí, không cần thẻ tín dụng",
+        "desc": "Công cụ dùng miễn phí; chỉ cần mang theo khóa API Agnes miễn phí của riêng bạn. Không thanh toán, không cần thẻ tín dụng."
+      },
+      {
+        "title": "Trực tuyến & không cần cài đặt",
+        "desc": "Chạy hoàn toàn trong trình duyệt. Mở trang là tạo — không cần tải phần mềm, hoạt động trên cả desktop và di động."
+      },
+      {
+        "title": "Text to video",
+        "desc": "Gõ prompt và agnes-video-v2.0 biến nó thành video AI 5/10 giây với nhiều tỷ lệ khung hình."
+      },
+      {
+        "title": "Text to image",
+        "desc": "Gõ prompt và agnes-image-2.1-flash tạo ra hình ảnh AI chất lượng cao và minh họa nghệ thuật."
+      }
+    ],
+    "seoUseCases": [
+      {
+        "title": "Cảnh thiên nhiên & chuyển động",
+        "desc": "Tạo sóng trôi, mây bay, ánh sáng xuyên rừng và các chuyển động tự nhiên khác từ một prompt."
+      },
+      {
+        "title": "Clip quảng bá sản phẩm",
+        "desc": "Nhanh chóng tạo hoạt cảnh giới thiệu sản phẩm cho thương mại điện tử hoặc trang đích — không cần quay hay dựng."
+      },
+      {
+        "title": "Video xã hội dọc",
+        "desc": "Tạo clip dọc 9:16 sẵn sàng cho TikTok, Reels, Shorts và hơn thế nữa."
+      },
+      {
+        "title": "Nghệ thuật AI & minh họa",
+        "desc": "Biến một câu thành tranh ý tưởng, tài nguyên poster hoặc hình ảnh phong cách guofeng / cyberpunk."
+      },
+      {
+        "title": "Hình ảnh ý tưởng & blog",
+        "desc": "Tạo hình ảnh và ý tưởng riêng cho bài viết, slide và bản trình bày chỉ trong vài giây."
+      },
+      {
+        "title": "Avatar & nhân vật",
+        "desc": "Phác họa chân dung nhân vật, avatar game hoặc nhân vật ảo từ văn bản."
+      }
+    ],
+    "seoFaq": [
+      {
+        "q": "Trình tạo video AI này có miễn phí không?",
+        "a": "Có. Agnes Video Generator hoàn toàn miễn phí. Bạn chỉ cần khóa API Agnes miễn phí của riêng mình (nhập trong trình duyệt, lưu cục bộ) — không thanh toán, không thẻ tín dụng."
+      },
+      {
+        "q": "Tôi có cần tải hoặc cài đặt phần mềm không?",
+        "a": "Không. Đây là công cụ thuần web; mở nó trong trình duyệt để tạo video và hình ảnh AI trực tuyến, trên desktop hoặc di động."
+      },
+      {
+        "q": "Có hỗ trợ text to video không?",
+        "a": "Có. Gõ prompt và agnes-video-v2.0 tạo video AI 5 hoặc 10 giây với nhiều tỷ lệ khung hình."
+      },
+      {
+        "q": "Có hỗ trợ text to image không?",
+        "a": "Có. Gõ prompt và agnes-image-2.1-flash tạo hình ảnh AI và minh họa nghệ thuật."
+      },
+      {
+        "q": "Tôi có cần thẻ tín dụng không?",
+        "a": "Không cần thẻ tín dụng và không phải thanh toán. Công cụ miễn phí; bạn chỉ cần nhập khóa API Agnes miễn phí của riêng mình."
+      },
+      {
+        "q": "Prompt và tài nguyên của tôi có được tải lên không?",
+        "a": "Khóa API Agnes của bạn chỉ được lưu trong localStorage của trình duyệt và không bao giờ được tải lên máy chủ của chúng tôi; quá trình tạo chạy trực tiếp từ trình duyệt của bạn đến các mô hình Agnes."
+      },
+      {
+        "q": "Bản miễn phí có giới hạn gì không?",
+        "a": "Tạo video hỗ trợ thời lượng 5s và 10s cùng nhiều tỷ lệ khung hình; hạn mức của bạn phụ thuộc vào khóa API Agnes miễn phí bạn cung cấp."
+      },
+      {
+        "q": "Tôi có thể dùng video và hình ảnh cho mục đích thương mại không?",
+        "a": "Việc sử dụng thương mại phụ thuộc vào điều khoản giấy phép của khóa API Agnes; vui lòng xác nhận quyền sử dụng khóa của bạn trước khi dùng thương mại."
+      }
+    ],
+    "studioLinkCta": "Studio video sáng tạo nhiều cảnh (Beta) →",
+    "copied": "Đã sao chép"
   }
 }

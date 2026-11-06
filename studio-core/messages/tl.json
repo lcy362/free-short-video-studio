@@ -134,6 +134,221 @@
     "errorHint_aborted": "Kinansela ang generation. I-click ang \"Subukan Muli ang mga Nabigong Scenes\" upang ipagpatuloy ang mga hindi natapos na bahagi.",
     "errorHint_scriptFailed": "Nabigo ang scene splitting. Suriin ang iyong API Key o network.",
     "partialFailedHint": "Nabigo ang ilang scenes. Subukan muli ang mga nabigong scenes o pagsamahin lamang ang mga kumpleto.",
-    "errorHint_sceneFailed": "Nabigo ang ilang scenes. I-click ang \"Subukan Muli ang mga Nabigong Scenes\" para sa auto-retry (lalaktawan ang mga kumpletong scenes)."
+    "errorHint_sceneFailed": "Nabigo ang ilang scenes. I-click ang \"Subukan Muli ang mga Nabigong Scenes\" para sa auto-retry (lalaktawan ang mga kumpletong scenes).",
+    "tabs": {
+      "label": "Pumili ng mode ng paggawa",
+      "image": "Larawan",
+      "simple": "Simpleng video",
+      "creative": "Malikhaing video",
+      "imageHint": "Maglarawan ng isang eksena at makakuha ng AI image sa square, landscape, o portrait.",
+      "simpleHint": "Isang prompt, isang AI video clip — text-to-video o image-to-video, 4–12 segundo, anim na ratio.",
+      "creativeHint": "Bigyan ng isang ideya; hahatiin ito ng AI sa 2–5 eksena, gagawin ang bawat clip at pagsasamahin sa browser mo (Beta)."
+    }
+  },
+  "demo": {
+    "title": "Subukan ang Online Demo",
+    "subtitle": "Maglagay ng prompt at agad na bumuo ng AI videos at images",
+    "githubLink": "Tingnan sa GitHub",
+    "githubNote": "Ang web demo na ito ay nag-aalok ng pangunahing text-to-image at text-to-video. Para sa buong feature set (creative long videos, script-based videos, AI digital anchor, TTS narration, auto subtitles, resume from breakpoint, at marami pa), i-download ang desktop app mula sa GitHub.",
+    "githubFree": "Ganap na Libre",
+    "promptLabel": "Prompt",
+    "tabs": {
+      "textToVideo": "Paglikha ng Video",
+      "textToImage": "Paglikha ng Larawan"
+    },
+    "apiKey": {
+      "title": "API Key Settings",
+      "label": "Agnes API Key",
+      "placeholder": "Ilagay ang iyong Agnes API Key...",
+      "save": "I-save",
+      "clear": "I-clear",
+      "hint": "Kumuha ng libreng API key mula sa:",
+      "show": "Ipakita",
+      "hide": "Itago",
+      "saved": "Na-save",
+      "required": "Mangyaring i-set muna ang iyong API Key",
+      "requiredHint": "Magsimula gamit ang libreng Agnes AI API key. Walang credit card, walang bayad.",
+      "getKey": "Kumuha ng Libreng API Key",
+      "localOnly": "Ang iyong key ay naka-store lamang sa localStorage ng iyong browser. Hindi ito ina-upload sa anumang server. Kakailanganin mong i-enter muli ito pagkatapos i-clear ang browser data."
+    },
+    "image": {
+      "generate": "Bumuo ng Image",
+      "generating": "Binubuo ang image...",
+      "promptPlaceholder": "Ilarawan ang image na gusto mo, hal.: A Shiba Inu smiling under cherry blossoms",
+      "samplePrompts": [
+        "A Shiba Inu smiling under cherry blossoms, soft bokeh background, warm spring sunlight",
+        "An enchanted treehouse village in a misty forest, fairy lights glowing between ancient oaks",
+        "A futuristic cyberpunk city street at night, neon signs reflecting on wet pavement, flying cars overhead",
+        "A cozy reading nook by a rainy window, warm lamplight, stacks of old books, a steaming cup of tea",
+        "A majestic white tiger walking through a snow-covered pine forest, soft diffused light, cinematic composition"
+      ],
+      "size": "Laki ng Image"
+    },
+    "video": {
+      "generate": "Bumuo ng Video",
+      "submitting": "Sinisimite ang task...",
+      "generating": "Binubuo ang video",
+      "estimatedTime": "Tinatayang oras: ~{minutes} min",
+      "promptPlaceholder": "Ilarawan ang video na gusto mo, hal.: Slow motion waves crashing against rocks",
+      "timeHint": "Karaniwang tumatagal ng 3–5 minuto ang video generation. Mangyaring maging matiyaga.",
+      "samplePrompts": [
+        "Slow motion waves crashing against rocky shores at golden hour, drone shot gradually ascending to reveal the vast coastline",
+        "A misty bamboo forest at dawn, soft golden light filtering through the leaves, gentle wind swaying the tall stalks",
+        "Aerial drone shot flying over a turquoise mountain lake surrounded by snow-capped peaks, mirror-perfect reflections",
+        "A cozy village street in autumn, warm streetlights glowing through falling golden leaves, puddles reflecting the amber light",
+        "Time-lapse of a starry night sky over a desert canyon, the Milky Way slowly rotating above ancient rock formations"
+      ],
+      "duration": "Duration",
+      "ratio": "Aspect Ratio",
+      "notSupported": "Hindi sinusuportahan ng iyong browser ang video playback",
+      "elapsed": "Nagdaan",
+      "pollCount": "Mga Poll",
+      "lastPoll": "Huling Resulta",
+      "model": "Model ng Video",
+      "mode": "Mode ng Paglikha",
+      "modelV25Flash": "Video 2.5 Flash",
+      "modelV25FlashDesc": "Bagong libreng modelo (may hangganan): fixed 720P, tagal 4–12 segundo, sumusuporta sa reference image (larawan sa video); walang negatibong prompt.",
+      "modeText": "Teksto sa video",
+      "modeImage": "Larawan sa video (1 reference)",
+      "refImage": "Larawang Sanggunian",
+      "chooseImage": "Pumili ng Larawan",
+      "noImage": "Walang napiling larawan",
+      "imageSelected": "Napili: {name}",
+      "clearImage": "Alisin",
+      "refImageHint": "Mag-upload ng reference image (opsyonal); pananatilihin ng video ang karakter, istilo at mga elemento ng eksena mula dito.",
+      "refImageRequired": "Kailangan munang mag-upload ng reference image para sa mode na larawan sa video",
+      "free": "Libre",
+      "freeLimited": "Libre (may hangganan)",
+      "modelModesLabel": "Mode",
+      "modelDurationsLabel": "Tagal",
+      "modelRatiosLabel": "Ratio",
+      "dimsLandscape": "Landscape 1280×720",
+      "dimsPortrait": "Portrait 768×1152",
+      "dimsSquare": "Square 1024×1024",
+      "selfHostMinVersion": "Kailangan ng v{version} o mas bago sa self-host para sa parehong mga opsyon",
+      "portraitRotationHint": "Kilalang isyu sa upstream: ang 9:16 clips mula sa Video 2.5 Flash ay maaaring tumakbo nang nakaikot ng 90°. Iikot ang file pagkatapos i-download."
+    },
+    "download": "I-download",
+    "downloading": "Dini-download...",
+    "retry": "Subukan Muli",
+    "square": "1:1 Square",
+    "landscape": "16:9 Landscape",
+    "portrait": "9:16 Portrait",
+    "5s": "5 segundo",
+    "10s": "10 segundo",
+    "4s": "4 segundo",
+    "6s": "6 segundo",
+    "8s": "8 segundo",
+    "12s": "12 segundo",
+    "ratio_21_9": "21:9 Ultra Lapad",
+    "ratio_4_3": "4:3 Pamantayan",
+    "ratio_3_4": "3:4 Patayo",
+    "errors": {
+      "missingApiKey": "Mangyaring i-set muna ang iyong API key",
+      "invalidApiKey": "Invalid na API key. Mangyaring suriin at subukan muli",
+      "rateLimited": "Naabot ang rate limit. Ang limit ay bawat modelo — maghintay sandali at subukan muli.",
+      "timeout": "Nag-timeout ang generation. Subukan muli o paikliin ang iyong prompt",
+      "emptyPrompt": "Mangyaring maglagay ng prompt",
+      "promptTooLong": "Lumalagpas sa 2000 character limit ang prompt",
+      "network": "Network error. Mangyaring suriin ang iyong koneksyon",
+      "internal": "Server error. Mangyaring subukan muli mamaya",
+      "upstream": "AI service error. Mangyaring subukan muli mamaya",
+      "noResult": "Walang resultang nabuo. Mangyaring subukan muli",
+      "videoFailed": "Nabigo ang pagbuo sa upstream. Subukan muli mamaya o palitan ang modelo.",
+      "pollTimeout": "Walang resulta pagkatapos ng 15 minuto. Gamitin ang task ID sa ibaba para suriin mamaya.",
+      "unknown": "Hindi kilalang error. Mangyaring subukan muli",
+      "checkApiKey": "Mangyaring i-verify na tama ang iyong key, o kumuha ng bago mula sa Agnes AI",
+      "pollTimeoutQueued": "Nasa pila pa rin ng upstream pagkatapos ng 15 minuto — abala ang libreng pila. Subukan sa hindi peak na oras o mag-self-host.",
+      "pollTimeoutRendering": "Nire-render pa rin pagkatapos ng 15 minuto — naabot ang local na limitasyon sa paghihintay.",
+      "upstreamStuck": "Itinigil ng upstream ang task na ito: hindi natapos ang inference sa oras.",
+      "queueFull": "Puno ang libreng pila ng upstream — inuulit {current}/{total}…",
+      "queueFullExhausted": "Puno pa rin ang pila pagkatapos ng {total} na pagsubok. Subukan sa hindi peak na oras, o mag-self-host.",
+      "copyVideoId": "Kopyahin ang task ID",
+      "checkLater": "Tingnan ang resulta mamaya"
+    },
+    "seoTitle": "Libreng AI Video Generator Online | Agnes Video Generator",
+    "seoDescription": "Libreng online na AI video at image generator. Mag-type ng prompt para gumawa ng AI video (text-to-video) at AI images (text-to-image). Walang credit card, walang install — idagdag lang ang iyong libreng Agnes API Key.",
+    "seoH1": "Libreng Online na AI Video at Image Generator",
+    "seoIntro": "Ang Agnes Video Generator ay isang ganap na libreng web-side AI creation tool. Buksan ang browser, maglagay ng text prompt, at maaari mong tawagan ang Agnes AI model online upang gawing AI video (Vincent video) o AI picture (Vincent picture) ang text. Ganap na libre, bukas at gamitin, hindi na kailangang mag-install ng software o credit card; Bago magsimula, punan lamang ang iyong sariling libreng Agnes API Key sa front-end (umiiral lamang sa lokal na browser at hindi na-upload sa server). Mula sa inspirasyon hanggang sa natapos na pelikula, sapat na ang ilang hakbang.",
+    "seoFeatures": [
+      {
+        "title": "Ganap na libre, walang credit card",
+        "desc": "Libreng gamitin ang tool; magdala ka lang ng sariling libreng Agnes API Key. Walang bayad, walang credit card."
+      },
+      {
+        "title": "Online at walang install",
+        "desc": "Ganap na tumatakbo sa browser. Buksan ang page at lumikha — walang software na idi-download, gumagana sa desktop at mobile."
+      },
+      {
+        "title": "Text to video",
+        "desc": "Mag-type ng prompt at gagawing 5/10-segundong AI video sa maraming aspect ratios ang agnes-video-v2.0."
+      },
+      {
+        "title": "Text to image",
+        "desc": "Mag-type ng prompt at bubuo ang agnes-image-2.1-flash ng de-kalidad na AI images at art illustrations."
+      }
+    ],
+    "seoUseCases": [
+      {
+        "title": "Landscape at nature motion",
+        "desc": "Bumuo ng umaagos na alon, lumulutang na ulap, liwanag sa kagubatan at iba pang natural na motion mula sa prompt."
+      },
+      {
+        "title": "Product promo clips",
+        "desc": "Mabilis na gumawa ng product showcase animations para sa e-commerce o landing pages — walang shooting o editing."
+      },
+      {
+        "title": "Vertical social videos",
+        "desc": "Bumuo ng 9:16 vertical clips na handa para sa TikTok, Reels, Shorts at iba pa."
+      },
+      {
+        "title": "AI art at illustration",
+        "desc": "Gawing concept art, poster assets, o guofeng / cyberpunk style images ang isang pangungusap."
+      },
+      {
+        "title": "Concept at blog visuals",
+        "desc": "Gumawa ng custom visuals at concepts para sa mga artikulo, slides at decks sa ilang segundo."
+      },
+      {
+        "title": "Avatars at characters",
+        "desc": "I-sketch ang character portraits, game avatars o virtual personas mula sa text."
+      }
+    ],
+    "seoFaq": [
+      {
+        "q": "Libre ba ang AI video generator na ito?",
+        "a": "Oo. Ganap na libre ang Agnes Video Generator. Kailangan mo lang ng sariling libreng Agnes API Key (ini-enter sa browser, naka-store nang lokal) — walang bayad, walang credit card."
+      },
+      {
+        "q": "Kailangan ko bang mag-download o mag-install ng software?",
+        "a": "Hindi. Fully web-based itong tool; buksan ito sa browser upang bumuo ng AI video at images online, sa desktop o mobile."
+      },
+      {
+        "q": "Sinusuportahan ba nito ang text to video?",
+        "a": "Oo. Mag-type ng prompt at bubuo ang agnes-video-v2.0 ng 5 o 10-segundong AI video sa maraming aspect ratios."
+      },
+      {
+        "q": "Sinusuportahan ba nito ang text to image?",
+        "a": "Oo. Mag-type ng prompt at bubuo ang agnes-image-2.1-flash ng AI images at art illustrations."
+      },
+      {
+        "q": "Kailangan ko ba ng credit card?",
+        "a": "Walang credit card at walang bayad. Libre ang tool; ilagay mo lang ang iyong sariling libreng Agnes API Key."
+      },
+      {
+        "q": "Ina-upload ba ang aking prompts at assets?",
+        "a": "Ang iyong Agnes API Key ay naka-store lamang sa localStorage ng iyong browser at hindi kailanman ina-upload sa aming mga server; direktang tumatakbo ang generation mula sa iyong browser papunta sa mga Agnes models."
+      },
+      {
+        "q": "May mga limit ba sa libreng version?",
+        "a": "Sinusuportahan ng video generation ang 5s at 10s durations at maraming aspect ratios; nakadepende sa libreng Agnes API Key na iyong ibibigay ang iyong available na quota."
+      },
+      {
+        "q": "Maaari ko bang gamitin nang komersyal ang videos at images?",
+        "a": "Nakadepende sa license terms ng Agnes API Key ang komersyal na paggamit; mangyaring kumpirmahin ang usage rights ng iyong Key bago gamitin nang komersyal."
+      }
+    ],
+    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "copied": "Nakopya"
   }
 }

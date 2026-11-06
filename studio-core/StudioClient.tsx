@@ -69,10 +69,29 @@ function extractErrorCode(errorMsg: string): string | null {
   return null;
 }
 
-export default function StudioClient() {
+export default function StudioClient({
+  embedded = false,
+  apiKey: apiKeyProp,
+  hasKey: hasKeyProp,
+  domain: domainProp,
+  onDomainChange,
+}: {
+  /**
+   * true = 被 StudioWorkspace 三 tab 工作台内嵌：
+   * 不再渲染自带的 ApiKeyPanel 与「未填 Key」提示（由外层统一托管），其余流程不变。
+   */
+  embedded?: boolean;
+  apiKey?: string;
+  hasKey?: boolean;
+  domain?: AgnesDomainId;
+  onDomainChange?: (id: AgnesDomainId) => void;
+} = {}) {
   const t = useTranslations('studio');
   const locale = useLocale();
-  const { apiKey, hasKey, saveKey, clearKey } = useApiKey();
+  // 页面直用时走内置 hook；embedded 模式由外层传入。hook 仍无条件调用（保持 hook 顺序稳定）
+  const localApiKey = useApiKey();
+  const apiKey = apiKeyProp ?? localApiKey.apiKey;
+  const hasKey = hasKeyProp ?? localApiKey.hasKey;
 
   const [phase, setPhase] = useState<StudioPhase>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -83,7 +102,7 @@ export default function StudioClient() {
   const [style, setStyle] = useState<StudioStyle>('cinematic');
   const [enableWatermark, setEnableWatermark] = useState(false);
   const [model, setModel] = useState<StudioVideoModelId>(DEFAULT_STUDIO_VIDEO_MODEL);
-  const [domain, setDomain] = useState<AgnesDomainId>(DEFAULT_AGNES_DOMAIN);
+  const [domain, setDomain] = useState<AgnesDomainId>(domainProp ?? DEFAULT_AGNES_DOMAIN);
   const [scenes, setScenes] = useState<Scene[]>([]);
   const [ffmpegProgress, setFFmpegProgress] = useState(0);
   const [ffmpegLoaded, setFFmpegLoaded] = useState(false);
@@ -112,8 +131,9 @@ export default function StudioClient() {
   // 模型/域名选择从 localStorage 恢复（SSR 后水合，避免不一致）
   useEffect(() => {
     setModel(loadStudioModel());
-    setDomain(loadAgnesDomain());
-  }, []);
+    // embedded 模式下域名由外层托管，避免覆盖父级状态
+    if (domainProp === undefined) setDomain(loadAgnesDomain());
+  }, [domainProp]);
 
   const handleModelChange = (m: StudioVideoModelId) => {
     setModel(m);
@@ -122,7 +142,8 @@ export default function StudioClient() {
 
   const handleDomainChange = (id: AgnesDomainId) => {
     setDomain(id);
-    saveAgnesDomain(id);
+    if (onDomainChange) onDomainChange(id);
+    else saveAgnesDomain(id);
   };
 
   useEffect(() => {
@@ -400,17 +421,21 @@ export default function StudioClient() {
         />
       )}
 
-      <ApiKeyPanel
-        apiKey={apiKey} hasKey={hasKey} saveKey={saveKey} clearKey={clearKey}
-        domain={domain} onDomainChange={handleDomainChange}
-      />
+      {!embedded && (
+        <ApiKeyPanel
+          apiKey={apiKey} hasKey={hasKey} saveKey={localApiKey.saveKey} clearKey={localApiKey.clearKey}
+          domain={domain} onDomainChange={handleDomainChange}
+        />
+      )}
 
       {!hasKey ? (
-        <div className="text-center py-12 card-surface rounded-2xl">
-          <div className="text-4xl mb-4">🔑</div>
-          <h3 className="text-lg font-medium text-ink-2 mb-2">{t('apiKeyRequired')}</h3>
-          <p className="text-sm text-muted max-w-sm mx-auto">{t('apiKeyHint')}</p>
-        </div>
+        embedded ? null : (
+          <div className="text-center py-12 card-surface rounded-2xl">
+            <div className="text-4xl mb-4">🔑</div>
+            <h3 className="text-lg font-medium text-ink-2 mb-2">{t('apiKeyRequired')}</h3>
+            <p className="text-sm text-muted max-w-sm mx-auto">{t('apiKeyHint')}</p>
+          </div>
+        )
       ) : (
         <>
           {(phase === 'idle' || phase === 'script_generating') && (

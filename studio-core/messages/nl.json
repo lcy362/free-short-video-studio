@@ -134,6 +134,221 @@
     "errorHint_aborted": "Generation cancelled. Click \"Retry Failed Scenes\" to continue unfinished parts.",
     "errorHint_scriptFailed": "Scene splitting failed. Check your API Key or network.",
     "partialFailedHint": "Some scenes failed. Retry failed scenes or concatenate only completed ones.",
-    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped)."
+    "errorHint_sceneFailed": "Some scenes failed. Click \"Retry Failed Scenes\" to auto-retry (completed scenes will be skipped).",
+    "tabs": {
+      "label": "Kies een modus",
+      "image": "Afbeelding",
+      "simple": "Eenvoudige video",
+      "creative": "Creatieve video",
+      "imageHint": "Beschrijf één beeld en krijg een AI-afbeelding in vierkant, liggend of staand formaat.",
+      "simpleHint": "Eén prompt, één AI-videoclip — tekst-naar-video of afbeelding-naar-video, 4–12 seconden, zes verhoudingen.",
+      "creativeHint": "Eén idee; de AI splitst het in 2–5 scènes, genereert elke clip en voegt ze samen in je browser (bèta)."
+    }
+  },
+  "demo": {
+    "title": "Online demo proberen",
+    "subtitle": "Voer een prompt in en genereer direct AI-video's en -afbeeldingen",
+    "githubLink": "Bekijk op GitHub",
+    "githubNote": "Deze webdemo biedt basisfunctionaliteit. Download de desktop-app van GitHub voor het volledige functiepakket.",
+    "githubFree": "Volledig gratis",
+    "promptLabel": "Prompt",
+    "tabs": {
+      "textToVideo": "Video genereren",
+      "textToImage": "Afbeelding genereren"
+    },
+    "apiKey": {
+      "title": "API-sleutelinstellingen",
+      "label": "Agnes API-sleutel",
+      "placeholder": "Voer uw Agnes API-sleutel in...",
+      "save": "Opslaan",
+      "clear": "Wissen",
+      "hint": "Haal uw gratis API-sleutel van:",
+      "show": "Tonen",
+      "hide": "Verbergen",
+      "saved": "Opgeslagen",
+      "required": "Stel eerst uw API-sleutel in",
+      "requiredHint": "Begin met een gratis Agnes AI API-sleutel.",
+      "getKey": "Gratis API-sleutel verkrijgen",
+      "localOnly": "Uw sleutel wordt alleen opgeslagen in de localStorage van uw browser."
+    },
+    "image": {
+      "generate": "Afbeelding genereren",
+      "generating": "Afbeelding genereren...",
+      "promptPlaceholder": "Beschrijf de gewenste afbeelding",
+      "samplePrompts": [
+        "Een Shiba Inu die lacht onder kersenbloesems, zachte bokeh achtergrond, warm lentelicht",
+        "Een betoverend boomhuisdorp in een mistig bos, feeënlichtjes gloeien tussen oude eiken",
+        "Een futuristische cyberpunk straat bij nacht, neonreclames weerspiegeld op nat plaveisel, vliegende auto's boven hoofd",
+        "Een knusse leeshoek bij een regenachtig raam, warm lamplicht, stapels oude boeken, een dampende kop thee",
+        "Een majestueuze witte tijger wandelt door een besneeuwd dennenbos, zacht diffuus licht, filmische compositie"
+      ],
+      "size": "Afbeeldingsgrootte"
+    },
+    "video": {
+      "generate": "Video genereren",
+      "submitting": "Taak verzenden...",
+      "generating": "Video genereren",
+      "estimatedTime": "Geschatte tijd: ~{minutes} min",
+      "promptPlaceholder": "Beschrijf de gewenste video",
+      "timeHint": "Het genereren van een video duurt doorgaans 3–5 minuten. Even geduld a.u.b.",
+      "samplePrompts": [
+        "Slow motion golven die breken tegen rotsachtige kusten tijdens het gouden uur, drone-opname stijgt langzaam op om de uitgestrekte kustlijn te onthullen",
+        "Een mistig bamboebos bij dageraad, zacht gouden licht filtert door de bladeren, lichte wind laat de hoge stengels wuiven",
+        "Luchtopname drone vliegend over een turquoise bergmeer omringd door besneeuwde toppen, spiegelgladde reflecties",
+        "Een knusse dorpsstraat in de herfst, warme straatlantaarns gloeien door vallende gouden bladeren, plassen weerspiegelen het amberkleurige licht",
+        "Time-lapse van een sterrenhemel boven een woestijnkloof, de Melkweg draait langzaam boven eeuwenoude rotsformaties"
+      ],
+      "duration": "Duur",
+      "ratio": "Verhouding",
+      "notSupported": "Uw browser ondersteunt geen videoafspelen",
+      "elapsed": "Verstreken",
+      "pollCount": "Peilingen",
+      "lastPoll": "Laatste resultaat",
+      "model": "Videomodel",
+      "mode": "Generatiemodus",
+      "modelV25Flash": "Video 2.5 Flash",
+      "modelV25FlashDesc": "Nieuw gratis model (beperkte tijd): vaste 720P, duur 4–12 s, ondersteunt beeldreferentie (beeld-naar-video); geen negatieve prompts.",
+      "modeText": "Tekst naar video",
+      "modeImage": "Afbeelding naar video (1 referentie)",
+      "refImage": "Referentieafbeelding",
+      "chooseImage": "Afbeelding kiezen",
+      "noImage": "Geen afbeelding geselecteerd",
+      "imageSelected": "Geselecteerd: {name}",
+      "clearImage": "Verwijderen",
+      "refImageHint": "Upload optioneel een referentieafbeelding; de video behoudt personage, stijl en scène-elementen.",
+      "refImageRequired": "Beeld-naar-video vereist eerst een referentieafbeelding",
+      "free": "Gratis",
+      "freeLimited": "Gratis (beperkte tijd)",
+      "modelModesLabel": "Modi",
+      "modelDurationsLabel": "Duur",
+      "modelRatiosLabel": "Beeldverhouding",
+      "dimsLandscape": "Liggend 1280×720",
+      "dimsPortrait": "Staand 768×1152",
+      "dimsSquare": "Vierkant 1024×1024",
+      "selfHostMinVersion": "Zelf hosten: v{version} of nieuwer voor dezelfde opties",
+      "portraitRotationHint": "Bekend probleem bij de aanbieder: 9:16-clips van Video 2.5 Flash kunnen 90° gedraaid worden afgespeeld. Draai het bestand na het downloaden."
+    },
+    "download": "Downloaden",
+    "downloading": "Downloaden...",
+    "retry": "Opnieuw proberen",
+    "square": "1:1 Vierkant",
+    "landscape": "16:9 Liggend",
+    "portrait": "9:16 Staand",
+    "5s": "5 seconden",
+    "10s": "10 seconden",
+    "4s": "4 seconden",
+    "6s": "6 seconden",
+    "8s": "8 seconden",
+    "12s": "12 seconden",
+    "ratio_21_9": "21:9 Ultrawide",
+    "ratio_4_3": "4:3 Standaard",
+    "ratio_3_4": "3:4 Staand",
+    "errors": {
+      "missingApiKey": "Stel eerst uw API-sleutel in",
+      "invalidApiKey": "Ongeldige API-sleutel",
+      "rateLimited": "Snelheidslimiet bereikt. Limieten gelden per model — wacht even en probeer opnieuw.",
+      "timeout": "Generatie time-out",
+      "emptyPrompt": "Voer een prompt in",
+      "promptTooLong": "Prompt overschrijdt 2000 tekens",
+      "network": "Netwerkfout",
+      "internal": "Serverfout",
+      "upstream": "AI-servicefout",
+      "noResult": "Geen resultaat",
+      "videoFailed": "Generatie mislukt bij de aanbieder. Probeer het later opnieuw of wissel van model.",
+      "pollTimeout": "Na 15 minuten geen resultaat. Controleer later met de taak-ID hieronder.",
+      "unknown": "Onbekende fout",
+      "checkApiKey": "Controleer uw sleutel",
+      "pollTimeoutQueued": "Na 15 minuten nog in de wachtrij van de aanbieder — de gratis wachtrij is druk. Probeer het buiten de piek of host zelf.",
+      "pollTimeoutRendering": "Na 15 minuten nog aan het renderen — lokale wachtlimiet bereikt.",
+      "upstreamStuck": "De aanbieder heeft deze taak gestopt: de inferentie was niet op tijd klaar.",
+      "queueFull": "Gratis wachtrij van de aanbieder is vol — poging {current}/{total}…",
+      "queueFullExhausted": "Wachtrij nog steeds vol na {total} pogingen. Probeer buiten de piek of host zelf.",
+      "copyVideoId": "Taak-ID kopiëren",
+      "checkLater": "Resultaat later bekijken"
+    },
+    "seoTitle": "Gratis online AI-videogenerator | Agnes Video Generator",
+    "seoDescription": "Gratis online AI-video- & afbeeldingengenerator. Typ een prompt om AI-video's (tekst naar video) en AI-afbeeldingen (tekst naar afbeelding) te maken. Geen creditcard, geen installatie—voeg simpelweg je gratis Agnes API Key toe.",
+    "seoH1": "Gratis online AI-video- & afbeeldingengenerator",
+    "seoIntro": "Agnes Video Generator is een volledig gratis web-based AI-creatietool. Open de browser, typ een alinea prompt, en je kunt direct online het Agnes AI-model aanroepen om tekst om te zetten in AI-video's (text-to-video) of AI-afbeeldingen (text-to-image). Volledig gratis, direct bruikbaar, geen software installeren, geen creditcard; voor je begint hoef je alleen je eigen gratis Agnes API-sleutel in te vullen in de frontend (alleen lokaal opgeslagen in de browser, wordt niet naar servers geüpload). Van inspiratie tot eindresultaat, een paar stappen.",
+    "seoFeatures": [
+      {
+        "title": "Volledig gratis, geen creditcard",
+        "desc": "De tool is gratis te gebruiken; je hebt alleen je eigen gratis Agnes API Key nodig. Geen betaling, geen creditcard vereist."
+      },
+      {
+        "title": "Online & zonder installatie",
+        "desc": "Werkt volledig in de browser. Open de pagina en creëer—geen software om te downloaden, werkt op desktop en mobiel."
+      },
+      {
+        "title": "Tekst naar video",
+        "desc": "Typ een prompt en agnes-video-v2.0 zet hem om in een AI-video van 5/10 seconden in meerdere beeldverhoudingen."
+      },
+      {
+        "title": "Tekst naar afbeelding",
+        "desc": "Typ een prompt en agnes-image-2.1-flash genereert hoogwaardige AI-afbeeldingen en kunstillustraties."
+      }
+    ],
+    "seoUseCases": [
+      {
+        "title": "Landschap & natuur in beweging",
+        "desc": "Genereer golven die stromen, wolken die drijven, boslicht en andere natuurlijke bewegingen uit een prompt."
+      },
+      {
+        "title": "Productpromo-clips",
+        "desc": "Maak snel productshowcase-animaties voor e-commerce of landingspagina's—zonder opnames of montage."
+      },
+      {
+        "title": "Verticale sociale video's",
+        "desc": "Genereer verticale 9:16-clips klaar voor TikTok, Reels, Shorts en meer."
+      },
+      {
+        "title": "AI-kunst & illustratie",
+        "desc": "Verander een zin in conceptart, poster-assets of guofeng-/cyberpunk-stijl afbeeldingen."
+      },
+      {
+        "title": "Concepten & blog-visuals",
+        "desc": "Produceer aangepaste visuals en concepten voor artikelen, slides en decks in enkele seconden."
+      },
+      {
+        "title": "Avatars & personages",
+        "desc": "Schets karakterportretten, game-avatars of virtuele persona's uit tekst."
+      }
+    ],
+    "seoFaq": [
+      {
+        "q": "Is deze AI-videogenerator gratis?",
+        "a": "Ja. Agnes Video Generator is volledig gratis. Je hebt alleen je eigen gratis Agnes API Key nodig (ingevoerd in de browser, lokaal opgeslagen)—geen betaling, geen creditcard."
+      },
+      {
+        "q": "Moet ik software downloaden of installeren?",
+        "a": "Nee. Het is een volledig webgebaseerd tool; open het in een browser om AI-video's en -afbeeldingen online te genereren, op desktop of mobiel."
+      },
+      {
+        "q": "Ondersteunt het tekst naar video?",
+        "a": "Ja. Typ een prompt en agnes-video-v2.0 genereert een AI-video van 5 of 10 seconden in meerdere beeldverhoudingen."
+      },
+      {
+        "q": "Ondersteunt het tekst naar afbeelding?",
+        "a": "Ja. Typ een prompt en agnes-image-2.1-flash genereert AI-afbeeldingen en kunstillustraties."
+      },
+      {
+        "q": "Heb ik een creditcard nodig?",
+        "a": "Geen creditcard en geen betaling. De tool is gratis; je voegt simpelweg je eigen gratis Agnes API Key toe."
+      },
+      {
+        "q": "Worden mijn prompts en assets geüpload?",
+        "a": "Je Agnes API Key wordt alleen opgeslagen in de localStorage van je browser en nooit geüpload naar onze servers; generatie verloopt direct vanuit je browser naar de Agnes-modellen."
+      },
+      {
+        "q": "Zijn er limieten op de gratis versie?",
+        "a": "Videogeneratie ondersteunt 5s- en 10s-duur en meerdere beeldverhoudingen; je beschikbare quotum hangt af van de gratis Agnes API Key die je opgeeft."
+      },
+      {
+        "q": "Kan ik de video's en afbeeldingen commercieel gebruiken?",
+        "a": "Commercieel gebruik hangt af van de licentievoorwaarden van de Agnes API Key; bevestig de gebruiksrechten van je Key vóór commercieel gebruik."
+      }
+    ],
+    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "copied": "Gekopieerd"
   }
 }

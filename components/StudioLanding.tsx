@@ -1,6 +1,6 @@
 'use client';
 
-import StudioClient from '@/studio-core/StudioClient';
+import StudioWorkspace from '@/studio-core/StudioWorkspace';
 import ThemeToggle from '@/components/ThemeToggle';
 
 const COPY: Record<'zh' | 'en', {
@@ -14,7 +14,7 @@ const COPY: Record<'zh' | 'en', {
     badge: '免费 · Beta',
     title: 'FreeShortVideoStudio — AI 免费在线生成短视频',
     subtitle:
-      '输入一个创意，AI 自动拆分为 2-5 个场景、逐段文生视频并在浏览器内拼接成片。无需安装、无需显卡、无需信用卡，填入免费 Agnes API Key 即可使用。',
+      '图像生成 / 简单视频 / 创意视频 三合一，全部在你的浏览器里完成：一句描述出图、一句提示词出单段视频、一个创意自动拆成 2-5 个场景并拼接成片。无需安装、无需显卡、无需信用卡，填入免费 Agnes API Key 即可使用。',
     footer: 'FreeShortVideoStudio · 完全在浏览器本地生成与拼接，你的创意与 Key 不上传任何服务器。',
     github: '开源地址',
   },
@@ -22,7 +22,7 @@ const COPY: Record<'zh' | 'en', {
     badge: 'Free · Beta',
     title: 'FreeShortVideoStudio — Free AI Short Video Generator',
     subtitle:
-      'Type an idea; the AI splits it into 2-5 scenes, generates each with text-to-video and stitches them into a complete video in your browser. No install, no GPU, no credit card — just a free Agnes API key.',
+      'Three creation modes in one page: image generation, single-clip text-to-video, and multi-scene creative video stitched together in your browser. No install, no GPU, no credit card — just a free Agnes API key.',
     footer:
       'FreeShortVideoStudio · Everything runs locally in your browser. Your idea and key never leave your device.',
     github: 'Source code',
@@ -81,7 +81,8 @@ export default function StudioLanding({
         </section>
 
         <div className="max-w-3xl lg:max-w-[42rem] mx-auto">
-          <StudioClient />
+          {/* 三 tab 工作台（与官网 video-website 同一份 studio-core 实现） */}
+          <StudioWorkspace defaultTab="creative" />
         </div>
 
         <section className="max-w-3xl lg:max-w-[42rem] mx-auto mt-14 text-center">
