@@ -369,9 +369,9 @@ export class VideoOrchestrator {
 
   /**
    * 下载已完成视频并落成 blob URL。
-   * 成功返回 null；失败返回原始错误（已记日志并把场景标记为 downloadFailed）。
+   * 成功返回 null；失败返回 Error（已记日志并把场景标记为 downloadFailed）。
    */
-  private async completeScene(index: number, remoteUrl: string): Promise<unknown | null> {
+  private async completeScene(index: number, remoteUrl: string): Promise<Error | null> {
     const sc = sceneScope(index);
     this.update(index, { remoteVideoUrl: remoteUrl, progress: 100 });
     studioLogger.info(sc, 'Video ready, starting download...');
@@ -385,9 +385,10 @@ export class VideoOrchestrator {
       this.update(index, { videoUrl: blobUrl, status: 'completed', error: undefined });
       return null;
     } catch (e) {
-      studioLogger.error(sc, 'Download failed', e instanceof Error ? e.message : String(e));
+      const error = e instanceof Error ? e : new Error(String(e));
+      studioLogger.error(sc, 'Download failed', error.message);
       this.update(index, { error: 'downloadFailed' });
-      return e;
+      return error;
     }
   }
 

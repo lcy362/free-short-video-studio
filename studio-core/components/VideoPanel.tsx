@@ -37,6 +37,10 @@ const QUEUE_RETRY_CODES = new Set(['video_queue_full', 'fail_to_fetch_task']);
 function parseUpstreamError(err: unknown): { message: string; code: string } {
   if (!err) return { message: '', code: '' };
   if (typeof err === 'string') return { message: err, code: '' };
+  // 数字 / 布尔 / bigint 直接可读；symbol / function 没有可展示内容
+  if (typeof err === 'number' || typeof err === 'boolean' || typeof err === 'bigint') {
+    return { message: String(err), code: '' };
+  }
   if (typeof err === 'object') {
     const e = err as { code?: unknown; message?: unknown };
     return {
@@ -44,9 +48,7 @@ function parseUpstreamError(err: unknown): { message: string; code: string } {
       code: typeof e.code === 'string' ? e.code : '',
     };
   }
-  // 到这里只剩 number / boolean / symbol 等原始值，不会有 [object Object]
-  const primitive = typeof err === 'symbol' ? err.description ?? '' : String(err);
-  return { message: primitive, code: '' };
+  return { message: '', code: '' };
 }
 
 function extractVideoUrl(data: any): string | null {
