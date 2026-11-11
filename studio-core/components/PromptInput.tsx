@@ -9,13 +9,13 @@ export default function PromptInput({
   disabled,
   placeholderKey = 'image.promptPlaceholder',
   suggestions,
-}: {
+}: Readonly<{
   value: string;
   onChange: (v: string) => void;
   disabled: boolean;
   placeholderKey?: string;
-  suggestions?: string[];
-}) {
+  suggestions?: readonly string[];
+}>) {
   const t = useTranslations('demo');
 
   // Pick a random suggestion on mount

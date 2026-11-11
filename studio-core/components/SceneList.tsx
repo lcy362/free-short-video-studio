@@ -4,15 +4,15 @@ import { useTranslations } from 'next-intl';
 import type { StudioPhase, Scene } from '../types';
 
 interface Props {
-  scenes: Scene[];
-  phase: StudioPhase;
-  hasFailedScenes: boolean;
-  allCompleted: boolean;
-  onGenerateVideos: () => void;
-  onRetryFailed: () => void;
-  onConcatenate: () => void;
-  onReset: () => void;
-  onCancel: () => void;
+  readonly scenes: Scene[];
+  readonly phase: StudioPhase;
+  readonly hasFailedScenes: boolean;
+  readonly allCompleted: boolean;
+  readonly onGenerateVideos: () => void;
+  readonly onRetryFailed: () => void;
+  readonly onConcatenate: () => void;
+  readonly onReset: () => void;
+  readonly onCancel: () => void;
 }
 
 const ERROR_CODES = [
@@ -144,7 +144,7 @@ export default function SceneList({
 }
 
 /** 单个场景卡片 */
-function SceneCard({ scene }: { scene: Scene }) {
+function SceneCard({ scene }: Readonly<{ scene: Scene }>) {
   const t = useTranslations('studio');
 
   const statusConfig: Record<string, { label: string; color: string; icon: string }> = {

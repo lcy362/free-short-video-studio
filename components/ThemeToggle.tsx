@@ -40,7 +40,7 @@ function readStored(): ThemeMode {
 }
 
 function applyTheme(mode: ThemeMode) {
-  document.documentElement.setAttribute('data-theme', resolveMode(mode));
+  document.documentElement.dataset.theme = resolveMode(mode);
   try {
     localStorage.setItem(STORAGE_KEY, mode);
   } catch {
@@ -57,10 +57,10 @@ const ICONS: Record<ThemeMode, string> = {
 export default function ThemeToggle({
   locale,
   className = '',
-}: {
+}: Readonly<{
   locale: 'zh' | 'en';
   className?: string;
-}) {
+}>) {
   const [mode, setMode] = useState<ThemeMode>('system');
   const [mounted, setMounted] = useState(false);
 

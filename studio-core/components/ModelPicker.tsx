@@ -12,11 +12,11 @@ export default function ModelPicker({
   value,
   onChange,
   disabled,
-}: {
+}: Readonly<{
   value: VideoModelId;
   onChange: (v: VideoModelId) => void;
   disabled: boolean;
-}) {
+}>) {
   const t = useTranslations('demo');
   const selected = getModelCap(value);
 

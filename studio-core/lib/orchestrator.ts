@@ -9,13 +9,7 @@
 //   - 日志：在提交/轮询/重试/完成/失败等关键节点写入 studioLogger，供页面日志面板展示。
 
 import type { Scene, StudioDuration, StudioPhase, StudioRatio } from '../types';
-import {
-  POLL_INTERVAL,
-  MAX_POLL_TIME,
-  MAX_CONSECUTIVE_FAILURES,
-  MAX_SUBMIT_RETRIES,
-  RETRY_BASE_DELAY,
-} from '../types';
+import { POLL_INTERVAL, MAX_POLL_TIME, MAX_CONSECUTIVE_FAILURES } from '../types';
 import type { StudioVideoModelId } from './video-models';
 import { DEFAULT_STUDIO_VIDEO_MODEL } from './video-models';
 import { DEFAULT_AGNES_DOMAIN, getAgnesBase } from './api-domains';
@@ -56,13 +50,13 @@ function sceneScope(index: number): string {
 }
 
 export class VideoOrchestrator {
-  private apiKey: string;
-  private ratio: StudioRatio;
-  private duration: StudioDuration;
-  private model: StudioVideoModelId;
-  private base: string;
-  private cb: OrchestratorCallbacks;
-  private signal?: AbortSignal;
+  private readonly apiKey: string;
+  private readonly ratio: StudioRatio;
+  private readonly duration: StudioDuration;
+  private readonly model: StudioVideoModelId;
+  private readonly base: string;
+  private readonly cb: OrchestratorCallbacks;
+  private readonly signal?: AbortSignal;
   /** 内部 scenes 副本（权威来源，避免 React 异步状态时序问题） */
   private scenes: Scene[] = [];
 
@@ -102,44 +96,9 @@ export class VideoOrchestrator {
     failedIndices: number[];
   }> {
     this.scenes = initialScenes.map((s) => ({ ...s }));
-    const failedIndices: number[] = [];
-    const tasks: Promise<void>[] = [];
-
     studioLogger.info('system', `Start generating video: ${this.scenes.length} scenes, ratio ${this.ratio}`);
 
-    for (let i = 0; i < this.scenes.length; i++) {
-      const scene = this.scenes[i];
-      const sc = sceneScope(i);
-
-      // Completed: skip if blob valid; otherwise re-download via remoteVideoUrl (resume)
-      if (scene.status === 'completed') {
-        if (scene.videoUrl) {
-          studioLogger.info(sc, `Already completed (cache hit), skipping`);
-          continue;
-        }
-        if (scene.remoteVideoUrl) {
-          studioLogger.info(sc, `Resume: re-downloading completed video`);
-          tasks.push(this.redownload(i, scene.remoteVideoUrl));
-          continue;
-        }
-        studioLogger.error(sc, 'Completed but no cache and no remote URL, marking as failed');
-        this.update(i, { status: 'error', error: 'downloadFailed' });
-        continue;
-      }
-
-      // Resume: has videoId (incl. retry from error state) → poll directly, skip submit
-      if (scene.videoId) {
-        studioLogger.info(sc, `Resume: polling directly videoId=${scene.videoId}`);
-        this.update(i, { status: 'generating', error: undefined });
-        tasks.push(this.runScene(i, scene.videoId, scene.startedAt ?? Date.now()));
-        continue;
-      }
-
-      // No videoId: needs submit, queue for the rate limiter
-      studioLogger.info(sc, 'Queued for submission (rate limit: 1 per minute)');
-      this.update(i, { status: 'queued', error: undefined });
-      tasks.push(this.submitAndPoll(i));
-    }
+    const tasks = this.buildTasks();
 
     if (tasks.length === 0) {
       studioLogger.success('system', 'All scenes already completed, no regeneration needed');
@@ -148,10 +107,7 @@ export class VideoOrchestrator {
 
     await Promise.allSettled(tasks);
 
-    for (let i = 0; i < this.scenes.length; i++) {
-      if (this.scenes[i].status === 'error') failedIndices.push(i);
-    }
-
+    const failedIndices = this.collectFailedIndices();
     if (failedIndices.length === 0) {
       studioLogger.success('system', `All ${this.scenes.length} scenes generated successfully`);
     } else {
@@ -161,6 +117,60 @@ export class VideoOrchestrator {
       );
     }
     return { ok: failedIndices.length === 0, failedIndices };
+  }
+
+  /** 为每个场景决定本次要做的事，收集需要等待的任务 */
+  private buildTasks(): Promise<void>[] {
+    const tasks: Promise<void>[] = [];
+    for (let i = 0; i < this.scenes.length; i++) {
+      const task = this.planScene(i);
+      if (task) tasks.push(task);
+    }
+    return tasks;
+  }
+
+  /**
+   * 单场景的任务规划：已完成跳过 / 已完成但 blob 失效则重下 / 有 videoId 直接轮询 / 否则排队提交。
+   * 返回 null 表示该场景无需任何异步任务。
+   */
+  private planScene(index: number): Promise<void> | null {
+    const scene = this.scenes[index];
+    const sc = sceneScope(index);
+
+    if (scene.status === 'completed') {
+      if (scene.videoUrl) {
+        studioLogger.info(sc, 'Already completed (cache hit), skipping');
+        return null;
+      }
+      if (scene.remoteVideoUrl) {
+        studioLogger.info(sc, 'Resume: re-downloading completed video');
+        return this.redownload(index, scene.remoteVideoUrl);
+      }
+      studioLogger.error(sc, 'Completed but no cache and no remote URL, marking as failed');
+      this.update(index, { status: 'error', error: 'downloadFailed' });
+      return null;
+    }
+
+    // Resume: has videoId (incl. retry from error state) → poll directly, skip submit
+    if (scene.videoId) {
+      studioLogger.info(sc, `Resume: polling directly videoId=${scene.videoId}`);
+      this.update(index, { status: 'generating', error: undefined });
+      return this.runScene(index, scene.videoId, scene.startedAt ?? Date.now());
+    }
+
+    // No videoId: needs submit, queue for the rate limiter
+    studioLogger.info(sc, 'Queued for submission (rate limit: 1 per minute)');
+    this.update(index, { status: 'queued', error: undefined });
+    return this.submitAndPoll(index);
+  }
+
+  /** 收集失败场景序号 */
+  private collectFailedIndices(): number[] {
+    const failedIndices: number[] = [];
+    for (let i = 0; i < this.scenes.length; i++) {
+      if (this.scenes[i].status === 'error') failedIndices.push(i);
+    }
+    return failedIndices;
   }
 
   /** 提交单场景（受限速器），成功后启动轮询 */
@@ -261,61 +271,17 @@ export class VideoOrchestrator {
   private pollLoop(index: number, videoId: string, startedAt: number): Promise<void> {
     const sc = sceneScope(index);
     return new Promise<void>((resolve, reject) => {
-      const tick = async () => {
-        if (this.signal?.aborted) {
-          studioLogger.warn(sc, 'Cancelled');
-          reject(new VideoApiError('aborted', 'Cancelled'));
-          return;
-        }
-        if (Date.now() - startedAt > MAX_POLL_TIME) {
-          studioLogger.error(sc, `Polling timed out (>${Math.round(MAX_POLL_TIME / 60000)} min)`);
-          this.update(index, { error: 'pollTimeout' });
-          reject(new VideoApiError('pollTimeout', 'Polling timed out'));
-          return;
-        }
-        const scene = this.scenes[index];
-        const fails = scene.consecutiveFailures ?? 0;
-        if (fails >= MAX_CONSECUTIVE_FAILURES) {
-          studioLogger.error(sc, `${MAX_CONSECUTIVE_FAILURES} consecutive polling failures, giving up`);
-          this.update(index, { error: 'maxConsecutiveFailures' });
-          reject(new VideoApiError('maxConsecutiveFailures', 'Too many consecutive failures'));
+      const tick = async (): Promise<void> => {
+        const blocked = this.checkPollGuards(index, startedAt);
+        if (blocked) {
+          reject(blocked);
           return;
         }
 
         try {
           const result = await checkVideoStatus(this.apiKey, videoId, this.model, this.base);
-          const pollN = (scene.pollCount ?? 0) + 1;
-          this.update(index, {
-            progress: result.progress,
-            pollCount: pollN,
-            consecutiveFailures: 0,
-            elapsedSeconds: Math.floor((Date.now() - startedAt) / 1000),
-          });
+          this.recordPollResult(index, startedAt, result);
 
-          studioLogger.info(
-            sc,
-            `Poll #${pollN}: status=${result.status} progress=${result.progress}%`,
-          );
-
-          if (result.status === 'completed' && result.videoUrl) {
-            this.update(index, { remoteVideoUrl: result.videoUrl, progress: 100 });
-            studioLogger.info(sc, 'Video ready, starting download...');
-            try {
-              const blob = await downloadVideoBlob(result.videoUrl, this.signal, (p) => {
-                if (p < 1) studioLogger.info(sc, `Downloading... ${Math.round(p * 100)}%`);
-              });
-              const blobUrl = URL.createObjectURL(blob);
-              studioLogger.success(sc, `Download complete (${(blob.size / 1024 / 1024).toFixed(1)} MB, ${blob.type})`);
-              this.update(index, { videoUrl: blobUrl, status: 'completed', error: undefined });
-              resolve();
-            } catch (e) {
-              const raw = e instanceof Error ? e.message : String(e);
-              studioLogger.error(sc, 'Download failed', raw);
-              this.update(index, { error: 'downloadFailed' });
-              reject(e);
-            }
-            return;
-          }
           if (result.status === 'failed') {
             studioLogger.error(sc, 'Remote returned failed');
             this.update(index, { error: 'videoFailed' });
@@ -323,33 +289,106 @@ export class VideoOrchestrator {
             return;
           }
 
-          const ok = await sleep(POLL_INTERVAL, this.signal);
-          if (!ok) {
-            studioLogger.warn(sc, 'Cancelled');
-            reject(new VideoApiError('aborted', 'Cancelled'));
+          if (result.status === 'completed' && result.videoUrl) {
+            const failure = await this.completeScene(index, result.videoUrl);
+            if (failure) reject(failure);
+            else resolve();
             return;
           }
-          void tick();
         } catch (e) {
+          const newFails = this.recordPollFailure(index, startedAt);
           const raw = e instanceof Error ? e.message : String(e);
-          const newFails = fails + 1;
           studioLogger.warn(sc, `Polling failed (${newFails}/${MAX_CONSECUTIVE_FAILURES})`, raw);
-          this.update(index, {
-            consecutiveFailures: newFails,
-            pollCount: (scene.pollCount ?? 0) + 1,
-            elapsedSeconds: Math.floor((Date.now() - startedAt) / 1000),
-          });
-          const ok = await sleep(POLL_INTERVAL, this.signal);
-          if (!ok) {
-            studioLogger.warn(sc, 'Cancelled');
-            reject(new VideoApiError('aborted', 'Cancelled'));
-            return;
-          }
-          void tick();
         }
+
+        const ok = await sleep(POLL_INTERVAL, this.signal);
+        if (!ok) {
+          studioLogger.warn(sc, 'Cancelled');
+          reject(new VideoApiError('aborted', 'Cancelled'));
+          return;
+        }
+        void tick();
       };
       void tick();
     });
+  }
+
+  /** 轮询的前置终止条件：已取消 / 超出轮询预算 / 连续失败达上限。返回需要 reject 的错误，null 表示继续 */
+  private checkPollGuards(index: number, startedAt: number): VideoApiError | null {
+    const sc = sceneScope(index);
+
+    if (this.signal?.aborted) {
+      studioLogger.warn(sc, 'Cancelled');
+      return new VideoApiError('aborted', 'Cancelled');
+    }
+
+    if (Date.now() - startedAt > MAX_POLL_TIME) {
+      studioLogger.error(sc, `Polling timed out (>${Math.round(MAX_POLL_TIME / 60000)} min)`);
+      this.update(index, { error: 'pollTimeout' });
+      return new VideoApiError('pollTimeout', 'Polling timed out');
+    }
+
+    const fails = this.scenes[index].consecutiveFailures ?? 0;
+    if (fails >= MAX_CONSECUTIVE_FAILURES) {
+      studioLogger.error(sc, `${MAX_CONSECUTIVE_FAILURES} consecutive polling failures, giving up`);
+      this.update(index, { error: 'maxConsecutiveFailures' });
+      return new VideoApiError('maxConsecutiveFailures', 'Too many consecutive failures');
+    }
+
+    return null;
+  }
+
+  /** 记录一次成功的状态查询（进度 / 轮询次数 / 用时），并写日志 */
+  private recordPollResult(
+    index: number,
+    startedAt: number,
+    result: { status: string; progress: number },
+  ): void {
+    const sc = sceneScope(index);
+    const pollN = (this.scenes[index].pollCount ?? 0) + 1;
+    this.update(index, {
+      progress: result.progress,
+      pollCount: pollN,
+      consecutiveFailures: 0,
+      elapsedSeconds: Math.floor((Date.now() - startedAt) / 1000),
+    });
+    studioLogger.info(sc, `Poll #${pollN}: status=${result.status} progress=${result.progress}%`);
+  }
+
+  /** 记录一次失败的查询，返回累计连续失败次数 */
+  private recordPollFailure(index: number, startedAt: number): number {
+    const scene = this.scenes[index];
+    const newFails = (scene.consecutiveFailures ?? 0) + 1;
+    this.update(index, {
+      consecutiveFailures: newFails,
+      pollCount: (scene.pollCount ?? 0) + 1,
+      elapsedSeconds: Math.floor((Date.now() - startedAt) / 1000),
+    });
+    return newFails;
+  }
+
+  /**
+   * 下载已完成视频并落成 blob URL。
+   * 成功返回 null；失败返回原始错误（已记日志并把场景标记为 downloadFailed）。
+   */
+  private async completeScene(index: number, remoteUrl: string): Promise<unknown | null> {
+    const sc = sceneScope(index);
+    this.update(index, { remoteVideoUrl: remoteUrl, progress: 100 });
+    studioLogger.info(sc, 'Video ready, starting download...');
+
+    try {
+      const blob = await downloadVideoBlob(remoteUrl, this.signal, (p) => {
+        if (p < 1) studioLogger.info(sc, `Downloading... ${Math.round(p * 100)}%`);
+      });
+      const blobUrl = URL.createObjectURL(blob);
+      studioLogger.success(sc, `Download complete (${(blob.size / 1024 / 1024).toFixed(1)} MB, ${blob.type})`);
+      this.update(index, { videoUrl: blobUrl, status: 'completed', error: undefined });
+      return null;
+    } catch (e) {
+      studioLogger.error(sc, 'Download failed', e instanceof Error ? e.message : String(e));
+      this.update(index, { error: 'downloadFailed' });
+      return e;
+    }
   }
 
   /** Normalize any error into a scene error code */
@@ -379,4 +418,4 @@ export class VideoOrchestrator {
 }
 
 /** 导出重试参数供 UI 展示 */
-export { MAX_SUBMIT_RETRIES, RETRY_BASE_DELAY, MAX_CONSECUTIVE_FAILURES };
+export { MAX_SUBMIT_RETRIES, RETRY_BASE_DELAY, MAX_CONSECUTIVE_FAILURES } from '../types';

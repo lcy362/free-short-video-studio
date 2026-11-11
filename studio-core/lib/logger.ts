@@ -20,7 +20,7 @@ const MAX_LOGS = 500;
 class StudioLogger {
   private logs: LogEntry[] = [];
   private nextId = 1;
-  private subscribers = new Set<(logs: LogEntry[]) => void>();
+  private readonly subscribers = new Set<(logs: LogEntry[]) => void>();
 
   /** 记录一条日志 */
   log(level: LogLevel, scope: string, message: string, raw?: string): void {

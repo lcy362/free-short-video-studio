@@ -27,10 +27,10 @@ export function parseStudioTab(value: string | null | undefined): StudioTab | nu
 export default function StudioTabs({
   active,
   onChange,
-}: {
+}: Readonly<{
   active: StudioTab;
   onChange: (tab: StudioTab) => void;
-}) {
+}>) {
   const t = useTranslations('studio');
 
   return (

@@ -35,11 +35,11 @@ import StudioClient from './StudioClient';
 export default function StudioWorkspace({
   defaultTab = DEFAULT_STUDIO_TAB,
   syncUrl = true,
-}: {
+}: Readonly<{
   defaultTab?: StudioTab;
   /** 切换 tab 时把 ?tab= 写进地址栏（便于分享 / 回链，纯前端，不触发导航） */
   syncUrl?: boolean;
-}) {
+}>) {
   const t = useTranslations('studio');
   const { apiKey, hasKey, saveKey, clearKey } = useApiKey();
   const [tab, setTab] = useState<StudioTab>(defaultTab);

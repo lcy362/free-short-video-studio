@@ -3,8 +3,8 @@
 import { useTranslations } from 'next-intl';
 
 interface Props {
-  url: string;
-  onReset: () => void;
+  readonly url: string;
+  readonly onReset: () => void;
 }
 
 export default function VideoPreview({ url, onReset }: Props) {
@@ -16,7 +16,7 @@ export default function VideoPreview({ url, onReset }: Props) {
     a.download = `agnes-studio-${Date.now()}.mp4`;
     document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a);
+    a.remove();
   };
 
   return (
@@ -41,7 +41,7 @@ export default function VideoPreview({ url, onReset }: Props) {
             onClick={handleDownload}
             className="btn-primary flex items-center gap-2 px-4 py-2.5 text-sm"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
             {t('download')}

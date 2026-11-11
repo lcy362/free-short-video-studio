@@ -53,6 +53,44 @@ import type {
   StudioProject,
 } from './types';
 
+/**
+ * 逐段下载 + 缩放为统一尺寸，返回缩放后的虚拟文件名列表。
+ *
+ * 必须**串行**（ffmpeg.wasm 只有一个实例，并行会互相覆盖虚拟文件系统），
+ * 因此用递归而不是 for + await 表达顺序（Sonar S9382「循环内 await 可并行」在此不适用）。
+ */
+async function scaleScenesSequentially(
+  scenes: readonly Scene[],
+  width: number,
+  height: number,
+  onProgress: (ratio: number) => void,
+): Promise<string[]> {
+  const scaledNames: string[] = [];
+
+  const scaleAt = async (i: number): Promise<void> => {
+    if (i >= scenes.length) return;
+    const scene = scenes[i];
+    if (scene.videoUrl) {
+      studioLogger.info('ffmpeg', `Scaling scene ${i + 1}/${scenes.length}`);
+      // 根据 blob 类型决定输入扩展名（录制下载的是 webm，直接下载的是 mp4）
+      const blob = await fetch(scene.videoUrl).then((r) => r.blob());
+      const ext = blob.type.includes('webm') ? 'webm' : 'mp4';
+      const inputName = `input_${i}.${ext}`;
+      const scaledName = `scaled_${i}.mp4`; // 缩放后统一为 mp4
+      await writeBlobToFile(blob, inputName);
+      await scaleVideo(inputName, scaledName, width, height, (p) => {
+        onProgress(i / scenes.length + p / scenes.length);
+      });
+      await deleteFile(inputName);
+      scaledNames.push(scaledName);
+    }
+    await scaleAt(i + 1);
+  };
+
+  await scaleAt(0);
+  return scaledNames;
+}
+
 /** 从 errorMsg 或 scene.error 提取错误 code，用于匹配提示文案 */
 function extractErrorCode(errorMsg: string): string | null {
   // 单场景错误码（精确匹配）
@@ -75,7 +113,7 @@ export default function StudioClient({
   hasKey: hasKeyProp,
   domain: domainProp,
   onDomainChange,
-}: {
+}: Readonly<{
   /**
    * true = 被 StudioWorkspace 三 tab 工作台内嵌：
    * 不再渲染自带的 ApiKeyPanel 与「未填 Key」提示（由外层统一托管），其余流程不变。
@@ -85,7 +123,7 @@ export default function StudioClient({
   hasKey?: boolean;
   domain?: AgnesDomainId;
   onDomainChange?: (id: AgnesDomainId) => void;
-} = {}) {
+}> = {}) {
   const t = useTranslations('studio');
   const locale = useLocale();
   // 页面直用时走内置 hook；embedded 模式由外层传入。hook 仍无条件调用（保持 hook 顺序稳定）
@@ -104,8 +142,8 @@ export default function StudioClient({
   const [model, setModel] = useState<StudioVideoModelId>(DEFAULT_STUDIO_VIDEO_MODEL);
   const [domain, setDomain] = useState<AgnesDomainId>(domainProp ?? DEFAULT_AGNES_DOMAIN);
   const [scenes, setScenes] = useState<Scene[]>([]);
-  const [ffmpegProgress, setFFmpegProgress] = useState(0);
-  const [ffmpegLoaded, setFFmpegLoaded] = useState(false);
+  const [ffmpegProgress, setFfmpegProgress] = useState(0);
+  const [ffmpegLoaded, setFfmpegLoaded] = useState(false);
   const [finalVideoUrl, setFinalVideoUrl] = useState('');
   const [projects, setProjects] = useState<StudioProject[]>([]);
   const [currentProjectId, setCurrentProjectId] = useState<string | null>(null);
@@ -263,16 +301,14 @@ export default function StudioClient({
       const { ok, failedIndices } = await orch.runAll(initialScenes);
       flushPersist();
 
-      if (ok) {
+      // 全部失败 → 整页错误；部分失败 → 仍进 all_videos_ready（场景卡片里单独标红 + 可重试）
+      if (ok || failedIndices.length < initialScenes.length) {
         metaRef.current.phase = 'all_videos_ready';
         setPhase('all_videos_ready');
-      } else if (failedIndices.length === initialScenes.length) {
+      } else {
         metaRef.current.phase = 'error';
         setPhase('error');
         setErrorMsg('sceneFailed');
-      } else {
-        metaRef.current.phase = 'all_videos_ready';
-        setPhase('all_videos_ready');
       }
     } catch (e) {
       // 兜底：编排器异常不冒泡成未处理的 Promise rejection
@@ -323,7 +359,7 @@ export default function StudioClient({
   const handleNewProject = () => {
     abortRef.current?.abort();
     setPhase('idle'); setErrorMsg(''); setScenes([]); setFinalVideoUrl('');
-    setFFmpegProgress(0); setFFmpegLoaded(false); setCurrentProjectId(null);
+    setFfmpegProgress(0); setFfmpegLoaded(false); setCurrentProjectId(null);
     submitLimiter.reset(); setProjects(loadProjects());
   };
 
@@ -340,45 +376,30 @@ export default function StudioClient({
   const handleConcatenate = async () => {
     setPhase('ffmpeg_loading');
     setErrorMsg('');
-    setFFmpegProgress(0);
+    setFfmpegProgress(0);
     studioLogger.info('ffmpeg', 'Starting concatenation');
     try {
       if (!ffmpegLoaded) {
         studioLogger.info('ffmpeg', 'Loading ffmpeg.wasm engine...');
         await loadFFmpeg();
-        setFFmpegLoaded(true);
+        setFfmpegLoaded(true);
         studioLogger.success('ffmpeg', 'ffmpeg.wasm loaded');
       }
       setPhase('concatenating');
       const [width, height] = STUDIO_RATIO_DIMS[ratio];
 
-      const scaledNames: string[] = [];
-      for (let i = 0; i < scenes.length; i++) {
-        const scene = scenes[i];
-        if (!scene.videoUrl) continue;
-        studioLogger.info('ffmpeg', `Scaling scene ${i + 1}/${scenes.length}`);
-        // 根据 blob 类型决定输入扩展名（录制下载的是 webm，直接下载的是 mp4）
-        const blob = await fetch(scene.videoUrl).then((r) => r.blob());
-        const ext = blob.type.includes('webm') ? 'webm' : 'mp4';
-        const inputName = `input_${i}.${ext}`;
-        const scaledName = `scaled_${i}.mp4`; // 缩放后统一为 mp4
-        await writeBlobToFile(blob, inputName);
-        await scaleVideo(inputName, scaledName, width, height, (p) => {
-          setFFmpegProgress(i / scenes.length + p / scenes.length);
-        });
-        await deleteFile(inputName);
-        scaledNames.push(scaledName);
-      }
+      const scaledNames = await scaleScenesSequentially(scenes, width, height, setFfmpegProgress);
 
-      setFFmpegProgress(0);
+      setFfmpegProgress(0);
       studioLogger.info('ffmpeg', `Concatenating ${scaledNames.length} segments...`);
-      await concatVideos(scaledNames, 'output.mp4', (p) => setFFmpegProgress(p));
+      await concatVideos(scaledNames, 'output.mp4', (p) => setFfmpegProgress(p));
       const url = await readFileAsBlobURL('output.mp4');
       setFinalVideoUrl(url);
       metaRef.current.finalVideoUrl = url;
       studioLogger.success('ffmpeg', 'Concatenation complete');
 
-      for (const name of scaledNames) await deleteFile(name);
+      // 各段虚拟文件互相独立，删文件可以并行
+      await Promise.all(scaledNames.map((name) => deleteFile(name)));
       await deleteFile('output.mp4');
 
       metaRef.current.phase = 'completed';
@@ -428,15 +449,16 @@ export default function StudioClient({
         />
       )}
 
-      {!hasKey ? (
-        embedded ? null : (
-          <div className="text-center py-12 card-surface rounded-2xl">
-            <div className="text-4xl mb-4">🔑</div>
-            <h3 className="text-lg font-medium text-ink-2 mb-2">{t('apiKeyRequired')}</h3>
-            <p className="text-sm text-muted max-w-sm mx-auto">{t('apiKeyHint')}</p>
-          </div>
-        )
-      ) : (
+      {/* 未填 Key 提示：嵌入式工作台由外层统一提示，这里只在独立页渲染 */}
+      {!hasKey && !embedded && (
+        <div className="text-center py-12 card-surface rounded-2xl">
+          <div className="text-4xl mb-4">🔑</div>
+          <h3 className="text-lg font-medium text-ink-2 mb-2">{t('apiKeyRequired')}</h3>
+          <p className="text-sm text-muted max-w-sm mx-auto">{t('apiKeyHint')}</p>
+        </div>
+      )}
+
+      {hasKey && (
         <>
           {(phase === 'idle' || phase === 'script_generating') && (
             <IdeaInput
@@ -476,7 +498,7 @@ export default function StudioClient({
           {phase === 'error' && errCode && (
             <div className="p-5 rounded-xl bg-danger/10 border border-danger/30">
               <div className="flex items-start gap-3">
-                <svg className="w-5 h-5 text-danger mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 text-danger mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div className="flex-1 min-w-0">
@@ -516,7 +538,7 @@ export default function StudioClient({
           {phase === 'all_videos_ready' && hasFailedScenes && (
             <div className="p-4 rounded-xl bg-warning/10 border border-warning/30">
               <div className="flex items-start gap-2">
-                <svg className="w-4 h-4 text-warning mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4 text-warning mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z" />
                 </svg>
                 <p className="text-xs text-warning/90 leading-relaxed">{t('partialFailedHint')}</p>

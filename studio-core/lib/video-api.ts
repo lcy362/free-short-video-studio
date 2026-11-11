@@ -13,13 +13,7 @@
 //   <video> + captureStream + MediaRecorder 录制为 blob（不受 CORS 限制）。
 
 import type { StudioRatio } from '../types';
-import {
-  POLL_INTERVAL,
-  MAX_POLL_TIME,
-  MAX_CONSECUTIVE_FAILURES,
-  MAX_SUBMIT_RETRIES,
-  RETRY_BASE_DELAY,
-} from '../types';
+import { MAX_SUBMIT_RETRIES, RETRY_BASE_DELAY } from '../types';
 import { DEFAULT_STUDIO_VIDEO_MODEL, type StudioVideoModelId } from './video-models';
 import { fetchWithDomainFailback } from './api-domains';
 import { sleep } from './rate-limiter';
@@ -134,23 +128,26 @@ export async function submitVideoWithRetry(
   const {
     apiKey, prompt, ratio, duration, model, base, onAttempt, signal,
   } = params;
-  let lastErr: unknown;
-  for (let attempt = 0; attempt < MAX_SUBMIT_RETRIES; attempt++) {
+
+  /**
+   * 第 attempt 次尝试（0 起）。必须串行——下一次提交要等本轮退避睡完，
+   * 因此用递归而不是 for + await（Sonar S9382「循环内 await 可并行」在此不适用）。
+   */
+  const attemptOnce = async (attempt: number): Promise<{ videoId: string }> => {
     if (signal?.aborted) throw new VideoApiError('aborted', 'Cancelled');
     try {
       return await submitOnce(apiKey, prompt, ratio, duration, model, base);
     } catch (e) {
-      lastErr = e;
-      if (!isRetryableError(e) || attempt === MAX_SUBMIT_RETRIES - 1) {
-        throw e;
-      }
+      if (!isRetryableError(e) || attempt === MAX_SUBMIT_RETRIES - 1) throw e;
       const delay = RETRY_BASE_DELAY * (attempt + 1);
       onAttempt?.(attempt + 1, delay);
       const ok = await sleep(delay, signal);
       if (!ok) throw new VideoApiError('aborted', 'Cancelled');
+      return attemptOnce(attempt + 1);
     }
-  }
-  throw lastErr;
+  };
+
+  return attemptOnce(0);
 }
 
 /** 保留无重试版本以兼容旧调用 */
@@ -252,11 +249,11 @@ export async function downloadVideoBlob(
     );
 }
 
-/** 轮询配置导出（供组件使用） */
+/** 轮询 / 重试配置导出（供组件使用），直接由 types 透出 */
 export {
   POLL_INTERVAL,
   MAX_POLL_TIME,
   MAX_CONSECUTIVE_FAILURES,
   MAX_SUBMIT_RETRIES,
   RETRY_BASE_DELAY,
-};
+} from '../types';

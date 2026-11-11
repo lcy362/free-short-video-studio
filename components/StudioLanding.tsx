@@ -34,10 +34,10 @@ const REPO_URL = 'https://github.com/lcy362/free-short-video-studio';
 export default function StudioLanding({
   locale,
   onLocaleChange,
-}: {
+}: Readonly<{
   locale: 'zh' | 'en';
   onLocaleChange: (l: 'zh' | 'en') => void;
-}) {
+}>) {
   const t = COPY[locale];
 
   return (

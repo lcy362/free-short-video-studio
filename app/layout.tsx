@@ -18,7 +18,7 @@ export const viewport: Viewport = {
  *  逻辑与官网 video-website 一致：localStorage['theme'] ∈ system|light|dark → data-theme */
 const THEME_SCRIPT = `(function(){try{var m=localStorage.getItem('theme');var mode=(m==='light'||m==='dark'||m==='system')?m:'system';var dark=mode==='dark'||(mode==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',dark?'dark':'light');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="zh" data-theme="dark" suppressHydrationWarning>
       <body className="min-h-screen bg-paper text-ink font-sans">

@@ -6,13 +6,13 @@ export default function GenerateButton({
   disabled,
   label,
   loadingLabel,
-}: {
+}: Readonly<{
   onClick: () => void;
   loading: boolean;
   disabled: boolean;
   label: string;
   loadingLabel: string;
-}) {
+}>) {
   return (
     <button
       onClick={onClick}

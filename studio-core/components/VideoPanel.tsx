@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { useTranslations, useMessages, useLocale } from 'next-intl';
 import PromptInput from './PromptInput';
 import SelectorGroup from './SelectorGroup';
@@ -44,7 +44,9 @@ function parseUpstreamError(err: unknown): { message: string; code: string } {
       code: typeof e.code === 'string' ? e.code : '',
     };
   }
-  return { message: String(err), code: '' };
+  // 到这里只剩 number / boolean / symbol 等原始值，不会有 [object Object]
+  const primitive = typeof err === 'symbol' ? err.description ?? '' : String(err);
+  return { message: primitive, code: '' };
 }
 
 function extractVideoUrl(data: any): string | null {
@@ -61,7 +63,61 @@ function extractVideoUrl(data: any): string | null {
   return videoUrl.startsWith('http://') || videoUrl.startsWith('https://') ? videoUrl : null;
 }
 
-export default function TextToVideo({ apiKey }: { apiKey: string }) {
+/** 提交一次的结果：成功拿到 id / 免费队列饱和（可重试）/ 终止性失败 */
+type SubmitOutcome =
+  | { kind: 'submitted'; data: any }
+  | { kind: 'queue_full'; detail: string }
+  | { kind: 'failed'; code: string; detail: string };
+
+/** 把 /v1/videos 的响应归类（拆分出来是为了压住 handleGenerate 的圈复杂度） */
+function classifySubmitResponse(resp: Response, data: any): SubmitOutcome {
+  if (resp.status === 401) return { kind: 'failed', code: 'invalid_api_key', detail: '' };
+  if (resp.status === 429) return { kind: 'failed', code: 'rate_limited', detail: '' };
+
+  if (!resp.ok) {
+    const parsed = parseUpstreamError(data?.error);
+    const code = parsed.code || (typeof data?.code === 'string' ? data.code : '');
+    if (resp.status === 503 && QUEUE_RETRY_CODES.has(code)) {
+      return { kind: 'queue_full', detail: parsed.message || code };
+    }
+    return {
+      kind: 'failed',
+      code: 'upstream_error',
+      detail: parsed.message || JSON.stringify(data).slice(0, 300),
+    };
+  }
+
+  const id = data?.video_id || data?.task_id || data?.id;
+  if (!id) return { kind: 'failed', code: 'no_video_id', detail: '' };
+  return { kind: 'submitted', data };
+}
+
+/** 单次提交（不含队列重试） */
+async function requestSubmitOnce(
+  payload: Record<string, unknown>,
+  apiKey: string,
+  locale: string,
+): Promise<SubmitOutcome> {
+  try {
+    const resp = await fetchWithFailback(
+      '/v1/videos',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(payload),
+      },
+      locale,
+    );
+    return classifySubmitResponse(resp, await resp.json());
+  } catch {
+    return { kind: 'failed', code: 'network', detail: '' };
+  }
+}
+
+export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const t = useTranslations('demo');
   const locale = useLocale();
   const [model, setModel] = useState<VideoModelId>(DEFAULT_VIDEO_MODEL);
@@ -121,12 +177,6 @@ export default function TextToVideo({ apiKey }: { apiKey: string }) {
     if (!c.ratios.some((r) => r.value === ratio)) setRatio(c.ratios[0].value);
   };
 
-  // Pick a random sample prompt on each mount
-  const randomPrompt = useMemo(
-    () => samplePrompts[Math.floor(Math.random() * samplePrompts.length)],
-    [],
-  );
-
   const stopPolling = useCallback(() => {
     if (pollTimerRef.current) {
       clearTimeout(pollTimerRef.current);
@@ -177,52 +227,104 @@ export default function TextToVideo({ apiKey }: { apiKey: string }) {
     [apiKey, locale, model],
   );
 
+  /**
+   * W2：预算到点后强制再查一次终态。
+   * 终态 completed/failed 直接收尾；查不到就按「仍在排队 / 渲染中」给出不同错误原因。
+   */
+  const finishTimedOutPoll = useCallback(
+    async (id: string) => {
+      let data: any = null;
+      try {
+        const r = await queryStatus(id);
+        if (r.ok) data = r.data;
+      } catch {
+        // 终查网络失败：退化为按最后一次已知状态分类
+      }
+
+      const apiStatus = String(data?.status || '').toLowerCase();
+      const videoUrl = data && apiStatus === 'completed' ? extractVideoUrl(data) : null;
+      if (videoUrl) {
+        setResultUrl(videoUrl);
+        setStatus('completed');
+        stopPolling();
+        return;
+      }
+
+      if (data && apiStatus === 'failed') {
+        const { message, code } = parseUpstreamError(data?.error);
+        finishWithError(
+          'videoFailed',
+          `${t('errors.upstreamStuck')}\n${message || code || t('errors.videoFailed')}`,
+        );
+        return;
+      }
+
+      // 从未进入渲染（进度一直为 0）→ 上游仍在排队；否则是渲染中但超出本地预算
+      const stillQueued =
+        lastProgressRef.current === 0
+        && (lastApiStatusRef.current === 'pending' || lastApiStatusRef.current === 'queued');
+
+      if (stillQueued) {
+        finishWithError('pollTimeoutQueued', t('errors.pollTimeoutQueued'));
+        return;
+      }
+      finishWithError(
+        'pollTimeoutRendering',
+        `${t('errors.pollTimeoutRendering')}\n${t('errors.pollTimeout')}`,
+      );
+    },
+    [finishWithError, queryStatus, stopPolling, t],
+  );
+
+  /** 处理一次成功的状态查询：到终态则收尾并返回 false（不再轮询），否则返回 true */
+  const applyPollData = useCallback(
+    (data: any): boolean => {
+      const apiStatus = String(data?.status || 'pending').toLowerCase();
+      const apiProgress = data?.progress ?? 0;
+
+      lastApiStatusRef.current = apiStatus;
+      lastProgressRef.current = apiProgress;
+      setProgress(apiProgress);
+      setLastPollStatus(`${apiStatus} (${apiProgress}%)`);
+
+      if (apiStatus === 'completed') {
+        const videoUrl = extractVideoUrl(data);
+        if (videoUrl) {
+          setResultUrl(videoUrl);
+          setStatus('completed');
+          stopPolling();
+          return false;
+        }
+        const keys = Object.keys(data).join(', ');
+        setLastPollStatus(`completed (URL not found, fields: ${keys.slice(0, 80)})`);
+        return true;
+      }
+
+      if (apiStatus === 'failed') {
+        // ── W1：data.error 可能是对象，必须取 message/code，不能直接塞进字符串 state ──
+        const { message, code } = parseUpstreamError(data?.error);
+        finishWithError(
+          'videoFailed',
+          message || code
+            ? `${t('errors.videoFailed')}\n${message || code}`
+            : t('errors.videoFailed'),
+        );
+        return false;
+      }
+
+      return true;
+    },
+    [finishWithError, stopPolling, t],
+  );
+
   const pollStatus = useCallback(
     async (id: string) => {
-      const elapsed = Date.now() - startTimeRef.current;
+      const scheduleNextPoll = () => {
+        pollTimerRef.current = setTimeout(() => pollStatus(id), POLL_INTERVAL);
+      };
 
-      // ── W2：预算到点后强制再查一次终态，命中 failed 就给出上游真实原因 ──
-      if (elapsed > MAX_POLL_TIME) {
-        let data: any = null;
-        try {
-          const r = await queryStatus(id);
-          if (r.ok) data = r.data;
-        } catch {
-          // 终查网络失败：退化为按最后一次已知状态分类
-        }
-
-        const apiStatus = String(data?.status || '').toLowerCase();
-        if (data && apiStatus === 'completed') {
-          const url = extractVideoUrl(data);
-          if (url) {
-            setResultUrl(url);
-            setStatus('completed');
-            stopPolling();
-            return;
-          }
-        }
-        if (data && apiStatus === 'failed') {
-          const { message, code } = parseUpstreamError(data?.error);
-          finishWithError(
-            'videoFailed',
-            `${t('errors.upstreamStuck')}\n${message || code || t('errors.videoFailed')}`,
-          );
-          return;
-        }
-
-        // 从未进入渲染（进度一直为 0）→ 上游仍在排队；否则是渲染中但超出本地预算
-        const stillQueued =
-          lastProgressRef.current === 0
-          && (lastApiStatusRef.current === 'pending' || lastApiStatusRef.current === 'queued');
-
-        if (stillQueued) {
-          finishWithError('pollTimeoutQueued', t('errors.pollTimeoutQueued'));
-        } else {
-          finishWithError(
-            'pollTimeoutRendering',
-            `${t('errors.pollTimeoutRendering')}\n${t('errors.pollTimeout')}`,
-          );
-        }
+      if (Date.now() - startTimeRef.current > MAX_POLL_TIME) {
+        await finishTimedOutPoll(id);
         return;
       }
 
@@ -233,53 +335,125 @@ export default function TextToVideo({ apiKey }: { apiKey: string }) {
 
         if (!ok) {
           setLastPollStatus(`HTTP ${httpStatus} (retrying...)`);
-          pollTimerRef.current = setTimeout(() => pollStatus(id), POLL_INTERVAL);
+          scheduleNextPoll();
           return;
         }
-
-        const apiStatus = String(data?.status || 'pending').toLowerCase();
-        const apiProgress = data?.progress ?? 0;
-
-        lastApiStatusRef.current = apiStatus;
-        lastProgressRef.current = apiProgress;
-        setProgress(apiProgress);
-        setLastPollStatus(`${apiStatus} (${apiProgress}%)`);
-
-        if (apiStatus === 'completed') {
-          const videoUrl = extractVideoUrl(data);
-          if (videoUrl) {
-            setResultUrl(videoUrl);
-            setStatus('completed');
-            stopPolling();
-            return;
-          }
-
-          const keys = Object.keys(data).join(', ');
-          setLastPollStatus(`completed (URL not found, fields: ${keys.slice(0, 80)})`);
-          pollTimerRef.current = setTimeout(() => pollStatus(id), POLL_INTERVAL);
-          return;
-        }
-
-        if (apiStatus === 'failed') {
-          // ── W1：data.error 可能是对象，必须取 message/code，不能直接塞进字符串 state ──
-          const { message, code } = parseUpstreamError(data?.error);
-          finishWithError(
-            'videoFailed',
-            message || code
-              ? `${t('errors.videoFailed')}\n${message || code}`
-              : t('errors.videoFailed'),
-          );
-          return;
-        }
-
-        pollTimerRef.current = setTimeout(() => pollStatus(id), POLL_INTERVAL);
+        if (applyPollData(data)) scheduleNextPoll();
       } catch {
         setLastPollStatus('network error (retrying...)');
-        pollTimerRef.current = setTimeout(() => pollStatus(id), POLL_INTERVAL);
+        scheduleNextPoll();
       }
     },
-    [queryStatus, finishWithError, t, stopPolling],
+    [applyPollData, finishTimedOutPoll, queryStatus],
   );
+
+  /** 提交成功后进入生成态：起计时器 + 开始轮询 */
+  const beginPolling = useCallback(
+    (id: string) => {
+      setVideoId(id);
+      setRetryAttempt(0);
+      setStatus('generating');
+      startTimeRef.current = Date.now();
+      lastApiStatusRef.current = 'pending';
+      lastProgressRef.current = 0;
+      elapsedTimerRef.current = setInterval(() => {
+        setElapsedSeconds(Math.floor((Date.now() - startTimeRef.current) / 1000));
+      }, 1000);
+      pollStatus(id);
+    },
+    [pollStatus],
+  );
+
+  /** 把提交失败的 code 映射成用户可读的终态错误 */
+  const finishSubmitError = useCallback(
+    (code: string, detail: string) => {
+      switch (code) {
+        case 'network':
+          finishWithError('network', t('errors.network'));
+          return;
+        case 'invalid_api_key':
+          finishWithError('invalid_api_key', t('errors.invalidApiKey'));
+          return;
+        case 'rate_limited':
+          finishWithError('rate_limited', t('errors.rateLimited'));
+          return;
+        case 'no_video_id':
+          finishWithError('no_video_id', t('errors.noResult'));
+          return;
+        default:
+          finishWithError('upstream_error', `${t('errors.upstream')}\n${detail}`);
+      }
+    },
+    [finishWithError, t],
+  );
+
+  /**
+   * ── W3：提交侧有限次自动重试（上游免费队列饱和时会持续返回 503）──
+   * 必须串行：下一次提交要等本轮重试间隔走完，因此用递归而不是 for + await。
+   */
+  const submitWithQueueRetry = useCallback(
+    async (payload: Record<string, unknown>, attempt: number): Promise<void> => {
+      if (abortRef.current) return;
+
+      const outcome = await requestSubmitOnce(payload, apiKey, locale);
+
+      if (outcome.kind === 'submitted') {
+        beginPolling(String(outcome.data.video_id || outcome.data.task_id || outcome.data.id));
+        return;
+      }
+
+      if (outcome.kind === 'failed') {
+        finishSubmitError(outcome.code, outcome.detail);
+        return;
+      }
+
+      if (attempt >= QUEUE_RETRY_MAX) {
+        finishWithError(
+          'queue_full',
+          `${t('errors.queueFullExhausted', { total: QUEUE_RETRY_MAX })}\n${outcome.detail}`,
+        );
+        return;
+      }
+
+      setRetryAttempt(attempt + 1);
+      await new Promise((resolve) => setTimeout(resolve, QUEUE_RETRY_INTERVAL));
+      return submitWithQueueRetry(payload, attempt + 1);
+    },
+    [apiKey, beginPolling, finishSubmitError, finishWithError, locale, t],
+  );
+
+  /** 组装 /v1/videos 请求体 */
+  const buildSubmitPayload = (): Record<string, unknown> => {
+    // ── 2.5 系列协议：mode / seconds / size / aspect_ratio ──
+    // 固定 720P；不传 width/height/num_frames（旧版 v2.0 参数会返回 400 forbidden field）
+    const payload: Record<string, unknown> = {
+      model,
+      prompt: prompt.trim(),
+      mode: mode === 'image' ? 'reference' : 'text',
+      seconds: duration,
+      size: '720P',
+      aspect_ratio: ratio,
+    };
+    if (mode === 'image' && refImageUrl) {
+      payload.images = [refImageUrl];
+    }
+    return payload;
+  };
+
+  /** 清空上一次运行的展示状态 */
+  const resetRunState = () => {
+    stopPolling();
+    setStatus('submitting');
+    setErrorMsg('');
+    setErrorCode('');
+    setProgress(0);
+    setPollCount(0);
+    setElapsedSeconds(0);
+    setLastPollStatus('');
+    setVideoId('');
+    setRetryAttempt(0);
+    setCopied(false);
+  };
 
   const handleGenerate = async () => {
     if (!prompt.trim() || !apiKey) return;
@@ -292,113 +466,8 @@ export default function TextToVideo({ apiKey }: { apiKey: string }) {
       return;
     }
 
-    stopPolling();
-    setStatus('submitting');
-    setErrorMsg('');
-    setErrorCode('');
-    setProgress(0);
-    setPollCount(0);
-    setElapsedSeconds(0);
-    setLastPollStatus('');
-    setVideoId('');
-    setRetryAttempt(0);
-    setCopied(false);
-
-    const payload: Record<string, unknown> = {
-      model,
-      prompt: prompt.trim(),
-    };
-
-    // ── 2.5 系列协议：mode / seconds / size / aspect_ratio ──
-    // 固定 720P；不传 width/height/num_frames（旧版 v2.0 参数会返回 400 forbidden field）
-    payload.mode = mode === 'image' ? 'reference' : 'text';
-    payload.seconds = duration;
-    payload.size = '720P';
-    payload.aspect_ratio = ratio;
-    if (mode === 'image' && refImageUrl) {
-      payload.images = [refImageUrl];
-    }
-
-    // ── W3：提交侧有限次自动重试（上游免费队列饱和时会持续返回 503） ──
-    for (let attempt = 0; attempt <= QUEUE_RETRY_MAX; attempt++) {
-      if (abortRef.current) return;
-
-      let result: { resp: Response; data: any } | null = null;
-      try {
-        const resp = await fetchWithFailback(
-          '/v1/videos',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${apiKey}`,
-            },
-            body: JSON.stringify(payload),
-          },
-          locale,
-        );
-        const data = await resp.json();
-        result = { resp, data };
-      } catch {
-        finishWithError('network', t('errors.network'));
-        return;
-      }
-
-      const { resp, data } = result;
-
-      if (resp.status === 401) {
-        finishWithError('invalid_api_key', t('errors.invalidApiKey'));
-        return;
-      }
-
-      if (resp.status === 429) {
-        finishWithError('rate_limited', t('errors.rateLimited'));
-        return;
-      }
-
-      if (!resp.ok) {
-        const parsed = parseUpstreamError(data?.error);
-        const code = parsed.code || (typeof data?.code === 'string' ? data.code : '');
-        const queueFull = resp.status === 503 && QUEUE_RETRY_CODES.has(code);
-
-        if (queueFull && attempt < QUEUE_RETRY_MAX) {
-          const next = attempt + 1;
-          setRetryAttempt(next);
-          await new Promise((resolve) => setTimeout(resolve, QUEUE_RETRY_INTERVAL));
-          continue;
-        }
-
-        if (queueFull) {
-          finishWithError(
-            'queue_full',
-            `${t('errors.queueFullExhausted', { total: QUEUE_RETRY_MAX })}\n${parsed.message || code}`,
-          );
-          return;
-        }
-
-        const errMsg = parsed.message || JSON.stringify(data).slice(0, 300);
-        finishWithError('upstream_error', `${t('errors.upstream')}\n${errMsg}`);
-        return;
-      }
-
-      const id = data?.video_id || data?.task_id || data?.id;
-      if (!id) {
-        finishWithError('no_video_id', t('errors.noResult'));
-        return;
-      }
-
-      setVideoId(String(id));
-      setRetryAttempt(0);
-      setStatus('generating');
-      startTimeRef.current = Date.now();
-      lastApiStatusRef.current = 'pending';
-      lastProgressRef.current = 0;
-      elapsedTimerRef.current = setInterval(() => {
-        setElapsedSeconds(Math.floor((Date.now() - startTimeRef.current) / 1000));
-      }, 1000);
-      pollStatus(String(id));
-      return;
-    }
+    resetRunState();
+    await submitWithQueueRetry(buildSubmitPayload(), 0);
   };
 
   const handleReset = () => {
@@ -520,7 +589,7 @@ export default function TextToVideo({ apiKey }: { apiKey: string }) {
             }
           />
           <p className="text-xs text-muted text-center">
-            <svg className="inline w-3.5 h-3.5 me-1 -mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="inline w-3.5 h-3.5 me-1 -mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             {t('video.timeHint')}
@@ -552,7 +621,7 @@ export default function TextToVideo({ apiKey }: { apiKey: string }) {
       {status === 'error' && (
         <div className="p-4 rounded-xl bg-danger/10 border border-danger/20">
           <div className="flex items-start gap-2">
-            <svg className="w-4 h-4 text-danger mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4 text-danger mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <div className="space-y-1 min-w-0">

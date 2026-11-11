@@ -14,13 +14,13 @@ export default function SelectorGroup<T extends string = string>({
   value,
   onChange,
   disabled,
-}: {
+}: Readonly<{
   label: string;
-  options: Option<T>[];
+  options: readonly Option<T>[];
   value: T;
   onChange: (v: T) => void;
   disabled: boolean;
-}) {
+}>) {
   const t = useTranslations('demo');
 
   return (

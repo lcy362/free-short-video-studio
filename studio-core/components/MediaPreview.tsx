@@ -9,7 +9,7 @@ export default function MediaPreview({
   apiKey,
   onRegenerate,
   orientationHint,
-}: {
+}: Readonly<{
   type: 'image' | 'video';
   url: string;
   apiKey?: string;
@@ -19,7 +19,7 @@ export default function MediaPreview({
    * 仅提示，不做播放侧自动旋转 —— 上游一旦修复，自动旋转会反向出错。
    */
   orientationHint?: boolean;
-}) {
+}>) {
   const t = useTranslations('demo');
   const [isDownloading, setIsDownloading] = useState(false);
   const [videoBlobUrl, setVideoBlobUrl] = useState<string>('');
@@ -46,7 +46,8 @@ export default function MediaPreview({
       }
     };
 
-    loadVideo();
+    // loadVideo 内部已 try/catch 兜底，这里只需显式忽略返回的 Promise（S9383）
+    void loadVideo();
     return () => {
       revoked = true;
     };
@@ -55,7 +56,7 @@ export default function MediaPreview({
   // Clean up blob URL on unmount
   useEffect(() => {
     return () => {
-      if (videoBlobUrl && videoBlobUrl.startsWith('blob:')) {
+      if (videoBlobUrl?.startsWith('blob:')) {
         URL.revokeObjectURL(videoBlobUrl);
       }
     };
@@ -75,7 +76,7 @@ export default function MediaPreview({
       a.download = type === 'video' ? 'generated-video.mp4' : 'generated-image.png';
       document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
+      a.remove();
       URL.revokeObjectURL(blobUrl);
     } catch {
       window.open(url, '_blank');
@@ -86,26 +87,30 @@ export default function MediaPreview({
 
   const displayUrl = type === 'video' ? (videoBlobUrl || '') : url;
 
+  // 三个互斥分支（图片 / 视频已就绪 / 视频加载中）用语句表达，避免嵌套三元（S3358）
+  let media: JSX.Element;
+  if (type === 'image') {
+    media = <img src={displayUrl} alt="Generated" className="w-full" loading="lazy" />;
+  } else if (displayUrl) {
+    media = (
+      <video src={displayUrl} controls className="w-full" preload="auto">
+        {t('video.notSupported')}
+      </video>
+    );
+  } else {
+    media = (
+      <div className="w-full aspect-video flex items-center justify-center">
+        <svg className="animate-spin h-5 w-5 text-muted" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+        </svg>
+      </div>
+    );
+  }
+
   return (
     <div className="card-surface rounded-2xl overflow-hidden">
-      <div className="relative">
-        {type === 'image' ? (
-          <img src={displayUrl} alt="Generated" className="w-full" loading="lazy" />
-        ) : (
-          displayUrl ? (
-            <video src={displayUrl} controls className="w-full" preload="auto">
-              {t('video.notSupported')}
-            </video>
-          ) : (
-            <div className="w-full aspect-video flex items-center justify-center">
-              <svg className="animate-spin h-5 w-5 text-muted" viewBox="0 0 24 24" fill="none">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-              </svg>
-            </div>
-          )
-        )}
-      </div>
+      <div className="relative">{media}</div>
 
       {orientationHint && (
         <p className="px-4 pt-3 text-xs text-warning/90 leading-relaxed">
@@ -130,7 +135,7 @@ export default function MediaPreview({
         >
           {isDownloading ? (
             <span className="flex items-center gap-1.5">
-              <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24" fill="none">
+              <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
               </svg>
@@ -138,7 +143,7 @@ export default function MediaPreview({
             </span>
           ) : (
             <span className="flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
               {t('download')}

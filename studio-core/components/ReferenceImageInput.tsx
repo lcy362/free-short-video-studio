@@ -11,7 +11,7 @@ export async function fileToResizedDataUrl(file: File, maxDim = 1024): Promise<s
   const raw = await new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result as string);
-    reader.onerror = () => reject(reader.error);
+    reader.onerror = () => reject(reader.error ?? new Error('file read failed'));
     reader.readAsDataURL(file);
   });
 
@@ -43,14 +43,14 @@ export default function ReferenceImageInput({
   onClear,
   disabled,
   hint,
-}: {
+}: Readonly<{
   dataUrl: string;
   fileName: string;
   onSelect: (dataUrl: string, fileName: string) => void;
   onClear: () => void;
   disabled: boolean;
   hint?: string;
-}) {
+}>) {
   const t = useTranslations('demo');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -83,14 +83,14 @@ export default function ReferenceImageInput({
           />
         ) : (
           <div className="w-16 h-16 rounded-lg border border-dashed border-rule bg-paper-2 flex items-center justify-center text-muted shrink-0">
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </div>
         )}
         <div className="flex-1 min-w-0">
           <label className="cursor-pointer inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium bg-paper border border-rule rounded-lg text-ink-2 hover:text-ink hover:border-rule/80 transition disabled:opacity-40 disabled:cursor-not-allowed">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
             </svg>
             {t('video.chooseImage')}

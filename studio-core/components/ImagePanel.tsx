@@ -11,7 +11,7 @@ import { fetchWithFailback } from '../lib/api-client';
 
 type Status = 'idle' | 'generating' | 'completed' | 'error';
 
-export default function TextToImage({ apiKey }: { apiKey: string }) {
+export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
   const t = useTranslations('demo');
   const locale = useLocale();
   const messages = useMessages() as any;
@@ -137,7 +137,7 @@ export default function TextToImage({ apiKey }: { apiKey: string }) {
       {status === 'error' && (
         <div className="p-4 rounded-xl bg-danger/10 border border-danger/20">
           <div className="flex items-start gap-2">
-            <svg className="w-4 h-4 text-danger mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4 text-danger mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <div className="space-y-1 min-w-0">
