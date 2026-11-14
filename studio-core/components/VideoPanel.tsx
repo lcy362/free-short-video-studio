@@ -8,7 +8,8 @@ import GenerateButton from './GenerateButton';
 import ProgressBar from './ProgressBar';
 import MediaPreview from './MediaPreview';
 import ModelPicker from './ModelPicker';
-import ReferenceImageInput from './ReferenceImageInput';
+import RefImagesInput, { type RefImageItem } from './RefImagesInput';
+import FastRetryControl, { type FastRetryPhase } from './FastRetryControl';
 import {
   DEFAULT_VIDEO_MODEL,
   formatRatioLabel,
@@ -19,16 +20,29 @@ import {
 } from '../lib/demo-types';
 import { fetchWithFailback } from '../lib/api-client';
 import { trackDemoError } from '../lib/analytics';
+import {
+  DEFAULT_FAST_RETRY_SETTINGS,
+  EMPTY_FAST_RETRY_RUN,
+  SLOW_RETRY_MAX,
+  decideRetry,
+  fastRetryRemainingMs,
+  formatRemaining,
+  isFastRetryAvailable,
+  loadFastRetrySettings,
+  saveFastRetrySettings,
+  type FastRetryRun,
+  type FastRetrySettings,
+} from '../lib/fast-retry';
 
 type Status = 'idle' | 'submitting' | 'generating' | 'completed' | 'error';
 
 const POLL_INTERVAL = 30000;
 const MAX_POLL_TIME = 900_000;
 
-// W3：提交被上游免费队列拒绝时的自动重试（实测 2.5-flash 可连续 25 次、跨 ~12 分钟全被拒）
-const QUEUE_RETRY_MAX = 5;
-const QUEUE_RETRY_INTERVAL = 30_000;
+// 上游免费队列饱和时返回的错误码（被拒发生在入队前，不消耗渲染配额）
 const QUEUE_RETRY_CODES = new Set(['video_queue_full', 'fail_to_fetch_task']);
+
+const isHttpUrl = (url: string) => /^https?:\/\//i.test(url);
 
 /**
  * 上游 error 字段可能是字符串，也可能是 {code, message} 对象。
@@ -127,8 +141,9 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const [prompt, setPrompt] = useState('');
   const [duration, setDuration] = useState('5');
   const [ratio, setRatio] = useState<VideoRatio>('16:9');
-  const [refImageUrl, setRefImageUrl] = useState('');
-  const [refImageName, setRefImageName] = useState('');
+  const [refImages, setRefImages] = useState<RefImageItem[]>([]);
+  const [frames, setFrames] = useState<RefImageItem[]>([]);
+  const [audioUrls, setAudioUrls] = useState<string[]>(['']);
   const [status, setStatus] = useState<Status>('idle');
   const [progress, setProgress] = useState(0);
   const [resultUrl, setResultUrl] = useState('');
@@ -138,8 +153,17 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [lastPollStatus, setLastPollStatus] = useState('');
   const [videoId, setVideoId] = useState('');
-  const [retryAttempt, setRetryAttempt] = useState(0);
   const [copied, setCopied] = useState(false);
+
+  // ── 队列重试 / 快速重试 ──
+  // 初值用默认，挂载后再读 localStorage（与 StudioClient 一致，避免 SSR/水合不一致）
+  const [fastSettings, setFastSettings] = useState<FastRetrySettings>(DEFAULT_FAST_RETRY_SETTINGS);
+  const [busyStreak, setBusyStreak] = useState(0);
+  const [slowAttempt, setSlowAttempt] = useState(0);
+  const [fastRun, setFastRun] = useState<{ startedAt: number; attempts: number } | null>(null);
+  const [fastExpired, setFastExpired] = useState(false);
+  const [tick, setTick] = useState(0);
+
   const pollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const startTimeRef = useRef(0);
   const elapsedTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -149,6 +173,11 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   // 用户点「重试」后中止仍在进行的自动重试（W3）
   const abortRef = useRef(false);
   const resumeCheckedRef = useRef(false);
+  // 本轮重试状态（ref 供递归提交循环读取，避免闭包拿到旧值）
+  const runRef = useRef<FastRetryRun>({ ...EMPTY_FAST_RETRY_RUN });
+  const fastSettingsRef = useRef(fastSettings);
+  // 可被「手动开启快速重试」提前唤醒的等待器
+  const sleepRef = useRef<{ timer: ReturnType<typeof setTimeout>; resolve: () => void } | null>(null);
 
   const messages = useMessages() as any;
   const samplePrompts: string[] = messages?.demo?.video?.samplePrompts ?? [
@@ -170,6 +199,26 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     label: formatRatioLabel(caps, r, (key) => t(key)),
   }));
 
+  const fastMinutes = fastSettings.minutes;
+  useEffect(() => {
+    fastSettingsRef.current = fastSettings;
+  }, [fastSettings]);
+
+  // 读取上次保存的快速重试设置（自动开关 + x / y）
+  useEffect(() => {
+    const loaded = loadFastRetrySettings();
+    fastSettingsRef.current = loaded;
+    setFastSettings(loaded);
+  }, []);
+
+  // 快速重试剩余时间需要每秒重算（源项目用本地时钟，不额外轮询）
+  useEffect(() => {
+    if (!fastRun) return;
+    setTick(Date.now());
+    const id = setInterval(() => setTick(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, [fastRun]);
+
   // 模型切换 → 修正表单默认值（选项集变化时避免非法值）
   const handleModelChange = (m: VideoModelId) => {
     setModel(m);
@@ -178,6 +227,14 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     if (!c.durations.includes(duration)) setDuration(c.durations[0]);
     if (!c.ratios.some((r) => r.value === ratio)) setRatio(c.ratios[0].value);
   };
+
+  const clearSleep = useCallback(() => {
+    const s = sleepRef.current;
+    if (!s) return;
+    clearTimeout(s.timer);
+    sleepRef.current = null;
+    s.resolve();
+  }, []);
 
   const stopPolling = useCallback(() => {
     if (pollTimerRef.current) {
@@ -191,8 +248,19 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   }, []);
 
   useEffect(() => {
-    return () => stopPolling();
-  }, [stopPolling]);
+    return () => {
+      stopPolling();
+      clearSleep();
+    };
+  }, [clearSleep, stopPolling]);
+
+  /** 清空队列/快速重试的展示状态 */
+  const resetRetryUi = useCallback(() => {
+    setBusyStreak(0);
+    setSlowAttempt(0);
+    setFastRun(null);
+    setFastExpired(false);
+  }, []);
 
   // 结束态统一出口：写错误面板 + 上报（W7），错误码不再只存在于内存
   const finishWithError = useCallback(
@@ -201,6 +269,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
       setErrorCode(code);
       setErrorMsg(msg);
       stopPolling();
+      resetRetryUi();
       trackDemoError({
         code,
         model,
@@ -209,7 +278,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
           : 0,
       });
     },
-    [model, stopPolling],
+    [model, resetRetryUi, stopPolling],
   );
 
   // 单次状态查询（不含调度），供轮询与「超时终查」复用（W2）
@@ -353,7 +422,6 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const beginPolling = useCallback(
     (id: string) => {
       setVideoId(id);
-      setRetryAttempt(0);
       setStatus('generating');
       startTimeRef.current = Date.now();
       lastApiStatusRef.current = 'pending';
@@ -389,18 +457,29 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     [finishWithError, t],
   );
 
+  /** 可被手动唤醒的等待（手动开启快速重试时可跳过剩余等待） */
+  const wait = useCallback((ms: number) => new Promise<void>((resolve) => {
+    const timer = setTimeout(() => {
+      sleepRef.current = null;
+      resolve();
+    }, ms);
+    sleepRef.current = { timer, resolve };
+  }), []);
+
   /**
-   * ── W3：提交侧有限次自动重试（上游免费队列饱和时会持续返回 503）──
-   * 必须串行：下一次提交要等本轮重试间隔走完，因此用递归而不是 for + await。
+   * ── 队列重试循环（慢速 5×30s + 快速重试模式）──
+   * 每次收到忙信号都交给 `decideRetry` 判定下一跳节奏；必须串行，用递归而不是 for + await。
    */
-  const submitWithQueueRetry = useCallback(
-    async (payload: Record<string, unknown>, attempt: number): Promise<void> => {
+  const submitLoop = useCallback(
+    async (payload: Record<string, unknown>): Promise<void> => {
+      const run = runRef.current;
+      const outcome = await requestSubmitOnce(payload, apiKey, locale);
       if (abortRef.current) return;
 
-      const outcome = await requestSubmitOnce(payload, apiKey, locale);
-
       if (outcome.kind === 'submitted') {
-        beginPolling(String(outcome.data.video_id || outcome.data.task_id || outcome.data.id));
+        resetRetryUi();
+        const id = String(outcome.data.video_id || outcome.data.task_id || outcome.data.id);
+        beginPolling(id);
         return;
       }
 
@@ -409,42 +488,92 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
         return;
       }
 
-      if (attempt >= QUEUE_RETRY_MAX) {
+      // ── 上游免费队列饱和：累计忙信号，决定下一跳节奏 ──
+      run.busyStreak += 1;
+      if (run.fastStartedAt) run.fastAttempts += 1;
+      setBusyStreak(run.busyStreak);
+
+      const decision = decideRetry({ settings: fastSettingsRef.current, run });
+
+      if (decision.mode === 'exhausted') {
+        const total = run.slowAttempts + run.fastAttempts;
         finishWithError(
           'queue_full',
-          `${t('errors.queueFullExhausted', { total: QUEUE_RETRY_MAX })}\n${outcome.detail}`,
+          `${t('errors.queueFullExhausted', { total: Math.max(total, SLOW_RETRY_MAX) })}\n${outcome.detail}`,
         );
         return;
       }
 
-      setRetryAttempt(attempt + 1);
-      await new Promise((resolve) => setTimeout(resolve, QUEUE_RETRY_INTERVAL));
-      return submitWithQueueRetry(payload, attempt + 1);
+      if (decision.mode === 'fast') {
+        if (decision.startNow) {
+          // 连续 2 次忙信号 + 设置已开启自动 → 直接进入快速连打
+          run.fastStartedAt = Date.now();
+          run.fastAttempts = 0;
+        }
+        setFastExpired(false);
+        setFastRun({ startedAt: run.fastStartedAt, attempts: run.fastAttempts });
+      } else {
+        run.slowAttempts += 1;
+        if (decision.reason === 'expired') {
+          // 快速模式到期：回到常规节奏并清零忙信号（需重新累计 2 次才再自动开启）
+          run.fastStartedAt = 0;
+          run.fastAttempts = 0;
+          run.busyStreak = 0;
+          setFastRun(null);
+          setFastExpired(true);
+          setBusyStreak(0);
+        }
+        setSlowAttempt(run.slowAttempts);
+      }
+
+      await wait(decision.intervalMs);
+      if (abortRef.current) return;
+      return submitLoop(payload);
     },
-    [apiKey, beginPolling, finishSubmitError, finishWithError, locale, t],
+    [apiKey, beginPolling, finishSubmitError, finishWithError, locale, resetRetryUi, t, wait],
   );
 
-  /** 组装 /v1/videos 请求体 */
+  /** 把参考音频输入收敛为合法 URL 列表（≤ 模型上限） */
+  const collectAudioUrls = (): string[] =>
+    audioUrls
+      .map((u) => u.trim())
+      .filter((u) => u.length > 0 && isHttpUrl(u))
+      .slice(0, caps.maxRefAudios);
+
+  /** 组装 /v1/videos 请求体（2.5 协议：mode / seconds / size / aspect_ratio + 素材） */
   const buildSubmitPayload = (): Record<string, unknown> => {
-    // ── 2.5 系列协议：mode / seconds / size / aspect_ratio ──
     // 固定 720P；不传 width/height/num_frames（旧版 v2.0 参数会返回 400 forbidden field）
     const payload: Record<string, unknown> = {
       model,
       prompt: prompt.trim(),
-      mode: mode === 'image' ? 'reference' : 'text',
       seconds: duration,
       size: '720P',
       aspect_ratio: ratio,
     };
-    if (mode === 'image' && refImageUrl) {
-      payload.images = [refImageUrl];
+
+    if (mode === 'image') {
+      payload.mode = 'reference';
+      if (refImages.length) payload.images = refImages.map((i) => i.dataUrl);
+      const audios = collectAudioUrls();
+      if (audios.length) payload.audios = audios;
+      return payload;
     }
+
+    if (mode === 'keyframe') {
+      payload.mode = 'keyframe';
+      if (frames[0]) payload.first_frame = frames[0].dataUrl;
+      if (frames[1]) payload.last_frame = frames[1].dataUrl;
+      return payload;
+    }
+
+    payload.mode = 'text';
     return payload;
   };
 
   /** 清空上一次运行的展示状态 */
   const resetRunState = () => {
     stopPolling();
+    clearSleep();
     setStatus('submitting');
     setErrorMsg('');
     setErrorCode('');
@@ -453,8 +582,27 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     setElapsedSeconds(0);
     setLastPollStatus('');
     setVideoId('');
-    setRetryAttempt(0);
     setCopied(false);
+    resetRetryUi();
+    runRef.current = { ...EMPTY_FAST_RETRY_RUN };
+  };
+
+  /** 生成前校验素材（对齐接口语义：reference 至少 1 图或 1 音频；keyframe 至少首帧） */
+  const validateMaterials = (): boolean => {
+    const rawAudios = audioUrls.map((u) => u.trim()).filter(Boolean);
+    if (rawAudios.some((u) => !isHttpUrl(u))) {
+      finishWithError('invalid_audio_url', t('video.audioUrlInvalid'));
+      return false;
+    }
+    if (mode === 'image' && !refImages.length && !rawAudios.length) {
+      finishWithError('missing_ref_image', t('video.refImageRequired'));
+      return false;
+    }
+    if (mode === 'keyframe' && !frames.length) {
+      finishWithError('missing_first_frame', t('video.keyframeRequired'));
+      return false;
+    }
+    return true;
   };
 
   const handleGenerate = async () => {
@@ -463,18 +611,16 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     startTimeRef.current = 0;
     abortRef.current = false;
 
-    if (mode === 'image' && !refImageUrl) {
-      finishWithError('missing_ref_image', t('video.refImageRequired'));
-      return;
-    }
+    if (!validateMaterials()) return;
 
     resetRunState();
-    await submitWithQueueRetry(buildSubmitPayload(), 0);
+    await submitLoop(buildSubmitPayload());
   };
 
   const handleReset = () => {
     // 中止仍在进行的队列自动重试（W3）
     abortRef.current = true;
+    clearSleep();
     stopPolling();
     setStatus('idle');
     setResultUrl('');
@@ -484,8 +630,38 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     setPollCount(0);
     setElapsedSeconds(0);
     setLastPollStatus('');
-    setRetryAttempt(0);
     setCopied(false);
+    resetRetryUi();
+  };
+
+  /** 设置变更：持久化 + 供循环读取 */
+  const handleFastSettingsChange = (next: FastRetrySettings) => {
+    setFastSettings(next);
+    fastSettingsRef.current = next;
+    saveFastRetrySettings(next);
+  };
+
+  /** 一次性开启快速重试（未开自动时的手动入口，跳过剩余等待立即连打） */
+  const handleStartFastRetry = () => {
+    const run = runRef.current;
+    run.fastStartedAt = Date.now();
+    run.fastAttempts = 0;
+    run.autoOff = false;
+    setFastExpired(false);
+    setFastRun({ startedAt: run.fastStartedAt, attempts: 0 });
+    clearSleep();
+  };
+
+  /** 停止快速重试（本轮不再被自动模式拉起） */
+  const handleStopFastRetry = () => {
+    const run = runRef.current;
+    run.fastStartedAt = 0;
+    run.fastAttempts = 0;
+    run.busyStreak = 0;
+    run.autoOff = true;
+    setFastRun(null);
+    setBusyStreak(0);
+    setFastExpired(false);
   };
 
   // W6：从 ?video_id=xxx 恢复轮询 —— 错误面板「稍后查看结果」链接指向此处，纯前端，无需后端
@@ -520,13 +696,38 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   };
 
   const isBusy = status === 'submitting' || status === 'generating';
+  const remainingMs = fastRun
+    ? fastRetryRemainingMs(fastRun.startedAt, fastMinutes, tick || Date.now())
+    : 0;
+  const retryPhase: FastRetryPhase = fastRun
+    ? 'active'
+    : isFastRetryAvailable({ ...runRef.current, busyStreak }, fastSettings)
+      ? 'available'
+      : 'idle';
+
+  const retryLoadingLabel = (): string => {
+    if (fastRun) {
+      return t('errors.fastRetryActive', {
+        n: fastRun.attempts,
+        x: formatRemaining(remainingMs),
+      });
+    }
+    if (slowAttempt > 0) {
+      return t('errors.queueFull', { current: slowAttempt, total: SLOW_RETRY_MAX });
+    }
+    return t('video.submitting');
+  };
+
+  const updateAudioUrl = (index: number, value: string) => {
+    setAudioUrls((prev) => prev.map((u, i) => (i === index ? value : u)));
+  };
 
   return (
     <div className="space-y-5">
       {/* 模型选择（参考源项目：选模型阶段差异说明） */}
       <ModelPicker value={model} onChange={handleModelChange} disabled={isBusy} />
 
-      {/* 生成模式：文生视频 / 图生视频 */}
+      {/* 生成模式：文生视频 / 图生视频（多图参考） / 首尾帧 */}
       <SelectorGroup
         label={t('video.mode')}
         options={modeOptions}
@@ -536,19 +737,69 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
       />
 
       {mode === 'image' && (
-        <ReferenceImageInput
-          dataUrl={refImageUrl}
-          fileName={refImageName}
-          onSelect={(url, name) => {
-            setRefImageUrl(url);
-            setRefImageName(name);
-          }}
-          onClear={() => {
-            setRefImageUrl('');
-            setRefImageName('');
-          }}
+        <div className="space-y-4">
+          <RefImagesInput
+            label={t('video.refImage')}
+            items={refImages}
+            max={caps.maxRefImages}
+            onAdd={(items) => setRefImages((prev) => [...prev, ...items].slice(0, caps.maxRefImages))}
+            onRemove={(index) => setRefImages((prev) => prev.filter((_, i) => i !== index))}
+            disabled={isBusy}
+            hint={t('video.refImagesHint', { max: caps.maxRefImages })}
+          />
+
+          {/* 参考音频：仅接受公开 http(s) URL，上游 ≤3 段 */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-sm font-medium text-ink-2">{t('video.audioUrls')}</span>
+              {audioUrls.length < caps.maxRefAudios && !isBusy && (
+                <button
+                  type="button"
+                  onClick={() => setAudioUrls((prev) => [...prev, ''])}
+                  className="text-xs text-accent hover:text-ink transition-colors"
+                >
+                  + {t('video.addAudio')}
+                </button>
+              )}
+            </div>
+            {audioUrls.map((url, index) => (
+              <div key={`audio-${index}`} className="flex items-center gap-2">
+                <input
+                  type="url"
+                  value={url}
+                  disabled={isBusy}
+                  onChange={(e) => updateAudioUrl(index, e.target.value)}
+                  placeholder="https://..."
+                  aria-label={`${t('video.audioUrls')} ${index + 1}`}
+                  className="flex-1 min-w-0 px-3 py-2 text-sm rounded-lg bg-paper border border-rule text-ink placeholder:text-muted focus:border-accent outline-none disabled:opacity-50"
+                />
+                {audioUrls.length > 1 && !isBusy && (
+                  <button
+                    type="button"
+                    onClick={() => setAudioUrls((prev) => prev.filter((_, i) => i !== index))}
+                    aria-label={`${t('video.clearImage')} ${index + 1}`}
+                    className="text-xs text-muted hover:text-danger transition-colors"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            ))}
+            <p className="text-xs text-muted">{t('video.audioUrlHint', { max: caps.maxRefAudios })}</p>
+          </div>
+        </div>
+      )}
+
+      {mode === 'keyframe' && (
+        <RefImagesInput
+          label={t('video.refImage')}
+          items={frames}
+          max={2}
+          onAdd={(items) => setFrames((prev) => [...prev, ...items].slice(0, 2))}
+          onRemove={(index) => setFrames((prev) => prev.filter((_, i) => i !== index))}
           disabled={isBusy}
-          hint={t('video.refImageHint')}
+          hint={t('video.keyframeHint')}
+          slotLabels={[t('video.firstFrame'), t('video.lastFrame')]}
         />
       )}
 
@@ -577,6 +828,22 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
         />
       </div>
 
+      {/* 快速重试：连续 2 次队列繁忙后按「每分钟 x 次 / 持续 y 分钟」连打 */}
+      <FastRetryControl
+        settings={fastSettings}
+        onSettingsChange={handleFastSettingsChange}
+        phase={retryPhase}
+        attempts={fastRun?.attempts ?? 0}
+        remainingMs={remainingMs}
+        onStart={handleStartFastRetry}
+        onStop={handleStopFastRetry}
+        disabled={status === 'generating'}
+      />
+
+      {fastExpired && status === 'submitting' && (
+        <p className="text-xs text-muted text-center">{t('errors.fastRetryExpired')}</p>
+      )}
+
       {status !== 'completed' && status !== 'generating' && (
         <>
           <GenerateButton
@@ -584,11 +851,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
             loading={status === 'submitting'}
             disabled={!prompt.trim() || !apiKey}
             label={t('video.generate')}
-            loadingLabel={
-              retryAttempt > 0
-                ? t('errors.queueFull', { current: retryAttempt, total: QUEUE_RETRY_MAX })
-                : t('video.submitting')
-            }
+            loadingLabel={retryLoadingLabel()}
           />
           <p className="text-xs text-muted text-center">
             <svg className="inline w-3.5 h-3.5 me-1 -mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

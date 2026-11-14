@@ -19,8 +19,13 @@ export type GenerationStatus =
 
 export type VideoModelId = 'agnes-video-2.5-flash';
 
-/** 生成模式：text=文生视频，image=图生视频（1 张参考图） */
-export type VideoMode = 'text' | 'image';
+/**
+ * 生成模式（对齐上游 2.5 协议）：
+ * - text      → `mode: 'text'`（文生视频）
+ * - image     → `mode: 'reference'` + `images[]`（多图参考，≤maxRefImages）
+ * - keyframe  → `mode: 'keyframe'` + `first_frame` / `last_frame`（原生首尾帧）
+ */
+export type VideoMode = 'text' | 'image' | 'keyframe';
 
 export interface VideoModelMode {
   id: VideoMode;
@@ -32,6 +37,10 @@ export interface VideoModelCap {
   labelKey: string;
   descKey: string;
   modes: VideoModelMode[];
+  /** 参考图张数上限（对齐 core.config.get_max_ref_images：Flash 5 / 2.5 8） */
+  maxRefImages: number;
+  /** 参考音频段数上限（上游 ≤3 段公开 URL） */
+  maxRefAudios: number;
   /** 时长（字符串；2.5 系列 seconds 按字符串传输） */
   durations: string[];
   ratios: { value: VideoRatio; dims: [number, number]; labelKey: string }[];
@@ -57,7 +66,10 @@ export const VIDEO_MODELS: VideoModelCap[] = [
     modes: [
       { id: 'text', labelKey: 'video.modeText' },
       { id: 'image', labelKey: 'video.modeImage' },
+      { id: 'keyframe', labelKey: 'video.modeKeyframe' },
     ],
+    maxRefImages: 5,
+    maxRefAudios: 3,
     durations: ['4', '5', '6', '8', '10', '12'],
     ratios: [
       { value: '21:9', dims: [1680, 720], labelKey: 'ratio_21_9' },

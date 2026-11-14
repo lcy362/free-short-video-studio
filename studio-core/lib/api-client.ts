@@ -1,8 +1,9 @@
 /**
  * API client with locale-aware domain selection and failback.
  *
- * - zh locale  → primary: apihub.agnes-ai.cn,  fallback: apihub.agnes-ai.com
- * - non-zh     → primary: apihub.agnes-ai.com, fallback: apihub.agnes-ai.cn
+ * - 用户在本站 Key 面板显式选过域名（`agnes_api_domain`）→ 以该域名为准，
+ *   其余 Agnes 域名做网络故障转移（对齐源项目 AGNES_DOMAIN_MAP）；
+ * - 未选择过 → 沿用 locale 默认（zh → apihub.agnes-ai.cn，其他 → apihub.agnes-ai.com）。
  *
  * Rules:
  * - Only retry on **network errors** (fetch throws TypeError).
@@ -11,8 +12,12 @@
  * - If both domains fail, the error from the primary attempt is thrown.
  */
 
+import { AGNES_DOMAINS, loadAgnesDomain } from './api-domains';
+
 const DOMAIN_CN = 'apihub.agnes-ai.cn';
 const DOMAIN_COM = 'apihub.agnes-ai.com';
+
+const DOMAIN_STORAGE_KEY = 'agnes_api_domain';
 
 function getPrimaryDomain(locale: string): string {
   return locale === 'zh' ? DOMAIN_CN : DOMAIN_COM;
@@ -24,6 +29,29 @@ function getFallbackDomain(locale: string): string {
 
 function buildUrl(domain: string, path: string): string {
   return `https://${domain}${path}`;
+}
+
+/** 用户是否在本地显式选择过域名（未选择时不该覆盖 locale 默认行为） */
+function hasStoredDomain(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const saved = window.localStorage.getItem(DOMAIN_STORAGE_KEY);
+    return saved === 'com' || saved === 'cn_bak' || saved === 'cn';
+  } catch {
+    return false;
+  }
+}
+
+/** 主域名 + 备用域名（显式选择优先，其余域名顺序兜底） */
+export function resolveApiDomains(locale: string): { primary: string; fallback: string } {
+  if (hasStoredDomain()) {
+    const selected = AGNES_DOMAINS.find((d) => d.id === loadAgnesDomain()) ?? AGNES_DOMAINS[0];
+    const primary = selected.base.replace('https://', '');
+    const fallback = AGNES_DOMAINS.map((d) => d.base.replace('https://', ''))
+      .find((base) => base !== primary) ?? getFallbackDomain(locale);
+    return { primary, fallback };
+  }
+  return { primary: getPrimaryDomain(locale), fallback: getFallbackDomain(locale) };
 }
 
 /**
@@ -40,8 +68,7 @@ export async function fetchWithFailback(
   init: RequestInit,
   locale: string,
 ): Promise<Response> {
-  const primary = getPrimaryDomain(locale);
-  const fallback = getFallbackDomain(locale);
+  const { primary, fallback } = resolveApiDomains(locale);
 
   try {
     return await fetch(buildUrl(primary, path), init);
