@@ -48,11 +48,14 @@ export default function RefImagesInput({
 
     const room = Math.max(0, max - items.length);
     const picked = files.slice(0, room);
-    const loaded: RefImageItem[] = [];
-    for (const file of picked) {
-      const dataUrl = await readImageFile(file);
-      if (dataUrl) loaded.push({ dataUrl, name: file.name });
-    }
+    // 并发读取（多图时更快），失败的文件直接丢弃
+    const results = await Promise.all(
+      picked.map(async (file) => {
+        const dataUrl = await readImageFile(file);
+        return dataUrl ? { dataUrl, name: file.name } : null;
+      }),
+    );
+    const loaded = results.filter((item): item is RefImageItem => item !== null);
     if (loaded.length) onAdd(loaded);
   };
 
