@@ -26,6 +26,15 @@ export const FAST_RETRY_MAX_PER_MINUTE = 120;
 export const FAST_RETRY_MIN_MINUTES = 1;
 export const FAST_RETRY_MAX_MINUTES = 30;
 
+/**
+ * 单轮运行内「自动快速重试」最多开启几次窗口。
+ *
+ * 源项目里快速模式到期后需重新累计忙信号才会再开，理论上可无限循环；官网没有
+ * 后台任务页兜底（用户就一直盯着进度条），实测出现过连打 300 次仍不结束的情况。
+ * 因此这里封顶 2 个窗口：到期 → 回常规 5 次 → 明确报「队列饱和」，把决定权交回用户。
+ */
+export const FAST_RETRY_MAX_AUTO_WINDOWS = 2;
+
 /** 默认参数：30 次/分钟（每 2s 一跳）、持续 3 分钟 */
 export const FAST_RETRY_DEFAULT_PER_MINUTE = 30;
 export const FAST_RETRY_DEFAULT_MINUTES = 3;
@@ -61,6 +70,8 @@ export interface FastRetryRun {
   fastAttempts: number;
   /** 用户本轮手动关过 → 不再自动拉起 */
   autoOff: boolean;
+  /** 本轮已自动开启过几次快速窗口（到 FAST_RETRY_MAX_AUTO_WINDOWS 后不再自动开） */
+  autoWindows: number;
 }
 
 export const EMPTY_FAST_RETRY_RUN: FastRetryRun = {
@@ -69,6 +80,7 @@ export const EMPTY_FAST_RETRY_RUN: FastRetryRun = {
   fastStartedAt: 0,
   fastAttempts: 0,
   autoOff: false,
+  autoWindows: 0,
 };
 
 export type RetryDecision =
@@ -157,8 +169,13 @@ export function decideRetry(args: {
     return { mode: 'exhausted', reason: 'exhausted' };
   }
 
-  // 手动关过（autoOff）→ 本轮不再自动拉起
-  if (settings.auto && !run.autoOff && run.busyStreak >= FAST_RETRY_AVAILABLE_AFTER) {
+  // 手动关过（autoOff）或自动窗口已用尽 → 本轮不再自动拉起
+  if (
+    settings.auto
+    && !run.autoOff
+    && run.autoWindows < FAST_RETRY_MAX_AUTO_WINDOWS
+    && run.busyStreak >= FAST_RETRY_AVAILABLE_AFTER
+  ) {
     return { mode: 'fast', intervalMs, startNow: true, reason: 'started' };
   }
 

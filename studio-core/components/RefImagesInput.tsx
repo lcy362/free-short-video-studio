@@ -69,7 +69,10 @@ export default function RefImagesInput({
 
       <div className="flex flex-wrap gap-2">
         {items.map((item, index) => (
-          <div key={`${item.name}-${index}`} className="relative group">
+          <div
+            key={`${item.name}::${item.dataUrl.slice(-24)}`}
+            className="relative group"
+          >
             <img
               src={item.dataUrl}
               alt={slotLabels?.[index] ?? item.name}

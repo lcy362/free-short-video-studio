@@ -44,6 +44,18 @@ const QUEUE_RETRY_CODES = new Set(['video_queue_full', 'fail_to_fetch_task']);
 
 const isHttpUrl = (url: string) => /^https?:\/\//i.test(url);
 
+/** 参考音频槽位：稳定 id 供 React key 与删除定位（避免用数组下标） */
+interface AudioSlot {
+  id: string;
+  url: string;
+}
+
+let audioSlotSeq = 0;
+function newAudioSlot(): AudioSlot {
+  audioSlotSeq += 1;
+  return { id: globalThis.crypto?.randomUUID?.() ?? `audio-${audioSlotSeq}`, url: '' };
+}
+
 /**
  * 上游 error 字段可能是字符串，也可能是 {code, message} 对象。
  * W1 崩页根因：直接把对象塞进字符串 state，渲染时 errorMsg.split 抛 TypeError。
@@ -143,7 +155,8 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const [ratio, setRatio] = useState<VideoRatio>('16:9');
   const [refImages, setRefImages] = useState<RefImageItem[]>([]);
   const [frames, setFrames] = useState<RefImageItem[]>([]);
-  const [audioUrls, setAudioUrls] = useState<string[]>(['']);
+  // 参考音频槽位：带稳定 id 的 [{id, url}]，避免用数组下标当 key
+  const [audioSlots, setAudioSlots] = useState<AudioSlot[]>(() => [newAudioSlot()]);
   const [status, setStatus] = useState<Status>('idle');
   const [progress, setProgress] = useState(0);
   const [resultUrl, setResultUrl] = useState('');
@@ -506,9 +519,10 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
 
       if (decision.mode === 'fast') {
         if (decision.startNow) {
-          // 连续 2 次忙信号 + 设置已开启自动 → 直接进入快速连打
+          // 连续 2 次忙信号 + 设置已开启自动 → 直接进入快速连打（窗口数封顶，避免无限循环）
           run.fastStartedAt = Date.now();
           run.fastAttempts = 0;
+          run.autoWindows += 1;
         }
         setFastExpired(false);
         setFastRun({ startedAt: run.fastStartedAt, attempts: run.fastAttempts });
@@ -535,8 +549,8 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
 
   /** 把参考音频输入收敛为合法 URL 列表（≤ 模型上限） */
   const collectAudioUrls = (): string[] =>
-    audioUrls
-      .map((u) => u.trim())
+    audioSlots
+      .map((slot) => slot.url.trim())
       .filter((u) => u.length > 0 && isHttpUrl(u))
       .slice(0, caps.maxRefAudios);
 
@@ -589,7 +603,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
 
   /** 生成前校验素材（对齐接口语义：reference 至少 1 图或 1 音频；keyframe 至少首帧） */
   const validateMaterials = (): boolean => {
-    const rawAudios = audioUrls.map((u) => u.trim()).filter(Boolean);
+    const rawAudios = audioSlots.map((slot) => slot.url.trim()).filter(Boolean);
     if (rawAudios.some((u) => !isHttpUrl(u))) {
       finishWithError('invalid_audio_url', t('video.audioUrlInvalid'));
       return false;
@@ -699,11 +713,13 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const remainingMs = fastRun
     ? fastRetryRemainingMs(fastRun.startedAt, fastMinutes, tick || Date.now())
     : 0;
-  const retryPhase: FastRetryPhase = fastRun
-    ? 'active'
-    : isFastRetryAvailable({ ...runRef.current, busyStreak }, fastSettings)
+  const resolveRetryPhase = (): FastRetryPhase => {
+    if (fastRun) return 'active';
+    return isFastRetryAvailable({ ...runRef.current, busyStreak }, fastSettings)
       ? 'available'
       : 'idle';
+  };
+  const retryPhase = resolveRetryPhase();
 
   const retryLoadingLabel = (): string => {
     if (fastRun) {
@@ -718,8 +734,8 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     return t('video.submitting');
   };
 
-  const updateAudioUrl = (index: number, value: string) => {
-    setAudioUrls((prev) => prev.map((u, i) => (i === index ? value : u)));
+  const updateAudioUrl = (id: string, value: string) => {
+    setAudioSlots((prev) => prev.map((slot) => (slot.id === id ? { ...slot, url: value } : slot)));
   };
 
   return (
@@ -752,31 +768,31 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
           <div className="space-y-2">
             <div className="flex items-center justify-between gap-2">
               <span className="text-sm font-medium text-ink-2">{t('video.audioUrls')}</span>
-              {audioUrls.length < caps.maxRefAudios && !isBusy && (
+              {audioSlots.length < caps.maxRefAudios && !isBusy && (
                 <button
                   type="button"
-                  onClick={() => setAudioUrls((prev) => [...prev, ''])}
+                  onClick={() => setAudioSlots((prev) => [...prev, newAudioSlot()])}
                   className="text-xs text-accent hover:text-ink transition-colors"
                 >
                   + {t('video.addAudio')}
                 </button>
               )}
             </div>
-            {audioUrls.map((url, index) => (
-              <div key={`audio-${index}`} className="flex items-center gap-2">
+            {audioSlots.map((slot, index) => (
+              <div key={slot.id} className="flex items-center gap-2">
                 <input
                   type="url"
-                  value={url}
+                  value={slot.url}
                   disabled={isBusy}
-                  onChange={(e) => updateAudioUrl(index, e.target.value)}
+                  onChange={(e) => updateAudioUrl(slot.id, e.target.value)}
                   placeholder="https://..."
                   aria-label={`${t('video.audioUrls')} ${index + 1}`}
                   className="flex-1 min-w-0 px-3 py-2 text-sm rounded-lg bg-paper border border-rule text-ink placeholder:text-muted focus:border-accent outline-none disabled:opacity-50"
                 />
-                {audioUrls.length > 1 && !isBusy && (
+                {audioSlots.length > 1 && !isBusy && (
                   <button
                     type="button"
-                    onClick={() => setAudioUrls((prev) => prev.filter((_, i) => i !== index))}
+                    onClick={() => setAudioSlots((prev) => prev.filter((item) => item.id !== slot.id))}
                     aria-label={`${t('video.clearImage')} ${index + 1}`}
                     className="text-xs text-muted hover:text-danger transition-colors"
                   >

@@ -23,7 +23,7 @@ import StudioClient from './StudioClient';
  *
  * 本组件被三处使用：
  *   1. video-website  app/[locale]/demo/page.tsx      defaultTab="simple"
- *   2. video-website  app/[locale]/studio/page.tsx    defaultTab="creative"
+ *   2. video-website  app/[locale]/studio/page.tsx    defaultTab="simple"
  *   3. free-short-video-studio  components/StudioLanding.tsx（镜像站同一份实现）
  *
  * 三个面板**常驻挂载、仅用 hidden 切换**：这样切 tab 不会中断正在进行的生成

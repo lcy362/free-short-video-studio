@@ -10,7 +10,7 @@ vi.mock('next-intl', () => ({
 }));
 
 const refInputSpy = vi.hoisted(() => vi.fn());
-vi.mock('@/studio-core/components/ReferenceImageInput', () => ({
+vi.mock('@/studio-core/components/RefImagesInput', () => ({
   default: (props: unknown) => {
     refInputSpy(props);
     return null;
@@ -20,8 +20,10 @@ vi.mock('@/studio-core/components/ReferenceImageInput', () => ({
 import VideoPanel from '@/studio-core/components/VideoPanel';
 
 type RefProps = {
-  onSelect: (url: string, name: string) => void;
-  onClear: () => void;
+  max: number;
+  slotLabels?: string[];
+  onAdd: (items: { dataUrl: string; name: string }[]) => void;
+  onRemove: (index: number) => void;
 };
 
 function json(data: unknown, status = 200): Response {
@@ -142,7 +144,7 @@ describe('VideoPanel · 提交', () => {
     render(<VideoPanel apiKey="sk-1" />);
     fireEvent.click(screen.getByRole('button', { name: 'video.modeImage' }));
     typePrompt('一只猫');
-    await act(async () => lastRefProps().onSelect('data:image/png;base64,REF', 'ref.png'));
+    await act(async () => lastRefProps().onAdd([{ dataUrl: 'data:image/png;base64,REF', name: 'ref.png' }]));
     generate();
     await settle();
 
@@ -463,5 +465,101 @@ describe('VideoPanel · 超时终查', () => {
     );
     expect(screen.getByText('errors.pollTimeoutRendering')).toBeInTheDocument();
     expect(screen.getByText('errors.pollTimeout')).toBeInTheDocument();
+  });
+});
+
+describe('VideoPanel · 首尾帧 / 参考音频（对齐 2.5 接口能力）', () => {
+  it('首尾帧模式按 keyframe 协议提交 first_frame / last_frame', async () => {
+    const spy = apiFetch(() => json({ video_id: 'vid-1' }));
+    render(<VideoPanel apiKey="sk-1" />);
+    fireEvent.click(screen.getByRole('button', { name: 'video.modeKeyframe' }));
+    typePrompt('首尾帧');
+    await act(async () => lastRefProps().onAdd([
+      { dataUrl: 'data:image/png;base64,F', name: 'f.png' },
+      { dataUrl: 'data:image/png;base64,L', name: 'l.png' },
+    ]));
+    generate();
+    await settle();
+
+    expect(submitBody(spy)).toMatchObject({
+      mode: 'keyframe',
+      first_frame: 'data:image/png;base64,F',
+      last_frame: 'data:image/png;base64,L',
+    });
+    expect(submitBody(spy)).not.toHaveProperty('images');
+  });
+
+  it('首尾帧模式未上传首帧时直接报错', async () => {
+    render(<VideoPanel apiKey="sk-1" />);
+    fireEvent.click(screen.getByRole('button', { name: 'video.modeKeyframe' }));
+    typePrompt('首尾帧');
+    generate();
+    await settle();
+    expect(screen.getByText('video.keyframeRequired')).toBeInTheDocument();
+  });
+
+  it('合法参考音频写入 audios 字段', async () => {
+    const spy = apiFetch(() => json({ video_id: 'vid-1' }));
+    render(<VideoPanel apiKey="sk-1" />);
+    fireEvent.click(screen.getByRole('button', { name: 'video.modeImage' }));
+    await act(async () => lastRefProps().onAdd([{ dataUrl: 'data:image/png;base64,REF', name: 'ref.png' }]));
+    fireEvent.change(screen.getByLabelText('video.audioUrls 1'), {
+      target: { value: 'https://cdn.example.com/a.mp3' },
+    });
+    typePrompt('音频');
+    generate();
+    await settle();
+
+    expect(submitBody(spy)).toMatchObject({
+      mode: 'reference',
+      images: ['data:image/png;base64,REF'],
+      audios: ['https://cdn.example.com/a.mp3'],
+    });
+  });
+
+  it('非法参考音频链接即时拦截，不发起请求', async () => {
+    const spy = apiFetch(() => json({ video_id: 'vid-1' }));
+    render(<VideoPanel apiKey="sk-1" />);
+    fireEvent.click(screen.getByRole('button', { name: 'video.modeImage' }));
+    await act(async () => lastRefProps().onAdd([{ dataUrl: 'data:image/png;base64,REF', name: 'ref.png' }]));
+    fireEvent.change(screen.getByLabelText('video.audioUrls 1'), {
+      target: { value: 'ftp://bad.example.com/a.mp3' },
+    });
+    typePrompt('音频');
+    generate();
+    await settle();
+
+    expect(screen.getByText('video.audioUrlInvalid')).toBeInTheDocument();
+    expect(spy).not.toHaveBeenCalled();
+  });
+});
+
+describe('VideoPanel · 快速重试模式', () => {
+  it('未开自动时连续 2 次忙信号后出现一次性开启按钮', async () => {
+    localStorage.clear();
+    apiFetch(() => json({ error: { code: 'video_queue_full' } }, 503));
+    render(<VideoPanel apiKey="sk-1" />);
+    typePrompt('队列满');
+    generate();
+    await settle();
+    await settle(30000);
+
+    expect(screen.getByRole('button', { name: 'video.fastRetryStart' })).toBeInTheDocument();
+  });
+
+  it('已开自动时连续 2 次忙信号自动连打（间隔 = 60s / x）', async () => {
+    localStorage.setItem('agnes_fast_retry', JSON.stringify({ auto: true, perMinute: 60, minutes: 1 }));
+    const spy = apiFetch((n) =>
+      (n < 3 ? json({ error: { code: 'video_queue_full' } }, 503) : json({ video_id: 'vid-1' })),
+    );
+    render(<VideoPanel apiKey="sk-1" />);
+    typePrompt('队列满');
+    generate();
+    await settle();
+    await settle(30000);
+    await settle(1000);
+
+    const submits = spy.mock.calls.filter((c) => String(c[0]).includes('/v1/videos'));
+    expect(submits).toHaveLength(3);
   });
 });
