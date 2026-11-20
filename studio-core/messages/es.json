@@ -285,25 +285,29 @@
       "fastRetryExpired": "La ventana de reintento rápido terminó; vuelta al ritmo normal."
     },
     "seoTitle": "Generador de videos IA gratis en línea | Agnes Video Generator",
-    "seoDescription": "Generador de videos e imágenes IA gratis en línea. Escribe un prompt para crear videos IA (texto a video) e imágenes IA (texto a imagen). Sin tarjeta de crédito, sin instalación—solo añade tu clave API Agnes gratuita.",
+    "seoDescription": "Generador gratuito de vídeo e imagen con IA en el navegador. Imágenes: agnes-image-2.1-flash. Un clip: Video 2.5 Flash (texto, imágenes de referencia, primer/último fotograma, 4–12 s, seis relaciones). Los cortos de varias escenas se abren desde el estudio web en la pestaña de vídeo creativo: una idea se divide en 2–5 clips y se une en el navegador. Sin instalación ni tarjeta. La clave API se queda en el navegador.",
     "seoH1": "Generador de videos e imágenes IA en línea gratis",
-    "seoIntro": "Agnes Video Generator es una herramienta de creación de IA web completamente gratuita. Abra el navegador, ingrese un aviso de texto y puede llamar al modelo de IA de Agnes en línea para convertir el texto en un video de IA (video de Vincent) o una imagen de IA (imagen de Vincent). Completamente gratuito, listo para abrir y usar, no es necesario instalar software ni tarjetas de crédito; Simplemente complete su propia clave API gratuita de Agnes en el front-end antes de comenzar (solo existe en el navegador local y no se cargará al servidor). Desde la inspiración hasta la película completa, unos pocos pasos son suficientes.",
+    "seoIntro": "Esta página es el espacio de Agnes Video Generator. Imagen, vídeo simple y vídeo creativo son tres pestañas de la misma herramienta. El vídeo simple es la entrada predeterminada. El estudio web abre directamente el vídeo creativo. El modelo de vídeo es Video 2.5 Flash (agnes-video-2.5-flash), gratis por tiempo limitado. Pega una clave Agnes gratuita arriba. Solo se guarda en este navegador.",
     "seoFeatures": [
       {
-        "title": "Totalmente gratis, sin tarjeta de crédito",
-        "desc": "La herramienta es gratuita; solo necesitas tu propia clave API Agnes gratuita. Sin pago, sin tarjeta de crédito."
+        "title": "Gratis, sin tarjeta",
+        "desc": "El sitio no cobra. Basta una clave Agnes gratuita."
       },
       {
-        "title": "En línea y sin instalación",
-        "desc": "Funciona totalmente en el navegador. Abre la página y crea—sin software que descargar, funciona en escritorio y móvil."
+        "title": "En el navegador",
+        "desc": "Imágenes, un clip y la unión de escenas ocurren en la página. El vídeo creativo se descarga desde el navegador."
       },
       {
-        "title": "Texto a video",
-        "desc": "Escribe un prompt y agnes-video-v2.0 lo convierte en un video IA de 5/10 segundos en varias proporciones."
+        "title": "Imagen",
+        "desc": "agnes-image-2.1-flash, cuadrada, horizontal o vertical."
       },
       {
-        "title": "Texto a imagen",
-        "desc": "Escribe un prompt y agnes-image-2.1-flash genera imágenes IA e ilustraciones artísticas de alta calidad."
+        "title": "Vídeo simple",
+        "desc": "Video 2.5 Flash: texto, hasta 5 imágenes de referencia, primer y último fotograma. 4–12 s. Relaciones 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
+      },
+      {
+        "title": "Vídeo creativo",
+        "desc": "Una idea se divide en 2–5 escenas de 5, 8, 10 o 12 segundos y se une en el navegador. El estudio web abre esta pestaña."
       }
     ],
     "seoUseCases": [
@@ -334,39 +338,112 @@
     ],
     "seoFaq": [
       {
-        "q": "¿Es gratis este generador de videos IA?",
-        "a": "Sí. Agnes Video Generator es totalmente gratuito. Solo necesitas tu propia clave API Agnes gratuita (introducida en el navegador, guardada localmente)—sin pago, sin tarjeta de crédito."
+        "q": "¿Este generador en línea es gratis?",
+        "a": "El sitio no cobra ni pide tarjeta. Hace falta una clave Agnes gratuita. Solo se guarda en el localStorage de este navegador."
       },
       {
-        "q": "¿Necesito descargar o instalar software?",
-        "a": "No. Es una herramienta totalmente basada en la web; ábrela en el navegador para generar videos e imágenes IA en línea, en escritorio o móvil."
+        "q": "¿Hay que instalar algo?",
+        "a": "No. Las tres pestañas funcionan en el navegador. La unión del vídeo creativo usa ffmpeg.wasm, sin instalar ffmpeg."
       },
       {
-        "q": "¿Soporta texto a video?",
-        "a": "Sí. Escribe un prompt y agnes-video-v2.0 genera un video IA de 5 o 10 segundos en varias proporciones."
+        "q": "¿Qué modelo usa el vídeo simple y cuánto tarda?",
+        "a": "El modelo es agnes-video-2.5-flash (Video 2.5 Flash), un clip de 4–12 segundos. La página consulta el estado cada 30 segundos, hasta 15 minutos. Con la cola gratuita libre suele tardar unos minutos; si está llena, más."
       },
       {
-        "q": "¿Soporta texto a imagen?",
-        "a": "Sí. Escribe un prompt y agnes-image-2.1-flash genera imágenes IA e ilustraciones artísticas."
+        "q": "¿Hay imágenes de referencia y primer/último fotograma?",
+        "a": "Sí. Hasta 5 imágenes de referencia y URL de audio. El modo de fotogramas exige el primero; el último es opcional. El servicio fija la relación de ese modo en cuadrado."
       },
       {
-        "q": "¿Necesito tarjeta de crédito?",
-        "a": "Sin tarjeta de crédito y sin pago. La herramienta es gratuita; solo introduces tu propia clave API Agnes gratuita."
+        "q": "¿En qué se diferencia el vídeo creativo del simple?",
+        "a": "El vídeo simple hace un clip. El creativo divide una idea en 2–5 escenas, las genera y las une en el navegador. El enlace del estudio web en la navegación abre el vídeo creativo."
       },
       {
-        "q": "¿Se suben mis prompts y recursos?",
-        "a": "Tu clave API Agnes solo se guarda en el localStorage de tu navegador y nunca se sube a nuestros servidores; la generación se ejecuta directamente desde tu navegador a los modelos Agnes."
+        "q": "¿Qué significa 503 o “video queue is full”?",
+        "a": "La cola gratuita está llena. No se creó la tarea ni se gastó cupo. La página reintenta sola. Si sigue llena, prueba en otro momento. La FAQ de la cola lo explica."
       },
       {
-        "q": "¿Hay límites en la versión gratuita?",
-        "a": "La generación de video admite duraciones de 5s y 10s y varias proporciones; tu cuota disponible depende de la clave API Agnes gratuita que proporciones."
-      },
-      {
-        "q": "¿Puedo usar los videos e imágenes con fines comerciales?",
-        "a": "El uso comercial depende de los términos de licencia de la clave API Agnes; por favor confirma los derechos de uso de tu clave antes del uso comercial."
+        "q": "¿Por qué un 9:16 se ve tumbado?",
+        "a": "Video 2.5 Flash a veces entrega el 9:16 girado 90°. El encuadre sigue siendo vertical. Gira el archivo tras descargarlo. Es un problema conocido del servicio."
       }
     ],
     "studioLinkCta": "Multi-scene creative video studio (Beta) →",
-    "copied": "Copiado"
+    "copied": "Copiado",
+    "seoModesTitle": "Tres entradas, tres resultados",
+    "seoHowTitle": "Empezar en tres pasos",
+    "seoLinksTitle": "Seguir",
+    "seoExamplesTitle": "Piezas hechas con este modelo",
+    "seoExamplesLead": "Estas dos obras publicadas usaron los mismos modelos. Abre una obra para copiar el prompt original y volver a probarlo en la pestaña correspondiente.",
+    "seoExamplesMore": "Ver todos los ejemplos",
+    "seoExampleOpen": "Ver la pieza y el prompt",
+    "seoModes": [
+      {
+        "tab": "image",
+        "title": "Imagen",
+        "desc": "Una descripción se convierte en imagen con agnes-image-2.1-flash: cuadrada, horizontal o vertical."
+      },
+      {
+        "tab": "simple",
+        "title": "Vídeo simple",
+        "desc": "La entrada predeterminada. Un clip de 4–12 segundos desde texto, imágenes de referencia o primer/último fotograma, con Video 2.5 Flash."
+      },
+      {
+        "tab": "creative",
+        "title": "Vídeo creativo",
+        "desc": "Una idea se divide en 2–5 clips y se une. El estudio web cae en esta pestaña. Relaciones 16:9, 9:16 o 1:1."
+      }
+    ],
+    "seoHowSteps": [
+      {
+        "title": "Pegar una clave API gratuita",
+        "desc": "Consigue una clave Agnes gratuita y pégala arriba. Se queda en este navegador y no se sube al servidor de este sitio."
+      },
+      {
+        "title": "Elegir una pestaña",
+        "desc": "La imagen hace un fotograma fijo. El vídeo simple un clip de 4–12 segundos. El vídeo creativo divide una idea en escenas. El estudio web abre el vídeo creativo."
+      },
+      {
+        "title": "Esperar y descargar",
+        "desc": "Las imágenes suelen volver rápido. El vídeo simple se consulta cada 30 segundos, hasta 15 minutos. El vídeo creativo genera las escenas en orden y las une en el navegador."
+      }
+    ],
+    "seoLinks": [
+      {
+        "href": "/models/agnes-video-2-5-flash",
+        "label": "Qué puede hacer Video 2.5 Flash"
+      },
+      {
+        "href": "/guides/api-key",
+        "label": "Conseguir una clave API gratuita"
+      },
+      {
+        "href": "/guides/prompt-examples-simple",
+        "label": "Ejemplos de prompts de un clip"
+      },
+      {
+        "href": "/guides/prompt-examples-creative",
+        "label": "Ejemplos de prompts de varias escenas"
+      },
+      {
+        "href": "/faq/jimeng",
+        "label": "Cola llena y 503"
+      },
+      {
+        "href": "/faq/pricing-free",
+        "label": "Cupo gratis y uso comercial"
+      },
+      {
+        "href": "/showcase",
+        "label": "Piezas reales y sus prompts originales"
+      },
+      {
+        "href": "/studio",
+        "label": "Abrir el vídeo creativo"
+      }
+    ],
+    "helpLinks": {
+      "queue": "Qué hacer si la cola está llena",
+      "key": "Cómo conseguir una clave API gratuita",
+      "trouble": "Otros errores"
+    }
   }
 }

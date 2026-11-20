@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
 import ApiKeyPanel, { useApiKey } from './ApiKeyPanel';
 import {
   loadAgnesDomain,
@@ -23,7 +22,7 @@ import StudioClient from './StudioClient';
  *
  * 本组件被三处使用：
  *   1. video-website  app/[locale]/demo/page.tsx      defaultTab="simple"
- *   2. video-website  app/[locale]/studio/page.tsx    defaultTab="simple"
+ *   2. video-website  app/[locale]/studio/page.tsx    defaultTab="creative"
  *   3. free-short-video-studio  components/StudioLanding.tsx（镜像站同一份实现）
  *
  * 三个面板**常驻挂载、仅用 hidden 切换**：这样切 tab 不会中断正在进行的生成
@@ -40,7 +39,6 @@ export default function StudioWorkspace({
   /** 切换 tab 时把 ?tab= 写进地址栏（便于分享 / 回链，纯前端，不触发导航） */
   syncUrl?: boolean;
 }>) {
-  const t = useTranslations('studio');
   const { apiKey, hasKey, saveKey, clearKey } = useApiKey();
   const [tab, setTab] = useState<StudioTab>(defaultTab);
   const [domain, setDomain] = useState<AgnesDomainId>(DEFAULT_AGNES_DOMAIN);
@@ -73,28 +71,6 @@ export default function StudioWorkspace({
     [syncUrl],
   );
 
-  /** 未填 Key 时的提示（图像 / 简单视频两个面板共用；创意视频由 StudioClient 内部兜底） */
-  const keyGate = (
-    <div className="text-center py-10">
-      <div className="text-4xl mb-4" aria-hidden="true">
-        🔑
-      </div>
-      <h3 className="text-lg font-medium text-ink-2 mb-2">{t('apiKeyRequired')}</h3>
-      <p className="text-sm text-muted max-w-sm mx-auto">{t('apiKeyHint')}</p>
-      <a
-        href="https://platform.agnes-ai.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block mt-4 text-sm text-accent hover:text-ink transition-colors"
-      >
-        {t('apiKey.hint')}{' '}
-        <span aria-hidden="true" className="inline-block rtl:-scale-x-100">
-          →
-        </span>
-      </a>
-    </div>
-  );
-
   return (
     <div className="space-y-6">
       <StudioTabs active={tab} onChange={handleTabChange} />
@@ -116,7 +92,7 @@ export default function StudioWorkspace({
         aria-labelledby="studio-tab-image"
         hidden={tab !== 'image'}
       >
-        {hasKey ? <ImagePanel apiKey={apiKey} /> : keyGate}
+        <ImagePanel apiKey={apiKey} />
       </div>
 
       <div
@@ -126,7 +102,7 @@ export default function StudioWorkspace({
         aria-labelledby="studio-tab-simple"
         hidden={tab !== 'simple'}
       >
-        {hasKey ? <VideoPanel apiKey={apiKey} /> : keyGate}
+        <VideoPanel apiKey={apiKey} />
       </div>
 
       {/* 创意视频：复用原 StudioClient（embedded = 隐藏它自带的 Key 面板与未填 Key 提示） */}

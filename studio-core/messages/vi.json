@@ -285,25 +285,29 @@
       "fastRetryExpired": "Hết thời gian thử lại nhanh; quay lại nhịp thường."
     },
     "seoTitle": "Trình tạo video AI miễn phí trực tuyến | Agnes Video Generator",
-    "seoDescription": "Trình tạo video & hình ảnh AI miễn phí trực tuyến. Gõ prompt để tạo video AI (text-to-video) và hình ảnh AI (text-to-image). Không cần thẻ tín dụng, không cần cài đặt — chỉ cần thêm khóa API Agnes miễn phí của bạn.",
+    "seoDescription": "Trình tạo video và ảnh AI miễn phí ngay trên trình duyệt. Ảnh dùng agnes-image-2.1-flash. Một đoạn dùng Video 2.5 Flash (chữ, ảnh tham chiếu, khung đầu/cuối, 4–12 giây, 6 tỷ lệ). Video nhiều cảnh mở từ bản web ở tab video sáng tạo: một ý tưởng tách thành 2–5 đoạn rồi ghép trong trình duyệt. Không cài đặt, không thẻ. API key chỉ nằm trong trình duyệt.",
     "seoH1": "Trình tạo video & hình ảnh AI miễn phí trực tuyến",
-    "seoIntro": "Agnes Video Generator là một công cụ tạo AI trên web hoàn toàn miễn phí. Mở trình duyệt, nhập lời nhắc văn bản và bạn có thể gọi mô hình Agnes AI trực tuyến để biến văn bản thành video AI (video Vincent) hoặc hình ảnh AI (hình ảnh Vincent). Hoàn toàn miễn phí, mở và sử dụng, không cần cài đặt phần mềm, không cần thẻ tín dụng; Chỉ cần điền vào khóa API Agnes miễn phí của riêng bạn ở phía trước trước trước khi bắt đầu (chỉ tồn tại trong trình duyệt cục bộ, không tải lên máy chủ). Từ cảm hứng đến bộ phim, chỉ cần vài bước là đủ.",
+    "seoIntro": "Trang này là bàn làm việc của Agnes Video Generator. Ảnh, video đơn và video sáng tạo là ba tab của cùng một công cụ. Mặc định là video đơn. Cổng bản web mở thẳng video sáng tạo. Mô hình video là Video 2.5 Flash (agnes-video-2.5-flash), miễn phí trong thời gian có hạn. Dán API key Agnes miễn phí ở phía trên. Key chỉ lưu trên trình duyệt này.",
     "seoFeatures": [
       {
-        "title": "Hoàn toàn miễn phí, không cần thẻ tín dụng",
-        "desc": "Công cụ dùng miễn phí; chỉ cần mang theo khóa API Agnes miễn phí của riêng bạn. Không thanh toán, không cần thẻ tín dụng."
+        "title": "Miễn phí, không cần thẻ",
+        "desc": "Trang không thu phí. Chỉ cần API key Agnes miễn phí."
       },
       {
-        "title": "Trực tuyến & không cần cài đặt",
-        "desc": "Chạy hoàn toàn trong trình duyệt. Mở trang là tạo — không cần tải phần mềm, hoạt động trên cả desktop và di động."
+        "title": "Ngay trên trình duyệt",
+        "desc": "Ảnh, một đoạn và ghép nhiều cảnh đều diễn ra trên trang. Video sáng tạo được tải từ trình duyệt."
       },
       {
-        "title": "Text to video",
-        "desc": "Gõ prompt và agnes-video-v2.0 biến nó thành video AI 5/10 giây với nhiều tỷ lệ khung hình."
+        "title": "Tạo ảnh",
+        "desc": "agnes-image-2.1-flash, vuông, ngang hoặc dọc."
       },
       {
-        "title": "Text to image",
-        "desc": "Gõ prompt và agnes-image-2.1-flash tạo ra hình ảnh AI chất lượng cao và minh họa nghệ thuật."
+        "title": "Video đơn",
+        "desc": "Video 2.5 Flash: chữ, tối đa 5 ảnh tham chiếu, khung đầu và cuối. 4–12 giây. Tỷ lệ 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
+      },
+      {
+        "title": "Video sáng tạo",
+        "desc": "Một ý tưởng tách thành 2–5 cảnh, mỗi cảnh 5, 8, 10 hoặc 12 giây, rồi ghép trong trình duyệt. Bản web mở đúng tab này."
       }
     ],
     "seoUseCases": [
@@ -334,39 +338,112 @@
     ],
     "seoFaq": [
       {
-        "q": "Trình tạo video AI này có miễn phí không?",
-        "a": "Có. Agnes Video Generator hoàn toàn miễn phí. Bạn chỉ cần khóa API Agnes miễn phí của riêng mình (nhập trong trình duyệt, lưu cục bộ) — không thanh toán, không thẻ tín dụng."
+        "q": "Trình tạo trực tuyến này có miễn phí không?",
+        "a": "Trang không thu phí và không hỏi thẻ. Bạn cần API key Agnes miễn phí. Key chỉ nằm trong localStorage của trình duyệt này."
       },
       {
-        "q": "Tôi có cần tải hoặc cài đặt phần mềm không?",
-        "a": "Không. Đây là công cụ thuần web; mở nó trong trình duyệt để tạo video và hình ảnh AI trực tuyến, trên desktop hoặc di động."
+        "q": "Tôi có cần cài gì không?",
+        "a": "Không. Cả ba tab chạy trên trình duyệt. Ghép video sáng tạo dùng ffmpeg.wasm, không cần tự cài ffmpeg."
       },
       {
-        "q": "Có hỗ trợ text to video không?",
-        "a": "Có. Gõ prompt và agnes-video-v2.0 tạo video AI 5 hoặc 10 giây với nhiều tỷ lệ khung hình."
+        "q": "Video đơn dùng mô hình nào và chờ bao lâu?",
+        "a": "Mô hình là agnes-video-2.5-flash (Video 2.5 Flash), một đoạn 4–12 giây. Trang hỏi trạng thái mỗi 30 giây, tối đa 15 phút. Hàng miễn phí vắng thì thường vài phút; đông thì lâu hơn."
       },
       {
-        "q": "Có hỗ trợ text to image không?",
-        "a": "Có. Gõ prompt và agnes-image-2.1-flash tạo hình ảnh AI và minh họa nghệ thuật."
+        "q": "Có dùng ảnh tham chiếu và khung đầu/cuối không?",
+        "a": "Có. Tối đa 5 ảnh tham chiếu, kèm URL âm thanh. Chế độ khung bắt buộc có khung đầu; khung cuối là tùy chọn. Tỷ lệ của chế độ này bị dịch vụ cố định thành hình vuông."
       },
       {
-        "q": "Tôi có cần thẻ tín dụng không?",
-        "a": "Không cần thẻ tín dụng và không phải thanh toán. Công cụ miễn phí; bạn chỉ cần nhập khóa API Agnes miễn phí của riêng mình."
+        "q": "Video sáng tạo khác video đơn thế nào?",
+        "a": "Video đơn tạo một đoạn. Video sáng tạo tách một ý tưởng thành 2–5 cảnh, tạo từng cảnh rồi ghép trong trình duyệt. Liên kết bản web trên điều hướng mở thẳng video sáng tạo."
       },
       {
-        "q": "Prompt và tài nguyên của tôi có được tải lên không?",
-        "a": "Khóa API Agnes của bạn chỉ được lưu trong localStorage của trình duyệt và không bao giờ được tải lên máy chủ của chúng tôi; quá trình tạo chạy trực tiếp từ trình duyệt của bạn đến các mô hình Agnes."
+        "q": "503 hoặc “video queue is full” nghĩa là gì?",
+        "a": "Hàng miễn phí đã đầy. Chưa tạo tác vụ và chưa tốn hạn mức. Trang tự thử lại. Nếu vẫn đầy, hãy thử lúc vắng hơn. Trang hỏi đáp về hàng đợi nói rõ phần còn lại."
       },
       {
-        "q": "Bản miễn phí có giới hạn gì không?",
-        "a": "Tạo video hỗ trợ thời lượng 5s và 10s cùng nhiều tỷ lệ khung hình; hạn mức của bạn phụ thuộc vào khóa API Agnes miễn phí bạn cung cấp."
-      },
-      {
-        "q": "Tôi có thể dùng video và hình ảnh cho mục đích thương mại không?",
-        "a": "Việc sử dụng thương mại phụ thuộc vào điều khoản giấy phép của khóa API Agnes; vui lòng xác nhận quyền sử dụng khóa của bạn trước khi dùng thương mại."
+        "q": "Vì sao video 9:16 bị nằm ngang?",
+        "a": "Video 2.5 Flash đôi khi trả 9:16 bị xoay 90°. Bố cục vẫn là dọc. Xoay tệp sau khi tải. Đây là lỗi đã biết từ phía dịch vụ."
       }
     ],
     "studioLinkCta": "Studio video sáng tạo nhiều cảnh (Beta) →",
-    "copied": "Đã sao chép"
+    "copied": "Đã sao chép",
+    "seoModesTitle": "Ba lối vào, ba kết quả",
+    "seoHowTitle": "Bắt đầu trong ba bước",
+    "seoLinksTitle": "Xem tiếp",
+    "seoExamplesTitle": "Tác phẩm làm bằng mô hình này",
+    "seoExamplesLead": "Hai tác phẩm đã đăng này dùng cùng bộ mô hình. Mở tác phẩm để chép prompt gốc, rồi thử lại ở tab tương ứng.",
+    "seoExamplesMore": "Xem mọi ví dụ",
+    "seoExampleOpen": "Xem tác phẩm và prompt",
+    "seoModes": [
+      {
+        "tab": "image",
+        "title": "Ảnh",
+        "desc": "Một câu mô tả thành ảnh với agnes-image-2.1-flash: vuông, ngang hoặc dọc."
+      },
+      {
+        "tab": "simple",
+        "title": "Video đơn",
+        "desc": "Lối vào mặc định. Một đoạn 4–12 giây từ chữ, ảnh tham chiếu hoặc khung đầu/cuối, bằng Video 2.5 Flash."
+      },
+      {
+        "tab": "creative",
+        "title": "Video sáng tạo",
+        "desc": "Một ý tưởng thành 2–5 đoạn rồi ghép lại. Bản web rơi vào tab này. Tỷ lệ 16:9, 9:16 hoặc 1:1."
+      }
+    ],
+    "seoHowSteps": [
+      {
+        "title": "Dán API key miễn phí",
+        "desc": "Lấy API key Agnes miễn phí và dán lên trên. Key ở lại trình duyệt này và không được tải lên máy chủ của trang."
+      },
+      {
+        "title": "Chọn một tab",
+        "desc": "Ảnh tạo ảnh tĩnh. Video đơn một đoạn 4–12 giây. Video sáng tạo tách ý tưởng thành các cảnh. Bản web mở video sáng tạo."
+      },
+      {
+        "title": "Chờ rồi tải về",
+        "desc": "Ảnh thường trả về nhanh. Video đơn được hỏi mỗi 30 giây, tối đa 15 phút. Video sáng tạo tạo cảnh lần lượt rồi ghép trong trình duyệt."
+      }
+    ],
+    "seoLinks": [
+      {
+        "href": "/models/agnes-video-2-5-flash",
+        "label": "Video 2.5 Flash làm được gì"
+      },
+      {
+        "href": "/guides/api-key",
+        "label": "Lấy API key miễn phí"
+      },
+      {
+        "href": "/guides/prompt-examples-simple",
+        "label": "Ví dụ prompt một đoạn"
+      },
+      {
+        "href": "/guides/prompt-examples-creative",
+        "label": "Ví dụ prompt nhiều cảnh"
+      },
+      {
+        "href": "/faq/jimeng",
+        "label": "Hàng đầy và 503"
+      },
+      {
+        "href": "/faq/pricing-free",
+        "label": "Hạn mức miễn phí và dùng thương mại"
+      },
+      {
+        "href": "/showcase",
+        "label": "Tác phẩm thật và prompt gốc"
+      },
+      {
+        "href": "/studio",
+        "label": "Mở video sáng tạo"
+      }
+    ],
+    "helpLinks": {
+      "queue": "Khi hàng đợi đầy",
+      "key": "Cách lấy API key miễn phí",
+      "trouble": "Lỗi khác"
+    }
   }
 }

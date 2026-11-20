@@ -285,25 +285,29 @@
       "fastRetryExpired": "Tapos na ang mabilis na retry; bumalik sa normal na bilis."
     },
     "seoTitle": "Libreng AI Video Generator Online | Agnes Video Generator",
-    "seoDescription": "Libreng online na AI video at image generator. Mag-type ng prompt para gumawa ng AI video (text-to-video) at AI images (text-to-image). Walang credit card, walang install — idagdag lang ang iyong libreng Agnes API Key.",
+    "seoDescription": "Libreng AI video at image generator sa browser. Images: agnes-image-2.1-flash. Isang clip: Video 2.5 Flash (teksto, reference images, unang/huling frame, 4–12 segundo, anim na ratio). Ang multi-scene short ay bumubukas mula sa web studio sa creative-video tab: isang ideya ay nagiging 2–5 clip at pinagdudugtong sa browser. Walang install at walang card. Ang API key ay nananatili sa browser.",
     "seoH1": "Libreng Online na AI Video at Image Generator",
-    "seoIntro": "Ang Agnes Video Generator ay isang ganap na libreng web-side AI creation tool. Buksan ang browser, maglagay ng text prompt, at maaari mong tawagan ang Agnes AI model online upang gawing AI video (Vincent video) o AI picture (Vincent picture) ang text. Ganap na libre, bukas at gamitin, hindi na kailangang mag-install ng software o credit card; Bago magsimula, punan lamang ang iyong sariling libreng Agnes API Key sa front-end (umiiral lamang sa lokal na browser at hindi na-upload sa server). Mula sa inspirasyon hanggang sa natapos na pelikula, sapat na ang ilang hakbang.",
+    "seoIntro": "Ang pahinang ito ang workspace ng Agnes Video Generator. Image, simpleng video, at creative video ay tatlong tab ng iisang tool. Default ang simpleng video. Ang web studio ay direktang nagbubukas ng creative video. Ang video model ay ang limitadong libreng Video 2.5 Flash (agnes-video-2.5-flash). Idikit ang libreng Agnes API key sa itaas. Naka-store lang ito sa browser na ito.",
     "seoFeatures": [
       {
-        "title": "Ganap na libre, walang credit card",
-        "desc": "Libreng gamitin ang tool; magdala ka lang ng sariling libreng Agnes API Key. Walang bayad, walang credit card."
+        "title": "Libre, walang card",
+        "desc": "Hindi naniningil ang site. Sapat ang libreng Agnes API key."
       },
       {
-        "title": "Online at walang install",
-        "desc": "Ganap na tumatakbo sa browser. Buksan ang page at lumikha — walang software na idi-download, gumagana sa desktop at mobile."
+        "title": "Sa browser",
+        "desc": "Ang imahe, isang clip, at pagdugtong ng mga eksena ay nangyayari sa pahina. Ang creative video ay dina-download mula sa browser."
       },
       {
-        "title": "Text to video",
-        "desc": "Mag-type ng prompt at gagawing 5/10-segundong AI video sa maraming aspect ratios ang agnes-video-v2.0."
+        "title": "Imahe",
+        "desc": "agnes-image-2.1-flash, parisukat, landscape, o portrait."
       },
       {
-        "title": "Text to image",
-        "desc": "Mag-type ng prompt at bubuo ang agnes-image-2.1-flash ng de-kalidad na AI images at art illustrations."
+        "title": "Simpleng video",
+        "desc": "Video 2.5 Flash: teksto, hanggang 5 reference image, unang at huling frame. 4–12 segundo. Mga ratio: 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
+      },
+      {
+        "title": "Creative video",
+        "desc": "Ang isang ideya ay nahahati sa 2–5 eksena na 5, 8, 10, o 12 segundo, tapos pinagdudugtong sa browser. Binubuksan ito ng web studio."
       }
     ],
     "seoUseCases": [
@@ -334,39 +338,112 @@
     ],
     "seoFaq": [
       {
-        "q": "Libre ba ang AI video generator na ito?",
-        "a": "Oo. Ganap na libre ang Agnes Video Generator. Kailangan mo lang ng sariling libreng Agnes API Key (ini-enter sa browser, naka-store nang lokal) — walang bayad, walang credit card."
+        "q": "Libre ba ang online generator na ito?",
+        "a": "Hindi naniningil ang site at hindi humihingi ng card. Kailangan ng libreng Agnes API key. Naka-store lang ito sa localStorage ng browser na ito."
       },
       {
-        "q": "Kailangan ko bang mag-download o mag-install ng software?",
-        "a": "Hindi. Fully web-based itong tool; buksan ito sa browser upang bumuo ng AI video at images online, sa desktop o mobile."
+        "q": "Kailangan ko bang mag-install?",
+        "a": "Hindi. Ang tatlong tab ay tumatakbo sa browser. Ang pagdugtong ng creative video ay gumagamit ng ffmpeg.wasm, kaya hindi mo i-install ang ffmpeg."
       },
       {
-        "q": "Sinusuportahan ba nito ang text to video?",
-        "a": "Oo. Mag-type ng prompt at bubuo ang agnes-video-v2.0 ng 5 o 10-segundong AI video sa maraming aspect ratios."
+        "q": "Anong model ang simpleng video, at gaano katagal?",
+        "a": "Ang model ay agnes-video-2.5-flash (Video 2.5 Flash), isang clip na 4–12 segundo. Tinitingnan ang status bawat 30 segundo, hanggang 15 minuto. Kapag tahimik ang libreng pila, kadalasang ilang minuto; kapag puno, mas matagal."
       },
       {
-        "q": "Sinusuportahan ba nito ang text to image?",
-        "a": "Oo. Mag-type ng prompt at bubuo ang agnes-image-2.1-flash ng AI images at art illustrations."
+        "q": "Pwede bang gumamit ng reference image at unang/huling frame?",
+        "a": "Oo. Hanggang 5 reference image, at audio URL. Sa frame mode kailangan ang unang frame; opsyonal ang huli. Ang ratio ng mode na ito ay itinatakda ng serbisyo bilang parisukat."
       },
       {
-        "q": "Kailangan ko ba ng credit card?",
-        "a": "Walang credit card at walang bayad. Libre ang tool; ilagay mo lang ang iyong sariling libreng Agnes API Key."
+        "q": "Ano ang pinagkaiba ng creative video at simpleng video?",
+        "a": "Ang simpleng video ay gumagawa ng isang clip. Ang creative video ay hinahati ang isang ideya sa 2–5 eksena, ginagawa ang bawat isa, tapos pinagdudugtong sa browser. Ang web studio sa navigation ay direktang nagbubukas ng creative video."
       },
       {
-        "q": "Ina-upload ba ang aking prompts at assets?",
-        "a": "Ang iyong Agnes API Key ay naka-store lamang sa localStorage ng iyong browser at hindi kailanman ina-upload sa aming mga server; direktang tumatakbo ang generation mula sa iyong browser papunta sa mga Agnes models."
+        "q": "Ano ang ibig sabihin ng 503 o “video queue is full”?",
+        "a": "Puno ang libreng pila. Walang nagawang task at walang nagastos na quota. Inuulit ito ng pahina nang mag-isa. Kung puno pa rin, subukan sa mas tahimik na oras. Ipinapaliwanag ng FAQ ng pila ang iba pa."
       },
       {
-        "q": "May mga limit ba sa libreng version?",
-        "a": "Sinusuportahan ng video generation ang 5s at 10s durations at maraming aspect ratios; nakadepende sa libreng Agnes API Key na iyong ibibigay ang iyong available na quota."
-      },
-      {
-        "q": "Maaari ko bang gamitin nang komersyal ang videos at images?",
-        "a": "Nakadepende sa license terms ng Agnes API Key ang komersyal na paggamit; mangyaring kumpirmahin ang usage rights ng iyong Key bago gamitin nang komersyal."
+        "q": "Bakit nakatagilid ang 9:16 na video?",
+        "a": "Minsan naghahatid ang Video 2.5 Flash ng 9:16 na naka-ikot nang 90°. Patayo pa rin ang komposisyon. I-rotate ang file pagkatapos i-download. Kilalang isyu ito ng serbisyo."
       }
     ],
     "studioLinkCta": "Multi-scene creative video studio (Beta) →",
-    "copied": "Nakopya"
+    "copied": "Nakopya",
+    "seoModesTitle": "Tatlong pasukan, tatlong resulta",
+    "seoHowTitle": "Magsimula sa tatlong hakbang",
+    "seoLinksTitle": "Magpatuloy",
+    "seoExamplesTitle": "Mga clip na ginawa ng model na ito",
+    "seoExamplesLead": "Ang dalawang nailathalang piyesa ay gumamit ng parehong mga model. Buksan ang piyesa para kopyahin ang orihinal na prompt, tapos subukan ulit sa tamang tab.",
+    "seoExamplesMore": "Tingnan lahat ng halimbawa",
+    "seoExampleOpen": "Tingnan ang clip at prompt",
+    "seoModes": [
+      {
+        "tab": "image",
+        "title": "Imahe",
+        "desc": "Ang isang paglalarawan ay nagiging imahe gamit ang agnes-image-2.1-flash: parisukat, landscape, o portrait."
+      },
+      {
+        "tab": "simple",
+        "title": "Simpleng video",
+        "desc": "Ang default na pasukan. Isang clip na 4–12 segundo mula sa teksto, reference image, o unang/huling frame, gamit ang Video 2.5 Flash."
+      },
+      {
+        "tab": "creative",
+        "title": "Creative video",
+        "desc": "Ang isang ideya ay nagiging 2–5 clip na pinagdudugtong. Ang web studio ay dumarating sa tab na ito. Mga ratio: 16:9, 9:16, o 1:1."
+      }
+    ],
+    "seoHowSteps": [
+      {
+        "title": "Idikit ang libreng API key",
+        "desc": "Kumuha ng libreng Agnes key at idikit sa itaas. Nananatili ito sa browser na ito at hindi ina-upload sa server ng site."
+      },
+      {
+        "title": "Pumili ng tab",
+        "desc": "Ang imahe ay gumagawa ng still. Ang simpleng video ay isang clip na 4–12 segundo. Ang creative video ay hinahati ang ideya sa mga eksena. Binubuksan ng web studio ang creative video."
+      },
+      {
+        "title": "Maghintay, tapos i-download",
+        "desc": "Karaniwang mabilis bumabalik ang mga imahe. Ang simpleng video ay tinitingnan bawat 30 segundo, hanggang 15 minuto. Ang creative video ay gumagawa ng mga eksena nang magkakasunod at pinagdudugtong ang resulta sa browser."
+      }
+    ],
+    "seoLinks": [
+      {
+        "href": "/models/agnes-video-2-5-flash",
+        "label": "Ano ang kaya ng Video 2.5 Flash"
+      },
+      {
+        "href": "/guides/api-key",
+        "label": "Kumuha ng libreng API key"
+      },
+      {
+        "href": "/guides/prompt-examples-simple",
+        "label": "Mga halimbawa ng prompt para sa isang clip"
+      },
+      {
+        "href": "/guides/prompt-examples-creative",
+        "label": "Mga halimbawa ng prompt na maraming eksena"
+      },
+      {
+        "href": "/faq/jimeng",
+        "label": "Punong pila at 503"
+      },
+      {
+        "href": "/faq/pricing-free",
+        "label": "Libreng quota at komersyal na gamit"
+      },
+      {
+        "href": "/showcase",
+        "label": "Totoong clip at ang orihinal na prompt"
+      },
+      {
+        "href": "/studio",
+        "label": "Buksan ang creative video"
+      }
+    ],
+    "helpLinks": {
+      "queue": "Kapag puno ang pila",
+      "key": "Paano kumuha ng libreng API key",
+      "trouble": "Iba pang error"
+    }
   }
 }

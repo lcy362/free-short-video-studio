@@ -285,25 +285,29 @@
     },
     "githubNote": "Demo web ini hanya menyediakan fungsi dasar teks-ke-gambar dan teks-ke-video. Untuk fitur lengkap (video kreatif panjang, video naskah, pembawa acara digital AI, narasi TTS, subtitle otomatis, lanjutkan, dan lainnya), unduh aplikasi desktop dari GitHub.",
     "seoTitle": "Generator Video AI Gratis Online | Agnes Video Generator",
-    "seoDescription": "Generator video & gambar AI gratis online. Ketik prompt untuk membuat video AI (teks ke video) dan gambar AI (teks ke gambar). Tanpa kartu kredit, tanpa instalasi—cukup masukkan Agnes API Key gratis Anda.",
+    "seoDescription": "Pembuat video dan gambar AI gratis di browser. Gambar memakai agnes-image-2.1-flash. Satu klip memakai Video 2.5 Flash (teks, gambar referensi, bingkai awal/akhir, 4–12 detik, 6 rasio). Video banyak adegan dibuka dari studio web pada tab video kreatif: satu ide dipecah menjadi 2–5 klip lalu digabung di browser. Tanpa instal dan tanpa kartu. API key tetap di browser.",
     "seoH1": "Generator Video & Gambar AI Online Gratis",
-    "seoIntro": "Agnes Video Generator adalah tools kreasi AI berbasis web yang gratis sepenuhnya. Buka browser, ketik satu paragraf prompt, langsung bisa panggil model Agnes AI secara online, ubah teks jadi video AI (text-to-video) atau gambar AI (text-to-image). Gratis sepenuhnya, buka langsung pakai, tidak perlu install software, tidak perlu kartu kredit; sebelum mulai cukup isi API Key Agnes gratis kamu di frontend (hanya disimpan di browser lokal, tidak diupload ke server). Dari inspirasi sampai hasil jadi, beberapa langkah saja.",
+    "seoIntro": "Halaman ini adalah meja kerja Agnes Video Generator. Gambar, video sederhana, dan video kreatif adalah tiga tab alat yang sama. Video sederhana adalah pintu bawaan. Studio web langsung membuka video kreatif. Model video adalah Video 2.5 Flash (agnes-video-2.5-flash) yang gratis untuk waktu terbatas. Tempel API key Agnes gratis di atas. Key hanya tersimpan di browser ini.",
     "seoFeatures": [
       {
-        "title": "Sepenuhnya gratis, tanpa kartu kredit",
-        "desc": "Alat ini gratis digunakan; cukup bawa Agnes API Key gratis Anda sendiri. Tanpa pembayaran, tanpa kartu kredit."
+        "title": "Gratis, tanpa kartu",
+        "desc": "Situs ini tidak menagih. Cukup API key Agnes gratis."
       },
       {
-        "title": "Online & tanpa instalasi",
-        "desc": "Berjalan sepenuhnya di browser. Buka halaman dan buat—tanpa perangkat lunak yang diunduh, berfungsi di desktop dan seluler."
+        "title": "Di browser",
+        "desc": "Gambar, satu klip, dan penyambungan adegan terjadi di halaman ini. Video kreatif diunduh dari browser."
       },
       {
-        "title": "Teks ke video",
-        "desc": "Ketik prompt dan agnes-video-v2.0 mengubahnya menjadi video AI 5/10 detik dalam beberapa rasio aspek."
+        "title": "Gambar",
+        "desc": "agnes-image-2.1-flash, persegi, lanskap, atau potret."
       },
       {
-        "title": "Teks ke gambar",
-        "desc": "Ketik prompt dan agnes-image-2.1-flash menghasilkan gambar AI dan ilustrasi seni berkualitas tinggi."
+        "title": "Video sederhana",
+        "desc": "Video 2.5 Flash: teks, hingga 5 gambar referensi, bingkai awal dan akhir. 4–12 detik. Rasio 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
+      },
+      {
+        "title": "Video kreatif",
+        "desc": "Satu ide dipecah menjadi 2–5 adegan berdurasi 5, 8, 10, atau 12 detik, lalu digabung di browser. Studio web membuka tab ini."
       }
     ],
     "seoUseCases": [
@@ -334,39 +338,112 @@
     ],
     "seoFaq": [
       {
-        "q": "Apakah generator video AI ini gratis?",
-        "a": "Ya. Agnes Video Generator sepenuhnya gratis. Anda hanya perlu Agnes API Key gratis Anda sendiri (dimasukkan di browser, disimpan lokal)—tanpa pembayaran, tanpa kartu kredit."
+        "q": "Apakah generator online ini gratis?",
+        "a": "Situs tidak menagih dan tidak meminta kartu. Anda perlu API key Agnes gratis. Key hanya tersimpan di localStorage browser ini."
       },
       {
-        "q": "Perlu mengunduh atau memasang perangkat lunak?",
-        "a": "Tidak. Ini alat berbasis web sepenuhnya; buka di browser untuk membuat video dan gambar AI secara online, di desktop atau seluler."
+        "q": "Apakah harus memasang sesuatu?",
+        "a": "Tidak. Ketiga tab berjalan di browser. Penggabungan video kreatif memakai ffmpeg.wasm, jadi ffmpeg tidak perlu dipasang."
       },
       {
-        "q": "Apakah mendukung teks ke video?",
-        "a": "Ya. Ketik prompt dan agnes-video-v2.0 menghasilkan video AI 5 atau 10 detik dalam beberapa rasio aspek."
+        "q": "Model apa untuk video sederhana, dan berapa lama menunggunya?",
+        "a": "Modelnya agnes-video-2.5-flash (Video 2.5 Flash), satu klip 4–12 detik. Halaman memeriksa status tiap 30 detik, paling lama 15 menit. Saat antrean gratis lengang biasanya beberapa menit; saat penuh, lebih lama."
       },
       {
-        "q": "Apakah mendukung teks ke gambar?",
-        "a": "Ya. Ketik prompt dan agnes-image-2.1-flash menghasilkan gambar AI dan ilustrasi seni."
+        "q": "Bisakah memakai gambar referensi dan bingkai awal/akhir?",
+        "a": "Bisa. Maksimal 5 gambar referensi, plus URL audio. Mode bingkai wajib punya bingkai awal; bingkai akhir opsional. Rasio mode ini dikunci persegi oleh layanan hulu."
       },
       {
-        "q": "Perlu kartu kredit?",
-        "a": "Tanpa kartu kredit dan tanpa pembayaran. Alat ini gratis; Anda cukup masukkan Agnes API Key gratis Anda sendiri."
+        "q": "Apa beda video kreatif dan video sederhana?",
+        "a": "Video sederhana menghasilkan satu klip. Video kreatif memecah ide menjadi 2–5 adegan, membuat masing-masing, lalu menggabungkannya di browser. Tautan studio web di navigasi membuka video kreatif."
       },
       {
-        "q": "Apakah prompt dan aset saya diunggah?",
-        "a": "Agnes API Key Anda hanya disimpan di localStorage browser Anda dan tidak pernah diunggah ke server kami; pembuatan berjalan langsung dari browser Anda ke model Agnes."
+        "q": "Apa arti 503 atau “video queue is full”?",
+        "a": "Antrean gratis penuh. Tugas belum dibuat dan kuota tidak terpakai. Halaman mencoba lagi sendiri. Jika tetap penuh, coba di waktu yang lebih sepi. FAQ antrean menjelaskan sisanya."
       },
       {
-        "q": "Apakah ada batasan pada versi gratis?",
-        "a": "Pembuatan video mendukung durasi 5s dan 10s serta beberapa rasio aspek; kuota tersedia Anda bergantung pada Agnes API Key gratis yang Anda berikan."
-      },
-      {
-        "q": "Bolehkah saya menggunakan video dan gambar secara komersial?",
-        "a": "Penggunaan komersial bergantung pada ketentuan lisensi Agnes API Key; harap konfirmasi hak penggunaan Key Anda sebelum penggunaan komersial."
+        "q": "Mengapa video 9:16 terlihat miring?",
+        "a": "Video 2.5 Flash kadang mengirim 9:16 yang terputar 90°. Komposisinya tetap vertikal. Putar berkas setelah diunduh. Ini masalah yang sudah diketahui di layanan hulu."
       }
     ],
     "studioLinkCta": "Multi-scene creative video studio (Beta) →",
-    "copied": "Disalin"
+    "copied": "Disalin",
+    "seoModesTitle": "Tiga pintu, tiga hasil",
+    "seoHowTitle": "Mulai dalam tiga langkah",
+    "seoLinksTitle": "Lanjut",
+    "seoExamplesTitle": "Karya yang dibuat model ini",
+    "seoExamplesLead": "Dua karya yang diterbitkan ini memakai model yang sama. Buka karya untuk menyalin prompt asli, lalu coba lagi di tab yang sesuai.",
+    "seoExamplesMore": "Lihat semua contoh",
+    "seoExampleOpen": "Lihat karya dan prompt",
+    "seoModes": [
+      {
+        "tab": "image",
+        "title": "Gambar",
+        "desc": "Satu deskripsi menjadi gambar dengan agnes-image-2.1-flash: persegi, lanskap, atau potret."
+      },
+      {
+        "tab": "simple",
+        "title": "Video sederhana",
+        "desc": "Pintu bawaan. Satu klip 4–12 detik dari teks, gambar referensi, atau bingkai awal/akhir, dengan Video 2.5 Flash."
+      },
+      {
+        "tab": "creative",
+        "title": "Video kreatif",
+        "desc": "Satu ide menjadi 2–5 klip yang digabung. Studio web mendarat di tab ini. Rasio 16:9, 9:16, atau 1:1."
+      }
+    ],
+    "seoHowSteps": [
+      {
+        "title": "Tempel API key gratis",
+        "desc": "Ambil API key Agnes gratis dan tempel di atas. Key tetap di browser ini dan tidak diunggah ke server situs ini."
+      },
+      {
+        "title": "Pilih tab",
+        "desc": "Gambar membuat gambar diam. Video sederhana satu klip 4–12 detik. Video kreatif memecah ide menjadi adegan. Studio web membuka video kreatif."
+      },
+      {
+        "title": "Tunggu, lalu unduh",
+        "desc": "Gambar biasanya kembali cepat. Video sederhana diperiksa tiap 30 detik, paling lama 15 menit. Video kreatif membuat adegan berurutan lalu menggabungkannya di browser."
+      }
+    ],
+    "seoLinks": [
+      {
+        "href": "/models/agnes-video-2-5-flash",
+        "label": "Apa yang bisa dilakukan Video 2.5 Flash"
+      },
+      {
+        "href": "/guides/api-key",
+        "label": "Ambil API key gratis"
+      },
+      {
+        "href": "/guides/prompt-examples-simple",
+        "label": "Contoh prompt satu klip"
+      },
+      {
+        "href": "/guides/prompt-examples-creative",
+        "label": "Contoh prompt banyak adegan"
+      },
+      {
+        "href": "/faq/jimeng",
+        "label": "Antrean penuh dan 503"
+      },
+      {
+        "href": "/faq/pricing-free",
+        "label": "Kuota gratis dan penggunaan komersial"
+      },
+      {
+        "href": "/showcase",
+        "label": "Karya nyata dan prompt aslinya"
+      },
+      {
+        "href": "/studio",
+        "label": "Buka video kreatif"
+      }
+    ],
+    "helpLinks": {
+      "queue": "Jika antrean penuh",
+      "key": "Cara mendapat API key gratis",
+      "trouble": "Kesalahan lain"
+    }
   }
 }

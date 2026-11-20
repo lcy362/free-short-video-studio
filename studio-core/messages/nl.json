@@ -285,25 +285,29 @@
       "fastRetryExpired": "Snelle herkansing is verlopen; terug naar het normale tempo."
     },
     "seoTitle": "Gratis online AI-videogenerator | Agnes Video Generator",
-    "seoDescription": "Gratis online AI-video- & afbeeldingengenerator. Typ een prompt om AI-video's (tekst naar video) en AI-afbeeldingen (tekst naar afbeelding) te maken. Geen creditcard, geen installatie—voeg simpelweg je gratis Agnes API Key toe.",
+    "seoDescription": "Gratis AI-video- en beeldgenerator in de browser. Beelden: agnes-image-2.1-flash. Eén clip: Video 2.5 Flash (tekst, referentiebeelden, eerste/laatste frame, 4–12 s, zes verhoudingen). Meerdere scènes openen via de webstudio op het tabblad creatieve video: één idee wordt 2–5 clips en in de browser aan elkaar gezet. Geen installatie, geen kaart. De API-sleutel blijft in de browser.",
     "seoH1": "Gratis online AI-video- & afbeeldingengenerator",
-    "seoIntro": "Agnes Video Generator is een volledig gratis web-based AI-creatietool. Open de browser, typ een alinea prompt, en je kunt direct online het Agnes AI-model aanroepen om tekst om te zetten in AI-video's (text-to-video) of AI-afbeeldingen (text-to-image). Volledig gratis, direct bruikbaar, geen software installeren, geen creditcard; voor je begint hoef je alleen je eigen gratis Agnes API-sleutel in te vullen in de frontend (alleen lokaal opgeslagen in de browser, wordt niet naar servers geüpload). Van inspiratie tot eindresultaat, een paar stappen.",
+    "seoIntro": "Deze pagina is de werkplek van Agnes Video Generator. Beeld, eenvoudige video en creatieve video zijn drie tabbladen van hetzelfde gereedschap. Standaard is eenvoudige video. De webstudio opent meteen creatieve video. Het videomodel is het tijdelijk gratis Video 2.5 Flash (agnes-video-2.5-flash). Plak bovenaan een gratis Agnes-API-sleutel. Die blijft alleen in deze browser.",
     "seoFeatures": [
       {
-        "title": "Volledig gratis, geen creditcard",
-        "desc": "De tool is gratis te gebruiken; je hebt alleen je eigen gratis Agnes API Key nodig. Geen betaling, geen creditcard vereist."
+        "title": "Gratis, zonder kaart",
+        "desc": "De site rekent niets. Een gratis Agnes-API-sleutel is genoeg."
       },
       {
-        "title": "Online & zonder installatie",
-        "desc": "Werkt volledig in de browser. Open de pagina en creëer—geen software om te downloaden, werkt op desktop en mobiel."
+        "title": "In de browser",
+        "desc": "Beelden, één clip en het samenvoegen gebeuren op de pagina. De creatieve video download je uit de browser."
       },
       {
-        "title": "Tekst naar video",
-        "desc": "Typ een prompt en agnes-video-v2.0 zet hem om in een AI-video van 5/10 seconden in meerdere beeldverhoudingen."
+        "title": "Beeld",
+        "desc": "agnes-image-2.1-flash, vierkant, liggend of staand."
       },
       {
-        "title": "Tekst naar afbeelding",
-        "desc": "Typ een prompt en agnes-image-2.1-flash genereert hoogwaardige AI-afbeeldingen en kunstillustraties."
+        "title": "Eenvoudige video",
+        "desc": "Video 2.5 Flash: tekst, tot 5 referentiebeelden, eerste en laatste frame. 4–12 seconden. Verhoudingen 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
+      },
+      {
+        "title": "Creatieve video",
+        "desc": "Eén idee wordt 2–5 scènes van 5, 8, 10 of 12 seconden en in de browser aan elkaar gezet. De webstudio opent dit tabblad."
       }
     ],
     "seoUseCases": [
@@ -334,39 +338,112 @@
     ],
     "seoFaq": [
       {
-        "q": "Is deze AI-videogenerator gratis?",
-        "a": "Ja. Agnes Video Generator is volledig gratis. Je hebt alleen je eigen gratis Agnes API Key nodig (ingevoerd in de browser, lokaal opgeslagen)—geen betaling, geen creditcard."
+        "q": "Is deze online generator gratis?",
+        "a": "De site rekent niets en vraagt geen kaart. Je hebt een gratis Agnes-API-sleutel nodig. Die staat alleen in de localStorage van deze browser."
       },
       {
-        "q": "Moet ik software downloaden of installeren?",
-        "a": "Nee. Het is een volledig webgebaseerd tool; open het in een browser om AI-video's en -afbeeldingen online te genereren, op desktop of mobiel."
+        "q": "Moet ik iets installeren?",
+        "a": "Nee. Alle drie de tabbladen draaien in de browser. Het samenvoegen van creatieve video gebruikt ffmpeg.wasm, zonder ffmpeg te installeren."
       },
       {
-        "q": "Ondersteunt het tekst naar video?",
-        "a": "Ja. Typ een prompt en agnes-video-v2.0 genereert een AI-video van 5 of 10 seconden in meerdere beeldverhoudingen."
+        "q": "Welk model gebruikt eenvoudige video, en hoe lang duurt het?",
+        "a": "Het model is agnes-video-2.5-flash (Video 2.5 Flash), een clip van 4–12 seconden. De pagina vraagt elke 30 seconden de status op, maximaal 15 minuten. Bij een rustige gratis wachtrij zijn het vaak een paar minuten, bij een volle rij langer."
       },
       {
-        "q": "Ondersteunt het tekst naar afbeelding?",
-        "a": "Ja. Typ een prompt en agnes-image-2.1-flash genereert AI-afbeeldingen en kunstillustraties."
+        "q": "Kan ik referentiebeelden en een eerste/laatste frame gebruiken?",
+        "a": "Ja. Tot 5 referentiebeelden en audio-URL’s. Bij frames is het eerste frame verplicht, het laatste optioneel. De dienst zet de verhouding van die modus vast op vierkant."
       },
       {
-        "q": "Heb ik een creditcard nodig?",
-        "a": "Geen creditcard en geen betaling. De tool is gratis; je voegt simpelweg je eigen gratis Agnes API Key toe."
+        "q": "Wat is het verschil tussen creatieve en eenvoudige video?",
+        "a": "Eenvoudige video maakt één clip. Creatieve video splitst een idee in 2–5 scènes, genereert ze en voegt ze samen in de browser. De webstudio-link in het menu opent creatieve video."
       },
       {
-        "q": "Worden mijn prompts en assets geüpload?",
-        "a": "Je Agnes API Key wordt alleen opgeslagen in de localStorage van je browser en nooit geüpload naar onze servers; generatie verloopt direct vanuit je browser naar de Agnes-modellen."
+        "q": "Wat betekent 503 of “video queue is full”?",
+        "a": "De gratis wachtrij is vol. Er is geen taak gemaakt en er is geen tegoed gebruikt. De pagina probeert het zelf opnieuw. Blijft de rij vol, probeer het later. De wachtrij-FAQ legt de rest uit."
       },
       {
-        "q": "Zijn er limieten op de gratis versie?",
-        "a": "Videogeneratie ondersteunt 5s- en 10s-duur en meerdere beeldverhoudingen; je beschikbare quotum hangt af van de gratis Agnes API Key die je opgeeft."
-      },
-      {
-        "q": "Kan ik de video's en afbeeldingen commercieel gebruiken?",
-        "a": "Commercieel gebruik hangt af van de licentievoorwaarden van de Agnes API Key; bevestig de gebruiksrechten van je Key vóór commercieel gebruik."
+        "q": "Waarom ligt een 9:16-video op zijn kant?",
+        "a": "Video 2.5 Flash levert 9:16 soms 90° gedraaid. De compositie is nog steeds staand. Draai het bestand na het downloaden. Dit is een bekend probleem van de dienst."
       }
     ],
     "studioLinkCta": "Multi-scene creative video studio (Beta) →",
-    "copied": "Gekopieerd"
+    "copied": "Gekopieerd",
+    "seoModesTitle": "Drie ingangen, drie resultaten",
+    "seoHowTitle": "Begin in drie stappen",
+    "seoLinksTitle": "Verder",
+    "seoExamplesTitle": "Clips met dit model",
+    "seoExamplesLead": "Deze twee gepubliceerde stukken gebruiken dezelfde modellen. Open een stuk om de oorspronkelijke prompt te kopiëren en hem opnieuw te proberen op het juiste tabblad.",
+    "seoExamplesMore": "Alle voorbeelden",
+    "seoExampleOpen": "Clip en prompt bekijken",
+    "seoModes": [
+      {
+        "tab": "image",
+        "title": "Beeld",
+        "desc": "Eén beschrijving wordt een beeld met agnes-image-2.1-flash: vierkant, liggend of staand."
+      },
+      {
+        "tab": "simple",
+        "title": "Eenvoudige video",
+        "desc": "De standaardingang. Eén clip van 4–12 seconden uit tekst, referentiebeelden of eerste/laatste frame, met Video 2.5 Flash."
+      },
+      {
+        "tab": "creative",
+        "title": "Creatieve video",
+        "desc": "Eén idee wordt 2–5 clips en aan elkaar gezet. De webstudio landt op dit tabblad. Verhoudingen 16:9, 9:16 of 1:1."
+      }
+    ],
+    "seoHowSteps": [
+      {
+        "title": "Plak een gratis API-sleutel",
+        "desc": "Haal een gratis Agnes-sleutel en plak die bovenaan. Hij blijft in deze browser en gaat niet naar de server van deze site."
+      },
+      {
+        "title": "Kies een tabblad",
+        "desc": "Beeld maakt een stilstaand beeld. Eenvoudige video één clip van 4–12 seconden. Creatieve video splitst een idee in scènes. De webstudio opent creatieve video."
+      },
+      {
+        "title": "Wacht en download",
+        "desc": "Beelden komen meestal snel terug. Eenvoudige video wordt elke 30 seconden gevraagd, maximaal 15 minuten. Creatieve video maakt de scènes na elkaar en voegt ze samen in de browser."
+      }
+    ],
+    "seoLinks": [
+      {
+        "href": "/models/agnes-video-2-5-flash",
+        "label": "Wat Video 2.5 Flash kan"
+      },
+      {
+        "href": "/guides/api-key",
+        "label": "Een gratis API-sleutel halen"
+      },
+      {
+        "href": "/guides/prompt-examples-simple",
+        "label": "Promptvoorbeelden voor één clip"
+      },
+      {
+        "href": "/guides/prompt-examples-creative",
+        "label": "Promptvoorbeelden voor meerdere scènes"
+      },
+      {
+        "href": "/faq/jimeng",
+        "label": "Volle wachtrij en 503"
+      },
+      {
+        "href": "/faq/pricing-free",
+        "label": "Gratis limiet en commercieel gebruik"
+      },
+      {
+        "href": "/showcase",
+        "label": "Echte clips en hun oorspronkelijke prompts"
+      },
+      {
+        "href": "/studio",
+        "label": "Creatieve video openen"
+      }
+    ],
+    "helpLinks": {
+      "queue": "Als de wachtrij vol is",
+      "key": "Een gratis API-sleutel halen",
+      "trouble": "Andere fouten"
+    }
   }
 }

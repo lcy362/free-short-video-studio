@@ -285,25 +285,29 @@
     },
     "githubNote": "Demo web ini hanya menyediakan fungsi asas teks-ke-imej dan teks-ke-video. Untuk set lengkap (video kreatif panjang, video skrip, penyampai digital AI, narasi TTS, sari kata automatik, sambung semula, dan banyak lagi), muat turun aplikasi desktop dari GitHub.",
     "seoTitle": "Penjana Video AI Percuma Dalam Talian | Agnes Video Generator",
-    "seoDescription": "Penjana video & imej AI percuma dalam talian. Taipkan prompt untuk menghasilkan video AI (teks ke video) dan imej AI (teks ke imej). Tanpa kad kredit, tanpa pemasangan—cuma masukkan Agnes API Key percuma anda.",
+    "seoDescription": "Penjana video dan imej AI percuma dalam pelayar. Imej: agnes-image-2.1-flash. Satu klip: Video 2.5 Flash (teks, imej rujukan, bingkai pertama/akhir, 4–12 saat, 6 nisbah). Video berbilang adegan dibuka dari studio web pada tab video kreatif: satu idea dipecah kepada 2–5 klip dan dicantum dalam pelayar. Tiada pemasangan, tiada kad. Kunci API kekal dalam pelayar.",
     "seoH1": "Penjana Video & Imej AI Dalam Talian Percuma",
-    "seoIntro": "Agnes Video Generator ialah alat penciptaan AI hujung web yang percuma sepenuhnya. Buka pelayar, taip satu perenggan prompt, terus boleh panggil model Agnes AI dalam talian, ubah teks menjadi video AI (teks-ke-video) atau gambar AI (teks-ke-gambar). Percuma sepenuhnya, buka terus guna, tak perlu pasang perisian, tak perlu kad kredit; sebelum mula hanya perlu isi API Key Agnes percuma anda di hujung hadapan (hanya disimpan dalam pelayar tempatan, tidak dimuat naik ke pelayan). Dari inspirasi sehinggalah hasil siap, beberapa langkah sahaja.",
+    "seoIntro": "Halaman ini ialah ruang kerja Agnes Video Generator. Imej, video ringkas dan video kreatif ialah tiga tab alat yang sama. Lalai ialah video ringkas. Pintu studio web membuka video kreatif terus. Model video ialah Video 2.5 Flash (agnes-video-2.5-flash), percuma untuk tempoh terhad. Tampal kunci API Agnes percuma di atas. Ia hanya disimpan dalam pelayar ini.",
     "seoFeatures": [
       {
-        "title": "Sepenuhnya percuma, tanpa kad kredit",
-        "desc": "Alat ini percuma untuk digunakan; cuma bawa Agnes API Key percuma anda sendiri. Tiada bayaran, tiada kad kredit diperlukan."
+        "title": "Percuma, tanpa kad",
+        "desc": "Laman ini tidak mengenakan bayaran. Kunci API Agnes percuma sudah memadai."
       },
       {
-        "title": "Dalam talian & tanpa pemasangan",
-        "desc": "Berjalan sepenuhnya dalam pelayar. Buka halaman dan cipta—tiada perisian untuk dimuat turun, berfungsi di desktop dan mudah alih."
+        "title": "Dalam pelayar",
+        "desc": "Imej, satu klip dan cantuman adegan berlaku pada halaman ini. Video kreatif dimuat turun dari pelayar."
       },
       {
-        "title": "Teks ke video",
-        "desc": "Taipkan prompt dan agnes-video-v2.0 menukarnya menjadi video AI 5/10 saat dalam pelbagai nisbah aspek."
+        "title": "Imej",
+        "desc": "agnes-image-2.1-flash, segi empat, landskap atau potret."
       },
       {
-        "title": "Teks ke imej",
-        "desc": "Taipkan prompt dan agnes-image-2.1-flash menjana imej AI dan ilustrasi seni berkualiti tinggi."
+        "title": "Video ringkas",
+        "desc": "Video 2.5 Flash: teks, sehingga 5 imej rujukan, bingkai pertama dan akhir. 4–12 saat. Nisbah 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
+      },
+      {
+        "title": "Video kreatif",
+        "desc": "Satu idea dipecah kepada 2–5 adegan 5, 8, 10 atau 12 saat, kemudian dicantum dalam pelayar. Studio web membuka tab ini."
       }
     ],
     "seoUseCases": [
@@ -334,39 +338,112 @@
     ],
     "seoFaq": [
       {
-        "q": "Adakah penjana video AI ini percuma?",
-        "a": "Ya. Agnes Video Generator sepenuhnya percuma. Anda hanya perlukan Agnes API Key percuma anda sendiri (dimasukkan dalam pelayar, disimpan setempat)—tiada bayaran, tiada kad kredit."
+        "q": "Adakah penjana dalam talian ini percuma?",
+        "a": "Laman tidak mengenakan bayaran dan tidak meminta kad. Anda perlukan kunci API Agnes percuma. Ia hanya disimpan dalam localStorage pelayar ini."
       },
       {
-        "q": "Perlu muat turun atau pasang perisian?",
-        "a": "Tidak. Ia alat berasaskan web sepenuhnya; buka dalam pelayar untuk menjana video dan imej AI dalam talian, di desktop atau mudah alih."
+        "q": "Perlukah saya memasang apa-apa?",
+        "a": "Tidak. Ketiga-tiga tab berjalan dalam pelayar. Cantuman video kreatif menggunakan ffmpeg.wasm, jadi ffmpeg tidak perlu dipasang."
       },
       {
-        "q": "Adakah ia menyokong teks ke video?",
-        "a": "Ya. Taipkan prompt dan agnes-video-v2.0 menjana video AI 5 atau 10 saat dalam pelbagai nisbah aspek."
+        "q": "Model apa untuk video ringkas, dan berapa lama menunggu?",
+        "a": "Modelnya agnes-video-2.5-flash (Video 2.5 Flash), satu klip 4–12 saat. Halaman menyemak status setiap 30 saat, paling lama 15 minit. Apabila giliran percuma lengang biasanya beberapa minit; apabila penuh, lebih lama."
       },
       {
-        "q": "Adakah ia menyokong teks ke imej?",
-        "a": "Ya. Taipkan prompt dan agnes-image-2.1-flash menjana imej AI dan ilustrasi seni."
+        "q": "Bolehkah guna imej rujukan dan bingkai pertama/akhir?",
+        "a": "Boleh. Sehingga 5 imej rujukan, serta URL audio. Mod bingkai memerlukan bingkai pertama; bingkai akhir pilihan. Nisbah mod ini ditetapkan sebagai segi empat oleh perkhidmatan huluan."
       },
       {
-        "q": "Perlukan kad kredit?",
-        "a": "Tiada kad kredit dan tiada bayaran. Alat ini percuma; anda hanya masukkan Agnes API Key percuma anda sendiri."
+        "q": "Apakah bezanya video kreatif dan video ringkas?",
+        "a": "Video ringkas menghasilkan satu klip. Video kreatif memecahkan idea kepada 2–5 adegan, menjana setiap satu, kemudian mencantumnya dalam pelayar. Pautan studio web dalam navigasi membuka video kreatif."
       },
       {
-        "q": "Adakah prompt dan aset saya dimuat naik?",
-        "a": "Agnes API Key anda hanya disimpan dalam localStorage pelayar anda dan tidak pernah dimuat naik ke pelayan kami; penjanaan berjalan terus dari pelayar anda ke model Agnes."
+        "q": "Apakah maksud 503 atau “video queue is full”?",
+        "a": "Giliran percuma penuh. Tiada tugasan dicipta dan kuota tidak digunakan. Halaman mencuba semula sendiri. Jika masih penuh, cuba semula pada waktu lebih lengang. FAQ giliran menerangkan selebihnya."
       },
       {
-        "q": "Adakah terdapat had pada versi percuma?",
-        "a": "Penjanaan video menyokong tempoh 5s dan 10s serta pelbagai nisbah aspek; kuota tersedia anda bergantung pada Agnes API Key percuma yang anda berikan."
-      },
-      {
-        "q": "Bolehkah saya gunakan video dan imej secara komersial?",
-        "a": "Penggunaan komersial bergantung pada terma lesen Agnes API Key; sila sahkan hak penggunaan Key anda sebelum kegunaan komersial."
+        "q": "Mengapa video 9:16 kelihatan senget?",
+        "a": "Video 2.5 Flash kadang-kadang menghantar 9:16 yang diputar 90°. Komposisi tetap menegak. Putar fail selepas dimuat turun. Ini isu yang diketahui di perkhidmatan huluan."
       }
     ],
     "studioLinkCta": "Studio video kreatif pelbagai babak (Beta) →",
-    "copied": "Disalin"
+    "copied": "Disalin",
+    "seoModesTitle": "Tiga pintu, tiga hasil",
+    "seoHowTitle": "Mula dalam tiga langkah",
+    "seoLinksTitle": "Seterusnya",
+    "seoExamplesTitle": "Karya yang dibuat model ini",
+    "seoExamplesLead": "Dua karya terbitan ini menggunakan model yang sama. Buka karya untuk menyalin prompt asal, kemudian cuba semula pada tab yang sepadan.",
+    "seoExamplesMore": "Lihat semua contoh",
+    "seoExampleOpen": "Lihat karya dan prompt",
+    "seoModes": [
+      {
+        "tab": "image",
+        "title": "Imej",
+        "desc": "Satu penerangan menjadi imej dengan agnes-image-2.1-flash: segi empat, landskap atau potret."
+      },
+      {
+        "tab": "simple",
+        "title": "Video ringkas",
+        "desc": "Pintu lalai. Satu klip 4–12 saat daripada teks, imej rujukan atau bingkai pertama/akhir, dengan Video 2.5 Flash."
+      },
+      {
+        "tab": "creative",
+        "title": "Video kreatif",
+        "desc": "Satu idea menjadi 2–5 klip yang dicantum. Studio web mendarat pada tab ini. Nisbah 16:9, 9:16 atau 1:1."
+      }
+    ],
+    "seoHowSteps": [
+      {
+        "title": "Tampal kunci API percuma",
+        "desc": "Dapatkan kunci Agnes percuma dan tampal di atas. Kunci kekal dalam pelayar ini dan tidak dimuat naik ke pelayan laman ini."
+      },
+      {
+        "title": "Pilih tab",
+        "desc": "Imej menghasilkan gambar pegun. Video ringkas satu klip 4–12 saat. Video kreatif memecahkan idea kepada adegan. Studio web membuka video kreatif."
+      },
+      {
+        "title": "Tunggu, kemudian muat turun",
+        "desc": "Imej biasanya kembali cepat. Video ringkas disemak setiap 30 saat, paling lama 15 minit. Video kreatif menjana adegan mengikut turutan kemudian mencantumkannya dalam pelayar."
+      }
+    ],
+    "seoLinks": [
+      {
+        "href": "/models/agnes-video-2-5-flash",
+        "label": "Apa yang Video 2.5 Flash boleh buat"
+      },
+      {
+        "href": "/guides/api-key",
+        "label": "Dapatkan kunci API percuma"
+      },
+      {
+        "href": "/guides/prompt-examples-simple",
+        "label": "Contoh prompt satu klip"
+      },
+      {
+        "href": "/guides/prompt-examples-creative",
+        "label": "Contoh prompt berbilang adegan"
+      },
+      {
+        "href": "/faq/jimeng",
+        "label": "Giliran penuh dan 503"
+      },
+      {
+        "href": "/faq/pricing-free",
+        "label": "Kuota percuma dan kegunaan komersial"
+      },
+      {
+        "href": "/showcase",
+        "label": "Karya sebenar dan prompt asal"
+      },
+      {
+        "href": "/studio",
+        "label": "Buka video kreatif"
+      }
+    ],
+    "helpLinks": {
+      "queue": "Apabila giliran penuh",
+      "key": "Cara mendapatkan kunci API percuma",
+      "trouble": "Ralat lain"
+    }
   }
 }

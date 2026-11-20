@@ -11,9 +11,9 @@
     "domainCn": "China",
     "domainHint": "The China domain requires a China-specific API Key; the backup line works with both. If the current domain is unreachable, other lines are tried automatically.",
     "seoTitle": "Generate Short Videos Online Free with AI — FreeShortVideo Studio",
-    "seoDescription": "FreeShortVideo Studio: generate short videos online free with AI. Enter an idea, AI splits it into 2-5 scenes, generates text-to-video clips, and concatenates them in your browser. No install, no GPU, no credit card — free Agnes API Key required.",
+    "seoDescription": "FreeShortVideo Studio generates short videos in the browser with Video 2.5 Flash. One idea becomes 2–5 scenes of 5–12 seconds, then the browser stitches them. No install, no GPU, no credit card. The API key stays in your browser.",
     "seoH1": "Generate Short Videos Online Free with AI — FreeShortVideo Studio",
-    "seoIntro": "FreeShortVideo Studio is a web-based AI short video generator: enter an idea, AI automatically splits it into 2-5 scenes, generates a 5-second video per scene, and concatenates them into a complete short video locally in your browser. Completely free, online, no install, no high-end GPU, no credit card — just add your free Agnes API Key.",
+    "seoIntro": "FreeShortVideo Studio opens on creative video: one idea is split into 2–5 scenes, each generated as a 5, 8, 10, or 12 second clip with the limited-time free model Video 2.5 Flash (agnes-video-2.5-flash), then stitched in the browser. Free, no install, no GPU, no credit card.",
     "betaBadge": "Free · Beta",
     "title": "Creative Video Workshop",
     "subtitle": "AI Screenwriter → Multi-segment Text-to-Video → Browser Concatenation",
@@ -285,25 +285,29 @@
       "fastRetryExpired": "Fast retry window ended; back to the normal retry pace."
     },
     "seoTitle": "Free AI Video Generator Online | Agnes Video Generator",
-    "seoDescription": "Free online AI video and image generator with three modes in one place: image generation, single-clip text-to-video / image-to-video, and multi-scene creative video. No credit card, no install — just a free Agnes API key.",
+    "seoDescription": "Free in-browser AI video and image generator. Images use agnes-image-2.1-flash. Single clips use Video 2.5 Flash (text-to-video, reference images, first/last frame, 4–12 seconds, six aspect ratios). Multi-scene shorts open from the Web Studio on the creative-video tab: one idea becomes 2–5 clips and is stitched in the browser. No install and no credit card. The API key stays in your browser.",
     "seoH1": "Free Online AI Video Generator and Image Generator (Image · Simple Video · Creative Video)",
-    "seoIntro": "Agnes Video Generator is a completely free AI creation tool that runs in your browser. Type one prompt and the site calls the Agnes models to turn text into an AI image, a single AI video clip, or a full multi-scene short film. Everything is organised into three tabs: Image generation, Simple video (text-to-video and image-to-video), and Creative video (an idea split into scenes and stitched together). No install, no GPU, no credit card — just paste your free Agnes API key, which stays in your browser and is never uploaded.",
+    "seoIntro": "This page is the Agnes Video Generator workspace. Image, simple video, and creative video are three tabs of the same tool. Simple video is the default. The Web Studio entry opens creative video directly. Images use agnes-image-2.1-flash. Video uses the limited-time free model Video 2.5 Flash (agnes-video-2.5-flash). Paste a free Agnes API key at the top of the page. It is stored only in this browser.",
     "seoFeatures": [
       {
-        "title": "Completely free, no credit card",
-        "desc": "The tool is free to use; just bring your own free Agnes API Key. No payment, no credit card required."
+        "title": "Free, no credit card",
+        "desc": "The site does not charge. Bring a free Agnes API key. There is no subscription and no card."
       },
       {
-        "title": "Online & no install",
-        "desc": "Runs entirely in the browser. Open the page and create—no software to download, works on desktop and mobile."
+        "title": "Runs in the browser",
+        "desc": "Images, single clips, and multi-scene stitching all happen on the page. Creative videos are concatenated locally in the browser, then downloaded."
       },
       {
-        "title": "Text & image to video",
-        "desc": "Generate AI video from a prompt, or upload a reference image for image-to-video; powered by the limited-time-free Video 2.5 Flash model (4–12s, multiple aspect ratios)."
+        "title": "Image generation",
+        "desc": "Uses agnes-image-2.1-flash, with square, landscape, and portrait sizes."
       },
       {
-        "title": "Text to image",
-        "desc": "Type a prompt and agnes-image-2.1-flash generates high-quality AI images and art illustrations."
+        "title": "Simple video",
+        "desc": "Video 2.5 Flash: text-to-video, up to 5 reference images, and first/last frame. Duration 4–12 seconds. Ratios: 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
+      },
+      {
+        "title": "Creative video",
+        "desc": "One idea is split into 2–5 scenes of 5, 8, 10, or 12 seconds, then stitched in the browser. The Web Studio entry opens this tab."
       }
     ],
     "seoUseCases": [
@@ -334,39 +338,112 @@
     ],
     "seoFaq": [
       {
-        "q": "Is this AI video generator free?",
-        "a": "Yes. Agnes Video Generator is completely free. You only need your own free Agnes API Key (entered in the browser, stored locally)—no payment, no credit card."
+        "q": "Is this online generator free?",
+        "a": "The site does not charge and does not ask for a credit card. You need a free Agnes API key. It is stored only in this browser’s localStorage."
       },
       {
-        "q": "Do I need to download or install software?",
-        "a": "No. It's a fully web-based tool; open it in a browser to generate AI video and images online, on desktop or mobile."
+        "q": "Do I need to install anything?",
+        "a": "No. All three tabs run in the browser. Creative-video stitching uses ffmpeg.wasm, so you do not install ffmpeg yourself."
       },
       {
-        "q": "Does it support text-to-video / image-to-video?",
-        "a": "Yes. Type a prompt for text-to-video, or upload a reference image for image-to-video; it runs on the limited-time-free Video 2.5 Flash model (4–12s, multiple aspect ratios)."
+        "q": "Which model does simple video use, and how long does it take?",
+        "a": "The model is agnes-video-2.5-flash (Video 2.5 Flash). A clip is 4–12 seconds. The page checks status every 30 seconds for up to 15 minutes. A few minutes is typical when the free queue is quiet; a busy queue takes longer."
       },
       {
-        "q": "Does it support text to image?",
-        "a": "Yes. Type a prompt and agnes-image-2.1-flash generates AI images and art illustrations."
+        "q": "Can I use reference images or a first and last frame?",
+        "a": "Yes. You can attach up to 5 reference images, and you can also pass reference audio URLs. First/last frame requires a first frame; the last frame is optional. That mode’s output ratio is fixed to square by the upstream service."
       },
       {
-        "q": "Do I need a credit card?",
-        "a": "No credit card and no payment. The tool is free; you just enter your own free Agnes API Key."
+        "q": "How is creative video different from simple video?",
+        "a": "Simple video makes one clip. Creative video splits one idea into 2–5 scenes, generates each scene, then stitches them in the browser. The Web Studio link in the navigation opens creative video directly."
       },
       {
-        "q": "Are my prompts and assets uploaded?",
-        "a": "Your Agnes API Key is stored only in your browser's localStorage and is never uploaded to our servers; generation runs directly from your browser to the Agnes models."
+        "q": "What if I see 503 or “video queue is full”?",
+        "a": "The free queue is full. No task was created and no quota was spent. The page retries automatically. If it stays full, try again at a quieter time. The Jimeng and queue FAQ explains the rest."
       },
       {
-        "q": "Are there limits on the free version?",
-        "a": "Video generation supports durations of 4–12s and multiple aspect ratios; your available quota depends on the free Agnes API Key you provide."
-      },
-      {
-        "q": "Can I use the videos and images commercially?",
-        "a": "Commercial use depends on the Agnes API Key's license terms; please confirm your Key's usage rights before commercial use."
+        "q": "Why does a 9:16 video look sideways?",
+        "a": "Video 2.5 Flash sometimes delivers 9:16 clips rotated by 90 degrees. The framing is still vertical. Rotate the file after download. This is a known upstream issue."
       }
     ],
     "studioLinkCta": "Multi-scene creative video studio (Beta) →",
-    "copied": "Copied"
+    "copied": "Copied",
+    "seoModesTitle": "Three entries, three results",
+    "seoHowTitle": "Start in three steps",
+    "seoLinksTitle": "Keep going",
+    "seoExamplesTitle": "Clips made with this model",
+    "seoExamplesLead": "These two published pieces used the same models. Open a piece to copy the original prompt, then retry it in the matching tab.",
+    "seoExamplesMore": "See all examples",
+    "seoExampleOpen": "View the clip and prompt",
+    "seoModes": [
+      {
+        "tab": "image",
+        "title": "Image",
+        "desc": "One description becomes an image with agnes-image-2.1-flash, in square, landscape, or portrait."
+      },
+      {
+        "tab": "simple",
+        "title": "Simple video",
+        "desc": "The default entry. One 4–12 second clip from text, reference images, or a first/last frame, using Video 2.5 Flash."
+      },
+      {
+        "tab": "creative",
+        "title": "Creative video",
+        "desc": "One idea becomes 2–5 clips and is stitched together. The Web Studio entry lands on this tab. Ratios are 16:9, 9:16, or 1:1."
+      }
+    ],
+    "seoHowSteps": [
+      {
+        "title": "Paste a free API key",
+        "desc": "Get a free key from the Agnes platform and paste it at the top of the workspace. It stays in this browser and is not uploaded to this site."
+      },
+      {
+        "title": "Pick a tab",
+        "desc": "Image makes a still. Simple video makes one 4–12 second clip. Creative video splits an idea into scenes and stitches them. The Web Studio entry opens creative video."
+      },
+      {
+        "title": "Wait, then download",
+        "desc": "Images usually return quickly. Simple video is polled every 30 seconds for up to 15 minutes. Creative video generates scenes in sequence, then stitches the result in the browser."
+      }
+    ],
+    "seoLinks": [
+      {
+        "href": "/models/agnes-video-2-5-flash",
+        "label": "What Video 2.5 Flash can do"
+      },
+      {
+        "href": "/guides/api-key",
+        "label": "Get a free API key"
+      },
+      {
+        "href": "/guides/prompt-examples-simple",
+        "label": "Single-clip prompt examples"
+      },
+      {
+        "href": "/guides/prompt-examples-creative",
+        "label": "Multi-scene prompt examples"
+      },
+      {
+        "href": "/faq/jimeng",
+        "label": "Queue full and 503"
+      },
+      {
+        "href": "/faq/pricing-free",
+        "label": "Free tier and commercial use"
+      },
+      {
+        "href": "/showcase",
+        "label": "Real clips and their original prompts"
+      },
+      {
+        "href": "/studio",
+        "label": "Open creative video"
+      }
+    ],
+    "helpLinks": {
+      "queue": "What to do when the queue is full",
+      "key": "How to get a free API key",
+      "trouble": "Other errors"
+    }
   }
 }

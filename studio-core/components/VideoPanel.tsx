@@ -10,6 +10,7 @@ import MediaPreview from './MediaPreview';
 import ModelPicker from './ModelPicker';
 import RefImagesInput, { type RefImageItem } from './RefImagesInput';
 import FastRetryControl, { type FastRetryPhase } from './FastRetryControl';
+import DemoErrorLinks from './DemoErrorLinks';
 import {
   DEFAULT_VIDEO_MODEL,
   formatRatioLabel,
@@ -19,7 +20,7 @@ import {
   type VideoRatio,
 } from '../lib/demo-types';
 import { fetchWithFailback } from '../lib/api-client';
-import { trackDemoError } from '../lib/analytics';
+import { trackDemoError, trackGenerationStart, trackGenerationSuccess } from '../lib/analytics';
 import {
   DEFAULT_FAST_RETRY_SETTINGS,
   EMPTY_FAST_RETRY_RUN,
@@ -188,6 +189,8 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const resumeCheckedRef = useRef(false);
   // 本轮重试状态（ref 供递归提交循环读取，避免闭包拿到旧值）
   const runRef = useRef<FastRetryRun>({ ...EMPTY_FAST_RETRY_RUN });
+  // 本轮提交尝试次数（含内部队列重试），用于埋点里的 retry_count
+  const attemptsRef = useRef(0);
   const fastSettingsRef = useRef(fastSettings);
   // 可被「手动开启快速重试」提前唤醒的等待器
   const sleepRef = useRef<{ timer: ReturnType<typeof setTimeout>; resolve: () => void } | null>(null);
@@ -286,13 +289,27 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
       trackDemoError({
         code,
         model,
+        tab: 'simple',
         elapsed_s: startTimeRef.current
           ? Math.floor((Date.now() - startTimeRef.current) / 1000)
           : 0,
+        retry_count: Math.max(0, attemptsRef.current - 1),
       });
     },
     [model, resetRetryUi, stopPolling],
   );
+
+  // 成功出片的统一上报出口：成功率分子（分母是 demo_video_start）
+  const reportSuccess = useCallback(() => {
+    trackGenerationSuccess({
+      tab: 'simple',
+      model,
+      elapsed_s: startTimeRef.current
+        ? Math.max(0, Math.floor((Date.now() - startTimeRef.current) / 1000))
+        : 0,
+      retry_count: Math.max(0, attemptsRef.current - 1),
+    });
+  }, [model]);
 
   // 单次状态查询（不含调度），供轮询与「超时终查」复用（W2）
   const queryStatus = useCallback(
@@ -331,6 +348,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
         setResultUrl(videoUrl);
         setStatus('completed');
         stopPolling();
+        reportSuccess();
         return;
       }
 
@@ -357,7 +375,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
         `${t('errors.pollTimeoutRendering')}\n${t('errors.pollTimeout')}`,
       );
     },
-    [finishWithError, queryStatus, stopPolling, t],
+    [finishWithError, queryStatus, reportSuccess, stopPolling, t],
   );
 
   /** 处理一次成功的状态查询：到终态则收尾并返回 false（不再轮询），否则返回 true */
@@ -377,6 +395,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
           setResultUrl(videoUrl);
           setStatus('completed');
           stopPolling();
+          reportSuccess();
           return false;
         }
         const keys = Object.keys(data).join(', ');
@@ -398,7 +417,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
 
       return true;
     },
-    [finishWithError, stopPolling, t],
+    [finishWithError, reportSuccess, stopPolling, t],
   );
 
   const pollStatus = useCallback(
@@ -486,6 +505,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const submitLoop = useCallback(
     async (payload: Record<string, unknown>): Promise<void> => {
       const run = runRef.current;
+      attemptsRef.current += 1;
       const outcome = await requestSubmitOnce(payload, apiKey, locale);
       if (abortRef.current) return;
 
@@ -599,6 +619,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     setCopied(false);
     resetRetryUi();
     runRef.current = { ...EMPTY_FAST_RETRY_RUN };
+    attemptsRef.current = 0;
   };
 
   /** 生成前校验素材（对齐接口语义：reference 至少 1 图或 1 音频；keyframe 至少首帧） */
@@ -628,6 +649,20 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     if (!validateMaterials()) return;
 
     resetRunState();
+
+    // 成功率分母：每次用户点击「生成」计入 1 次（只报枚举与布尔，不报 prompt 内容）
+    trackGenerationStart({
+      tab: 'simple',
+      model,
+      mode,
+      duration_s: Number(duration),
+      ratio,
+      has_ref_media:
+        mode === 'image'
+          ? refImages.length > 0 || audioSlots.some((s) => s.url.trim().length > 0)
+          : frames.length > 0,
+    });
+
     await submitLoop(buildSubmitPayload());
   };
 
@@ -862,6 +897,9 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
 
       {status !== 'completed' && status !== 'generating' && (
         <>
+          {!apiKey && (
+            <p className="text-sm text-muted text-center">{t('apiKey.requiredHint')}</p>
+          )}
           <GenerateButton
             onClick={handleGenerate}
             loading={status === 'submitting'}
@@ -917,6 +955,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
               {errorCode === 'invalid_api_key' && (
                 <p className="text-xs text-danger/70">{t('errors.checkApiKey')}</p>
               )}
+              <DemoErrorLinks code={errorCode} />
               {/* W6：失败后保留 video_id，用户可复制并稍后回查终态 */}
               {videoId && (
                 <div className="pt-1.5 space-y-1">

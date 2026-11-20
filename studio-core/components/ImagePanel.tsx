@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslations, useMessages, useLocale } from 'next-intl';
 import PromptInput from './PromptInput';
 import SelectorGroup from './SelectorGroup';
@@ -8,6 +8,10 @@ import GenerateButton from './GenerateButton';
 import MediaPreview from './MediaPreview';
 import { SIZE_OPTIONS } from '../lib/demo-types';
 import { fetchWithFailback } from '../lib/api-client';
+import { trackGenerationStart, trackGenerationSuccess } from '../lib/analytics';
+import DemoErrorLinks from './DemoErrorLinks';
+
+const IMAGE_MODEL = 'agnes-image-2.1-flash';
 
 type Status = 'idle' | 'generating' | 'completed' | 'error';
 
@@ -28,12 +32,16 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
   const [resultUrl, setResultUrl] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [errorCode, setErrorCode] = useState('');
+  // 出图耗时（埋点用）
+  const startedAtRef = useRef(0);
 
   const handleGenerate = async () => {
     if (!prompt.trim() || !apiKey) return;
     setStatus('generating');
     setErrorMsg('');
     setErrorCode('');
+    startedAtRef.current = Date.now();
+    trackGenerationStart({ tab: 'image', model: IMAGE_MODEL, mode: 'text', ratio: size });
 
     try {
       const resp = await fetchWithFailback(
@@ -45,7 +53,7 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
             'Authorization': `Bearer ${apiKey}`,
           },
           body: JSON.stringify({
-            model: 'agnes-image-2.1-flash',
+            model: IMAGE_MODEL,
             prompt: prompt.trim(),
             size: size,
             n: 1,
@@ -88,6 +96,14 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
 
       setResultUrl(imageUrl);
       setStatus('completed');
+      trackGenerationSuccess({
+        tab: 'image',
+        model: IMAGE_MODEL,
+        elapsed_s: startedAtRef.current
+          ? Math.max(0, Math.floor((Date.now() - startedAtRef.current) / 1000))
+          : 0,
+        retry_count: 0,
+      });
     } catch {
       setErrorCode('network');
       setErrorMsg(t('errors.network'));
@@ -121,13 +137,18 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
       />
 
       {status !== 'completed' && (
-        <GenerateButton
-          onClick={handleGenerate}
-          loading={status === 'generating'}
-          disabled={!prompt.trim() || !apiKey}
-          label={t('image.generate')}
-          loadingLabel={t('image.generating')}
-        />
+        <>
+          {!apiKey && (
+            <p className="text-sm text-muted text-center">{t('apiKey.requiredHint')}</p>
+          )}
+          <GenerateButton
+            onClick={handleGenerate}
+            loading={status === 'generating'}
+            disabled={!prompt.trim() || !apiKey}
+            label={t('image.generate')}
+            loadingLabel={t('image.generating')}
+          />
+        </>
       )}
 
       {status === 'completed' && resultUrl && (
@@ -152,6 +173,7 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
               {errorCode === 'invalid_api_key' && (
                 <p className="text-xs text-danger/70">{t('errors.checkApiKey')}</p>
               )}
+              <DemoErrorLinks code={errorCode} />
             </div>
           </div>
           <button

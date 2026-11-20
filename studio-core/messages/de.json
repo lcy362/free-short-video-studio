@@ -285,25 +285,29 @@
       "fastRetryExpired": "Schnellwiederholung beendet, zurück zum normalen Tempo."
     },
     "seoTitle": "Kostenloser Online-KI-Videogenerator | Agnes Video Generator",
-    "seoDescription": "Kostenloser Online-KI-Video- & Bildgenerator. Geben Sie einen Prompt ein, um KI-Videos (Text zu Video) und KI-Bilder (Text zu Bild) zu erstellen. Keine Kreditkarte, keine Installation—geben Sie einfach Ihren kostenlosen Agnes API Key ein.",
+    "seoDescription": "Kostenloser KI-Video- und Bildgenerator im Browser. Bilder: agnes-image-2.1-flash. Einzelclips: Video 2.5 Flash (Text, Referenzbilder, erstes/letztes Bild, 4–12 Sekunden, sechs Formate). Mehrszenige Clips öffnen sich über das Web Studio im Tab „Kreativvideo“: eine Idee wird in 2–5 Szenen geteilt und im Browser zusammengefügt. Keine Installation, keine Kreditkarte. Der API-Schlüssel bleibt im Browser.",
     "seoH1": "Kostenloser Online-KI-Video- & Bildgenerator",
-    "seoIntro": "Agnes Video Generator ist ein völlig kostenloses KI-Erstellungstool auf der Webseite. Öffnen Sie den Browser, geben Sie eine Textaufforderung ein und rufen Sie das Agnes AI-Modell online auf, um den Text in ein KI-Video (Vincent-Video) oder ein KI-Bild (Vincent-Bild) umzuwandeln. Völlig kostenlos, sofort zum Öffnen und Verwenden, keine Software oder Kreditkarte erforderlich; Füllen Sie einfach Ihren eigenen kostenlosen Agnes API-Schlüssel im Front-End aus, bevor Sie beginnen (nur im lokalen Browser vorhanden, wird nicht zum Server hochgeladen). Von der Inspiration bis zum Film reichen ein paar Schritte aus.",
+    "seoIntro": "Diese Seite ist der Arbeitsbereich von Agnes Video Generator. Bild, einfaches Video und Kreativvideo sind drei Tabs desselben Werkzeugs. Standard ist das einfache Video. Der Web-Studio-Einstieg öffnet direkt das Kreativvideo. Das Videomodell ist das zeitlich kostenlose Video 2.5 Flash (agnes-video-2.5-flash). Fügen Sie oben einen kostenlosen Agnes-API-Schlüssel ein. Er bleibt nur in diesem Browser.",
     "seoFeatures": [
       {
-        "title": "Völlig kostenlos, keine Kreditkarte",
-        "desc": "Das Werkzeug ist kostenlos nutzbar; Sie benötigen nur Ihren eigenen kostenlosen Agnes API Key. Keine Zahlung, keine Kreditkarte nötig."
+        "title": "Kostenlos, ohne Karte",
+        "desc": "Die Website berechnet nichts. Ein kostenloser Agnes-API-Schlüssel genügt."
       },
       {
-        "title": "Online & ohne Installation",
-        "desc": "Läuft vollständig im Browser. Seite öffnen und erstellen—keine Software zum Herunterladen, funktioniert auf Desktop und Mobil."
+        "title": "Läuft im Browser",
+        "desc": "Bilder, Einzelclips und das Zusammenfügen passieren auf der Seite. Das Kreativvideo wird im Browser heruntergeladen."
       },
       {
-        "title": "Text zu Video",
-        "desc": "Geben Sie einen Prompt ein und agnes-video-v2.0 verwandelt ihn in ein 5/10 Sekunden langes KI-Video in mehreren Seitenverhältnissen."
+        "title": "Bild",
+        "desc": "agnes-image-2.1-flash, quadratisch, quer oder hoch."
       },
       {
-        "title": "Text zu Bild",
-        "desc": "Geben Sie einen Prompt ein und agnes-image-2.1-flash erzeugt hochwertige KI-Bilder und Kunstillustrationen."
+        "title": "Einfaches Video",
+        "desc": "Video 2.5 Flash: Text, bis zu 5 Referenzbilder, erstes/letztes Bild. 4–12 Sekunden. Formate 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
+      },
+      {
+        "title": "Kreativvideo",
+        "desc": "Eine Idee wird in 2–5 Szenen zu 5, 8, 10 oder 12 Sekunden geteilt und im Browser zusammengefügt. Das Web Studio öffnet diesen Tab."
       }
     ],
     "seoUseCases": [
@@ -334,39 +338,112 @@
     ],
     "seoFaq": [
       {
-        "q": "Ist dieser KI-Videogenerator kostenlos?",
-        "a": "Ja. Agnes Video Generator ist vollständig kostenlos. Sie benötigen nur Ihren eigenen kostenlosen Agnes API Key (im Browser eingegeben, lokal gespeichert)—keine Zahlung, keine Kreditkarte."
+        "q": "Ist der Generator kostenlos?",
+        "a": "Die Website berechnet nichts und verlangt keine Karte. Sie brauchen einen kostenlosen Agnes-API-Schlüssel. Er liegt nur im localStorage dieses Browsers."
       },
       {
-        "q": "Muss ich Software herunterladen oder installieren?",
-        "a": "Nein. Es ist ein vollständig webbasiertes Werkzeug; öffnen Sie es im Browser, um KI-Videos und -Bilder online zu erzeugen, auf Desktop oder mobil."
+        "q": "Muss ich etwas installieren?",
+        "a": "Nein. Alle drei Tabs laufen im Browser. Die Kreativvideo-Montage nutzt ffmpeg.wasm, ffmpeg müssen Sie nicht selbst installieren."
       },
       {
-        "q": "Unterstützt es Text zu Video?",
-        "a": "Ja. Geben Sie einen Prompt ein und agnes-video-v2.0 erzeugt ein 5- oder 10-sekündiges KI-Video in mehreren Seitenverhältnissen."
+        "q": "Welches Modell nutzt das einfache Video, und wie lange dauert es?",
+        "a": "Das Modell ist agnes-video-2.5-flash (Video 2.5 Flash), ein Clip dauert 4–12 Sekunden. Der Status wird alle 30 Sekunden geprüft, höchstens 15 Minuten. Bei ruhiger Gratis-Warteschlange sind es oft wenige Minuten, bei voller Schlange länger."
       },
       {
-        "q": "Unterstützt es Text zu Bild?",
-        "a": "Ja. Geben Sie einen Prompt ein und agnes-image-2.1-flash erzeugt KI-Bilder und Kunstillustrationen."
+        "q": "Gibt es Referenzbilder und erstes/letztes Bild?",
+        "a": "Ja. Bis zu 5 Referenzbilder, dazu Referenz-Audio-URLs. Beim Frame-Modus ist das erste Bild Pflicht, das letzte optional. Das Seitenverhältnis dieses Modus setzt der Dienst fest auf quadratisch."
       },
       {
-        "q": "Benötige ich eine Kreditkarte?",
-        "a": "Keine Kreditkarte und keine Zahlung. Das Werkzeug ist kostenlos; Sie geben einfach Ihren eigenen kostenlosen Agnes API Key ein."
+        "q": "Was unterscheidet Kreativvideo vom einfachen Video?",
+        "a": "Einfaches Video erzeugt einen Clip. Kreativvideo teilt eine Idee in 2–5 Szenen, erzeugt sie und fügt sie im Browser zusammen. Der Web-Studio-Link in der Navigation öffnet Kreativvideo direkt."
       },
       {
-        "q": "Werden meine Prompts und Assets hochgeladen?",
-        "a": "Ihr Agnes API Key wird nur im localStorage Ihres Browsers gespeichert und niemals auf unsere Server hochgeladen; die Erzeugung läuft direkt von Ihrem Browser zu den Agnes-Modellen."
+        "q": "Was bedeutet 503 oder „video queue is full“?",
+        "a": "Die Gratis-Warteschlange ist voll. Es wurde keine Aufgabe angelegt und kein Kontingent verbraucht. Die Seite versucht es automatisch erneut. Wenn sie voll bleibt, versuchen Sie es später. Die Queue-FAQ erklärt den Rest."
       },
       {
-        "q": "Gibt es Grenzen in der kostenlosen Version?",
-        "a": "Die Videogenerierung unterstützt 5s- und 10s-Dauer sowie mehrere Seitenverhältnisse; Ihr verfügbares Kontingent hängt vom bereitgestellten kostenlosen Agnes API Key ab."
-      },
-      {
-        "q": "Kann ich die Videos und Bilder kommerziell nutzen?",
-        "a": "Die kommerzielle Nutzung hängt von den Lizenzbedingungen des Agnes API Key ab; bitte bestätigen Sie die Nutzungsrechte Ihres Key vor der kommerziellen Nutzung."
+        "q": "Warum liegt ein 9:16-Video auf der Seite?",
+        "a": "Video 2.5 Flash liefert 9:16 manchmal um 90° gedreht. Der Bildaufbau ist trotzdem hochkant. Drehen Sie die Datei nach dem Download. Das ist ein bekanntes Problem des Dienstes."
       }
     ],
     "studioLinkCta": "Multi-scene creative video studio (Beta) →",
-    "copied": "Kopiert"
+    "copied": "Kopiert",
+    "seoModesTitle": "Drei Eingänge, drei Ergebnisse",
+    "seoHowTitle": "In drei Schritten starten",
+    "seoLinksTitle": "Weiterlesen",
+    "seoExamplesTitle": "Clips mit diesem Modell",
+    "seoExamplesLead": "Diese beiden veröffentlichten Stücke nutzen dieselben Modelle. Öffnen Sie ein Stück, kopieren Sie den Original-Prompt und wiederholen Sie ihn im passenden Tab.",
+    "seoExamplesMore": "Alle Beispiele",
+    "seoExampleOpen": "Clip und Prompt ansehen",
+    "seoModes": [
+      {
+        "tab": "image",
+        "title": "Bild",
+        "desc": "Eine Beschreibung wird mit agnes-image-2.1-flash zum Bild: quadratisch, quer oder hoch."
+      },
+      {
+        "tab": "simple",
+        "title": "Einfaches Video",
+        "desc": "Der Standardeingang. Ein Clip von 4–12 Sekunden aus Text, Referenzbildern oder erstem/letztem Bild, mit Video 2.5 Flash."
+      },
+      {
+        "tab": "creative",
+        "title": "Kreativvideo",
+        "desc": "Eine Idee wird in 2–5 Clips geteilt und zusammengefügt. Das Web Studio landet auf diesem Tab. Formate: 16:9, 9:16 oder 1:1."
+      }
+    ],
+    "seoHowSteps": [
+      {
+        "title": "Kostenlosen API-Schlüssel einfügen",
+        "desc": "Holen Sie einen kostenlosen Agnes-Schlüssel und fügen Sie ihn oben ein. Er bleibt in diesem Browser und wird nicht auf den Server dieser Website geladen."
+      },
+      {
+        "title": "Einen Tab wählen",
+        "desc": "Bild erzeugt ein Standbild. Einfaches Video einen Clip von 4–12 Sekunden. Kreativvideo teilt eine Idee in Szenen. Das Web Studio öffnet Kreativvideo."
+      },
+      {
+        "title": "Warten und herunterladen",
+        "desc": "Bilder kommen meist schnell. Einfaches Video wird alle 30 Sekunden abgefragt, höchstens 15 Minuten. Kreativvideo erzeugt die Szenen nacheinander und fügt sie im Browser zusammen."
+      }
+    ],
+    "seoLinks": [
+      {
+        "href": "/models/agnes-video-2-5-flash",
+        "label": "Was Video 2.5 Flash kann"
+      },
+      {
+        "href": "/guides/api-key",
+        "label": "Kostenlosen API-Schlüssel holen"
+      },
+      {
+        "href": "/guides/prompt-examples-simple",
+        "label": "Prompt-Beispiele für einen Clip"
+      },
+      {
+        "href": "/guides/prompt-examples-creative",
+        "label": "Prompt-Beispiele für mehrere Szenen"
+      },
+      {
+        "href": "/faq/jimeng",
+        "label": "Warteschlange und 503"
+      },
+      {
+        "href": "/faq/pricing-free",
+        "label": "Gratis-Kontingent und kommerzielle Nutzung"
+      },
+      {
+        "href": "/showcase",
+        "label": "Echte Clips und ihre Original-Prompts"
+      },
+      {
+        "href": "/studio",
+        "label": "Kreativvideo öffnen"
+      }
+    ],
+    "helpLinks": {
+      "queue": "Wenn die Warteschlange voll ist",
+      "key": "Kostenlosen API-Schlüssel holen",
+      "trouble": "Andere Fehler"
+    }
   }
 }

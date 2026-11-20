@@ -52,7 +52,7 @@ export default function ModelPicker({
         <p className="text-muted leading-relaxed">{t(selected.descKey)}</p>
         {/* W9：把 demo ↔ 自托管的能力表差异显式化，回答「本地为什么没有这个档位」 */}
         <p className="text-muted/80">
-          {t('video.selfHostMinVersion', { version: selected.minVersion })}
+          {t('video.selfHostMinVersion', { version: selected.minVersion.replace(/^v/i, '') })}
         </p>
         <div className="flex flex-wrap gap-x-4 gap-y-1 pt-0.5">
           <span className="text-muted">

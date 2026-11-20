@@ -285,25 +285,29 @@
       "fastRetryExpired": "Hızlı deneme süresi doldu; normal tempoya dönüldü."
     },
     "seoTitle": "Çevrimiçi Ücretsiz Yapay Zekâ Video Oluşturucu | Agnes Video Generator",
-    "seoDescription": "Ücretsiz çevrimiçi yapay zekâ video ve görsel oluşturucu. Yapay zekâ videosu (metinden videoya) ve yapay zekâ görselleri (metinden görsele) oluşturmak için bir prompt yazın. Kredi kartı yok, kurulum yok — yalnızca ücretsiz Agnes API Anahtarınızı ekleyin.",
+    "seoDescription": "Tarayıcıda ücretsiz yapay zeka video ve görsel üretici. Görseller agnes-image-2.1-flash kullanır. Tek klip Video 2.5 Flash kullanır (metin, referans görseller, ilk/son kare, 4–12 sn, altı oran). Çok sahneli kısa videolar web stüdyosundan yaratıcı video sekmesinde açılır: bir fikir 2–5 klibe bölünüp tarayıcıda birleştirilir. Kurulum ve kart yok. API anahtarı tarayıcıda kalır.",
     "seoH1": "Ücretsiz Çevrimiçi Yapay Zekâ Video ve Görsel Oluşturucu",
-    "seoIntro": "Agnes Video Generator tamamen ücretsiz bir web yapay zeka oluşturma aracıdır. Tarayıcıyı açın, bir metin istemi girin ve Agnes AI modelini çevrimiçi olarak çağırabilir ve metni AI videolarına (Vincent Videoları) veya AI resimlerine (Vincent Resimleri) dönüştürebilirsiniz. Tamamen ücretsiz, açılıp kullanılabilir, yazılım yüklemeye veya kredi kartı yüklemeye gerek yok; Başlamadan önce ön ucunuza kendi ücretsiz Agnes API anahtarınızı doldurun (yalnızca yerel tarayıcıda mevcuttur, sunucuya yüklenmez). İlhamdan filme kadar birkaç adım yeterlidir.",
+    "seoIntro": "Bu sayfa Agnes Video Generator çalışma alanıdır. Görsel, basit video ve yaratıcı video aynı aracın üç sekmesidir. Varsayılan basit videodur. Web stüdyosu girişi doğrudan yaratıcı videoyu açar. Video modeli sınırlı süre ücretsiz Video 2.5 Flash’tır (agnes-video-2.5-flash). Ücretsiz Agnes API anahtarını üste yapıştırın. Anahtar yalnızca bu tarayıcıda durur.",
     "seoFeatures": [
       {
-        "title": "Tamamen ücretsiz, kredi kartı yok",
-        "desc": "Araç ücretsizdir; yalnızca kendi ücretsiz Agnes API Anahtarınızı getirin. Ödeme yok, kredi kartı gerekmez."
+        "title": "Ücretsiz, kart yok",
+        "desc": "Site ücret almaz. Ücretsiz bir Agnes API anahtarı yeter."
       },
       {
-        "title": "Çevrimiçi ve kurulum yok",
-        "desc": "Tamamen tarayıcıda çalışır. Sayfayı açın ve oluşturun — indirilecek yazılım yok, masaüstü ve mobilde çalışır."
+        "title": "Tarayıcıda biter",
+        "desc": "Görseller, tek klip ve sahne birleştirme bu sayfada olur. Yaratıcı video tarayıcıdan indirilir."
       },
       {
-        "title": "Metinden videoya",
-        "desc": "Bir prompt yazın ve agnes-video-v2.0 onu birden çok en-boy oranında 5/10 saniyelik bir yapay zekâ videosuna dönüştürür."
+        "title": "Görsel",
+        "desc": "agnes-image-2.1-flash; kare, yatay veya dikey."
       },
       {
-        "title": "Metinden görsele",
-        "desc": "Bir prompt yazın ve agnes-image-2.1-flash yüksek kaliteli yapay zekâ görselleri ve sanat illüstrasyonları üretir."
+        "title": "Basit video",
+        "desc": "Video 2.5 Flash: metin, en fazla 5 referans görsel, ilk ve son kare. 4–12 sn. Oranlar 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
+      },
+      {
+        "title": "Yaratıcı video",
+        "desc": "Bir fikir 5, 8, 10 veya 12 saniyelik 2–5 sahneye bölünüp tarayıcıda birleştirilir. Web stüdyosu bu sekmeyi açar."
       }
     ],
     "seoUseCases": [
@@ -334,39 +338,112 @@
     ],
     "seoFaq": [
       {
-        "q": "Bu yapay zekâ video oluşturucu ücretsiz mi?",
-        "a": "Evet. Agnes Video Generator tamamen ücretsizdir. Yalnızca kendi ücretsiz Agnes API Anahtarınıza ihtiyacınız var (tarayıcıya girilir, yerel olarak saklanır) — ödeme yok, kredi kartı yok."
+        "q": "Bu çevrimiçi üretici ücretsiz mi?",
+        "a": "Site ücret almaz ve kart istemez. Ücretsiz bir Agnes API anahtarı gerekir. Yalnızca bu tarayıcının localStorage alanında durur."
       },
       {
-        "q": "Yazılım indirmem veya kurmam gerekir mi?",
-        "a": "Hayır. Tamamen web tabanlı bir araçtır; masaüstünde veya mobilde, tarayıcıda açarak çevrimiçi yapay zekâ videosu ve görseli üretebilirsiniz."
+        "q": "Bir şey kurmam gerekir mi?",
+        "a": "Hayır. Üç sekme de tarayıcıda çalışır. Yaratıcı videonun birleştirilmesi ffmpeg.wasm kullanır, ffmpeg kurmazsınız."
       },
       {
-        "q": "Metinden videoyu destekliyor mu?",
-        "a": "Evet. Bir prompt yazın ve agnes-video-v2.0 birden çok en-boy oranında 5 veya 10 saniyelik bir yapay zekâ videosu üretir."
+        "q": "Basit video hangi modeli kullanır ve ne kadar sürer?",
+        "a": "Model agnes-video-2.5-flash (Video 2.5 Flash), klip 4–12 saniyedir. Sayfa durumu 30 saniyede bir, en fazla 15 dakika sorar. Ücretsiz kuyruk sakinken genellikle birkaç dakika, doluyken daha uzun sürer."
       },
       {
-        "q": "Metinden görseli destekliyor mu?",
-        "a": "Evet. Bir prompt yazın ve agnes-image-2.1-flash yapay zekâ görselleri ve sanat illüstrasyonları üretir."
+        "q": "Referans görsel ve ilk/son kare var mı?",
+        "a": "Var. En fazla 5 referans görsel ve ses URL’si. Kare modunda ilk kare zorunlu, son kare isteğe bağlıdır. Bu modun oranı hizmet tarafından kareye sabitlenir."
       },
       {
-        "q": "Kredi kartı gerekir mi?",
-        "a": "Kredi kartı ve ödeme yok. Araç ücretsizdir; yalnızca kendi ücretsiz Agnes API Anahtarınızı girersiniz."
+        "q": "Yaratıcı video ile basit video arasındaki fark nedir?",
+        "a": "Basit video tek klip üretir. Yaratıcı video bir fikri 2–5 sahneye böler, üretir ve tarayıcıda birleştirir. Gezintideki web stüdyosu bağlantısı yaratıcı videoyu açar."
       },
       {
-        "q": "Prompt'larım ve varlıklarım yükleniyor mu?",
-        "a": "Agnes API Anahtarınız yalnızca tarayıcınızın localStorage'ında saklanır ve asla sunucularımıza yüklenmez; üretim doğrudan tarayıcınızdan Agnes modellerine çalışır."
+        "q": "503 veya “video queue is full” ne demek?",
+        "a": "Ücretsiz kuyruk dolu. Görev oluşmadı ve kota harcanmadı. Sayfa kendisi yeniden dener. Dolu kalırsa daha sakin bir zamanda deneyin. Kuyruk SSS kalanını anlatır."
       },
       {
-        "q": "Ücretsiz sürümde limit var mı?",
-        "a": "Video üretimi 5s ve 10s süreleri ve birden çok en-boy oranını destekler; mevcut kotanız, sağladığınız ücretsiz Agnes API Anahtarına bağlıdır."
-      },
-      {
-        "q": "Video ve görselleri ticari olarak kullanabilir miyim?",
-        "a": "Ticari kullanım, Agnes API Anahtarının lisans koşullarına bağlıdır; ticari kullanımdan önce lütfen Anahtarınızın kullanım haklarını teyit edin."
+        "q": "9:16 video neden yan görünüyor?",
+        "a": "Video 2.5 Flash bazen 9:16 sonucu 90° döndürülmüş verir. Kadraj yine dikeydir. İndirdikten sonra dosyayı çevirin. Bu, hizmetin bilinen bir sorunudur."
       }
     ],
     "studioLinkCta": "Çok sahneli yaratıcı video stüdyosu (Beta) →",
-    "copied": "Kopyalandı"
+    "copied": "Kopyalandı",
+    "seoModesTitle": "Üç giriş, üç sonuç",
+    "seoHowTitle": "Üç adımda başla",
+    "seoLinksTitle": "Devam et",
+    "seoExamplesTitle": "Bu modelle yapılmış klipler",
+    "seoExamplesLead": "Yayımlanmış bu iki parça aynı modelleri kullandı. Özgün istemi kopyalamak için parçayı açın, sonra uygun sekmede yeniden deneyin.",
+    "seoExamplesMore": "Tüm örnekler",
+    "seoExampleOpen": "Klibi ve istemi gör",
+    "seoModes": [
+      {
+        "tab": "image",
+        "title": "Görsel",
+        "desc": "Bir betimleme agnes-image-2.1-flash ile görsele döner: kare, yatay veya dikey."
+      },
+      {
+        "tab": "simple",
+        "title": "Basit video",
+        "desc": "Varsayılan giriş. Metin, referans görseller veya ilk/son kareden 4–12 saniyelik bir klip, Video 2.5 Flash ile."
+      },
+      {
+        "tab": "creative",
+        "title": "Yaratıcı video",
+        "desc": "Bir fikir 2–5 klibe bölünüp birleştirilir. Web stüdyosu bu sekmeye iner. Oranlar 16:9, 9:16 veya 1:1."
+      }
+    ],
+    "seoHowSteps": [
+      {
+        "title": "Ücretsiz API anahtarını yapıştır",
+        "desc": "Ücretsiz bir Agnes anahtarı alıp üste yapıştırın. Bu tarayıcıda kalır ve bu sitenin sunucusuna yüklenmez."
+      },
+      {
+        "title": "Bir sekme seç",
+        "desc": "Görsel durağan bir kare üretir. Basit video 4–12 saniyelik bir klip. Yaratıcı video bir fikri sahnelere böler. Web stüdyosu yaratıcı videoyu açar."
+      },
+      {
+        "title": "Bekle ve indir",
+        "desc": "Görseller genellikle çabuk döner. Basit video 30 saniyede bir, en fazla 15 dakika sorulur. Yaratıcı video sahneleri sırayla üretir ve sonucu tarayıcıda birleştirir."
+      }
+    ],
+    "seoLinks": [
+      {
+        "href": "/models/agnes-video-2-5-flash",
+        "label": "Video 2.5 Flash neler yapar"
+      },
+      {
+        "href": "/guides/api-key",
+        "label": "Ücretsiz API anahtarı al"
+      },
+      {
+        "href": "/guides/prompt-examples-simple",
+        "label": "Tek klip istem örnekleri"
+      },
+      {
+        "href": "/guides/prompt-examples-creative",
+        "label": "Çok sahne istem örnekleri"
+      },
+      {
+        "href": "/faq/jimeng",
+        "label": "Dolu kuyruk ve 503"
+      },
+      {
+        "href": "/faq/pricing-free",
+        "label": "Ücretsiz kota ve ticari kullanım"
+      },
+      {
+        "href": "/showcase",
+        "label": "Gerçek klipler ve özgün istemler"
+      },
+      {
+        "href": "/studio",
+        "label": "Yaratıcı videoyu aç"
+      }
+    ],
+    "helpLinks": {
+      "queue": "Kuyruk doluyken ne yapılır",
+      "key": "Ücretsiz API anahtarı nasıl alınır",
+      "trouble": "Diğer hatalar"
+    }
   }
 }

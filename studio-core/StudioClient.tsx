@@ -17,6 +17,7 @@ import {
   type AgnesDomainId,
 } from './lib/api-domains';
 import IdeaInput from './components/IdeaInput';
+import DemoErrorLinks from './components/DemoErrorLinks';
 import SceneList from './components/SceneList';
 import FFmpegLoader from './components/FFmpegLoader';
 import VideoPreview from './components/VideoPreview';
@@ -26,6 +27,7 @@ import { splitScenes, ChatApiError } from './lib/chat-api';
 import { VideoOrchestrator } from './lib/orchestrator';
 import { submitLimiter } from './lib/rate-limiter';
 import { studioLogger } from './lib/logger';
+import { trackGenerationStart, trackGenerationSuccess } from './lib/analytics';
 import {
   loadProjects,
   saveProject,
@@ -153,6 +155,8 @@ export default function StudioClient({
   // 持久化相关 ref
   const currentProjectIdRef = useRef<string | null>(null);
   const createdAtRef = useRef<number>(Date.now());
+  // 创意流程的出片耗时起点（埋点用）
+  const genStartedAtRef = useRef<number>(0);
   const metaRef = useRef({
     idea, sceneCount, ratio, duration, style, enableWatermark, model, phase, errorMsg, finalVideoUrl,
   });
@@ -320,7 +324,11 @@ export default function StudioClient({
     }
   };
 
-  const handleGenerateVideos = () => startOrchestrator(scenes);
+  const handleGenerateVideos = () => {
+    genStartedAtRef.current = Date.now();
+    trackGenerationStart({ tab: 'creative', model, mode: 'text', duration_s: duration, ratio });
+    return startOrchestrator(scenes);
+  };
   const handleRetryFailed = () => startOrchestrator(scenes);
 
   const handleResume = (project: StudioProject) => {
@@ -404,6 +412,14 @@ export default function StudioClient({
 
       metaRef.current.phase = 'completed';
       setPhase('completed');
+      trackGenerationSuccess({
+        tab: 'creative',
+        model,
+        elapsed_s: genStartedAtRef.current
+          ? Math.max(0, Math.floor((Date.now() - genStartedAtRef.current) / 1000))
+          : 0,
+        retry_count: 0,
+      });
       flushPersist();
     } catch (e) {
       const msg = (e as Error).message;
@@ -449,18 +465,7 @@ export default function StudioClient({
         />
       )}
 
-      {/* 未填 Key 提示：嵌入式工作台由外层统一提示，这里只在独立页渲染 */}
-      {!hasKey && !embedded && (
-        <div className="text-center py-12 card-surface rounded-2xl">
-          <div className="text-4xl mb-4">🔑</div>
-          <h3 className="text-lg font-medium text-ink-2 mb-2">{t('apiKeyRequired')}</h3>
-          <p className="text-sm text-muted max-w-sm mx-auto">{t('apiKeyHint')}</p>
-        </div>
-      )}
-
-      {hasKey && (
-        <>
-          {(phase === 'idle' || phase === 'script_generating') && (
+      {(phase === 'idle' || phase === 'script_generating') && (
             <IdeaInput
               idea={idea} setIdea={setIdea}
               sceneCount={sceneCount} setSceneCount={setSceneCount}
@@ -470,6 +475,7 @@ export default function StudioClient({
               enableWatermark={enableWatermark} setEnableWatermark={setEnableWatermark}
               model={model} setModel={handleModelChange}
               loading={phase === 'script_generating'}
+              canSubmit={hasKey}
               onGenerate={handleSplitScenes}
             />
           )}
@@ -510,6 +516,7 @@ export default function StudioClient({
                       {t(errHintKey)}
                     </p>
                   )}
+                  <DemoErrorLinks code={errCode} />
                   {hasFailedScenes && phase !== 'error' && (
                     <p className="text-xs text-warning/80 mt-1.5">{t('partialFailedHint')}</p>
                   )}
@@ -548,8 +555,6 @@ export default function StudioClient({
 
           {/* 日志面板：除 idle 外常驻展示 */}
           {phase !== 'idle' && <LogPanel />}
-        </>
-      )}
     </div>
   );
 }

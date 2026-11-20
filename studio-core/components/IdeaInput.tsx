@@ -31,6 +31,8 @@ interface Props {
   readonly setModel: (v: StudioVideoModelId) => void;
   readonly loading: boolean;
   readonly onGenerate: () => void;
+  /** 未保存 API Key 时仍展示表单，只禁用提交 */
+  readonly canSubmit?: boolean;
 }
 
 export default function IdeaInput({
@@ -50,6 +52,7 @@ export default function IdeaInput({
   setModel,
   loading,
   onGenerate,
+  canSubmit = true,
 }: Props) {
   const t = useTranslations('studio');
   const selectedModel = getStudioModelCap(model);
@@ -215,7 +218,7 @@ export default function IdeaInput({
       {/* 生成按钮 */}
       <button
         onClick={onGenerate}
-        disabled={!idea.trim() || loading}
+        disabled={!idea.trim() || loading || !canSubmit}
         className="btn-primary w-full py-3 text-sm"
       >
         {loading ? (
@@ -231,6 +234,9 @@ export default function IdeaInput({
         )}
       </button>
 
+      {!canSubmit && (
+        <p className="text-xs text-muted text-center">{t('apiKeyHint')}</p>
+      )}
       <p className="text-xs text-muted text-center">
         {t('timeHint')}
       </p>

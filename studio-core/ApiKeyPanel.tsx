@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { AGNES_DOMAINS, type AgnesDomainId } from './lib/api-domains';
+import { trackApiKeySaved, trackGetKeyClick } from './lib/analytics';
 
 const STORAGE_KEY = 'agnes_api_key';
 
@@ -116,7 +117,12 @@ export default function ApiKeyPanel({
 
           <div className="flex gap-2">
             <button
-              onClick={() => saveKey(inputValue.trim())}
+              onClick={() => {
+                const key = inputValue.trim();
+                if (!key) return;
+                saveKey(key);
+                trackApiKeySaved({ source: 'manual' });
+              }}
               disabled={!inputValue.trim()}
               className="px-4 py-2 text-sm font-medium bg-accent hover:bg-accent/90 disabled:opacity-40 disabled:cursor-not-allowed rounded-lg transition-all text-accent-ink"
             >
@@ -138,6 +144,7 @@ export default function ApiKeyPanel({
               href="https://platform.agnes-ai.com"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackGetKeyClick({ from: 'panel' })}
               className="text-accent hover:text-ink transition-colors"
             >
               platform.agnes-ai.com
