@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { trackGetKeyClick } from '../lib/analytics';
 
 /** 失败态上的站内下一步。文案在 demo.helpLinks，路径相对当前语言。 */
-export default function DemoErrorLinks({ code }: { code: string }) {
+export default function DemoErrorLinks({ code }: Readonly<{ code: string }>) {
   const t = useTranslations('demo');
   const locale = useLocale();
   const queue = /queue|polltimeout/i.test(code);
