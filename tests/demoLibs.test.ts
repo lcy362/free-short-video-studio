@@ -1,5 +1,12 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { trackEvent, trackDemoError } from '@/studio-core/lib/analytics';
+import {
+  trackEvent,
+  trackDemoError,
+  trackGenerationStart,
+  trackGenerationSuccess,
+  trackApiKeySaved,
+  trackGetKeyClick,
+} from '@/studio-core/lib/analytics';
 import { fetchWithFailback } from '@/studio-core/lib/api-client';
 import {
   DEFAULT_VIDEO_MODEL,
@@ -60,11 +67,81 @@ describe('analytics.trackEvent', () => {
     const gtag = vi.fn();
     (window as unknown as { gtag: unknown }).gtag = gtag;
     trackDemoError({ code: 'pollTimeout', model: 'agnes-video-2.5-flash', elapsed_s: 42 });
+    // surface / tab 由 analytics 层补齐，retry_count 未传时为 undefined（保持字段稳定，便于 GA 建自定义维度）
     expect(gtag).toHaveBeenCalledWith('event', 'demo_video_error', {
       code: 'pollTimeout',
       model: 'agnes-video-2.5-flash',
       elapsed_s: 42,
+      surface: 'demo',
+      tab: 'simple',
+      retry_count: undefined,
     });
+  });
+
+  it('trackGenerationStart 按 tab 映射事件名，video 带生成参数', () => {
+    const gtag = vi.fn();
+    (window as unknown as { gtag: unknown }).gtag = gtag;
+
+    trackGenerationStart({
+      tab: 'simple',
+      model: 'agnes-video-2.5-flash',
+      mode: 'text',
+      duration_s: 5,
+      ratio: '16:9',
+    });
+    expect(gtag).toHaveBeenCalledWith('event', 'demo_video_start', expect.objectContaining({
+      surface: 'demo',
+      tab: 'simple',
+      model: 'agnes-video-2.5-flash',
+      mode: 'text',
+      duration_s: 5,
+      ratio: '16:9',
+    }));
+
+    gtag.mockClear();
+    trackGenerationStart({ tab: 'image', model: 'agnes-image-2.1-flash', ratio: '1024x1024' });
+    expect(gtag).toHaveBeenCalledWith('event', 'demo_image_start', expect.objectContaining({
+      tab: 'image',
+      model: 'agnes-image-2.1-flash',
+    }));
+  });
+
+  it('trackGenerationSuccess 按 tab 映射事件名并携带耗时与重试次数', () => {
+    const gtag = vi.fn();
+    (window as unknown as { gtag: unknown }).gtag = gtag;
+
+    trackGenerationSuccess({ tab: 'creative', model: 'agnes-video-2.5-flash', elapsed_s: 127, retry_count: 2 });
+    expect(gtag).toHaveBeenCalledWith('event', 'demo_video_success', {
+      surface: 'demo',
+      tab: 'creative',
+      model: 'agnes-video-2.5-flash',
+      elapsed_s: 127,
+      retry_count: 2,
+    });
+
+    gtag.mockClear();
+    trackGenerationSuccess({ tab: 'image', elapsed_s: 8, retry_count: 0 });
+    expect(gtag).toHaveBeenCalledWith('event', 'demo_image_success', expect.objectContaining({
+      tab: 'image',
+      elapsed_s: 8,
+      retry_count: 0,
+    }));
+  });
+
+  it('surface 由路径推断：/studio 记为 studio，其余记为 demo', () => {
+    const gtag = vi.fn();
+    (window as unknown as { gtag: unknown }).gtag = gtag;
+
+    window.history.replaceState(null, '', '/zh/studio');
+    trackApiKeySaved();
+    expect(gtag).toHaveBeenCalledWith('event', 'api_key_saved', { surface: 'studio', source: 'manual' });
+
+    gtag.mockClear();
+    window.history.replaceState(null, '', '/zh/demo');
+    trackGetKeyClick({ from: 'panel' });
+    expect(gtag).toHaveBeenCalledWith('event', 'get_key_click', { surface: 'demo', from: 'panel' });
+
+    window.history.replaceState(null, '', '/');
   });
 });
 

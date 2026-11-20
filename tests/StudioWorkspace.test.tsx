@@ -58,8 +58,10 @@ describe('StudioWorkspace · 面板与 Key 门禁', () => {
 
     // 三个面板都挂载（切 tab 不卸载），且 image/simple 共用同一份 Key 提示
     expect(screen.getAllByText('tabs.simpleHint')).toHaveLength(1);
-    expect(screen.getAllByText('apiKeyRequired')).toHaveLength(2);
-    expect(screen.getAllByText('apiKey.hint')).toHaveLength(3);
+    expect(screen.getAllByText('apiKey.requiredHint')).toHaveLength(2);
+    // 2026-11-17 起「没 Key 也先展示表单」，提示从两个面板的 apiKey.hint 改为
+    // apiKey.requiredHint，apiKey.hint 只剩 ApiKeyPanel 里那一条（上游 commit f15b88f）
+    expect(screen.getAllByText('apiKey.hint')).toHaveLength(1);
   });
 
   it('未填 Key 时创意视频仍以 embedded 模式挂载', () => {
