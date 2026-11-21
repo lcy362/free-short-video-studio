@@ -5,9 +5,11 @@ import { useTranslations } from 'next-intl';
 /**
  * 三种创作模式（=免费在线工作台的三个 tab）
  * ─────────────────────────────────────────────────────────────
- * image    图像生成   文生图（agnes-image-2.1-flash）
- * simple   简单视频   单段文生视频 / 图生视频（Video 2.5 Flash，4–12 秒）
- * creative 创意视频   AI 拆分场景 → 逐段生成 → 浏览器内拼接成片
+ * image    图像生成       文生图（agnes-image-2.1-flash）
+ * simple   单镜短片       单段文生视频 / 图生视频（Video 2.5 Flash，4–12 秒）
+ * creative 多镜成片       AI 拆分场景 → 逐段生成 → 浏览器内拼接成片
+ *
+ * 命名对齐源项目 v8.2（Simple video → Single-shot clip / Creative video → Multi-shot story）。
  *
  * ⚠️ 本文件位于 studio-core/（自包含同步目录）：只能相对路径 import，
  * 文案一律走 `studio` 命名空间，否则镜像工程 free-short-video-studio 会缺 key。

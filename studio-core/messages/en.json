@@ -138,11 +138,11 @@
     "tabs": {
       "label": "Choose a creation mode",
       "image": "Image",
-      "simple": "Simple video",
-      "creative": "Creative video",
+      "simple": "Single-shot clip",
+      "creative": "Multi-shot story",
       "imageHint": "Describe a single frame and get an AI image in square, landscape or portrait size.",
-      "simpleHint": "One prompt, one AI video clip — text-to-video or image-to-video, 4–12 seconds, six aspect ratios.",
-      "creativeHint": "Give one idea; the AI splits it into 2–5 scenes, generates each clip and stitches them in your browser (Beta)."
+      "simpleHint": "One 4–12 s single-shot video per run, six aspect ratios. Fast and reliable — great for testing a look or a single shot.",
+      "creativeHint": "Give one idea; the AI splits it into 2–5 scenes of 5–12 s, generates each clip and stitches them in your browser. Any failing shot breaks the chain, so the success rate is lower than Single-shot clip."
     }
   },
   "demo": {
@@ -238,11 +238,15 @@
       "audioUrlInvalid": "Audio links must start with http:// or https://",
       "addAudio": "Add audio",
       "fastRetryTitle": "Fast retry mode",
-      "fastRetryHint": "When the free upstream queue is full (two 503s in a row), retry x times per minute for y minutes. Rejected requests consume no quota.",
+      "fastRetryHint": "When the free queue is busy (two 503 / 429 in a row), retry x times per minute for y minutes. After a gap a new round starts automatically, until success or until you stop it. Rejected requests consume no quota.",
       "fastRetryPerMinute": "Tries per minute",
       "fastRetryMinutes": "Duration (minutes)",
       "fastRetryStart": "Start fast retry",
-      "fastRetryStop": "Stop fast retry"
+      "fastRetryStop": "Stop fast retry",
+      "fastRetryInterval": "Gap (min)",
+      "longTaskTitle": "Long task mode",
+      "longTaskHint": "Replaces the attempt cap with a total wait budget (60 min by default). Rendering, storyboard, voice and stitching time are not charged. Ends on success.",
+      "longTaskMinutes": "Wait budget (min)"
     },
     "download": "Download",
     "downloading": "Downloading...",
@@ -282,12 +286,15 @@
       "copyVideoId": "Copy task ID",
       "checkLater": "Check result later",
       "fastRetryActive": "Fast retry · {n} sent · {x} left",
-      "fastRetryExpired": "Fast retry window ended; back to the normal retry pace."
+      "fastRetryExpired": "This fast-retry round ended; back to the normal pace until the next round.",
+      "fastRetryChainWait": "Chaining · round {round} starts in {x}",
+      "longTaskActive": "Long task · waited {waited} · {left} left",
+      "longTaskExpired": "Wait budget of {minutes} minutes used up and the queue is still full. Check back later with the task ID."
     },
     "seoTitle": "Free AI Video Generator Online | Agnes Video Generator",
     "seoDescription": "Free in-browser AI video and image generator. Images use agnes-image-2.1-flash. Single clips use Video 2.5 Flash (text-to-video, reference images, first/last frame, 4–12 seconds, six aspect ratios). Multi-scene shorts open from the Web Studio on the creative-video tab: one idea becomes 2–5 clips and is stitched in the browser. No install and no credit card. The API key stays in your browser.",
     "seoH1": "Free Online AI Video Generator and Image Generator (Image · Simple Video · Creative Video)",
-    "seoIntro": "This page is the Agnes Video Generator workspace. Image, simple video, and creative video are three tabs of the same tool. Simple video is the default. The Web Studio entry opens creative video directly. Images use agnes-image-2.1-flash. Video uses the limited-time free model Video 2.5 Flash (agnes-video-2.5-flash). Paste a free Agnes API key at the top of the page. It is stored only in this browser.",
+    "seoIntro": "This page is the Agnes Video Generator workspace. Image, single-shot clip, and multi-shot story are three tabs of the same tool. Single-shot clip is the default. The Web Studio entry opens multi-shot story directly. Images use agnes-image-2.1-flash. Video uses the limited-time free model Video 2.5 Flash (agnes-video-2.5-flash). Paste a free Agnes API key at the top of the page. It is stored only in this browser.",
     "seoFeatures": [
       {
         "title": "Free, no credit card",
@@ -295,18 +302,18 @@
       },
       {
         "title": "Runs in the browser",
-        "desc": "Images, single clips, and multi-scene stitching all happen on the page. Creative videos are concatenated locally in the browser, then downloaded."
+        "desc": "Images, single clips, and multi-scene stitching all happen on the page. Multi-shot storys are concatenated locally in the browser, then downloaded."
       },
       {
         "title": "Image generation",
         "desc": "Uses agnes-image-2.1-flash, with square, landscape, and portrait sizes."
       },
       {
-        "title": "Simple video",
+        "title": "Single-shot clip",
         "desc": "Video 2.5 Flash: text-to-video, up to 5 reference images, and first/last frame. Duration 4–12 seconds. Ratios: 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
       },
       {
-        "title": "Creative video",
+        "title": "Multi-shot story",
         "desc": "One idea is split into 2–5 scenes of 5, 8, 10, or 12 seconds, then stitched in the browser. The Web Studio entry opens this tab."
       }
     ],
@@ -346,7 +353,7 @@
         "a": "No. All three tabs run in the browser. Creative-video stitching uses ffmpeg.wasm, so you do not install ffmpeg yourself."
       },
       {
-        "q": "Which model does simple video use, and how long does it take?",
+        "q": "Which model does single-shot clip use, and how long does it take?",
         "a": "The model is agnes-video-2.5-flash (Video 2.5 Flash). A clip is 4–12 seconds. The page checks status every 30 seconds for up to 15 minutes. A few minutes is typical when the free queue is quiet; a busy queue takes longer."
       },
       {
@@ -354,8 +361,8 @@
         "a": "Yes. You can attach up to 5 reference images, and you can also pass reference audio URLs. First/last frame requires a first frame; the last frame is optional. That mode’s output ratio is fixed to square by the upstream service."
       },
       {
-        "q": "How is creative video different from simple video?",
-        "a": "Simple video makes one clip. Creative video splits one idea into 2–5 scenes, generates each scene, then stitches them in the browser. The Web Studio link in the navigation opens creative video directly."
+        "q": "How is multi-shot story different from single-shot clip?",
+        "a": "Single-shot clip makes one clip. Multi-shot story splits one idea into 2–5 scenes, generates each scene, then stitches them in the browser. The Web Studio link in the navigation opens multi-shot story directly."
       },
       {
         "q": "What if I see 503 or “video queue is full”?",
@@ -383,12 +390,12 @@
       },
       {
         "tab": "simple",
-        "title": "Simple video",
+        "title": "Single-shot clip",
         "desc": "The default entry. One 4–12 second clip from text, reference images, or a first/last frame, using Video 2.5 Flash."
       },
       {
         "tab": "creative",
-        "title": "Creative video",
+        "title": "Multi-shot story",
         "desc": "One idea becomes 2–5 clips and is stitched together. The Web Studio entry lands on this tab. Ratios are 16:9, 9:16, or 1:1."
       }
     ],
@@ -399,11 +406,11 @@
       },
       {
         "title": "Pick a tab",
-        "desc": "Image makes a still. Simple video makes one 4–12 second clip. Creative video splits an idea into scenes and stitches them. The Web Studio entry opens creative video."
+        "desc": "Image makes a still. Single-shot clip makes one 4–12 second clip. Multi-shot story splits an idea into scenes and stitches them. The Web Studio entry opens multi-shot story."
       },
       {
         "title": "Wait, then download",
-        "desc": "Images usually return quickly. Simple video is polled every 30 seconds for up to 15 minutes. Creative video generates scenes in sequence, then stitches the result in the browser."
+        "desc": "Images usually return quickly. Single-shot clip is polled every 30 seconds for up to 15 minutes. Multi-shot story generates scenes in sequence, then stitches the result in the browser."
       }
     ],
     "seoLinks": [
@@ -437,7 +444,7 @@
       },
       {
         "href": "/studio",
-        "label": "Open creative video"
+        "label": "Open multi-shot story"
       }
     ],
     "helpLinks": {

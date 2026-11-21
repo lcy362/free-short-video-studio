@@ -8,7 +8,14 @@ vi.mock('next-intl', () => ({
 
 import FastRetryControl from '@/studio-core/components/FastRetryControl';
 
-const settings = { auto: false, perMinute: 30, minutes: 3 };
+const settings = {
+  auto: false,
+  perMinute: 30,
+  minutes: 3,
+  intervalMinutes: 5,
+  longTask: false,
+  longTaskMinutes: 60,
+};
 
 function setup(overrides: Partial<Parameters<typeof FastRetryControl>[0]> = {}) {
   const props = {

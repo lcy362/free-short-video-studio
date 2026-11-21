@@ -138,11 +138,11 @@
     "tabs": {
       "label": "Escolha um modo de criação",
       "image": "Imagem",
-      "simple": "Vídeo simples",
-      "creative": "Vídeo criativo",
+      "simple": "Clipe de tomada única",
+      "creative": "História de várias tomadas",
       "imageHint": "Descreva uma imagem e receba uma imagem de IA em formato quadrado, horizontal ou vertical.",
-      "simpleHint": "Um prompt, um clipe de vídeo com IA — texto para vídeo ou imagem para vídeo, 4–12 segundos, seis proporções.",
-      "creativeHint": "Uma ideia; a IA divide em 2–5 cenas, gera cada clipe e junta tudo no seu navegador (beta)."
+      "simpleHint": "Um clipe de tomada única de 4–12 s por execução, seis proporções. Rápido e confiável — ótimo para testar um visual ou uma tomada.",
+      "creativeHint": "A IA divide uma ideia em 2–5 cenas de 5–12 s, gera cada uma e as une no navegador. Se uma tomada falhar, a cadeia quebra — a taxa de sucesso é menor que a do clipe de tomada única."
     }
   },
   "demo": {
@@ -238,11 +238,15 @@
       "audioUrlInvalid": "Os links de áudio devem começar com http:// ou https://",
       "addAudio": "Adicionar áudio",
       "fastRetryTitle": "Modo de tentativa rápida",
-      "fastRetryHint": "Com a fila gratuita cheia (dois 503 seguidos), tenta x vezes por minuto durante y minutos. Requisições recusadas não gastam cota.",
+      "fastRetryHint": "Quando a fila gratuita está cheia (dois 503 / 429 seguidos), tente x vezes por minuto durante y minutos. Após uma pausa, uma nova rodada começa automaticamente, até o sucesso ou até você parar. Pedidos rejeitados não consomem cota.",
       "fastRetryPerMinute": "Tentativas por minuto",
       "fastRetryMinutes": "Duração (minutos)",
       "fastRetryStart": "Iniciar tentativa rápida",
-      "fastRetryStop": "Parar tentativa rápida"
+      "fastRetryStop": "Parar tentativa rápida",
+      "fastRetryInterval": "Intervalo (min)",
+      "longTaskTitle": "Modo de tarefa longa",
+      "longTaskHint": "Substitui o limite de tentativas por um orçamento de espera acumulado (60 min por padrão). Renderização, storyboard, voz e montagem não são descontados. Termina ao ter sucesso.",
+      "longTaskMinutes": "Orçamento de espera (min)"
     },
     "download": "Baixar",
     "downloading": "Baixando...",
@@ -282,7 +286,10 @@
       "copyVideoId": "Copiar ID da tarefa",
       "checkLater": "Ver resultado depois",
       "fastRetryActive": "Tentativa rápida · {n} enviados · {x} restantes",
-      "fastRetryExpired": "A janela de tentativa rápida terminou; voltando ao ritmo normal."
+      "fastRetryExpired": "Esta rodada terminou; volta ao ritmo normal até a próxima.",
+      "fastRetryChainWait": "Encadeamento · rodada {round} começa em {x}",
+      "longTaskActive": "Tarefa longa · esperado {waited} · restam {left}",
+      "longTaskExpired": "Orçamento de espera de {minutes} minutos esgotado e a fila continua cheia. Consulte mais tarde com o ID da tarefa."
     },
     "seoTitle": "Gerador de vídeos IA grátis online | Agnes Video Generator",
     "seoDescription": "Gerador gratuito de vídeo e imagem com IA no navegador. Imagens: agnes-image-2.1-flash. Um clipe: Video 2.5 Flash (texto, imagens de referência, primeiro/último quadro, 4–12 s, seis proporções). Vídeos com várias cenas abrem no estúdio web na aba de vídeo criativo: uma ideia vira 2–5 clipes e é unida no navegador. Sem instalação e sem cartão. A chave API fica no navegador.",

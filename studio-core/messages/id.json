@@ -138,11 +138,11 @@
     "tabs": {
       "label": "Pilih mode pembuatan",
       "image": "Gambar",
-      "simple": "Video sederhana",
-      "creative": "Video kreatif",
+      "simple": "Klip satu tembakan",
+      "creative": "Cerita multi-syot",
       "imageHint": "Tulis satu deskripsi dan dapatkan gambar AI dalam ukuran persegi, lanskap, atau potret.",
-      "simpleHint": "Satu prompt, satu klip video AI — teks-ke-video atau gambar-ke-video, 4–12 detik, enam rasio.",
-      "creativeHint": "Beri satu ide; AI memecahnya menjadi 2–5 adegan, membuat tiap klip, lalu menyambungnya di browser Anda (Beta)."
+      "simpleHint": "Satu klip satu tembakan 4–12 dtk per proses, enam rasio. Cepat dan andal — cocok untuk uji tampilan atau satu tembakan.",
+      "creativeHint": "Satu ide dipecah AI menjadi 2–5 adegan (5–12 dtk), dibuat lalu digabung di browser. Satu tembakan gagal memutus rantai, jadi tingkat keberhasilan lebih rendah daripada klip satu tembakan."
     }
   },
   "demo": {
@@ -237,11 +237,15 @@
       "audioUrlInvalid": "Tautan audio harus diawali http:// atau https://",
       "addAudio": "Tambah audio",
       "fastRetryTitle": "Mode coba ulang cepat",
-      "fastRetryHint": "Saat antrean gratis penuh (dua 503 berturut-turut), coba ulang x kali per menit selama y menit. Permintaan yang ditolak tidak memakai kuota.",
+      "fastRetryHint": "Saat antrean gratis sibuk (dua 503 / 429 berturut-turut), coba x kali per menit selama y menit. Setelah jeda, putaran baru dimulai otomatis sampai berhasil atau Anda hentikan. Permintaan yang ditolak tidak memakai kuota.",
       "fastRetryPerMinute": "Percobaan per menit",
       "fastRetryMinutes": "Durasi (menit)",
       "fastRetryStart": "Mulai coba ulang cepat",
-      "fastRetryStop": "Hentikan coba ulang cepat"
+      "fastRetryStop": "Hentikan coba ulang cepat",
+      "fastRetryInterval": "Jeda (menit)",
+      "longTaskTitle": "Mode tugas panjang",
+      "longTaskHint": "Menggantikan batas percobaan dengan anggaran tunggu kumulatif (default 60 menit). Waktu render, storyboard, suara, dan penggabungan tidak dihitung. Selesai saat berhasil.",
+      "longTaskMinutes": "Anggaran tunggu (menit)"
     },
     "download": "Unduh",
     "downloading": "Mengunduh...",
@@ -281,7 +285,10 @@
       "copyVideoId": "Salin ID tugas",
       "checkLater": "Periksa hasil nanti",
       "fastRetryActive": "Coba ulang cepat · {n} terkirim · sisa {x}",
-      "fastRetryExpired": "Waktu coba ulang cepat habis; kembali ke ritme normal."
+      "fastRetryExpired": "Putaran ini selesai; kembali ke ritme normal sampai putaran berikutnya.",
+      "fastRetryChainWait": "Rantai · putaran {round} mulai dalam {x}",
+      "longTaskActive": "Tugas panjang · menunggu {waited} · sisa {left}",
+      "longTaskExpired": "Anggaran tunggu {minutes} menit habis tetapi antrean masih penuh. Periksa lagi nanti dengan ID tugas."
     },
     "githubNote": "Demo web ini hanya menyediakan fungsi dasar teks-ke-gambar dan teks-ke-video. Untuk fitur lengkap (video kreatif panjang, video naskah, pembawa acara digital AI, narasi TTS, subtitle otomatis, lanjutkan, dan lainnya), unduh aplikasi desktop dari GitHub.",
     "seoTitle": "Generator Video AI Gratis Online | Agnes Video Generator",

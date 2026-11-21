@@ -138,11 +138,11 @@
     "tabs": {
       "label": "Pilih mod penciptaan",
       "image": "Imej",
-      "simple": "Video ringkas",
-      "creative": "Video kreatif",
+      "simple": "Klip satu syot",
+      "creative": "Cerita berbilang syot",
       "imageHint": "Tulis satu penerangan dan dapatkan imej AI dalam saiz segi empat sama, landskap atau potret.",
-      "simpleHint": "Satu gesaan, satu klip video AI — teks-ke-video atau imej-ke-video, 4–12 saat, enam nisbah.",
-      "creativeHint": "Beri satu idea; AI memecahkannya kepada 2–5 babak, menjana setiap klip dan mencantumnya dalam pelayar anda (Beta)."
+      "simpleHint": "Satu klip satu syot 4–12 s setiap larian, enam nisbah. Pantas dan stabil — sesuai untuk uji visual atau syot tunggal.",
+      "creativeHint": "Satu idea dipecahkan AI kepada 2–5 babak (5–12 s setiap satu), dijana dan dicantum dalam pelayar. Mana-mana syot gagal akan memutuskan rantai, jadi kadar kejayaan lebih rendah daripada klip satu syot."
     }
   },
   "demo": {
@@ -237,11 +237,15 @@
       "audioUrlInvalid": "Pautan audio mesti bermula dengan http:// atau https://",
       "addAudio": "Tambah audio",
       "fastRetryTitle": "Mod cubaan semula pantas",
-      "fastRetryHint": "Apabila baris gilir percuma penuh (dua 503 berturut-turut), cuba semula x kali seminit selama y minit. Permintaan yang ditolak tidak menggunakan kuota.",
+      "fastRetryHint": "Apabila baris gilir percuma sibuk (dua 503 / 429 berturut-turut), cuba x kali seminit selama y minit. Selepas selang, pusingan baharu bermula automatik sehingga berjaya atau anda hentikan. Permintaan ditolak tidak menggunakan kuota.",
       "fastRetryPerMinute": "Cubaan seminit",
       "fastRetryMinutes": "Tempoh (minit)",
       "fastRetryStart": "Mula cubaan pantas",
-      "fastRetryStop": "Henti cubaan pantas"
+      "fastRetryStop": "Henti cubaan pantas",
+      "fastRetryInterval": "Jeda (min)",
+      "longTaskTitle": "Mod tugas panjang",
+      "longTaskHint": "Menggantikan had percubaan dengan bajet tunggu terkumpul (60 min lalai). Masa render, papan cerita, suara dan cantuman tidak dikira. Tamat apabila berjaya.",
+      "longTaskMinutes": "Bajet tunggu (min)"
     },
     "download": "Muat Turun",
     "downloading": "Memuat turun...",
@@ -281,7 +285,10 @@
       "copyVideoId": "Salin ID tugas",
       "checkLater": "Semak hasil kemudian",
       "fastRetryActive": "Cubaan pantas · {n} dihantar · {x} lagi",
-      "fastRetryExpired": "Tempoh cubaan pantas tamat; kembali ke rentak biasa."
+      "fastRetryExpired": "Pusingan ini tamat; kembali ke rentak biasa sehingga pusingan seterusnya.",
+      "fastRetryChainWait": "Rantaian · pusingan {round} bermula dalam {x}",
+      "longTaskActive": "Tugas panjang · menunggu {waited} · tinggal {left}",
+      "longTaskExpired": "Bajet tunggu {minutes} minit habis tetapi baris gilir masih penuh. Semak kemudian dengan ID tugas."
     },
     "githubNote": "Demo web ini hanya menyediakan fungsi asas teks-ke-imej dan teks-ke-video. Untuk set lengkap (video kreatif panjang, video skrip, penyampai digital AI, narasi TTS, sari kata automatik, sambung semula, dan banyak lagi), muat turun aplikasi desktop dari GitHub.",
     "seoTitle": "Penjana Video AI Percuma Dalam Talian | Agnes Video Generator",

@@ -138,11 +138,11 @@
     "tabs": {
       "label": "Pumili ng mode ng paggawa",
       "image": "Larawan",
-      "simple": "Simpleng video",
-      "creative": "Malikhaing video",
+      "simple": "Single-shot clip",
+      "creative": "Multi-shot story",
       "imageHint": "Maglarawan ng isang eksena at makakuha ng AI image sa square, landscape, o portrait.",
-      "simpleHint": "Isang prompt, isang AI video clip — text-to-video o image-to-video, 4–12 segundo, anim na ratio.",
-      "creativeHint": "Bigyan ng isang ideya; hahatiin ito ng AI sa 2–5 eksena, gagawin ang bawat clip at pagsasamahin sa browser mo (Beta)."
+      "simpleHint": "Isang 4–12 s na single-shot clip bawat run, anim na aspect ratio. Mabilis at matatag — mainam para subukan ang look o isang shot.",
+      "creativeHint": "Hinahati ng AI ang isang ideya sa 2–5 eksena na 5–12 s bawat isa, ginagawa ang bawat clip at pinagsasama sa browser. Kapag may isang shot na nabigo, napuputol ang chain, kaya mas mababa ang success rate kaysa sa single-shot clip."
     }
   },
   "demo": {
@@ -238,11 +238,15 @@
       "audioUrlInvalid": "Dapat magsimula sa http:// o https:// ang audio link",
       "addAudio": "Magdagdag ng audio",
       "fastRetryTitle": "Mabilis na pag-retry",
-      "fastRetryHint": "Kapag puno ang libreng queue (dalawang 503 nang sunod), nagre-retry ng x beses kada minuto sa loob ng y minuto. Walang quota ang tinatanggihang request.",
+      "fastRetryHint": "Kapag abala ang libreng pila (dalawang 503 / 429 nang sunod), subukang muli nang x beses kada minuto sa loob ng y minuto. Pagkatapos ng agwat, awtomatikong magsisimula ang bagong round hanggang magtagumpay o ihinto mo. Hindi kumakain ng quota ang tinanggihang kahilingan.",
       "fastRetryPerMinute": "Mga pagsubok kada minuto",
       "fastRetryMinutes": "Tagal (minuto)",
       "fastRetryStart": "Simulan ang mabilis na retry",
-      "fastRetryStop": "Itigil ang mabilis na retry"
+      "fastRetryStop": "Itigil ang mabilis na retry",
+      "fastRetryInterval": "Agwat (min)",
+      "longTaskTitle": "Long task mode",
+      "longTaskHint": "Papalitan ang limitasyon sa bilang ng pagsubok ng cumulative na badyet sa paghihintay (60 min default). Hindi binibilang ang render, storyboard, boses at pagsasama. Nagtatapos kapag nagtagumpay.",
+      "longTaskMinutes": "Badyet sa paghihintay (min)"
     },
     "download": "I-download",
     "downloading": "Dini-download...",
@@ -282,12 +286,15 @@
       "copyVideoId": "Kopyahin ang task ID",
       "checkLater": "Tingnan ang resulta mamaya",
       "fastRetryActive": "Mabilis na retry · {n} naipadala · {x} natitira",
-      "fastRetryExpired": "Tapos na ang mabilis na retry; bumalik sa normal na bilis."
+      "fastRetryExpired": "Natapos ang round na ito; bumalik sa normal na bilis hanggang sa susunod na round.",
+      "fastRetryChainWait": "Chain · magsisimula ang round {round} sa {x}",
+      "longTaskActive": "Long task · naghintay {waited} · {left} ang natitira",
+      "longTaskExpired": "Naubos ang {minutes} minutong badyet sa paghihintay at puno pa rin ang pila. Tingnan mamaya gamit ang task ID."
     },
     "seoTitle": "Libreng AI Video Generator Online | Agnes Video Generator",
     "seoDescription": "Libreng AI video at image generator sa browser. Images: agnes-image-2.1-flash. Isang clip: Video 2.5 Flash (teksto, reference images, unang/huling frame, 4–12 segundo, anim na ratio). Ang multi-scene short ay bumubukas mula sa web studio sa creative-video tab: isang ideya ay nagiging 2–5 clip at pinagdudugtong sa browser. Walang install at walang card. Ang API key ay nananatili sa browser.",
     "seoH1": "Libreng Online na AI Video at Image Generator",
-    "seoIntro": "Ang pahinang ito ang workspace ng Agnes Video Generator. Image, simpleng video, at creative video ay tatlong tab ng iisang tool. Default ang simpleng video. Ang web studio ay direktang nagbubukas ng creative video. Ang video model ay ang limitadong libreng Video 2.5 Flash (agnes-video-2.5-flash). Idikit ang libreng Agnes API key sa itaas. Naka-store lang ito sa browser na ito.",
+    "seoIntro": "Ang pahinang ito ang workspace ng Agnes Video Generator. Image, simpleng video, at multi-shot story ay tatlong tab ng iisang tool. Default ang simpleng video. Ang web studio ay direktang nagbubukas ng multi-shot story. Ang video model ay ang limitadong libreng Video 2.5 Flash (agnes-video-2.5-flash). Idikit ang libreng Agnes API key sa itaas. Naka-store lang ito sa browser na ito.",
     "seoFeatures": [
       {
         "title": "Libre, walang card",
@@ -295,7 +302,7 @@
       },
       {
         "title": "Sa browser",
-        "desc": "Ang imahe, isang clip, at pagdugtong ng mga eksena ay nangyayari sa pahina. Ang creative video ay dina-download mula sa browser."
+        "desc": "Ang imahe, isang clip, at pagdugtong ng mga eksena ay nangyayari sa pahina. Ang multi-shot story ay dina-download mula sa browser."
       },
       {
         "title": "Imahe",
@@ -306,7 +313,7 @@
         "desc": "Video 2.5 Flash: teksto, hanggang 5 reference image, unang at huling frame. 4–12 segundo. Mga ratio: 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
       },
       {
-        "title": "Creative video",
+        "title": "Multi-shot story",
         "desc": "Ang isang ideya ay nahahati sa 2–5 eksena na 5, 8, 10, o 12 segundo, tapos pinagdudugtong sa browser. Binubuksan ito ng web studio."
       }
     ],
@@ -343,7 +350,7 @@
       },
       {
         "q": "Kailangan ko bang mag-install?",
-        "a": "Hindi. Ang tatlong tab ay tumatakbo sa browser. Ang pagdugtong ng creative video ay gumagamit ng ffmpeg.wasm, kaya hindi mo i-install ang ffmpeg."
+        "a": "Hindi. Ang tatlong tab ay tumatakbo sa browser. Ang pagdugtong ng multi-shot story ay gumagamit ng ffmpeg.wasm, kaya hindi mo i-install ang ffmpeg."
       },
       {
         "q": "Anong model ang simpleng video, at gaano katagal?",
@@ -354,8 +361,8 @@
         "a": "Oo. Hanggang 5 reference image, at audio URL. Sa frame mode kailangan ang unang frame; opsyonal ang huli. Ang ratio ng mode na ito ay itinatakda ng serbisyo bilang parisukat."
       },
       {
-        "q": "Ano ang pinagkaiba ng creative video at simpleng video?",
-        "a": "Ang simpleng video ay gumagawa ng isang clip. Ang creative video ay hinahati ang isang ideya sa 2–5 eksena, ginagawa ang bawat isa, tapos pinagdudugtong sa browser. Ang web studio sa navigation ay direktang nagbubukas ng creative video."
+        "q": "Ano ang pinagkaiba ng multi-shot story at simpleng video?",
+        "a": "Ang simpleng video ay gumagawa ng isang clip. Ang multi-shot story ay hinahati ang isang ideya sa 2–5 eksena, ginagawa ang bawat isa, tapos pinagdudugtong sa browser. Ang web studio sa navigation ay direktang nagbubukas ng multi-shot story."
       },
       {
         "q": "Ano ang ibig sabihin ng 503 o “video queue is full”?",
@@ -388,7 +395,7 @@
       },
       {
         "tab": "creative",
-        "title": "Creative video",
+        "title": "Multi-shot story",
         "desc": "Ang isang ideya ay nagiging 2–5 clip na pinagdudugtong. Ang web studio ay dumarating sa tab na ito. Mga ratio: 16:9, 9:16, o 1:1."
       }
     ],
@@ -399,11 +406,11 @@
       },
       {
         "title": "Pumili ng tab",
-        "desc": "Ang imahe ay gumagawa ng still. Ang simpleng video ay isang clip na 4–12 segundo. Ang creative video ay hinahati ang ideya sa mga eksena. Binubuksan ng web studio ang creative video."
+        "desc": "Ang imahe ay gumagawa ng still. Ang simpleng video ay isang clip na 4–12 segundo. Ang multi-shot story ay hinahati ang ideya sa mga eksena. Binubuksan ng web studio ang multi-shot story."
       },
       {
         "title": "Maghintay, tapos i-download",
-        "desc": "Karaniwang mabilis bumabalik ang mga imahe. Ang simpleng video ay tinitingnan bawat 30 segundo, hanggang 15 minuto. Ang creative video ay gumagawa ng mga eksena nang magkakasunod at pinagdudugtong ang resulta sa browser."
+        "desc": "Karaniwang mabilis bumabalik ang mga imahe. Ang simpleng video ay tinitingnan bawat 30 segundo, hanggang 15 minuto. Ang multi-shot story ay gumagawa ng mga eksena nang magkakasunod at pinagdudugtong ang resulta sa browser."
       }
     ],
     "seoLinks": [
@@ -437,7 +444,7 @@
       },
       {
         "href": "/studio",
-        "label": "Buksan ang creative video"
+        "label": "Buksan ang multi-shot story"
       }
     ],
     "helpLinks": {

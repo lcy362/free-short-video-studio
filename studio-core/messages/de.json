@@ -138,11 +138,11 @@
     "tabs": {
       "label": "Modus wählen",
       "image": "Bild",
-      "simple": "Einfaches Video",
-      "creative": "Kreativvideo",
+      "simple": "Einzelaufnahme-Clip",
+      "creative": "Mehrfachaufnahme-Story",
       "imageHint": "Eine Bildbeschreibung genügt – fertig ist das KI-Bild in Quadrat, Quer- oder Hochformat.",
-      "simpleHint": "Ein Prompt, ein KI-Videoclip – Text-zu-Video oder Bild-zu-Video, 4–12 Sekunden, sechs Seitenverhältnisse.",
-      "creativeHint": "Eine Idee – die KI teilt sie in 2–5 Szenen, erzeugt jeden Clip und fügt sie im Browser zusammen (Beta)."
+      "simpleHint": "Ein 4–12-Sekunden-Clip pro Lauf, sechs Seitenverhältnisse. Schnell und zuverlässig — ideal zum Testen eines Looks oder einer Einstellung.",
+      "creativeHint": "Eine Idee wird von der KI in 2–5 Szenen à 5–12 s zerlegt, einzeln generiert und im Browser zusammengefügt. Eine fehlgeschlagene Aufnahme bricht die Kette — die Erfolgsquote ist niedriger als beim Einzelaufnahme-Clip."
     }
   },
   "demo": {
@@ -238,11 +238,15 @@
       "audioUrlInvalid": "Audio-Links müssen mit http:// oder https:// beginnen",
       "addAudio": "Audio hinzufügen",
       "fastRetryTitle": "Schnellwiederholung",
-      "fastRetryHint": "Bei voller kostenloser Warteschlange (zwei 503 hintereinander) wird x-mal pro Minute für y Minuten erneut versucht. Abgelehnte Anfragen kosten kein Kontingent.",
+      "fastRetryHint": "Wenn die kostenlose Warteschlange belegt ist (zwei 503 / 429 in Folge), wird x-mal pro Minute für y Minuten erneut versucht. Nach der Pause startet automatisch eine neue Runde — bis zum Erfolg oder bis Sie stoppen. Abgelehnte Anfragen verbrauchen kein Kontingent.",
       "fastRetryPerMinute": "Versuche pro Minute",
       "fastRetryMinutes": "Dauer (Minuten)",
       "fastRetryStart": "Schnellwiederholung starten",
-      "fastRetryStop": "Schnellwiederholung stoppen"
+      "fastRetryStop": "Schnellwiederholung stoppen",
+      "fastRetryInterval": "Pause (Min.)",
+      "longTaskTitle": "Langaufgaben-Modus",
+      "longTaskHint": "Ersetzt das Versuchslimit durch ein kumuliertes Wartebudget (standardmäßig 60 Min.). Render-, Storyboard-, Sprech- und Schnittzeit zählen nicht. Endet bei Erfolg.",
+      "longTaskMinutes": "Wartebudget (Min.)"
     },
     "download": "Herunterladen",
     "downloading": "Wird heruntergeladen...",
@@ -282,7 +286,10 @@
       "copyVideoId": "Aufgaben-ID kopieren",
       "checkLater": "Ergebnis später prüfen",
       "fastRetryActive": "Schnellwiederholung · {n} gesendet · {x} übrig",
-      "fastRetryExpired": "Schnellwiederholung beendet, zurück zum normalen Tempo."
+      "fastRetryExpired": "Diese Runde ist beendet; zurück zum normalen Rhythmus bis zur nächsten Runde.",
+      "fastRetryChainWait": "Verkettung · Runde {round} startet in {x}",
+      "longTaskActive": "Langaufgabe · gewartet {waited} · {left} übrig",
+      "longTaskExpired": "Wartebudget von {minutes} Minuten aufgebraucht, die Warteschlange ist weiterhin voll. Prüfen Sie später mit der Aufgaben-ID."
     },
     "seoTitle": "Kostenloser Online-KI-Videogenerator | Agnes Video Generator",
     "seoDescription": "Kostenloser KI-Video- und Bildgenerator im Browser. Bilder: agnes-image-2.1-flash. Einzelclips: Video 2.5 Flash (Text, Referenzbilder, erstes/letztes Bild, 4–12 Sekunden, sechs Formate). Mehrszenige Clips öffnen sich über das Web Studio im Tab „Kreativvideo“: eine Idee wird in 2–5 Szenen geteilt und im Browser zusammengefügt. Keine Installation, keine Kreditkarte. Der API-Schlüssel bleibt im Browser.",

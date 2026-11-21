@@ -138,11 +138,11 @@
     "tabs": {
       "label": "Kies een modus",
       "image": "Afbeelding",
-      "simple": "Eenvoudige video",
-      "creative": "Creatieve video",
+      "simple": "Enkele-opnameclip",
+      "creative": "Meeropnameverhaal",
       "imageHint": "Beschrijf één beeld en krijg een AI-afbeelding in vierkant, liggend of staand formaat.",
-      "simpleHint": "Eén prompt, één AI-videoclip — tekst-naar-video of afbeelding-naar-video, 4–12 seconden, zes verhoudingen.",
-      "creativeHint": "Eén idee; de AI splitst het in 2–5 scènes, genereert elke clip en voegt ze samen in je browser (bèta)."
+      "simpleHint": "Eén clip van één opname van 4–12 s per run, zes beeldverhoudingen. Snel en betrouwbaar — ideaal om een look of één shot te testen.",
+      "creativeHint": "Eén idee wordt door de AI opgesplitst in 2–5 scènes van 5–12 s, apart gegenereerd en in de browser samengevoegd. Eén mislukte opname breekt de keten — het slagingspercentage ligt lager dan bij de enkele-opnameclip."
     }
   },
   "demo": {
@@ -238,11 +238,15 @@
       "audioUrlInvalid": "Audiolinks moeten beginnen met http:// of https://",
       "addAudio": "Audio toevoegen",
       "fastRetryTitle": "Snelle herkansingsmodus",
-      "fastRetryHint": "Bij een volle gratis wachtrij (twee 503's op rij) wordt x keer per minuut gedurende y minuten opnieuw geprobeerd. Geweigerde verzoeken kosten geen quota.",
+      "fastRetryHint": "Als de gratis wachtrij vol is (twee 503 / 429 op rij), probeer x keer per minuut gedurende y minuten. Na een pauze start automatisch een nieuwe ronde, tot succes of tot je stopt. Geweigerde aanvragen kosten geen quota.",
       "fastRetryPerMinute": "Pogingen per minuut",
       "fastRetryMinutes": "Duur (minuten)",
       "fastRetryStart": "Snelle herkansing starten",
-      "fastRetryStop": "Snelle herkansing stoppen"
+      "fastRetryStop": "Snelle herkansing stoppen",
+      "fastRetryInterval": "Pauze (min)",
+      "longTaskTitle": "Langetakenmodus",
+      "longTaskHint": "Vervangt de pogingslimiet door een cumulatief wachtbudget (standaard 60 min). Rendertijd, storyboard, stem en montage tellen niet mee. Stopt bij succes.",
+      "longTaskMinutes": "Wachtbudget (min)"
     },
     "download": "Downloaden",
     "downloading": "Downloaden...",
@@ -282,7 +286,10 @@
       "copyVideoId": "Taak-ID kopiëren",
       "checkLater": "Resultaat later bekijken",
       "fastRetryActive": "Snelle herkansing · {n} verzonden · {x} over",
-      "fastRetryExpired": "Snelle herkansing is verlopen; terug naar het normale tempo."
+      "fastRetryExpired": "Deze ronde is klaar; terug naar het normale tempo tot de volgende ronde.",
+      "fastRetryChainWait": "Keten · ronde {round} start over {x}",
+      "longTaskActive": "Lange taak · gewacht {waited} · {left} over",
+      "longTaskExpired": "Wachtbudget van {minutes} minuten verbruikt en de wachtrij is nog vol. Controleer later met de taak-ID."
     },
     "seoTitle": "Gratis online AI-videogenerator | Agnes Video Generator",
     "seoDescription": "Gratis AI-video- en beeldgenerator in de browser. Beelden: agnes-image-2.1-flash. Eén clip: Video 2.5 Flash (tekst, referentiebeelden, eerste/laatste frame, 4–12 s, zes verhoudingen). Meerdere scènes openen via de webstudio op het tabblad creatieve video: één idee wordt 2–5 clips en in de browser aan elkaar gezet. Geen installatie, geen kaart. De API-sleutel blijft in de browser.",

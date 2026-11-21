@@ -26,11 +26,14 @@ import {
   DEFAULT_FAST_RETRY_SETTINGS,
   EMPTY_FAST_RETRY_RUN,
   SLOW_RETRY_MAX,
+  clampLongTaskMinutes,
   decideRetry,
+  fastRetryChainRemainingMs,
   fastRetryRemainingMs,
   formatRemaining,
   isFastRetryAvailable,
   loadFastRetrySettings,
+  longTaskRemainingMs,
   saveFastRetrySettings,
   type FastRetryRun,
   type FastRetrySettings,
@@ -40,9 +43,6 @@ type Status = 'idle' | 'submitting' | 'generating' | 'completed' | 'error';
 
 const POLL_INTERVAL = 30000;
 const MAX_POLL_TIME = 900_000;
-
-// 上游免费队列饱和时返回的错误码（被拒发生在入队前，不消耗渲染配额）
-const QUEUE_RETRY_CODES = new Set(['video_queue_full', 'fail_to_fetch_task']);
 
 const isHttpUrl = (url: string) => /^https?:\/\//i.test(url);
 
@@ -99,17 +99,30 @@ type SubmitOutcome =
   | { kind: 'queue_full'; detail: string }
   | { kind: 'failed'; code: string; detail: string };
 
-/** 把 /v1/videos 的响应归类（拆分出来是为了压住 handleGenerate 的圈复杂度） */
+/**
+ * 把 /v1/videos 的响应归类（对齐源站 error_taxonomy）。
+ *
+ * 可重试（忙轨）：所有 503（含裸 503）、429、408/425 —— 上游容量或限流，
+ * 不消耗渲染配额，交给快速重试 / 长任务模式持续探测。
+ * 终止性失败：401/403/404/413/422/400 等其他 4xx，立即返回最终结果。
+ */
 function classifySubmitResponse(resp: Response, data: any): SubmitOutcome {
+  const parsed = parseUpstreamError(data?.error);
+  const code = parsed.code || (typeof data?.code === 'string' ? data.code : '');
+
   if (resp.status === 401) return { kind: 'failed', code: 'invalid_api_key', detail: '' };
-  if (resp.status === 429) return { kind: 'failed', code: 'rate_limited', detail: '' };
+
+  // 忙轨：队列饱和 / 限流 / 请求超时
+  if (resp.status === 503 || resp.status === 429 || resp.status === 408 || resp.status === 425) {
+    return { kind: 'queue_full', detail: parsed.message || code };
+  }
 
   if (!resp.ok) {
-    const parsed = parseUpstreamError(data?.error);
-    const code = parsed.code || (typeof data?.code === 'string' ? data.code : '');
-    if (resp.status === 503 && QUEUE_RETRY_CODES.has(code)) {
-      return { kind: 'queue_full', detail: parsed.message || code };
-    }
+    if (resp.status === 403) return { kind: 'failed', code: 'forbidden', detail: parsed.message };
+    if (resp.status === 404) return { kind: 'failed', code: 'not_found', detail: parsed.message };
+    if (resp.status === 413) return { kind: 'failed', code: 'payload_too_large', detail: parsed.message };
+    if (resp.status === 422) return { kind: 'failed', code: 'invalid_parameter', detail: parsed.message };
+    if (resp.status === 400) return { kind: 'failed', code: 'bad_request', detail: parsed.message };
     return {
       kind: 'failed',
       code: 'upstream_error',
@@ -182,6 +195,10 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const [slowAttempt, setSlowAttempt] = useState(0);
   const [fastRun, setFastRun] = useState<{ startedAt: number; attempts: number } | null>(null);
   const [fastExpired, setFastExpired] = useState(false);
+  // v8.4 接力等待中（上一轮快速窗口到期，等待下一轮开启）
+  const [chainPending, setChainPending] = useState(false);
+  // v8.3 长任务累计忙轨等待（展示用，与 runRef.current.busyWaitedMs 同步）
+  const [busyWaitedMs, setBusyWaitedMs] = useState(0);
   const [tick, setTick] = useState(0);
 
   const pollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -233,13 +250,14 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     setFastSettings(loaded);
   }, []);
 
-  // 快速重试剩余时间需要每秒重算（源项目用本地时钟，不额外轮询）
+  // 剩余时间需要每秒重算（源项目用本地时钟，不额外轮询）：
+  // 快速模式看窗口剩余、接力等待看下一轮倒计时、长任务看累计预算
   useEffect(() => {
-    if (!fastRun) return;
+    if (!fastRun && !chainPending && !fastSettings.longTask) return;
     setTick(Date.now());
     const id = setInterval(() => setTick(Date.now()), 1000);
     return () => clearInterval(id);
-  }, [fastRun]);
+  }, [fastRun, chainPending, fastSettings.longTask]);
 
   // 模型切换 → 修正表单默认值（选项集变化时避免非法值）
   const handleModelChange = (m: VideoModelId) => {
@@ -282,6 +300,8 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     setSlowAttempt(0);
     setFastRun(null);
     setFastExpired(false);
+    setChainPending(false);
+    setBusyWaitedMs(0);
   }, []);
 
   // 结束态统一出口：写错误面板 + 上报（W7），错误码不再只存在于内存
@@ -527,7 +547,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
         return;
       }
 
-      // ── 上游免费队列饱和：累计忙信号，决定下一跳节奏 ──
+      // ── 上游免费队列饱和 / 限流：累计忙信号，决定下一跳节奏 ──
       run.busyStreak += 1;
       if (run.fastStartedAt) run.fastAttempts += 1;
       setBusyStreak(run.busyStreak);
@@ -538,33 +558,47 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
         const total = run.slowAttempts + run.fastAttempts;
         finishWithError(
           'queue_full',
-          `${t('errors.queueFullExhausted', { total: Math.max(total, SLOW_RETRY_MAX) })}\n${outcome.detail}`,
+          decision.reason === 'budget'
+            ? t('errors.longTaskExpired', {
+                minutes: clampLongTaskMinutes(fastSettingsRef.current.longTaskMinutes),
+              })
+            : `${t('errors.queueFullExhausted', { total: Math.max(total, SLOW_RETRY_MAX) })}\n${outcome.detail}`,
         );
         return;
       }
 
       if (decision.mode === 'fast') {
         if (decision.startNow) {
-          // 连续 2 次忙信号 + 设置已开启自动 → 直接进入快速连打（窗口数封顶，避免无限循环）
+          // 自动首轮 / 接力新一轮：参数沿用本任务当前值
+          if (decision.reason === 'chained') run.rounds += 1;
           run.fastStartedAt = Date.now();
           run.fastAttempts = 0;
-          run.autoWindows += 1;
+          run.chainPending = false;
+          run.chainStartedAt = 0;
         }
+        setChainPending(false);
         setFastExpired(false);
         setFastRun({ startedAt: run.fastStartedAt, attempts: run.fastAttempts });
       } else {
         run.slowAttempts += 1;
         if (decision.reason === 'expired') {
-          // 快速模式到期：回到常规节奏并清零忙信号（需重新累计 2 次才再自动开启）
+          // 本轮到期：进入接力等待；距到期满 intervalMinutes 后的第一个忙信号自动开新一轮
           run.fastStartedAt = 0;
           run.fastAttempts = 0;
+          run.chainPending = true;
+          run.chainStartedAt = Date.now();
           run.busyStreak = 0;
           setFastRun(null);
           setFastExpired(true);
+          setChainPending(true);
           setBusyStreak(0);
         }
         setSlowAttempt(run.slowAttempts);
       }
+
+      // 长任务预算：只累计「排队等待」时长；渲染 / 分镜 / 配音 / 拼接不计入
+      run.busyWaitedMs += decision.intervalMs;
+      setBusyWaitedMs(run.busyWaitedMs);
 
       await wait(decision.intervalMs);
       if (abortRef.current) return;
@@ -702,21 +736,28 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     run.fastStartedAt = Date.now();
     run.fastAttempts = 0;
     run.autoOff = false;
+    run.chainPending = false;
+    run.chainStartedAt = 0;
+    run.rounds += 1;
+    setChainPending(false);
     setFastExpired(false);
     setFastRun({ startedAt: run.fastStartedAt, attempts: 0 });
     clearSleep();
   };
 
-  /** 停止快速重试（本轮不再被自动模式拉起） */
+  /** 停止快速重试（本轮不再被自动模式拉起，接力也一并停止） */
   const handleStopFastRetry = () => {
     const run = runRef.current;
     run.fastStartedAt = 0;
     run.fastAttempts = 0;
     run.busyStreak = 0;
     run.autoOff = true;
+    run.chainPending = false;
+    run.chainStartedAt = 0;
     setFastRun(null);
     setBusyStreak(0);
     setFastExpired(false);
+    setChainPending(false);
   };
 
   // W6：从 ?video_id=xxx 恢复轮询 —— 错误面板「稍后查看结果」链接指向此处，纯前端，无需后端
@@ -751,9 +792,16 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   };
 
   const isBusy = status === 'submitting' || status === 'generating';
+  const nowTick = tick || Date.now();
   const remainingMs = fastRun
-    ? fastRetryRemainingMs(fastRun.startedAt, fastMinutes, tick || Date.now())
+    ? fastRetryRemainingMs(fastRun.startedAt, fastMinutes, nowTick)
     : 0;
+  const chainRemainingMsValue = chainPending
+    ? fastRetryChainRemainingMs(runRef.current.chainStartedAt, fastSettings.intervalMinutes, nowTick)
+    : 0;
+  const longTaskLeftMs = longTaskRemainingMs(runRef.current, fastSettings);
+  const longTaskOn = fastSettings.longTask === true;
+
   const resolveRetryPhase = (): FastRetryPhase => {
     if (fastRun) return 'active';
     return isFastRetryAvailable({ ...runRef.current, busyStreak }, fastSettings)
@@ -767,6 +815,18 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
       return t('errors.fastRetryActive', {
         n: fastRun.attempts,
         x: formatRemaining(remainingMs),
+      });
+    }
+    if (chainPending) {
+      return t('errors.fastRetryChainWait', {
+        x: formatRemaining(chainRemainingMsValue),
+        round: (runRef.current.rounds || 0) + 1,
+      });
+    }
+    if (longTaskOn && busyWaitedMs > 0) {
+      return t('errors.longTaskActive', {
+        waited: formatRemaining(busyWaitedMs),
+        left: formatRemaining(longTaskLeftMs),
       });
     }
     if (slowAttempt > 0) {
@@ -885,19 +945,24 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
         />
       </div>
 
-      {/* 快速重试：连续 2 次队列繁忙后按「每分钟 x 次 / 持续 y 分钟」连打 */}
+      {/* 快速重试 + 长任务：前者决定「多久打一次」，后者决定「总共等多久」 */}
       <FastRetryControl
         settings={fastSettings}
         onSettingsChange={handleFastSettingsChange}
         phase={retryPhase}
         attempts={fastRun?.attempts ?? 0}
         remainingMs={remainingMs}
+        chainPending={chainPending}
+        chainRemainingMs={chainRemainingMsValue}
+        round={runRef.current.rounds || 0}
+        busyWaitedMs={busyWaitedMs}
+        longTaskRemainingMs={longTaskLeftMs}
         onStart={handleStartFastRetry}
         onStop={handleStopFastRetry}
         disabled={status === 'generating'}
       />
 
-      {fastExpired && status === 'submitting' && (
+      {fastExpired && !chainPending && status === 'submitting' && (
         <p className="text-xs text-muted text-center">{t('errors.fastRetryExpired')}</p>
       )}
 

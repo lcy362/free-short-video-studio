@@ -138,11 +138,11 @@
     "tabs": {
       "label": "Oluşturma modu seçin",
       "image": "Görsel",
-      "simple": "Basit video",
-      "creative": "Yaratıcı video",
+      "simple": "Tek çekim klip",
+      "creative": "Çok çekimli hikâye",
       "imageHint": "Tek bir açıklama yazın; kare, yatay veya dikey boyutta AI görseli alın.",
-      "simpleHint": "Tek istem, tek AI video klibi — metinden videoya veya görselden videoya, 4–12 saniye, altı oran.",
-      "creativeHint": "Bir fikir verin; AI bunu 2–5 sahneye böler, her klibi üretir ve tarayıcınızda birleştirir (Beta)."
+      "simpleHint": "Her çalıştırmada 4–12 sn tek çekim klip, altı oran. Hızlı ve güvenilir — bir görünümü veya tek çekimi denemek için ideal.",
+      "creativeHint": "AI bir fikri 5–12 sn’lik 2–5 sahneye böler, her birini üretir ve tarayıcıda birleştirir. Tek bir çekim bile başarısız olursa zincir kopar; başarı oranı tek çekimli klipten düşüktür."
     }
   },
   "demo": {
@@ -238,11 +238,15 @@
       "audioUrlInvalid": "Ses bağlantıları http:// veya https:// ile başlamalı",
       "addAudio": "Ses ekle",
       "fastRetryTitle": "Hızlı yeniden deneme modu",
-      "fastRetryHint": "Ücretsiz kuyruk dolduğunda (arka arkaya iki 503) dakikada x kez, y dakika boyunca yeniden dener. Reddedilen istekler kota harcamaz.",
+      "fastRetryHint": "Ücretsiz kuyruk meşgulse (art arda iki 503 / 429), y dakika boyunca dakikada x kez yeniden deneyin. Aradan sonra yeni tur otomatik başlar; başarıya veya siz durdurana kadar sürer. Reddedilen istekler kota tüketmez.",
       "fastRetryPerMinute": "Dakikada deneme",
       "fastRetryMinutes": "Süre (dakika)",
       "fastRetryStart": "Hızlı denemeyi başlat",
-      "fastRetryStop": "Hızlı denemeyi durdur"
+      "fastRetryStop": "Hızlı denemeyi durdur",
+      "fastRetryInterval": "Tur aralığı (dk)",
+      "longTaskTitle": "Uzun görev modu",
+      "longTaskHint": "Deneme sınırının yerine birikimli bekleme bütçesi (varsayılan 60 dk) kullanılır. Render, storyboard, ses ve birleştirme süresi sayılmaz. Başarıda biter.",
+      "longTaskMinutes": "Bekleme bütçesi (dk)"
     },
     "download": "İndir",
     "downloading": "İndiriliyor...",
@@ -282,7 +286,10 @@
       "copyVideoId": "Görev ID’sini kopyala",
       "checkLater": "Sonucu sonra kontrol et",
       "fastRetryActive": "Hızlı deneme · {n} gönderildi · {x} kaldı",
-      "fastRetryExpired": "Hızlı deneme süresi doldu; normal tempoya dönüldü."
+      "fastRetryExpired": "Bu tur bitti; bir sonraki tura kadar normal tempoya dönüldü.",
+      "fastRetryChainWait": "Zincir · {round}. tur {x} sonra başlıyor",
+      "longTaskActive": "Uzun görev · beklendi {waited} · kalan {left}",
+      "longTaskExpired": "{minutes} dakikalık bekleme bütçesi tükendi ve kuyruk hâlâ dolu. Daha sonra görev kimliğiyle kontrol edin."
     },
     "seoTitle": "Çevrimiçi Ücretsiz Yapay Zekâ Video Oluşturucu | Agnes Video Generator",
     "seoDescription": "Tarayıcıda ücretsiz yapay zeka video ve görsel üretici. Görseller agnes-image-2.1-flash kullanır. Tek klip Video 2.5 Flash kullanır (metin, referans görseller, ilk/son kare, 4–12 sn, altı oran). Çok sahneli kısa videolar web stüdyosundan yaratıcı video sekmesinde açılır: bir fikir 2–5 klibe bölünüp tarayıcıda birleştirilir. Kurulum ve kart yok. API anahtarı tarayıcıda kalır.",

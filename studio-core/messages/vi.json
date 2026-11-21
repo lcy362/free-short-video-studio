@@ -138,11 +138,11 @@
     "tabs": {
       "label": "Chọn chế độ sáng tạo",
       "image": "Hình ảnh",
-      "simple": "Video đơn giản",
-      "creative": "Video sáng tạo",
+      "simple": "Clip một cảnh",
+      "creative": "Câu chuyện nhiều cảnh",
       "imageHint": "Nhập một mô tả, nhận ảnh AI ở khung vuông, ngang hoặc dọc.",
-      "simpleHint": "Một câu lệnh, một clip video AI — văn bản thành video hoặc ảnh thành video, 4–12 giây, sáu tỉ lệ.",
-      "creativeHint": "Đưa một ý tưởng; AI chia thành 2–5 cảnh, tạo từng clip rồi ghép lại ngay trong trình duyệt (Beta)."
+      "simpleHint": "Mỗi lần chạy một clip một cảnh 4–12 giây, sáu tỉ lệ. Nhanh và ổn định — phù hợp để thử hình ảnh hoặc một cảnh đơn.",
+      "creativeHint": "AI chia một ý tưởng thành 2–5 cảnh 5–12 giây, tạo từng cảnh rồi ghép trong trình duyệt. Chỉ một cảnh lỗi là chuỗi bị ngắt, nên tỉ lệ thành công thấp hơn clip một cảnh."
     }
   },
   "demo": {
@@ -238,11 +238,15 @@
       "audioUrlInvalid": "Liên kết âm thanh phải bắt đầu bằng http:// hoặc https://",
       "addAudio": "Thêm âm thanh",
       "fastRetryTitle": "Chế độ thử lại nhanh",
-      "fastRetryHint": "Khi hàng đợi miễn phí đầy (hai lần 503 liên tiếp), thử lại x lần mỗi phút trong y phút. Yêu cầu bị từ chối không tốn hạn mức.",
+      "fastRetryHint": "Khi hàng đợi miễn phí bận (hai lần 503 / 429 liên tiếp), thử lại x lần mỗi phút trong y phút. Sau khoảng nghỉ, vòng mới tự động bắt đầu cho đến khi thành công hoặc bạn dừng. Yêu cầu bị từ chối không tốn hạn mức.",
       "fastRetryPerMinute": "Số lần mỗi phút",
       "fastRetryMinutes": "Thời lượng (phút)",
       "fastRetryStart": "Bắt đầu thử lại nhanh",
-      "fastRetryStop": "Dừng thử lại nhanh"
+      "fastRetryStop": "Dừng thử lại nhanh",
+      "fastRetryInterval": "Khoảng nghỉ (phút)",
+      "longTaskTitle": "Chế độ tác vụ dài",
+      "longTaskHint": "Thay giới hạn số lần thử bằng ngân sách chờ tích lũy (mặc định 60 phút). Thời gian render, storyboard, giọng nói và ghép nối không bị trừ. Kết thúc khi thành công.",
+      "longTaskMinutes": "Ngân sách chờ (phút)"
     },
     "download": "Tải xuống",
     "downloading": "Đang tải xuống...",
@@ -282,7 +286,10 @@
       "copyVideoId": "Sao chép ID tác vụ",
       "checkLater": "Kiểm tra kết quả sau",
       "fastRetryActive": "Thử lại nhanh · đã gửi {n} · còn {x}",
-      "fastRetryExpired": "Hết thời gian thử lại nhanh; quay lại nhịp thường."
+      "fastRetryExpired": "Vòng này đã kết thúc; trở lại nhịp thường cho đến vòng tiếp theo.",
+      "fastRetryChainWait": "Chuỗi · vòng {round} bắt đầu sau {x}",
+      "longTaskActive": "Tác vụ dài · đã chờ {waited} · còn {left}",
+      "longTaskExpired": "Đã dùng hết ngân sách chờ {minutes} phút mà hàng đợi vẫn đầy. Kiểm tra lại sau bằng ID tác vụ."
     },
     "seoTitle": "Trình tạo video AI miễn phí trực tuyến | Agnes Video Generator",
     "seoDescription": "Trình tạo video và ảnh AI miễn phí ngay trên trình duyệt. Ảnh dùng agnes-image-2.1-flash. Một đoạn dùng Video 2.5 Flash (chữ, ảnh tham chiếu, khung đầu/cuối, 4–12 giây, 6 tỷ lệ). Video nhiều cảnh mở từ bản web ở tab video sáng tạo: một ý tưởng tách thành 2–5 đoạn rồi ghép trong trình duyệt. Không cài đặt, không thẻ. API key chỉ nằm trong trình duyệt.",

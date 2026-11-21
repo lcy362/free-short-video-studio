@@ -138,11 +138,11 @@
     "tabs": {
       "label": "제작 모드 선택",
       "image": "이미지 생성",
-      "simple": "간단 영상",
-      "creative": "크리에이티브 영상",
+      "simple": "단일 샷 클립",
+      "creative": "멀티 샷 스토리",
       "imageHint": "한 줄 설명으로 AI 이미지를 생성합니다. 정사각형·가로·세로 세 가지 크기.",
-      "simpleHint": "프롬프트 하나로 AI 영상 한 편을 생성합니다. 텍스트→영상 또는 이미지→영상, 4~12초, 6가지 비율.",
-      "creativeHint": "아이디어를 입력하면 AI가 2~5개 장면으로 나눠 각각 생성하고 브라우저에서 이어 붙입니다(Beta)."
+      "simpleHint": "실행당 4–12초 단일 샷 1개, 6가지 화면 비율. 빠르고 안정적이라 화면 테스트나 단일 컷에 적합합니다.",
+      "creativeHint": "아이디어 하나를 AI가 2–5개 장면(각 5–12초)으로 나눠 생성하고 브라우저에서 병합합니다. 한 샷이라도 실패하면 중단되므로 단일 샷 클립보다 성공률이 낮습니다."
     }
   },
   "demo": {
@@ -237,11 +237,15 @@
       "audioUrlInvalid": "오디오 링크는 http:// 또는 https://로 시작해야 합니다",
       "addAudio": "오디오 추가",
       "fastRetryTitle": "빠른 재시도 모드",
-      "fastRetryHint": "무료 대기열이 붐빌 때(503 연속 2회) 분당 x회, y분 동안 빠르게 재시도합니다. 거부된 요청은 할당량을 쓰지 않습니다.",
+      "fastRetryHint": "무료 대기열이 혼잡할 때(503 / 429가 연속 2회) 분당 x회씩 y분 동안 재시도합니다. 간격이 지나면 다음 라운드가 자동으로 이어지며, 성공하거나 중지할 때까지 계속됩니다. 거부된 요청은 할당량을 쓰지 않습니다.",
       "fastRetryPerMinute": "분당 시도 횟수",
       "fastRetryMinutes": "지속 시간(분)",
       "fastRetryStart": "빠른 재시도 시작",
-      "fastRetryStop": "빠른 재시도 중지"
+      "fastRetryStop": "빠른 재시도 중지",
+      "fastRetryInterval": "라운드 간격(분)",
+      "longTaskTitle": "장시간 작업 모드",
+      "longTaskHint": "시도 횟수 상한 대신 누적 대기 예산(기본 60분)을 사용합니다. 렌더링·스토리보드·음성·병합 시간은 예산에 포함되지 않으며 성공하면 종료됩니다.",
+      "longTaskMinutes": "누적 대기(분)"
     },
     "download": "다운로드",
     "downloading": "다운로드 중...",
@@ -281,7 +285,10 @@
       "copyVideoId": "작업 ID 복사",
       "checkLater": "나중에 결과 확인",
       "fastRetryActive": "빠른 재시도 중 · 전송 {n}회 · 남은 시간 {x}",
-      "fastRetryExpired": "빠른 재시도 시간이 끝나 일반 재시도로 돌아갔습니다."
+      "fastRetryExpired": "이번 라운드가 끝났습니다. 다음 라운드까지 일반 리듬으로 돌아갑니다.",
+      "fastRetryChainWait": "체인 대기 · {x} 후 {round}번째 라운드 시작",
+      "longTaskActive": "장시간 작업 · 대기 {waited} · 남음 {left}",
+      "longTaskExpired": "{minutes}분 대기 예산을 모두 사용했지만 대기열이 여전히 가득합니다. 나중에 작업 ID로 확인하세요."
     },
     "githubNote": "웹 버전은 기본 텍스트→이미지 / 텍스트→비디오만 지원합니다. 전체 기능(크리에이티브 장편 비디오, 원고 비디오, AI 디지털 앵커, TTS 내레이션, 자동 자막, 재개 기능 등)은 GitHub에서 데스크톱 버전을 다운로드하세요.",
     "seoTitle": "무료 온라인 AI 비디오 생성기 | Agnes Video Generator",

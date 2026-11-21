@@ -182,7 +182,7 @@ describe('VideoPanel · 提交', () => {
     expect(screen.getByText('0%')).toBeInTheDocument();
   });
 
-  it('401 与 429 分别给出 Key 无效和限流提示', async () => {
+  it('401 给出 Key 无效提示；429 进入队列繁忙重试', async () => {
     apiFetch(() => json({ error: 'unauthorized' }, 401));
     const first = render(<VideoPanel apiKey="bad" />);
     typePrompt('测试');
@@ -192,13 +192,14 @@ describe('VideoPanel · 提交', () => {
     expect(screen.getByText('errors.checkApiKey')).toBeInTheDocument();
     first.unmount();
 
-    apiFetch(() => json({ error: 'slow down' }, 429));
+    // 源站 error_taxonomy：429 与 503 同属忙轨，先重试而不是立即失败
+    apiFetch(() => json({ error: { code: 'rate_limited', message: 'slow down' } }, 429));
     render(<VideoPanel apiKey="sk-1" />);
     typePrompt('测试');
     generate();
     await settle();
-    expect(screen.getByText('errors.rateLimited')).toBeInTheDocument();
-    expect(screen.queryByText('errors.checkApiKey')).not.toBeInTheDocument();
+    expect(screen.queryByText('errors.rateLimited')).not.toBeInTheDocument();
+    expect(screen.getByText(/errors\.queueFull/)).toBeInTheDocument();
   });
 
   it('上游错误对象优先展示 message；字符串错误直接展示', async () => {
@@ -288,13 +289,13 @@ describe('VideoPanel · 提交', () => {
     expect(spy.mock.calls.filter((c) => String(c[0]).includes('/v1/videos'))).toHaveLength(6);
   });
 
-  it('503 但错误码不属于队列饱和时不重试', async () => {
+  it('503 即使没有队列错误码也按繁忙处理', async () => {
     const spy = apiFetch(() => json({ error: { code: 'other' } }, 503));
     render(<VideoPanel apiKey="sk-1" />);
     typePrompt('测试');
     generate();
     await settle();
-    expect(screen.getByText('errors.upstream')).toBeInTheDocument();
+    expect(screen.getByText(/errors\.queueFull/)).toBeInTheDocument();
     expect(spy.mock.calls.filter((c) => String(c[0]).includes('/v1/videos'))).toHaveLength(1);
   });
 });
