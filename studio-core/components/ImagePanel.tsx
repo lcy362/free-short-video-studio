@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations, useMessages, useLocale } from 'next-intl';
 import PromptInput from './PromptInput';
 import SelectorGroup from './SelectorGroup';
@@ -9,6 +9,7 @@ import MediaPreview from './MediaPreview';
 import { SIZE_OPTIONS } from '../lib/demo-types';
 import { fetchWithFailback } from '../lib/api-client';
 import { trackGenerationStart, trackGenerationSuccess } from '../lib/analytics';
+import { readPrefillPrompt } from '../lib/prompt-prefill';
 import DemoErrorLinks from './DemoErrorLinks';
 
 const IMAGE_MODEL = 'agnes-image-2.1-flash';
@@ -27,6 +28,11 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
     'A majestic white tiger walking through a snow-covered pine forest, soft diffused light, cinematic composition',
   ];
   const [prompt, setPrompt] = useState('');
+  // 从首页 / Showcase 带过来的预填提示词（?prompt=），水合后再注入
+  useEffect(() => {
+    const prefill = readPrefillPrompt();
+    if (prefill) setPrompt(prefill);
+  }, []);
   const [size, setSize] = useState('1024x1024');
   const [status, setStatus] = useState<Status>('idle');
   const [resultUrl, setResultUrl] = useState('');

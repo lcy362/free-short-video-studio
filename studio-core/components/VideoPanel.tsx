@@ -21,6 +21,7 @@ import {
 } from '../lib/demo-types';
 import { fetchWithFailback } from '../lib/api-client';
 import { trackDemoError, trackGenerationStart, trackGenerationSuccess } from '../lib/analytics';
+import { readPrefillPrompt } from '../lib/prompt-prefill';
 import {
   DEFAULT_FAST_RETRY_SETTINGS,
   EMPTY_FAST_RETRY_RUN,
@@ -152,6 +153,11 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const [model, setModel] = useState<VideoModelId>(DEFAULT_VIDEO_MODEL);
   const [mode, setMode] = useState<VideoMode>('text');
   const [prompt, setPrompt] = useState('');
+  // 从首页 / Showcase 带过来的预填提示词（?prompt=），水合后再注入，避免 SSR 不一致
+  useEffect(() => {
+    const prefill = readPrefillPrompt();
+    if (prefill) setPrompt(prefill);
+  }, []);
   const [duration, setDuration] = useState('5');
   const [ratio, setRatio] = useState<VideoRatio>('16:9');
   const [refImages, setRefImages] = useState<RefImageItem[]>([]);
