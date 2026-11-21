@@ -777,8 +777,17 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     elapsedTimerRef.current = setInterval(() => {
       setElapsedSeconds(Math.floor((Date.now() - startTimeRef.current) / 1000));
     }, 1000);
+    // 刷新后恢复轮询也计一次任务级 start（source=resume），避免 success 有分子没分母
+    trackGenerationStart({
+      tab: 'simple',
+      model,
+      mode,
+      duration_s: Number(duration),
+      ratio,
+      source: 'resume',
+    });
     pollStatus(id);
-  }, [apiKey, pollStatus]);
+  }, [apiKey, duration, mode, model, pollStatus, ratio]);
 
   const handleCopyVideoId = async () => {
     if (!videoId) return;

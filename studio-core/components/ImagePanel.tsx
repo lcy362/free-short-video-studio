@@ -8,7 +8,11 @@ import GenerateButton from './GenerateButton';
 import MediaPreview from './MediaPreview';
 import { SIZE_OPTIONS } from '../lib/demo-types';
 import { fetchWithFailback } from '../lib/api-client';
-import { trackGenerationStart, trackGenerationSuccess } from '../lib/analytics';
+import {
+  trackGenerationStart,
+  trackGenerationSuccess,
+  trackImageError,
+} from '../lib/analytics';
 import { readPrefillPrompt } from '../lib/prompt-prefill';
 import DemoErrorLinks from './DemoErrorLinks';
 
@@ -70,33 +74,38 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
 
       const data = await resp.json();
 
-      if (resp.status === 401) {
-        setErrorCode('invalid_api_key');
-        setErrorMsg(t('errors.invalidApiKey'));
+      const fail = (code: string, msg: string) => {
+        setErrorCode(code);
+        setErrorMsg(msg);
         setStatus('error');
+        trackImageError({
+          code,
+          model: IMAGE_MODEL,
+          elapsed_s: startedAtRef.current
+            ? Math.max(0, Math.floor((Date.now() - startedAtRef.current) / 1000))
+            : 0,
+        });
+      };
+
+      if (resp.status === 401) {
+        fail('invalid_api_key', t('errors.invalidApiKey'));
         return;
       }
 
       if (resp.status === 429) {
-        setErrorCode('rate_limited');
-        setErrorMsg(t('errors.rateLimited'));
-        setStatus('error');
+        fail('rate_limited', t('errors.rateLimited'));
         return;
       }
 
       if (!resp.ok) {
-        setErrorCode('upstream_error');
         const errMsg = data?.error?.message || data?.error || JSON.stringify(data).slice(0, 300);
-        setErrorMsg(`${t('errors.upstream')}\n${errMsg}`);
-        setStatus('error');
+        fail('upstream_error', `${t('errors.upstream')}\n${errMsg}`);
         return;
       }
 
       const imageUrl = data?.data?.[0]?.url;
       if (!imageUrl) {
-        setErrorCode('no_image_url');
-        setErrorMsg(t('errors.noResult'));
-        setStatus('error');
+        fail('no_image_url', t('errors.noResult'));
         return;
       }
 
@@ -114,6 +123,13 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
       setErrorCode('network');
       setErrorMsg(t('errors.network'));
       setStatus('error');
+      trackImageError({
+        code: 'network',
+        model: IMAGE_MODEL,
+        elapsed_s: startedAtRef.current
+          ? Math.max(0, Math.floor((Date.now() - startedAtRef.current) / 1000))
+          : 0,
+      });
     }
   };
 

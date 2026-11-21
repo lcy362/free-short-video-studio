@@ -27,7 +27,14 @@ import { splitScenes, ChatApiError } from './lib/chat-api';
 import { VideoOrchestrator } from './lib/orchestrator';
 import { submitLimiter } from './lib/rate-limiter';
 import { studioLogger } from './lib/logger';
-import { trackGenerationStart, trackGenerationSuccess } from './lib/analytics';
+import {
+  trackDemoError,
+  trackGenerationStart,
+  trackGenerationSuccess,
+  trackSceneError,
+  trackSceneStart,
+  trackSceneSuccess,
+} from './lib/analytics';
 import {
   loadProjects,
   saveProject,
@@ -157,6 +164,11 @@ export default function StudioClient({
   const createdAtRef = useRef<number>(Date.now());
   // 创意流程的出片耗时起点（埋点用）
   const genStartedAtRef = useRef<number>(0);
+  // 分段级埋点去重：每段只计一次「首次提交」与一次终态（成功或失败）
+  const sceneStartedRef = useRef<Set<number>>(new Set());
+  const sceneDoneRef = useRef<Set<number>>(new Set());
+  // 本次任务里用户点了几次「重试失败场景」，用于 success / error 的 retry_count
+  const userRetryRef = useRef(0);
   const metaRef = useRef({
     idea, sceneCount, ratio, duration, style, enableWatermark, model, phase, errorMsg, finalVideoUrl,
   });
@@ -275,6 +287,9 @@ export default function StudioClient({
     abortRef.current?.abort();
     const ac = new AbortController();
     abortRef.current = ac;
+    // 新一轮运行重置分段埋点（重试的段会重新提交，应重新计入 scene_start）
+    sceneStartedRef.current = new Set();
+    sceneDoneRef.current = new Set();
 
     const useRatio = ratioOverride ?? ratio;
     const useDuration = durationOverride ?? duration;
@@ -283,6 +298,33 @@ export default function StudioClient({
       apiKey, useRatio,
       {
         onSceneUpdate: (i, patch) => {
+          // 分段级埋点：首次提交 / 出片 / 失败各计一次
+          // （有 videoId 的续轮询跳过提交，不会重复计 scene_start）
+          if (patch.status === 'submitting' && !sceneStartedRef.current.has(i)) {
+            sceneStartedRef.current.add(i);
+            trackSceneStart({
+              scene: i + 1,
+              scene_total: initialScenes.length,
+              model: useModel,
+            });
+          }
+          if (patch.status === 'completed' && !sceneDoneRef.current.has(i)) {
+            sceneDoneRef.current.add(i);
+            trackSceneSuccess({
+              scene: i + 1,
+              scene_total: initialScenes.length,
+              model: useModel,
+            });
+          }
+          if (patch.status === 'error' && !sceneDoneRef.current.has(i)) {
+            sceneDoneRef.current.add(i);
+            trackSceneError({
+              scene: i + 1,
+              scene_total: initialScenes.length,
+              model: useModel,
+              code: patch.error || 'sceneFailed',
+            });
+          }
           setScenes((prev) => {
             const next = [...prev];
             if (next[i]) next[i] = { ...next[i], ...patch };
@@ -313,6 +355,16 @@ export default function StudioClient({
         metaRef.current.phase = 'error';
         setPhase('error');
         setErrorMsg('sceneFailed');
+        // 任务级失败：全部场景都没出片
+        trackDemoError({
+          code: 'sceneFailed',
+          model: useModel,
+          tab: 'creative',
+          elapsed_s: genStartedAtRef.current
+            ? Math.max(0, Math.floor((Date.now() - genStartedAtRef.current) / 1000))
+            : 0,
+          retry_count: userRetryRef.current,
+        });
       }
     } catch (e) {
       // 兜底：编排器异常不冒泡成未处理的 Promise rejection
@@ -321,15 +373,45 @@ export default function StudioClient({
       metaRef.current.phase = 'error';
       setPhase('error');
       setErrorMsg('sceneFailed');
+      trackDemoError({
+        code: 'orchestratorFailed',
+        model: useModel,
+        tab: 'creative',
+        elapsed_s: genStartedAtRef.current
+          ? Math.max(0, Math.floor((Date.now() - genStartedAtRef.current) / 1000))
+          : 0,
+        retry_count: userRetryRef.current,
+      });
     }
   };
 
   const handleGenerateVideos = () => {
     genStartedAtRef.current = Date.now();
-    trackGenerationStart({ tab: 'creative', model, mode: 'text', duration_s: duration, ratio });
+    userRetryRef.current = 0;
+    trackGenerationStart({
+      tab: 'creative',
+      model,
+      mode: 'text',
+      duration_s: duration,
+      ratio,
+      source: 'new',
+    });
     return startOrchestrator(scenes);
   };
-  const handleRetryFailed = () => startOrchestrator(scenes);
+  /** 重试失败场景：视为新一次尝试，计入任务级 start（保证端到端成功率分子分母配对） */
+  const handleRetryFailed = () => {
+    userRetryRef.current += 1;
+    genStartedAtRef.current = Date.now();
+    trackGenerationStart({
+      tab: 'creative',
+      model,
+      mode: 'text',
+      duration_s: duration,
+      ratio,
+      source: 'retry',
+    });
+    return startOrchestrator(scenes);
+  };
 
   const handleResume = (project: StudioProject) => {
     abortRef.current?.abort();
@@ -350,6 +432,16 @@ export default function StudioClient({
     studioLogger.info('system', `Resuming project: ${project.idea.slice(0, 40)}`);
 
     if (isResumable(project)) {
+      genStartedAtRef.current = Date.now();
+      userRetryRef.current = 0;
+      trackGenerationStart({
+        tab: 'creative',
+        model: resumeModel,
+        mode: 'text',
+        duration_s: project.duration ?? 5,
+        ratio: project.ratio,
+        source: 'resume',
+      });
       void startOrchestrator(restored, project.ratio, project.duration ?? 5, resumeModel);
     } else if (project.phase === 'completed') {
       setPhase('all_videos_ready');
@@ -378,6 +470,16 @@ export default function StudioClient({
     metaRef.current.phase = 'error';
     setPhase('error');
     setErrorMsg('aborted');
+    // 主动取消也算任务未完成；GA 里可按 code=aborted 单独过滤，不影响失败率分析
+    trackDemoError({
+      code: 'aborted',
+      model,
+      tab: 'creative',
+      elapsed_s: genStartedAtRef.current
+        ? Math.max(0, Math.floor((Date.now() - genStartedAtRef.current) / 1000))
+        : 0,
+      retry_count: userRetryRef.current,
+    });
   };
 
   /** 阶段3：ffmpeg 拼接 */
@@ -418,7 +520,7 @@ export default function StudioClient({
         elapsed_s: genStartedAtRef.current
           ? Math.max(0, Math.floor((Date.now() - genStartedAtRef.current) / 1000))
           : 0,
-        retry_count: 0,
+        retry_count: userRetryRef.current,
       });
       flushPersist();
     } catch (e) {
@@ -428,6 +530,15 @@ export default function StudioClient({
       setErrorMsg('concatFailed');
       metaRef.current.phase = 'error';
       setPhase('error');
+      trackDemoError({
+        code: 'concatFailed',
+        model,
+        tab: 'creative',
+        elapsed_s: genStartedAtRef.current
+          ? Math.max(0, Math.floor((Date.now() - genStartedAtRef.current) / 1000))
+          : 0,
+        retry_count: userRetryRef.current,
+      });
     }
   };
 

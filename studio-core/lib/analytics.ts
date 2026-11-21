@@ -6,11 +6,15 @@
  * - 严禁传 prompt 原文、参考图 URL、API Key 等用户私有内容（隐私约束见 docs/AGNES_VIDEO.md）。
  *
  * 事件契约（上线后禁止改名，否则 GA 历史数据断裂，见 docs/plans/traffic-optimization-plan.md §3）：
- *   demo_video_start   / demo_video_success / demo_video_error   —— 视频（简单 + 创意）
- *   demo_image_start   / demo_image_success                      —— 图像
- *   api_key_saved      / get_key_click                           —— 转化前置动作
+ *   demo_video_start / demo_video_success / demo_video_error   —— 视频任务级（单镜 + 多镜）
+ *   demo_video_scene_start / _success / _error                 —— 多镜成片的分段级（真实上游生成次数）
+ *   demo_image_start / demo_image_success / demo_image_error   —— 图像
+ *   api_key_saved    / get_key_click                           —— 转化前置动作
  *
- * 成功率 = demo_video_success / demo_video_start（按 surface × tab 分组）。
+ * 两个口径（都按 surface × tab 分组）：
+ * - 任务成功率 = demo_video_success / demo_video_start
+ *   start 在每次用户发起或重试时 +1（含刷新后用 ?video_id= 恢复），success 在最终出片时 +1。
+ * - 分段成功率 = demo_video_scene_success / demo_video_scene_start（仅多镜成片，每段首次提交 +1）。
  */
 
 type EventParams = Record<string, string | number | boolean | undefined>;
@@ -52,6 +56,9 @@ function baseParams(tab: StudioTab): EventParams {
   return { surface: currentSurface(), tab };
 }
 
+/** 一次生成是怎么发起的：新任务 / 失败后重试 / 刷新后恢复 */
+export type GenerationSource = 'new' | 'retry' | 'resume';
+
 export interface GenerationStartParams {
   tab: StudioTab;
   model?: string;
@@ -60,9 +67,11 @@ export interface GenerationStartParams {
   ratio?: string;
   /** 是否带了参考图 / 音频 / 首尾帧等素材（只报布尔，不报内容） */
   has_ref_media?: boolean;
+  /** 发起来源；缺省 new。retry / resume 用于区分人工重试与 ?video_id= 恢复 */
+  source?: GenerationSource;
 }
 
-/** 一次生成尝试开始（用户点「生成」，含手动重试） */
+/** 一次生成尝试开始（用户点「生成」/ 手动重试 / ?video_id= 恢复） */
 export function trackGenerationStart(p: GenerationStartParams): void {
   const name = p.tab === 'image' ? 'demo_image_start' : 'demo_video_start';
   trackEvent(name, {
@@ -72,6 +81,7 @@ export function trackGenerationStart(p: GenerationStartParams): void {
     duration_s: p.duration_s,
     ratio: p.ratio,
     has_ref_media: p.has_ref_media,
+    source: p.source ?? 'new',
   });
 }
 
@@ -126,4 +136,52 @@ export function trackApiKeySaved(p: { source?: 'manual' | 'prefill' } = {}): voi
 /** 用户点击「去获取 Key」（Key 门槛的关键流失点） */
 export function trackGetKeyClick(p: { from: 'panel' | 'error' }): void {
   trackEvent('get_key_click', { surface: currentSurface(), from: p.from });
+}
+
+/** 图像生成失败（用于算图像成功率与错误码分布） */
+export function trackImageError(p: { code: string; model?: string; elapsed_s?: number }): void {
+  trackEvent('demo_image_error', {
+    ...baseParams('image'),
+    code: p.code,
+    model: p.model,
+    elapsed_s: p.elapsed_s,
+  });
+}
+
+export interface GenerationSceneParams {
+  /** 场景序号（1 起） */
+  scene: number;
+  scene_total: number;
+  model?: string;
+}
+
+/** 多镜成片：某一段视频首次提交（真实上游生成次数，口径与任务级 start 分开） */
+export function trackSceneStart(p: GenerationSceneParams): void {
+  trackEvent('demo_video_scene_start', {
+    ...baseParams('creative'),
+    scene: p.scene,
+    scene_total: p.scene_total,
+    model: p.model,
+  });
+}
+
+/** 多镜成片：某一段视频出片成功 */
+export function trackSceneSuccess(p: GenerationSceneParams): void {
+  trackEvent('demo_video_scene_success', {
+    ...baseParams('creative'),
+    scene: p.scene,
+    scene_total: p.scene_total,
+    model: p.model,
+  });
+}
+
+/** 多镜成片：某一段视频失败（code 用于下钻具体原因） */
+export function trackSceneError(p: GenerationSceneParams & { code: string }): void {
+  trackEvent('demo_video_scene_error', {
+    ...baseParams('creative'),
+    scene: p.scene,
+    scene_total: p.scene_total,
+    model: p.model,
+    code: p.code,
+  });
 }
