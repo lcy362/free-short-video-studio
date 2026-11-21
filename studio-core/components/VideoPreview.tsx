@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { trackRetentionEvent } from '../lib/analytics';
 
 interface Props {
   readonly url: string;
@@ -36,6 +37,10 @@ export default function VideoPreview({ url, onReset }: Props) {
           preload="auto"
         />
 
+        <p className="mt-3 text-xs text-muted leading-relaxed">
+          {t('library.createAnotherHint')}
+        </p>
+
         <div className="mt-4 flex flex-wrap gap-3">
           <button
             onClick={handleDownload}
@@ -47,8 +52,11 @@ export default function VideoPreview({ url, onReset }: Props) {
             {t('download')}
           </button>
           <button
-            onClick={onReset}
-            className="px-4 py-2.5 text-sm text-muted hover:text-ink-2 bg-paper-3 border border-rule rounded-lg transition"
+            onClick={() => {
+              trackRetentionEvent('create_another_click', { place: 'preview', tab: 'creative' });
+              onReset();
+            }}
+            className="px-4 py-2.5 text-sm font-medium bg-accent/15 hover:bg-accent/25 border border-accent/30 rounded-lg text-accent transition"
           >
             {t('createAnother')}
           </button>

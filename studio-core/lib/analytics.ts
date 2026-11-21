@@ -138,6 +138,29 @@ export function trackGetKeyClick(p: { from: 'panel' | 'error' }): void {
   trackEvent('get_key_click', { surface: currentSurface(), from: p.from });
 }
 
+/** 留存相关动作：作品库操作、收藏引导、「再来一个」 */
+export type RetentionAction =
+  | 'bookmark_nudge_shown'
+  | 'bookmark_nudge_dismiss'
+  | 'library_open'
+  | 'library_check_result'
+  | 'library_resume'
+  | 'library_favorite'
+  | 'library_delete'
+  | 'library_clear'
+  | 'create_another_click';
+
+/**
+ * 留存漏斗上报。只带动作、位置与任务类型，绝不带 prompt / mediaUrl 等内容。
+ * GA 后台可按 place / kind 注册为事件级自定义维度做下钻。
+ */
+export function trackRetentionEvent(
+  action: RetentionAction,
+  params: { place?: string; kind?: string; tab?: StudioTab } = {},
+): void {
+  trackEvent(action, { surface: currentSurface(), ...params });
+}
+
 /** 图像生成失败（用于算图像成功率与错误码分布） */
 export function trackImageError(p: { code: string; model?: string; elapsed_s?: number }): void {
   trackEvent('demo_image_error', {

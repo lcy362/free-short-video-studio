@@ -22,7 +22,7 @@ describe('MediaPreview · 图片', () => {
     render(<MediaPreview type="image" url="https://cdn.example/a.png" />);
     expect(screen.getByAltText('Generated')).toHaveAttribute('src', 'https://cdn.example/a.png');
     expect(screen.getByRole('button', { name: 'download' })).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'retry' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'library.createAnother' })).not.toBeInTheDocument();
     expect(screen.queryByText('video.portraitRotationHint')).not.toBeInTheDocument();
     expect(screen.queryByText('video.notSupported')).not.toBeInTheDocument();
   });
@@ -38,7 +38,7 @@ describe('MediaPreview · 图片', () => {
       />,
     );
     expect(screen.getByText('video.portraitRotationHint')).toBeInTheDocument();
-    await userEvent.click(screen.getByRole('button', { name: 'retry' }));
+    await userEvent.click(screen.getByRole('button', { name: 'library.createAnother' }));
     expect(onRegenerate).toHaveBeenCalledOnce();
   });
 
@@ -129,7 +129,7 @@ describe('MediaPreview · 视频', () => {
     );
     expect(document.querySelector('video')).toBeNull();
     expect(screen.getByText('video.portraitRotationHint')).toBeInTheDocument();
-    await userEvent.click(screen.getByRole('button', { name: 'retry' }));
+    await userEvent.click(screen.getByRole('button', { name: 'library.createAnother' }));
     expect(onRegenerate).toHaveBeenCalledOnce();
     resolveFetch?.(blobResponse());
   });

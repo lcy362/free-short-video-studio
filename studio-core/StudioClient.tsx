@@ -21,8 +21,8 @@ import DemoErrorLinks from './components/DemoErrorLinks';
 import SceneList from './components/SceneList';
 import FFmpegLoader from './components/FFmpegLoader';
 import VideoPreview from './components/VideoPreview';
-import TaskList from './components/TaskList';
 import LogPanel from './components/LogPanel';
+import WaitingNotice from './components/WaitingNotice';
 import { splitScenes, ChatApiError } from './lib/chat-api';
 import { VideoOrchestrator } from './lib/orchestrator';
 import { submitLimiter } from './lib/rate-limiter';
@@ -38,10 +38,15 @@ import {
 import {
   loadProjects,
   saveProject,
-  deleteProject,
   genProjectId,
   isResumable,
 } from './lib/task-store';
+import {
+  createLibraryItem,
+  updateLibraryItem,
+  loadLibraryItems,
+  subscribeStudioResume,
+} from './lib/library-store';
 import {
   loadFFmpeg,
   scaleVideo,
@@ -154,10 +159,13 @@ export default function StudioClient({
   const [ffmpegProgress, setFfmpegProgress] = useState(0);
   const [ffmpegLoaded, setFfmpegLoaded] = useState(false);
   const [finalVideoUrl, setFinalVideoUrl] = useState('');
-  const [projects, setProjects] = useState<StudioProject[]>([]);
   const [currentProjectId, setCurrentProjectId] = useState<string | null>(null);
 
   const abortRef = useRef<AbortController | null>(null);
+  // 作品库记录 id：与 task-store 的断点续传数据一一对应，但只存展示元信息
+  const libraryItemIdRef = useRef<string>('');
+  // 供 useEffect 里的订阅回调调用最新的 handleResume（避免闭包持有旧状态）
+  const handleResumeRef = useRef<(p: StudioProject) => void>(() => {});
 
   // 持久化相关 ref
   const currentProjectIdRef = useRef<string | null>(null);
@@ -179,8 +187,6 @@ export default function StudioClient({
   useEffect(() => {
     metaRef.current = { idea, sceneCount, ratio, duration, style, enableWatermark, model, phase, errorMsg, finalVideoUrl };
   }, [idea, sceneCount, ratio, duration, style, enableWatermark, model, phase, errorMsg, finalVideoUrl]);
-
-  useEffect(() => { setProjects(loadProjects()); }, []);
 
   // 模型/域名选择从 localStorage 恢复（SSR 后水合，避免不一致）
   useEffect(() => {
@@ -208,12 +214,23 @@ export default function StudioClient({
     };
   }, []);
 
+  /** 同步断点续传数据 + 作品库展示信息（progress / status） */
+  const persistToLibrary = (project: StudioProject) => {
+    if (!libraryItemIdRef.current) return;
+    const done = project.scenes.filter((s) => s.status === 'completed').length;
+    updateLibraryItem(libraryItemIdRef.current, {
+      progress: `${done}/${project.scenes.length}`,
+      status: project.phase === 'completed' ? 'completed' : project.phase === 'error' ? 'error' : 'running',
+      errorCode: project.errorMsg,
+    });
+  };
+
   const flushPersist = () => {
     if (persistTimerRef.current) { clearTimeout(persistTimerRef.current); persistTimerRef.current = null; }
     if (pendingProjectRef.current) {
       saveProject(pendingProjectRef.current);
+      persistToLibrary(pendingProjectRef.current);
       pendingProjectRef.current = null;
-      setProjects(loadProjects());
     }
   };
 
@@ -233,8 +250,8 @@ export default function StudioClient({
         persistTimerRef.current = null;
         if (pendingProjectRef.current) {
           saveProject(pendingProjectRef.current);
+          persistToLibrary(pendingProjectRef.current);
           pendingProjectRef.current = null;
-          setProjects(loadProjects());
         }
       }, 1500);
     }
@@ -262,6 +279,16 @@ export default function StudioClient({
       submitLimiter.reset();
       studioLogger.success('system', `Scene split complete, ${newScenes.length} scenes`);
 
+      libraryItemIdRef.current = createLibraryItem({
+        kind: 'creative',
+        status: 'running',
+        title: idea.trim().slice(0, 100),
+        projectRef: id,
+        model,
+        ratio,
+        duration_s: duration,
+        progress: `0/${newScenes.length}`,
+      }).id;
       pendingProjectRef.current = {
         id, idea: idea.trim(), sceneCount, ratio, duration, style, enableWatermark, model,
         scenes: newScenes, phase: 'script_ready', createdAt: createdAtRef.current, updatedAt: Date.now(),
@@ -271,6 +298,15 @@ export default function StudioClient({
       const msg = e instanceof ChatApiError ? e.message : (e as Error).message;
       const raw = e instanceof Error ? e.stack || e.message : String(e);
       studioLogger.error('system', `Scene split failed: ${msg}`, raw);
+      createLibraryItem({
+        kind: 'creative',
+        status: 'error',
+        title: idea.trim().slice(0, 100),
+        model,
+        ratio,
+        duration_s: duration,
+        errorCode: 'scriptFailed',
+      });
       setErrorMsg('scriptFailed');
       setPhase('error');
     }
@@ -355,6 +391,7 @@ export default function StudioClient({
         metaRef.current.phase = 'error';
         setPhase('error');
         setErrorMsg('sceneFailed');
+        updateLibraryItem(libraryItemIdRef.current, { status: 'error', errorCode: 'sceneFailed' });
         // 任务级失败：全部场景都没出片
         trackDemoError({
           code: 'sceneFailed',
@@ -373,6 +410,7 @@ export default function StudioClient({
       metaRef.current.phase = 'error';
       setPhase('error');
       setErrorMsg('sceneFailed');
+      updateLibraryItem(libraryItemIdRef.current, { status: 'error', errorCode: 'orchestratorFailed' });
       trackDemoError({
         code: 'orchestratorFailed',
         model: useModel,
@@ -415,6 +453,19 @@ export default function StudioClient({
 
   const handleResume = (project: StudioProject) => {
     abortRef.current?.abort();
+    // 复用作品库里同一条记录；旧数据（无记录）则补建一条
+    const existing = loadLibraryItems().find((i) => i.projectRef === project.id);
+    libraryItemIdRef.current = existing?.id ?? createLibraryItem({
+      kind: 'creative',
+      status: 'running',
+      title: project.idea.slice(0, 100),
+      projectRef: project.id,
+      model: project.model,
+      ratio: project.ratio,
+      duration_s: project.duration,
+      progress: `0/${project.scenes.length}`,
+    }).id;
+    updateLibraryItem(libraryItemIdRef.current, { status: 'running' });
     const restored = project.scenes.map((s) => ({ ...s, videoUrl: undefined }));
     const resumeModel = project.model ?? DEFAULT_STUDIO_VIDEO_MODEL;
     setIdea(project.idea); setSceneCount(project.sceneCount); setRatio(project.ratio);
@@ -450,17 +501,19 @@ export default function StudioClient({
     }
   };
 
-  const handleDeleteProject = (id: string) => {
-    deleteProject(id);
-    setProjects(loadProjects());
-    if (currentProjectId === id) handleNewProject();
-  };
+  // 作品库「继续」→ 恢复对应项目。列表已独立成 LibraryPanel，这里只接收 id 指令。
+  handleResumeRef.current = handleResume;
+  useEffect(() => subscribeStudioResume((projectId) => {
+    const project = loadProjects().find((p) => p.id === projectId);
+    if (project) handleResumeRef.current(project);
+  }), []);
 
   const handleNewProject = () => {
     abortRef.current?.abort();
     setPhase('idle'); setErrorMsg(''); setScenes([]); setFinalVideoUrl('');
     setFfmpegProgress(0); setFfmpegLoaded(false); setCurrentProjectId(null);
-    submitLimiter.reset(); setProjects(loadProjects());
+    libraryItemIdRef.current = '';
+    submitLimiter.reset();
   };
 
   const handleCancel = () => {
@@ -470,6 +523,7 @@ export default function StudioClient({
     metaRef.current.phase = 'error';
     setPhase('error');
     setErrorMsg('aborted');
+    updateLibraryItem(libraryItemIdRef.current, { status: 'error', errorCode: 'aborted' });
     // 主动取消也算任务未完成；GA 里可按 code=aborted 单独过滤，不影响失败率分析
     trackDemoError({
       code: 'aborted',
@@ -522,12 +576,14 @@ export default function StudioClient({
           : 0,
         retry_count: userRetryRef.current,
       });
+      updateLibraryItem(libraryItemIdRef.current, { status: 'completed', progress: `${scenes.length}/${scenes.length}` });
       flushPersist();
     } catch (e) {
       const msg = (e as Error).message;
       const raw = e instanceof Error ? e.stack || e.message : String(e);
       studioLogger.error('ffmpeg', `Concatenation failed: ${msg}`, raw);
       setErrorMsg('concatFailed');
+      updateLibraryItem(libraryItemIdRef.current, { status: 'error', errorCode: 'concatFailed' });
       metaRef.current.phase = 'error';
       setPhase('error');
       trackDemoError({
@@ -559,14 +615,10 @@ export default function StudioClient({
         <p className="mt-2 text-muted text-sm">{t('subtitle')}</p>
       </div>
 
-      {projects.length > 0 && phase === 'idle' && (
-        <TaskList
-          projects={projects}
-          currentProjectId={currentProjectId}
-          onResume={handleResume}
-          onDelete={handleDeleteProject}
-          onNew={handleNewProject}
-        />
+      {/* 等待期：明确告知浏览器依赖与关闭标签页的后果，并给出自托管入口 */}
+      {(phase === 'script_generating' || phase === 'videos_generating'
+        || phase === 'ffmpeg_loading' || phase === 'concatenating') && (
+        <WaitingNotice />
       )}
 
       {!embedded && (

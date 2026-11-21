@@ -11,6 +11,12 @@ import ModelPicker from './ModelPicker';
 import RefImagesInput, { type RefImageItem } from './RefImagesInput';
 import FastRetryControl, { type FastRetryPhase } from './FastRetryControl';
 import DemoErrorLinks from './DemoErrorLinks';
+import WaitingNotice from './WaitingNotice';
+import {
+  createLibraryItem,
+  updateLibraryItem,
+  loadLibraryItems,
+} from '../lib/library-store';
 import {
   DEFAULT_VIDEO_MODEL,
   formatRatioLabel,
@@ -214,6 +220,8 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const runRef = useRef<FastRetryRun>({ ...EMPTY_FAST_RETRY_RUN });
   // 本轮提交尝试次数（含内部队列重试），用于埋点里的 retry_count
   const attemptsRef = useRef(0);
+  // 作品库记录 id：本次生成的状态与结果 URL 都写回这一条
+  const libraryItemIdRef = useRef('');
   const fastSettingsRef = useRef(fastSettings);
   // 可被「手动开启快速重试」提前唤醒的等待器
   const sleepRef = useRef<{ timer: ReturnType<typeof setTimeout>; resolve: () => void } | null>(null);
@@ -312,6 +320,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
       setErrorMsg(msg);
       stopPolling();
       resetRetryUi();
+      updateLibraryItem(libraryItemIdRef.current, { status: 'error', errorCode: code });
       trackDemoError({
         code,
         model,
@@ -325,8 +334,9 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     [model, resetRetryUi, stopPolling],
   );
 
-  // 成功出片的统一上报出口：成功率分子（分母是 demo_video_start）
-  const reportSuccess = useCallback(() => {
+  // 成功出片的统一出口：写作品库 + 上报成功率分子（分母是 demo_video_start）
+  const reportSuccess = useCallback((videoUrl: string) => {
+    updateLibraryItem(libraryItemIdRef.current, { status: 'completed', mediaUrl: videoUrl });
     trackGenerationSuccess({
       tab: 'simple',
       model,
@@ -374,7 +384,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
         setResultUrl(videoUrl);
         setStatus('completed');
         stopPolling();
-        reportSuccess();
+        reportSuccess(videoUrl);
         return;
       }
 
@@ -421,7 +431,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
           setResultUrl(videoUrl);
           setStatus('completed');
           stopPolling();
-          reportSuccess();
+          reportSuccess(videoUrl);
           return false;
         }
         const keys = Object.keys(data).join(', ');
@@ -480,6 +490,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const beginPolling = useCallback(
     (id: string) => {
       setVideoId(id);
+      updateLibraryItem(libraryItemIdRef.current, { videoId: id, status: 'running' });
       setStatus('generating');
       startTimeRef.current = Date.now();
       lastApiStatusRef.current = 'pending';
@@ -703,6 +714,16 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
           : frames.length > 0,
     });
 
+    libraryItemIdRef.current = createLibraryItem({
+      kind: 'simple',
+      status: 'running',
+      title: prompt.trim().slice(0, 100),
+      prompt: prompt.trim().slice(0, 4000),
+      model,
+      ratio,
+      duration_s: Number(duration),
+    }).id;
+
     await submitLoop(buildSubmitPayload());
   };
 
@@ -721,6 +742,7 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     setLastPollStatus('');
     setCopied(false);
     resetRetryUi();
+    libraryItemIdRef.current = '';
   };
 
   /** 设置变更：持久化 + 供循环读取 */
@@ -770,6 +792,17 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
     if (!id) return;
 
     setVideoId(id);
+    // 复用作品库里已有的记录（避免每次刷新恢复都新增一条）
+    const existing = loadLibraryItems().find((i) => i.videoId === id);
+    libraryItemIdRef.current = existing?.id ?? createLibraryItem({
+      kind: 'simple',
+      status: 'running',
+      title: id,
+      model,
+      ratio,
+      duration_s: Number(duration),
+      videoId: id,
+    }).id;
     setStatus('generating');
     startTimeRef.current = Date.now();
     lastApiStatusRef.current = 'pending';
@@ -953,6 +986,9 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
           disabled={isBusy}
         />
       </div>
+
+      {/* 等待期：说明必须保持标签页打开、前端 JS 依赖与自托管入口 */}
+      {(status === 'submitting' || status === 'generating') && <WaitingNotice />}
 
       {/* 快速重试 + 长任务：前者决定「多久打一次」，后者决定「总共等多久」 */}
       <FastRetryControl

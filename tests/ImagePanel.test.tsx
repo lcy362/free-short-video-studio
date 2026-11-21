@@ -75,7 +75,7 @@ describe('ImagePanel · 生成请求', () => {
     });
     expect((init?.headers as Record<string, string>).Authorization).toBe('Bearer sk-1');
 
-    await userEvent.click(screen.getByRole('button', { name: 'retry' }));
+    await userEvent.click(screen.getByRole('button', { name: 'library.createAnother' }));
     expect(screen.getByRole('button', { name: 'image.generate' })).toBeInTheDocument();
     expect(screen.queryByAltText('Generated')).not.toBeInTheDocument();
   });

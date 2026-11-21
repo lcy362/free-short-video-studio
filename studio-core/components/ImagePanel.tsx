@@ -14,6 +14,7 @@ import {
   trackImageError,
 } from '../lib/analytics';
 import { readPrefillPrompt } from '../lib/prompt-prefill';
+import { createLibraryItem, updateLibraryItem } from '../lib/library-store';
 import DemoErrorLinks from './DemoErrorLinks';
 
 const IMAGE_MODEL = 'agnes-image-2.1-flash';
@@ -44,6 +45,8 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
   const [errorCode, setErrorCode] = useState('');
   // 出图耗时（埋点用）
   const startedAtRef = useRef(0);
+  // 作品库记录 id
+  const libraryItemIdRef = useRef('');
 
   const handleGenerate = async () => {
     if (!prompt.trim() || !apiKey) return;
@@ -52,6 +55,14 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
     setErrorCode('');
     startedAtRef.current = Date.now();
     trackGenerationStart({ tab: 'image', model: IMAGE_MODEL, mode: 'text', ratio: size });
+    libraryItemIdRef.current = createLibraryItem({
+      kind: 'image',
+      status: 'running',
+      title: prompt.trim().slice(0, 100),
+      prompt: prompt.trim().slice(0, 4000),
+      model: IMAGE_MODEL,
+      ratio: size,
+    }).id;
 
     try {
       const resp = await fetchWithFailback(
@@ -78,6 +89,7 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
         setErrorCode(code);
         setErrorMsg(msg);
         setStatus('error');
+        updateLibraryItem(libraryItemIdRef.current, { status: 'error', errorCode: code });
         trackImageError({
           code,
           model: IMAGE_MODEL,
@@ -111,6 +123,7 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
 
       setResultUrl(imageUrl);
       setStatus('completed');
+      updateLibraryItem(libraryItemIdRef.current, { status: 'completed', mediaUrl: imageUrl });
       trackGenerationSuccess({
         tab: 'image',
         model: IMAGE_MODEL,
@@ -123,6 +136,7 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
       setErrorCode('network');
       setErrorMsg(t('errors.network'));
       setStatus('error');
+      updateLibraryItem(libraryItemIdRef.current, { status: 'error', errorCode: 'network' });
       trackImageError({
         code: 'network',
         model: IMAGE_MODEL,
@@ -138,6 +152,7 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
     setResultUrl('');
     setErrorMsg('');
     setErrorCode('');
+    libraryItemIdRef.current = '';
   };
 
   return (

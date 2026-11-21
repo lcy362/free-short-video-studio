@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { trackRetentionEvent } from '../lib/analytics';
 
 export default function MediaPreview({
   type,
@@ -21,6 +22,7 @@ export default function MediaPreview({
   orientationHint?: boolean;
 }>) {
   const t = useTranslations('demo');
+  const tLib = useTranslations('studio');
   const [isDownloading, setIsDownloading] = useState(false);
   const [videoBlobUrl, setVideoBlobUrl] = useState<string>('');
 
@@ -118,13 +120,25 @@ export default function MediaPreview({
         </p>
       )}
 
+      {onRegenerate && (
+        <p className="px-4 pt-3 text-xs text-muted leading-relaxed">
+          {tLib('library.createAnotherHint')}
+        </p>
+      )}
+
       <div className="p-4 flex items-center justify-between gap-3">
         {onRegenerate && (
           <button
-            onClick={onRegenerate}
-            className="px-4 py-2 text-sm text-muted hover:text-ink-2 transition-colors"
+            onClick={() => {
+              trackRetentionEvent('create_another_click', {
+                place: 'preview',
+                tab: type === 'image' ? 'image' : 'simple',
+              });
+              onRegenerate();
+            }}
+            className="px-4 py-2 text-sm font-medium bg-accent/15 hover:bg-accent/25 border border-accent/30 rounded-lg text-accent transition"
           >
-            {t('retry')}
+            {tLib('library.createAnother')}
           </button>
         )}
         <div className="flex-1" />

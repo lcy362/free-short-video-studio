@@ -12,13 +12,15 @@ import StudioTabs, { DEFAULT_STUDIO_TAB, parseStudioTab, type StudioTab } from '
 import ImagePanel from './components/ImagePanel';
 import VideoPanel from './components/VideoPanel';
 import StudioClient from './StudioClient';
+import LibraryPanel from './components/LibraryPanel';
 
 /**
  * 免费在线工作台（三模式合一）
  * ─────────────────────────────────────────────────────────────
  * 把原先分开的「在线体验（/demo）」与「网页版创意工作室（/studio）」合并为同一个
- * 工作台组件：图像生成 / 简单视频 / 创意视频 三个 tab，API Key 与域名设置只保留
- * 一份，切换到创意视频时复用原有 StudioClient（embedded 模式，不再重复渲染 Key 面板）。
+ * 工作台组件：图像生成 / 单镜短片 / 多镜成片 三个 tab，API Key 与域名设置只保留
+ * 一份，切换到多镜成片时复用原有 StudioClient（embedded 模式，不再重复渲染 Key 面板）。
+ * 三个 tab 之外另挂一个独立的「作品库」模块（LibraryPanel），统一展示三类任务记录。
  *
  * 本组件被三处使用：
  *   1. video-website  app/[locale]/demo/page.tsx      defaultTab="simple"
@@ -74,6 +76,9 @@ export default function StudioWorkspace({
   return (
     <div className="space-y-6">
       <StudioTabs active={tab} onChange={handleTabChange} />
+
+      {/* 作品库：独立于三个 tab 的统一任务记录（有记录时才出现） */}
+      <LibraryPanel onResumeProject={() => handleTabChange('creative')} />
 
       {/* API Key / 域名：三个模式共用一份设置 */}
       <ApiKeyPanel
