@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: AI 무료 온라인 숏폼 영상 생성. 아이디어를 입력하면 AI가 2~5개 장면으로 자동 분할하고, 장면별 영상을 생성해 브라우저에서 결합합니다. 설치 불필요, GPU 불필요, 신용카드 불필요.",
     "seoH1": "AI 무료 온라인 숏폼 영상 생성 — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio는 브라우저에서 완결되는 AI 숏폼 영상 생성기입니다: 아이디어를 입력하면 AI가 2~5개 장면으로 자동 분할하고 각 장면의 5초 영상을 생성한 뒤, 브라우저에서 결합해 완성합니다. 완전 무료, 설치 불필요, 고성능 GPU 불필요, 신용카드 불필요.",
-    "betaBadge": "무료 · Beta",
+    "betaBadge": "설치 불필요 · 원클릭",
     "title": "크리에이티브 비디오 스튜디오",
     "subtitle": "AI 시나리오 작가 → 멀티 세그먼트 텍스트→비디오 → 브라우저 연결",
     "apiKeyRequired": "먼저 API Key를 설정하세요",
     "apiKeyHint": "무료 Agnes AI API Key로 시작. 신용카드 불필요.",
     "apiKey": {
-      "title": "API Key 설정",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "API Key를 입력하세요...",
-      "save": "저장",
+      "save": "Save & start creating",
       "clear": "삭제",
       "hint": "무료 API Key 받기:",
       "show": "표시",
@@ -31,8 +31,21 @@
       "saved": "저장됨",
       "required": "먼저 API Key를 설정해주세요",
       "requiredHint": "Agnes AI 무료 API 키로 시작하세요. 신용카드 불필요.",
-      "getKey": "무료 API Key 받기",
-      "localOnly": "Key는 브라우저의 localStorage에만 저장되며 서버에 업로드되지 않습니다. 브라우저 데이터를 삭제한 후 다시 입력해야 합니다."
+      "getKey": "Get a free API key",
+      "localOnly": "Key는 브라우저의 localStorage에만 저장되며 서버에 업로드되지 않습니다. 브라우저 데이터를 삭제한 후 다시 입력해야 합니다.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "창의적 설명",
     "ideaPlaceholder": "비디오 테마를 설명하세요. 예: 길고양이가 도시에서 따뜻한 집을 찾는 힐링 스토리",
@@ -185,10 +198,10 @@
       "textToImage": "이미지 생성"
     },
     "apiKey": {
-      "title": "API Key 설정",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "API Key를 입력하세요...",
-      "save": "저장",
+      "save": "Save & start creating",
       "clear": "삭제",
       "hint": "무료 API Key 받기:",
       "show": "표시",
@@ -196,8 +209,21 @@
       "saved": "저장됨",
       "required": "먼저 API Key를 설정해주세요",
       "requiredHint": "Agnes AI 무료 API 키로 시작하세요. 신용카드 불필요.",
-      "getKey": "무료 API Key 받기",
-      "localOnly": "Key는 브라우저의 localStorage에만 저장되며 서버에 업로드되지 않습니다. 브라우저 데이터를 삭제한 후 다시 입력해야 합니다."
+      "getKey": "Get a free API key",
+      "localOnly": "Key는 브라우저의 localStorage에만 저장되며 서버에 업로드되지 않습니다. 브라우저 데이터를 삭제한 후 다시 입력해야 합니다.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "이미지 생성",
@@ -321,7 +347,7 @@
     },
     "githubNote": "웹 버전은 기본 텍스트→이미지 / 텍스트→비디오만 지원합니다. 전체 기능(크리에이티브 장편 비디오, 원고 비디오, AI 디지털 앵커, TTS 내레이션, 자동 자막, 재개 기능 등)은 GitHub에서 데스크톱 버전을 다운로드하세요.",
     "seoTitle": "무료 온라인 AI 비디오 생성기 | Agnes Video Generator",
-    "seoDescription": "브라우저에서 쓰는 무료 AI 영상·이미지 생성기. 이미지는 agnes-image-2.1-flash. 한 클립은 기간 한정 무료 Video 2.5 Flash(텍스트, 참조 이미지, 첫/끝 프레임, 4–12초, 비율 6종). 여러 장면은 웹 스튜디오의 크리에이티브 영상 탭에서 아이디어를 2–5개로 나누고 브라우저에서 이어 붙입니다. 설치와 카드가 필요 없습니다. API 키는 이 브라우저에만 저장됩니다.",
+    "seoDescription": "브라우저에서 쓰는 무료 AI 영상·이미지 생성기. 이미지는 agnes-image-2.5-flash. 한 클립은 기간 한정 무료 Video 2.5 Flash(텍스트, 참조 이미지, 첫/끝 프레임, 4–12초, 비율 6종). 여러 장면은 웹 스튜디오의 크리에이티브 영상 탭에서 아이디어를 2–5개로 나누고 브라우저에서 이어 붙입니다. 설치와 카드가 필요 없습니다. API 키는 이 브라우저에만 저장됩니다.",
     "seoH1": "무료 온라인 AI 비디오 및 이미지 생성기",
     "seoIntro": "이 페이지는 Agnes Video Generator 작업대입니다. 이미지, 단순 영상, 크리에이티브 영상은 같은 도구의 세 탭입니다. 기본은 단순 영상입니다. 웹 스튜디오로 들어오면 크리에이티브 영상이 바로 열립니다. 영상 모델은 기간 한정 무료 Video 2.5 Flash(agnes-video-2.5-flash)입니다. 무료 Agnes API 키를 위에 붙여 넣으세요. 키는 이 브라우저에만 남습니다.",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "이미지 생성",
-        "desc": "agnes-image-2.1-flash. 정사각, 가로, 세로 세 크기."
+        "desc": "agnes-image-2.5-flash. 정사각, 가로, 세로 세 크기."
       },
       {
         "title": "단순 영상",
@@ -402,7 +428,7 @@
         "a": "Video 2.5 Flash의 9:16 결과물이 가끔 90도 회전되어 도착합니다. 구도 자체는 세로입니다. 받은 뒤 회전하세요. 업스트림의 알려진 문제입니다."
       }
     ],
-    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "studioLinkCta": "Multi-scene creative video studio →",
     "copied": "복사됨",
     "seoModesTitle": "입구 세 곳, 결과 세 가지",
     "seoHowTitle": "세 단계로 시작",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "이미지",
-        "desc": "한 문장 설명으로 agnes-image-2.1-flash 이미지를 만듭니다. 정사각, 가로, 세로."
+        "desc": "한 문장 설명으로 agnes-image-2.5-flash 이미지를 만듭니다. 정사각, 가로, 세로."
       },
       {
         "tab": "simple",

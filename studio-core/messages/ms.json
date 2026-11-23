@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: jana video pendek dalam talian secara percuma dengan AI. Masukkan idea, AI memecahnya kepada 2-5 adegan, menjana video dan mencantum dalam pelayar. Tanpa pemasangan, tanpa GPU, tanpa kad kredit.",
     "seoH1": "Jana Video Pendek Dalam Talian Secara Percuma dengan AI — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio ialah penjana video pendek AI versi web: masukkan idea, AI memecahnya kepada 2-5 adegan, menjana video 5 saat setiap adegan dan mencantumkannya menjadi video pendek lengkap dalam pelayar anda. Percuma sepenuhnya, tanpa pemasangan, tanpa GPU, tanpa kad kredit — cuma tambah kunci Agnes API percuma.",
-    "betaBadge": "Percuma · Beta",
+    "betaBadge": "Tanpa pemasangan · satu klik",
     "title": "Bengkel Video Kreatif",
     "subtitle": "AI Penulis Skrip → Teks-ke-Video Berbilang Segmen → Cantuman Pelayar",
     "apiKeyRequired": "Sila tetapkan API Key dahulu",
     "apiKeyHint": "Mulakan dengan API Key Agnes AI percuma. Tanpa kad kredit.",
     "apiKey": {
-      "title": "Tetapan API Key",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "Masukkan API Key anda...",
-      "save": "Simpan",
+      "save": "Save & start creating",
       "clear": "Padam",
       "hint": "Dapatkan API Key percuma dari:",
       "show": "Tunjuk",
@@ -31,8 +31,21 @@
       "saved": "Disimpan",
       "required": "Sila tetapkan API Key dahulu",
       "requiredHint": "Mulakan dengan API key Agnes AI percuma. Tiada kad kredit.",
-      "getKey": "Dapatkan API Key Percuma",
-      "localOnly": "Kunci hanya disimpan dalam localStorage pelayar anda dan tidak pernah dimuat naik ke mana-mana pelayan. Anda perlu memasukkannya semula selepas membersihkan data pelayar."
+      "getKey": "Get a free API key",
+      "localOnly": "Kunci hanya disimpan dalam localStorage pelayar anda dan tidak pernah dimuat naik ke mana-mana pelayan. Anda perlu memasukkannya semula selepas membersihkan data pelayar.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "Penerangan Kreatif",
     "ideaPlaceholder": "Huraikan tema video, cth: Kisah penyembuhan anak kucing liar menemui rumah hangat di bandar",
@@ -185,10 +198,10 @@
       "textToImage": "Penjanaan Imej"
     },
     "apiKey": {
-      "title": "Tetapan API Key",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "Masukkan API Key anda...",
-      "save": "Simpan",
+      "save": "Save & start creating",
       "clear": "Padam",
       "hint": "Dapatkan API Key percuma dari:",
       "show": "Tunjuk",
@@ -196,8 +209,21 @@
       "saved": "Disimpan",
       "required": "Sila tetapkan API Key dahulu",
       "requiredHint": "Mulakan dengan API key Agnes AI percuma. Tiada kad kredit.",
-      "getKey": "Dapatkan API Key Percuma",
-      "localOnly": "Kunci hanya disimpan dalam localStorage pelayar anda dan tidak pernah dimuat naik ke mana-mana pelayan. Anda perlu memasukkannya semula selepas membersihkan data pelayar."
+      "getKey": "Get a free API key",
+      "localOnly": "Kunci hanya disimpan dalam localStorage pelayar anda dan tidak pernah dimuat naik ke mana-mana pelayan. Anda perlu memasukkannya semula selepas membersihkan data pelayar.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "Hasilkan Imej",
@@ -321,7 +347,7 @@
     },
     "githubNote": "Demo web ini hanya menyediakan fungsi asas teks-ke-imej dan teks-ke-video. Untuk set lengkap (video kreatif panjang, video skrip, penyampai digital AI, narasi TTS, sari kata automatik, sambung semula, dan banyak lagi), muat turun aplikasi desktop dari GitHub.",
     "seoTitle": "Penjana Video AI Percuma Dalam Talian | Agnes Video Generator",
-    "seoDescription": "Penjana video dan imej AI percuma dalam pelayar. Imej: agnes-image-2.1-flash. Satu klip: Video 2.5 Flash (teks, imej rujukan, bingkai pertama/akhir, 4–12 saat, 6 nisbah). Video berbilang adegan dibuka dari studio web pada tab video kreatif: satu idea dipecah kepada 2–5 klip dan dicantum dalam pelayar. Tiada pemasangan, tiada kad. Kunci API kekal dalam pelayar.",
+    "seoDescription": "Penjana video dan imej AI percuma dalam pelayar. Imej: agnes-image-2.5-flash. Satu klip: Video 2.5 Flash (teks, imej rujukan, bingkai pertama/akhir, 4–12 saat, 6 nisbah). Video berbilang adegan dibuka dari studio web pada tab video kreatif: satu idea dipecah kepada 2–5 klip dan dicantum dalam pelayar. Tiada pemasangan, tiada kad. Kunci API kekal dalam pelayar.",
     "seoH1": "Penjana Video & Imej AI Dalam Talian Percuma",
     "seoIntro": "Halaman ini ialah ruang kerja Agnes Video Generator. Imej, video ringkas dan video kreatif ialah tiga tab alat yang sama. Lalai ialah video ringkas. Pintu studio web membuka video kreatif terus. Model video ialah Video 2.5 Flash (agnes-video-2.5-flash), percuma untuk tempoh terhad. Tampal kunci API Agnes percuma di atas. Ia hanya disimpan dalam pelayar ini.",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "Imej",
-        "desc": "agnes-image-2.1-flash, segi empat, landskap atau potret."
+        "desc": "agnes-image-2.5-flash, segi empat, landskap atau potret."
       },
       {
         "title": "Video ringkas",
@@ -402,7 +428,7 @@
         "a": "Video 2.5 Flash kadang-kadang menghantar 9:16 yang diputar 90°. Komposisi tetap menegak. Putar fail selepas dimuat turun. Ini isu yang diketahui di perkhidmatan huluan."
       }
     ],
-    "studioLinkCta": "Studio video kreatif pelbagai babak (Beta) →",
+    "studioLinkCta": "Studio video kreatif pelbagai babak →",
     "copied": "Disalin",
     "seoModesTitle": "Tiga pintu, tiga hasil",
     "seoHowTitle": "Mula dalam tiga langkah",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "Imej",
-        "desc": "Satu penerangan menjadi imej dengan agnes-image-2.1-flash: segi empat, landskap atau potret."
+        "desc": "Satu penerangan menjadi imej dengan agnes-image-2.5-flash: segi empat, landskap atau potret."
       },
       {
         "tab": "simple",

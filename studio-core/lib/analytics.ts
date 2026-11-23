@@ -138,8 +138,21 @@ export function trackApiKeySaved(p: { source?: 'manual' | 'prefill' } = {}): voi
 }
 
 /** 用户点击「去获取 Key」（Key 门槛的关键流失点） */
-export function trackGetKeyClick(p: { from: 'panel' | 'error' }): void {
+export function trackGetKeyClick(p: { from: 'panel' | 'error' | 'generate' }): void {
   trackEvent('get_key_click', { surface: currentSurface(), from: p.from });
+}
+
+/**
+ * 用户在「还没 Key」的生成按钮区点了「去填入 Key」。
+ * 用来验证引导卡是否真的把人带到了 Key 面板，而不是只增加曝光。
+ */
+export function trackApiKeyPanelFocus(p: { tab: 'image' | 'simple' | 'creative' }): void {
+  trackEvent('api_key_panel_focus', { surface: currentSurface(), tab: p.tab });
+}
+
+/** 用户从 Key 面板打开图文教程（衡量教程是否真的在降低门槛） */
+export function trackApiKeyGuideClick(p: { from: 'panel' } = { from: 'panel' }): void {
+  trackEvent('api_key_guide_click', { surface: currentSurface(), from: p.from });
 }
 
 /** 留存相关动作：作品库操作、收藏引导、「再来一个」 */

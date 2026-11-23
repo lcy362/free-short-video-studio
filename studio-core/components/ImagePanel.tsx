@@ -9,8 +9,10 @@ import MediaPreview from './MediaPreview';
 import { SIZE_OPTIONS } from '../lib/demo-types';
 import { fetchWithFailback } from '../lib/api-client';
 import {
+  trackApiKeyPanelFocus,
   trackGenerationStart,
   trackGenerationSuccess,
+  trackGetKeyClick,
   trackImageError,
 } from '../lib/analytics';
 import { readPrefillPrompt } from '../lib/prompt-prefill';
@@ -185,7 +187,31 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
       {status !== 'completed' && (
         <>
           {!apiKey && (
-            <p className="text-sm text-muted text-center">{t('apiKey.requiredHint')}</p>
+            <div className="rounded-xl border border-accent/25 bg-accent/5 p-3 space-y-2 text-center">
+              <p className="text-sm text-ink-2">{t('apiKey.noKeyTitle')}</p>
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    trackApiKeyPanelFocus({ tab: 'image' });
+                    document.getElementById('api-key-panel')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    document.getElementById('api-key-input')?.focus();
+                  }}
+                  className="text-sm font-medium text-accent hover:underline"
+                >
+                  {t('apiKey.noKeyCta')} →
+                </button>
+                <a
+                  href="https://platform.agnes-ai.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackGetKeyClick({ from: 'generate' })}
+                  className="text-xs text-muted hover:text-ink transition"
+                >
+                  {t('apiKey.noKeyGet')}
+                </a>
+              </div>
+            </div>
           )}
           <GenerateButton
             onClick={handleGenerate}

@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: бесплатная онлайн-генерация коротких видео с ИИ. Введите идею — ИИ разобьёт её на 2-5 сцен, сгенерирует видео и склеит их в браузере. Без установки, без GPU, без кредитной карты.",
     "seoH1": "Генерация коротких видео онлайн бесплатно с ИИ — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio — веб-версия ИИ-генератора коротких видео: введите идею, ИИ автоматически разобьёт её на 2-5 сцен, сгенерирует 5-секундное видео для каждой и склеит их в единый ролик прямо в браузере. Полностью бесплатно, без установки ПО, без GPU и кредитной карты — достаточно бесплатного Agnes API-ключа.",
-    "betaBadge": "Бесплатно · Beta",
+    "betaBadge": "Без установки · один клик",
     "title": "Творческая видеомастерская",
     "subtitle": "ИИ-сценарист → Многосегментное текст-в-видео → Склейка в браузере",
     "apiKeyRequired": "Сначала задайте API Key",
     "apiKeyHint": "Начните с бесплатного API Key Agnes AI. Без карты, без оплаты.",
     "apiKey": {
-      "title": "Настройка API Key",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "Введите ваш Agnes API Key...",
-      "save": "Сохранить",
+      "save": "Save & start creating",
       "clear": "Очистить",
       "hint": "Получите бесплатный API Key на:",
       "show": "Показать",
@@ -31,8 +31,21 @@
       "saved": "Сохранено",
       "required": "Сначала укажите API Key",
       "requiredHint": "Начните с бесплатным API ключом Agnes AI. Без карты, без оплаты.",
-      "getKey": "Получить бесплатный API Key",
-      "localOnly": "Ключ хранится только в localStorage вашего браузера и никогда не загружается на сервер. После очистки данных браузера потребуется ввести его заново."
+      "getKey": "Get a free API key",
+      "localOnly": "Ключ хранится только в localStorage вашего браузера и никогда не загружается на сервер. После очистки данных браузера потребуется ввести его заново.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "Описание идеи",
     "ideaPlaceholder": "Опишите тему видео, например: Трогательная история бездомного котёнка, нашедшего тёплый дом",
@@ -185,10 +198,10 @@
       "textToImage": "Генерация изображений"
     },
     "apiKey": {
-      "title": "Настройка API Key",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "Введите ваш Agnes API Key...",
-      "save": "Сохранить",
+      "save": "Save & start creating",
       "clear": "Очистить",
       "hint": "Получите бесплатный API Key на:",
       "show": "Показать",
@@ -196,8 +209,21 @@
       "saved": "Сохранено",
       "required": "Сначала укажите API Key",
       "requiredHint": "Начните с бесплатным API ключом Agnes AI. Без карты, без оплаты.",
-      "getKey": "Получить бесплатный API Key",
-      "localOnly": "Ключ хранится только в localStorage вашего браузера и никогда не загружается на сервер. После очистки данных браузера потребуется ввести его заново."
+      "getKey": "Get a free API key",
+      "localOnly": "Ключ хранится только в localStorage вашего браузера и никогда не загружается на сервер. После очистки данных браузера потребуется ввести его заново.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "Создать",
@@ -321,7 +347,7 @@
     },
     "githubNote": "Веб-версия предлагает только базовые функции текст→изображение и текст→видео. Для полного набора функций (длинные креативные видео, сценарные видео, AI-ведущий, озвучка TTS, авто-субтитры, возобновление и др.) скачайте десктопную версию с GitHub.",
     "seoTitle": "Бесплатный онлайн генератор ИИ-видео | Agnes Video Generator",
-    "seoDescription": "Бесплатный онлайн-генератор видео и изображений. Картинки: agnes-image-2.1-flash. Один ролик: Video 2.5 Flash (текст, референсы, первый/последний кадр, 4–12 с, 6 пропорций). Многосценные ролики открываются во вкладке «креативное видео» из веб-студии: идея делится на 2–5 фрагментов и склеивается в браузере. Без установки и карты. Ключ остаётся в браузере.",
+    "seoDescription": "Бесплатный онлайн-генератор видео и изображений. Картинки: agnes-image-2.5-flash. Один ролик: Video 2.5 Flash (текст, референсы, первый/последний кадр, 4–12 с, 6 пропорций). Многосценные ролики открываются во вкладке «креативное видео» из веб-студии: идея делится на 2–5 фрагментов и склеивается в браузере. Без установки и карты. Ключ остаётся в браузере.",
     "seoH1": "Бесплатный онлайн генератор ИИ-видео и изображений",
     "seoIntro": "Это рабочее место Agnes Video Generator. Изображение, простое видео и креативное видео — три вкладки одного инструмента. По умолчанию открыто простое видео. Веб-студия сразу открывает креативное видео. Видеомодель — бесплатная на ограниченный срок Video 2.5 Flash (agnes-video-2.5-flash). Вставьте бесплатный ключ Agnes сверху. Он хранится только в этом браузере.",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "Изображение",
-        "desc": "Модель agnes-image-2.1-flash: квадрат, альбом или портрет."
+        "desc": "Модель agnes-image-2.5-flash: квадрат, альбом или портрет."
       },
       {
         "title": "Простое видео",
@@ -402,7 +428,7 @@
         "a": "Video 2.5 Flash иногда отдаёт 9:16 повёрнутым на 90°. Композиция всё равно вертикальная. Поверните файл после скачивания. Это известная проблема сервиса."
       }
     ],
-    "studioLinkCta": "Многосценная студия креативного видео (бета) →",
+    "studioLinkCta": "Многосценная студия креативного видео →",
     "copied": "Скопировано",
     "seoModesTitle": "Три входа, три результата",
     "seoHowTitle": "Три шага",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "Изображение",
-        "desc": "Одно описание становится картинкой agnes-image-2.1-flash: квадрат, альбом или портрет."
+        "desc": "Одно описание становится картинкой agnes-image-2.5-flash: квадрат, альбом или портрет."
       },
       {
         "tab": "simple",

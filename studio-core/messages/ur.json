@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: AI کے ساتھ مفت میں آن لائن مختصر ویڈیوز بنائیں۔ ایک آئیڈیا درج کریں، AI اسے 2-5 مناظر میں تقسیم کرتا ہے، ٹیکسٹ ٹو ویڈیو کلپس بناتا ہے اور انہیں آپ کے براؤزر میں جوڑتا ہے۔ نہ انسٹال، نہ GPU، نہ کریڈٹ کارڈ — مفت Agnes API کلید درکار ہے۔",
     "seoH1": "AI کے ساتھ مفت میں آن لائن مختصر ویڈیوز بنائیں — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio ایک ویب پر مبنی AI مختصر ویڈیو جنریٹر ہے: ایک آئیڈیا درج کریں، AI خود بخود اسے 2-5 مناظر میں تقسیم کرتا ہے، فی منظر 5 سیکنڈ کی ویڈیو بناتا ہے اور انہیں آپ کے براؤزر میں مقامی طور پر ایک مکمل مختصر ویڈیو میں جوڑتا ہے۔ مکمل طور پر مفت، آن لائن، نہ انسٹال، نہ اعلیٰ GPU، نہ کریڈٹ کارڈ — بس اپنی مفت Agnes API کلید شامل کریں۔",
-    "betaBadge": "مفت · Beta",
+    "betaBadge": "انسٹال کے بغیر · ایک کلک",
     "title": "کری ایٹو ویڈیو ورکشاپ",
     "subtitle": "AI اسکرین رائٹر ← کثیر سیگمنٹ ٹیکسٹ ٹو ویڈیو ← براؤزر کنکیٹنیشن",
     "apiKeyRequired": "براہ کرم پہلے اپنی API کلید ترتیب دیں",
     "apiKeyHint": "مفت Agnes AI API کلید کے ساتھ تخلیق شروع کریں۔ نہ کریڈٹ کارڈ، نہ ادائیگی۔",
     "apiKey": {
-      "title": "API کلید کی ترتیبات",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API کلید",
       "placeholder": "اپنی Agnes API کلید درج کریں...",
-      "save": "محفوظ کریں",
+      "save": "Save & start creating",
       "clear": "صاف کریں",
       "hint": "اپنی مفت API کلید یہاں سے حاصل کریں:",
       "show": "دکھائیں",
@@ -31,8 +31,21 @@
       "saved": "محفوظ",
       "required": "براہ کرم پہلے اپنی API کلید ترتیب دیں",
       "requiredHint": "مفت Agnes AI API کلید کے ساتھ شروع کریں۔ نہ کریڈٹ کارڈ، نہ ادائیگی۔",
-      "getKey": "مفت API کلید حاصل کریں",
-      "localOnly": "آپ کی کلید صرف آپ کے براؤزر کے localStorage میں محفوظ ہوتی ہے۔ یہ کبھی کسی سرور پر اپ لوڈ نہیں ہوتی۔ براؤزر ڈیٹا صاف کرنے کے بعد آپ کو اسے دوبارہ درج کرنا ہوگا۔"
+      "getKey": "Get a free API key",
+      "localOnly": "آپ کی کلید صرف آپ کے براؤزر کے localStorage میں محفوظ ہوتی ہے۔ یہ کبھی کسی سرور پر اپ لوڈ نہیں ہوتی۔ براؤزر ڈیٹا صاف کرنے کے بعد آپ کو اسے دوبارہ درج کرنا ہوگا۔",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "تخلیقی تفصیل",
     "ideaPlaceholder": "اپنی ویڈیو کا تھیم بیان کریں، مثلاً: شہر میں ایک آوارہ بلی کے لیے گرم گھر تلاش کرنے کی شفا بخش کہانی",
@@ -186,10 +199,10 @@
       "textToImage": "تصویر جنریشن"
     },
     "apiKey": {
-      "title": "API کلید کی ترتیبات",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API کلید",
       "placeholder": "اپنی Agnes API کلید درج کریں...",
-      "save": "محفوظ کریں",
+      "save": "Save & start creating",
       "clear": "صاف کریں",
       "hint": "اپنی مفت API کلید یہاں سے حاصل کریں:",
       "show": "دکھائیں",
@@ -197,8 +210,21 @@
       "saved": "محفوظ",
       "required": "براہ کرم پہلے اپنی API کلید ترتیب دیں",
       "requiredHint": "مفت Agnes AI API کلید کے ساتھ شروع کریں۔ نہ کریڈٹ کارڈ، نہ ادائیگی۔",
-      "getKey": "مفت API کلید حاصل کریں",
-      "localOnly": "آپ کی کلید صرف آپ کے براؤزر کے localStorage میں محفوظ ہوتی ہے۔ یہ کبھی کسی سرور پر اپ لوڈ نہیں ہوتی۔ براؤزر ڈیٹا صاف کرنے کے بعد آپ کو اسے دوبارہ درج کرنا ہوگا۔"
+      "getKey": "Get a free API key",
+      "localOnly": "آپ کی کلید صرف آپ کے براؤزر کے localStorage میں محفوظ ہوتی ہے۔ یہ کبھی کسی سرور پر اپ لوڈ نہیں ہوتی۔ براؤزر ڈیٹا صاف کرنے کے بعد آپ کو اسے دوبارہ درج کرنا ہوگا۔",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "تصویر بنائیں",
@@ -321,7 +347,7 @@
       "longTaskExpired": "{minutes} منٹ کا انتظار بجٹ ختم، قطار اب بھی بھری ہے۔ بعد میں ٹاسک ID سے دیکھیں۔"
     },
     "seoTitle": "مفت آن لائن AI ویڈیو جنریٹر | Agnes Video Generator",
-    "seoDescription": "براؤزر میں مفت AI ویڈیو اور تصویر جنریٹر۔ تصاویر agnes-image-2.1-flash۔ ایک کلپ Video 2.5 Flash (متن، حوالہ تصاویر، پہلا/آخری فریم، 4–12 سیکنڈ، چھ تناسب)۔ کئی مناظر والی شارٹ ویب اسٹوڈیو کے تخلیقی ویڈیو ٹیب پر کھلتی ہے: ایک خیال 2–5 کلپس بن کر براؤزر میں جڑتا ہے۔ انسٹال اور کارڈ نہیں۔ API کلید براؤزر میں رہتی ہے۔",
+    "seoDescription": "براؤزر میں مفت AI ویڈیو اور تصویر جنریٹر۔ تصاویر agnes-image-2.5-flash۔ ایک کلپ Video 2.5 Flash (متن، حوالہ تصاویر، پہلا/آخری فریم، 4–12 سیکنڈ، چھ تناسب)۔ کئی مناظر والی شارٹ ویب اسٹوڈیو کے تخلیقی ویڈیو ٹیب پر کھلتی ہے: ایک خیال 2–5 کلپس بن کر براؤزر میں جڑتا ہے۔ انسٹال اور کارڈ نہیں۔ API کلید براؤزر میں رہتی ہے۔",
     "seoH1": "مفت آن لائن AI ویڈیو اور امیج جنریٹر",
     "seoIntro": "یہ صفحہ Agnes Video Generator کی ورک اسپیس ہے۔ تصویر، سادہ ویڈیو اور تخلیقی ویڈیو ایک ہی ٹول کے تین ٹیب ہیں۔ ڈیفالٹ سادہ ویڈیو ہے۔ ویب اسٹوڈیو براہ راست تخلیقی ویڈیو کھولتا ہے۔ ویڈیو ماڈل محدود وقت کے لیے مفت Video 2.5 Flash (agnes-video-2.5-flash) ہے۔ اوپر مفت Agnes API کلید چسپاں کریں۔ وہ صرف اسی براؤزر میں رہتی ہے۔",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "تصویر",
-        "desc": "agnes-image-2.1-flash، مربع، افقی یا عمودی۔"
+        "desc": "agnes-image-2.5-flash، مربع، افقی یا عمودی۔"
       },
       {
         "title": "سادہ ویڈیو",
@@ -402,7 +428,7 @@
         "a": "Video 2.5 Flash کبھی 9:16 کو 90° گھما کر دیتا ہے۔ بناوٹ پھر بھی کھڑی ہے۔ ڈاؤن لوڈ کے بعد فائل گھمائیں۔ یہ سروس کا جانا ہوا مسئلہ ہے۔"
       }
     ],
-    "studioLinkCta": "کثیر منظر تخلیقی ویڈیو Studio (Beta) ←",
+    "studioLinkCta": "کثیر منظر تخلیقی ویڈیو Studio ←",
     "copied": "کاپی ہو گیا",
     "seoModesTitle": "تین داخلے، تین نتائج",
     "seoHowTitle": "تین قدموں میں شروع",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "تصویر",
-        "desc": "ایک بیان agnes-image-2.1-flash سے تصویر بنتا ہے: مربع، افقی یا عمودی۔"
+        "desc": "ایک بیان agnes-image-2.5-flash سے تصویر بنتا ہے: مربع، افقی یا عمودی۔"
       },
       {
         "tab": "simple",

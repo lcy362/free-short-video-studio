@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: أنشئ فيديوهات قصيرة عبر الإنترنت مجانًا بالذكاء الاصطناعي. أدخل فكرة، يقسمها AI إلى 2-5 مشاهد، يولّد مقاطع نص إلى فيديو، ويدمجها في متصفحك. بدون تثبيت، بدون GPU، بدون بطاقة ائتمانية — يتطلب مفتاح Agnes API مجاني.",
     "seoH1": "أنشئ فيديوهات قصيرة عبر الإنترنت مجانًا بالذكاء الاصطناعي — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio أداة ويب لتوليد فيديوهات AI قصيرة: أدخل فكرة، يقسمها AI تلقائيًا إلى 2-5 مشاهد، يولّد فيديو مدته 5 ثوانٍ لكل مشهد، ويدمجها في فيديو قصير كامل محليًا في متصفحك. مجاني تمامًا، عبر الإنترنت، بدون تثبيت، بدون GPU عالية المواصفات، بدون بطاقة ائتمانية — فقط أضف مفتاح Agnes API المجاني.",
-    "betaBadge": "مجاني · Beta",
+    "betaBadge": "بلا تثبيت · نقرة واحدة",
     "title": "ورشة الفيديو الإبداعية",
     "subtitle": "كاتب سيناريو AI ← توليد نص إلى فيديو متعدد الأجزاء ← دمج في المتصفح",
     "apiKeyRequired": "يرجى تعيين مفتاح API أولاً",
     "apiKeyHint": "ابدأ الإنشاء بمفتاح Agnes AI API مجاني. بدون بطاقة ائتمانية، بدون دفع.",
     "apiKey": {
-      "title": "إعدادات مفتاح API",
+      "title": "Add your free key once, then start creating",
       "label": "مفتاح Agnes API",
       "placeholder": "أدخل مفتاح Agnes API الخاص بك...",
-      "save": "حفظ",
+      "save": "Save & start creating",
       "clear": "مسح",
       "hint": "احصل على مفتاح API مجاني من:",
       "show": "إظهار",
@@ -31,8 +31,21 @@
       "saved": "تم الحفظ",
       "required": "يرجى تعيين مفتاح API أولاً",
       "requiredHint": "ابدأ بمفتاح Agnes AI API مجاني. بدون بطاقة ائتمانية، بدون دفع.",
-      "getKey": "احصل على مفتاح API مجاني",
-      "localOnly": "يُخزَّن مفتاحك فقط في localStorage بمتصفحك. لا يُرفع أبدًا إلى أي خادم. ستحتاج إلى إعادة إدخاله بعد مسح بيانات المتصفح."
+      "getKey": "Get a free API key",
+      "localOnly": "يُخزَّن مفتاحك فقط في localStorage بمتصفحك. لا يُرفع أبدًا إلى أي خادم. ستحتاج إلى إعادة إدخاله بعد مسح بيانات المتصفح.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "الوصف الإبداعي",
     "ideaPlaceholder": "صف موضوع فيديوك، مثال: قصة علاجية لقط صغير ضال يجد منزلًا دافئًا في المدينة",
@@ -186,10 +199,10 @@
       "textToImage": "توليد الصور"
     },
     "apiKey": {
-      "title": "إعدادات مفتاح API",
+      "title": "Add your free key once, then start creating",
       "label": "مفتاح Agnes API",
       "placeholder": "أدخل مفتاح Agnes API الخاص بك...",
-      "save": "حفظ",
+      "save": "Save & start creating",
       "clear": "مسح",
       "hint": "احصل على مفتاح API مجاني من:",
       "show": "إظهار",
@@ -197,8 +210,21 @@
       "saved": "تم الحفظ",
       "required": "يرجى تعيين مفتاح API أولاً",
       "requiredHint": "ابدأ بمفتاح Agnes AI API مجاني. بدون بطاقة ائتمانية، بدون دفع.",
-      "getKey": "احصل على مفتاح API مجاني",
-      "localOnly": "يُخزَّن مفتاحك فقط في localStorage بمتصفحك. لا يُرفع أبدًا إلى أي خادم. ستحتاج إلى إعادة إدخاله بعد مسح بيانات المتصفح."
+      "getKey": "Get a free API key",
+      "localOnly": "يُخزَّن مفتاحك فقط في localStorage بمتصفحك. لا يُرفع أبدًا إلى أي خادم. ستحتاج إلى إعادة إدخاله بعد مسح بيانات المتصفح.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "توليد صورة",
@@ -321,7 +347,7 @@
       "longTaskExpired": "انتهت ميزانية انتظار {minutes} دقيقة والقائمة ما زالت ممتلئة. تحقق لاحقًا باستخدام معرّف المهمة."
     },
     "seoTitle": "مولّد فيديو AI مجاني عبر الإنترنت | Agnes Video Generator",
-    "seoDescription": "مولّد فيديو وصور بالذكاء الاصطناعي مجانًا داخل المتصفح. الصور عبر agnes-image-2.1-flash. المقطع الواحد عبر Video 2.5 Flash (نص، صور مرجعية، الإطار الأول/الأخير، 4–12 ثانية، ست نسب). الفيديوهات متعددة المشاهد تُفتح من استوديو الويب على تبويب الفيديو الإبداعي: فكرة واحدة تُقسَّم إلى 2–5 مقاطع وتُدمج في المتصفح. بلا تثبيت وبلا بطاقة. مفتاح API يبقى في المتصفح.",
+    "seoDescription": "مولّد فيديو وصور بالذكاء الاصطناعي مجانًا داخل المتصفح. الصور عبر agnes-image-2.5-flash. المقطع الواحد عبر Video 2.5 Flash (نص، صور مرجعية، الإطار الأول/الأخير، 4–12 ثانية، ست نسب). الفيديوهات متعددة المشاهد تُفتح من استوديو الويب على تبويب الفيديو الإبداعي: فكرة واحدة تُقسَّم إلى 2–5 مقاطع وتُدمج في المتصفح. بلا تثبيت وبلا بطاقة. مفتاح API يبقى في المتصفح.",
     "seoH1": "مولّد فيديو وصور AI مجاني عبر الإنترنت",
     "seoIntro": "هذه الصفحة هي مساحة عمل Agnes Video Generator. توليد الصور والفيديو البسيط والفيديو الإبداعي ثلاث علامات للتبويب في الأداة نفسها. الافتراضي هو الفيديو البسيط. مدخل نسخة الويب يفتح الفيديو الإبداعي مباشرة. نموذج الفيديو هو Video 2.5 Flash المجاني لفترة محدودة (agnes-video-2.5-flash). الصق مفتاح Agnes المجاني في الأعلى. يُحفظ في هذا المتصفح فقط.",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "صورة",
-        "desc": "agnes-image-2.1-flash، مربع أو أفقي أو عمودي."
+        "desc": "agnes-image-2.5-flash، مربع أو أفقي أو عمودي."
       },
       {
         "title": "فيديو بسيط",
@@ -402,7 +428,7 @@
         "a": "يسلّم Video 2.5 Flash أحيانًا نسبة 9:16 مدارة 90 درجة. التكوين ما زال عموديًا. أدر الملف بعد التنزيل. هذه مشكلة معروفة في الخدمة."
       }
     ],
-    "studioLinkCta": "استوديو فيديو إبداعي متعدد المشاهد (Beta) ←",
+    "studioLinkCta": "استوديو فيديو إبداعي متعدد المشاهد ←",
     "copied": "تم النسخ",
     "seoModesTitle": "ثلاثة مداخل، ثلاث نتائج",
     "seoHowTitle": "البدء في ثلاث خطوات",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "صورة",
-        "desc": "وصف واحد يصبح صورة عبر agnes-image-2.1-flash: مربع أو أفقي أو عمودي."
+        "desc": "وصف واحد يصبح صورة عبر agnes-image-2.5-flash: مربع أو أفقي أو عمودي."
       },
       {
         "tab": "simple",

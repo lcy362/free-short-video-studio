@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio (کارگاه رایگان ویدئوی کوتاه): تولید رایگان ویدئوی کوتاه آنلاین با هوش مصنوعی. ایده خود را وارد کنید؛ هوش مصنوعی به‌طور خودکار آن را به 2 تا 5 صحنه تقسیم می‌کند، برای هر بخش ویدئو می‌سازد و در مرورگر شما کنار هم می‌چیند. بدون نصب، بدون کارت گرافیک، بدون کارت اعتباری — فقط با کلید رایگان API Agnes استفاده کنید.",
     "seoH1": "تولید رایگان ویدئوی کوتاه آنلاین با هوش مصنوعی — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio (کارگاه رایگان ویدئوی کوتاه) یک تولیدکننده ویدئوی کوتاه هوش مصنوعی تحت وب است: یک ایده وارد می‌کنید، هوش مصنوعی آن را به 2 تا 5 صحنه تقسیم می‌کند و برای هر صحنه یک ویدئوی 5 ثانیه‌ای تولید می‌کند، و در نهایت در مرورگر شما به یک ویدئوی کوتاه کامل تبدیل می‌شود. کاملاً رایگان، آنلاین و بدون نصب؛ نیازی به نرم‌افزار، کارت گرافیک قدرتمند یا کارت اعتباری نیست — فقط کلید رایگان API Agnes را وارد کنید.",
-    "betaBadge": "رایگان · Beta",
+    "betaBadge": "بدون نصب · یک کلیک",
     "title": "کارگاه ویدئوی خلاقانه",
     "subtitle": "فیلم‌نامه‌نویس هوش مصنوعی ← تولید ویدئوی چندبخشی ← ترکیب در مرورگر",
     "apiKeyRequired": "لطفاً ابتدا کلید API را تنظیم کنید",
     "apiKeyHint": "با کلید رایگان API Agnes AI شروع به خلق کنید. بدون کارت اعتباری، بدون پرداخت.",
     "apiKey": {
-      "title": "تنظیمات کلید API",
+      "title": "Add your free key once, then start creating",
       "label": "کلید API Agnes",
       "placeholder": "کلید API Agnes خود را وارد کنید...",
-      "save": "ذخیره",
+      "save": "Save & start creating",
       "clear": "پاک کردن",
       "hint": "کلید رایگان API را از این آدرس بگیرید:",
       "show": "نمایش",
@@ -31,8 +31,21 @@
       "saved": "ذخیره شد",
       "required": "لطفاً ابتدا کلید API را تنظیم کنید",
       "requiredHint": "با کلید رایگان API Agnes AI شروع کنید. بدون کارت اعتباری، بدون پرداخت.",
-      "getKey": "دریافت کلید رایگان API",
-      "localOnly": "کلید فقط در مرورگر شما ذخیره می‌شود (localStorage) و به هیچ سروری ارسال نمی‌شود. پس از پاک کردن داده مرورگر باید دوباره واردش کنید."
+      "getKey": "Get a free API key",
+      "localOnly": "کلید فقط در مرورگر شما ذخیره می‌شود (localStorage) و به هیچ سروری ارسال نمی‌شود. پس از پاک کردن داده مرورگر باید دوباره واردش کنید.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "توضیح ایده",
     "ideaPlaceholder": "موضوع ویدئوی موردنظر خود را توصیف کنید؛ مثال: داستان درمانی بچه‌گربه‌ای که در شهر سرگردان است و خانه گرمی پیدا می‌کند",
@@ -186,10 +199,10 @@
       "textToImage": "تولید تصویر"
     },
     "apiKey": {
-      "title": "تنظیمات کلید API",
+      "title": "Add your free key once, then start creating",
       "label": "کلید API Agnes",
       "placeholder": "کلید API Agnes خود را وارد کنید...",
-      "save": "ذخیره",
+      "save": "Save & start creating",
       "clear": "پاک کردن",
       "hint": "کلید رایگان API خود را از این‌جا دریافت کنید:",
       "show": "نمایش",
@@ -197,8 +210,21 @@
       "saved": "ذخیره شد",
       "required": "لطفاً ابتدا کلید API خود را تنظیم کنید",
       "requiredHint": "با یک کلید رایگان API Agnes AI شروع کنید. بدون کارت اعتباری و بدون نیاز به پرداخت.",
-      "getKey": "دریافت کلید رایگان API",
-      "localOnly": "کلید شما فقط در localStorage مرورگر شما ذخیره می‌شود و هرگز به هیچ سروری آپلود نمی‌شود. پس از پاک کردن داده‌های مرورگر باید دوباره آن را وارد کنید."
+      "getKey": "Get a free API key",
+      "localOnly": "کلید شما فقط در localStorage مرورگر شما ذخیره می‌شود و هرگز به هیچ سروری آپلود نمی‌شود. پس از پاک کردن داده‌های مرورگر باید دوباره آن را وارد کنید.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "تولید تصویر",
@@ -321,7 +347,7 @@
       "longTaskExpired": "بودجه انتظار {minutes} دقیقه تمام شد و صف هنوز پر است. بعداً با شناسه کار بررسی کنید."
     },
     "seoTitle": "تولیدکننده رایگان آنلاین ویدئوی هوش مصنوعی | Agnes Video Generator",
-    "seoDescription": "سازندهٔ رایگان ویدیو و تصویر هوش مصنوعی در مرورگر. تصویرها با agnes-image-2.1-flash. یک کلیپ با Video 2.5 Flash (متن، تصویر مرجع، فریم اول/آخر، ۴–۱۲ ثانیه، شش نسبت). ویدیوی چندصحنه‌ای از استودیوی وب روی زبانهٔ ویدیوی خلاق باز می‌شود: یک ایده به ۲–۵ کلیپ تقسیم و در مرورگر به هم وصل می‌شود. بدون نصب و بدون کارت. کلید API در مرورگر می‌ماند.",
+    "seoDescription": "سازندهٔ رایگان ویدیو و تصویر هوش مصنوعی در مرورگر. تصویرها با agnes-image-2.5-flash. یک کلیپ با Video 2.5 Flash (متن، تصویر مرجع، فریم اول/آخر، ۴–۱۲ ثانیه، شش نسبت). ویدیوی چندصحنه‌ای از استودیوی وب روی زبانهٔ ویدیوی خلاق باز می‌شود: یک ایده به ۲–۵ کلیپ تقسیم و در مرورگر به هم وصل می‌شود. بدون نصب و بدون کارت. کلید API در مرورگر می‌ماند.",
     "seoH1": "تولیدکننده رایگان آنلاین ویدئو و تصویر با هوش مصنوعی",
     "seoIntro": "این صفحه میز کار Agnes Video Generator است. تصویر، ویدیوی ساده و ویدیوی خلاق سه زبانهٔ یک ابزارند. پیش‌فرض ویدیوی ساده است. ورودی نسخهٔ وب مستقیم ویدیوی خلاق را باز می‌کند. مدل ویدیو Video 2.5 Flash رایگانِ محدود (agnes-video-2.5-flash) است. کلید رایگان Agnes را بالا بچسبانید. فقط در همین مرورگر ذخیره می‌شود.",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "تصویر",
-        "desc": "agnes-image-2.1-flash، مربع، افقی یا عمودی."
+        "desc": "agnes-image-2.5-flash، مربع، افقی یا عمودی."
       },
       {
         "title": "ویدیوی ساده",
@@ -402,7 +428,7 @@
         "a": "Video 2.5 Flash گاهی ۹:۱۶ را ۹۰ درجه چرخیده تحویل می‌دهد. قاب‌بندی همچنان عمودی است. پس از دانلود فایل را بچرخانید. این مشکل شناخته‌شدهٔ سرویس است."
       }
     ],
-    "studioLinkCta": "استودیوی ویدئوی خلاقانه چندصحنه‌ای (Beta) ←",
+    "studioLinkCta": "استودیوی ویدئوی خلاقانه چندصحنه‌ای ←",
     "copied": "کپی شد",
     "seoModesTitle": "سه ورودی، سه نتیجه",
     "seoHowTitle": "شروع در سه گام",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "تصویر",
-        "desc": "یک توصیف با agnes-image-2.1-flash تصویر می‌شود: مربع، افقی یا عمودی."
+        "desc": "یک توصیف با agnes-image-2.5-flash تصویر می‌شود: مربع، افقی یا عمودی."
       },
       {
         "tab": "simple",

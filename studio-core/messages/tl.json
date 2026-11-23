@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: gumawa ng short videos online libre gamit ang AI. Maglagay ng ideya, hinahati ito ng AI sa 2-5 scenes, bumubuo ng text-to-video clips, at pinagsasama-sama ang mga ito sa iyong browser. Walang install, walang GPU, walang credit card — kailangan lang ang libreng Agnes API Key.",
     "seoH1": "Gumawa ng Short Videos Online Libre gamit ang AI — FreeShortVideo Studio",
     "seoIntro": "Ang FreeShortVideo Studio ay isang web-based AI short video generator: maglagay ng ideya, awtomatikong hinahati ito ng AI sa 2-5 scenes, bumubuo ng 5-segundong video kada scene, at pinagsasama-sama ang mga ito sa kumpletong short video nang lokal sa iyong browser. Ganap na libre, online, walang install, walang high-end GPU, walang credit card — idagdag lang ang iyong libreng Agnes API Key.",
-    "betaBadge": "Libre · Beta",
+    "betaBadge": "Walang install · isang click",
     "title": "Creative Video Workshop",
     "subtitle": "AI Screenwriter → Multi-segment Text-to-Video → Browser Concatenation",
     "apiKeyRequired": "Mangyaring i-set muna ang iyong API Key",
     "apiKeyHint": "Magsimulang lumikha gamit ang libreng Agnes AI API Key. Walang credit card, walang bayad.",
     "apiKey": {
-      "title": "API Key Settings",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "Ilagay ang iyong Agnes API Key...",
-      "save": "I-save",
+      "save": "Save & start creating",
       "clear": "I-clear",
       "hint": "Kumuha ng libreng API key mula sa:",
       "show": "Ipakita",
@@ -31,8 +31,21 @@
       "saved": "Na-save",
       "required": "Mangyaring i-set muna ang iyong API Key",
       "requiredHint": "Magsimula gamit ang libreng Agnes AI API key. Walang credit card, walang bayad.",
-      "getKey": "Kumuha ng Libreng API Key",
-      "localOnly": "Ang iyong key ay naka-store lamang sa localStorage ng iyong browser. Hindi ito ina-upload sa anumang server. Kakailanganin mong i-enter muli ito pagkatapos i-clear ang browser data."
+      "getKey": "Get a free API key",
+      "localOnly": "Ang iyong key ay naka-store lamang sa localStorage ng iyong browser. Hindi ito ina-upload sa anumang server. Kakailanganin mong i-enter muli ito pagkatapos i-clear ang browser data.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "Creative Description",
     "ideaPlaceholder": "Ilarawan ang iyong video theme, hal.: Isang healing story ng pusang gala na nakahanap ng mainit na tahanan sa siyudad",
@@ -186,10 +199,10 @@
       "textToImage": "Paglikha ng Larawan"
     },
     "apiKey": {
-      "title": "API Key Settings",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "Ilagay ang iyong Agnes API Key...",
-      "save": "I-save",
+      "save": "Save & start creating",
       "clear": "I-clear",
       "hint": "Kumuha ng libreng API key mula sa:",
       "show": "Ipakita",
@@ -197,8 +210,21 @@
       "saved": "Na-save",
       "required": "Mangyaring i-set muna ang iyong API Key",
       "requiredHint": "Magsimula gamit ang libreng Agnes AI API key. Walang credit card, walang bayad.",
-      "getKey": "Kumuha ng Libreng API Key",
-      "localOnly": "Ang iyong key ay naka-store lamang sa localStorage ng iyong browser. Hindi ito ina-upload sa anumang server. Kakailanganin mong i-enter muli ito pagkatapos i-clear ang browser data."
+      "getKey": "Get a free API key",
+      "localOnly": "Ang iyong key ay naka-store lamang sa localStorage ng iyong browser. Hindi ito ina-upload sa anumang server. Kakailanganin mong i-enter muli ito pagkatapos i-clear ang browser data.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "Bumuo ng Image",
@@ -321,7 +347,7 @@
       "longTaskExpired": "Naubos ang {minutes} minutong badyet sa paghihintay at puno pa rin ang pila. Tingnan mamaya gamit ang task ID."
     },
     "seoTitle": "Libreng AI Video Generator Online | Agnes Video Generator",
-    "seoDescription": "Libreng AI video at image generator sa browser. Images: agnes-image-2.1-flash. Isang clip: Video 2.5 Flash (teksto, reference images, unang/huling frame, 4–12 segundo, anim na ratio). Ang multi-scene short ay bumubukas mula sa web studio sa creative-video tab: isang ideya ay nagiging 2–5 clip at pinagdudugtong sa browser. Walang install at walang card. Ang API key ay nananatili sa browser.",
+    "seoDescription": "Libreng AI video at image generator sa browser. Images: agnes-image-2.5-flash. Isang clip: Video 2.5 Flash (teksto, reference images, unang/huling frame, 4–12 segundo, anim na ratio). Ang multi-scene short ay bumubukas mula sa web studio sa creative-video tab: isang ideya ay nagiging 2–5 clip at pinagdudugtong sa browser. Walang install at walang card. Ang API key ay nananatili sa browser.",
     "seoH1": "Libreng Online na AI Video at Image Generator",
     "seoIntro": "Ang pahinang ito ang workspace ng Agnes Video Generator. Image, simpleng video, at multi-shot story ay tatlong tab ng iisang tool. Default ang simpleng video. Ang web studio ay direktang nagbubukas ng multi-shot story. Ang video model ay ang limitadong libreng Video 2.5 Flash (agnes-video-2.5-flash). Idikit ang libreng Agnes API key sa itaas. Naka-store lang ito sa browser na ito.",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "Imahe",
-        "desc": "agnes-image-2.1-flash, parisukat, landscape, o portrait."
+        "desc": "agnes-image-2.5-flash, parisukat, landscape, o portrait."
       },
       {
         "title": "Simpleng video",
@@ -402,7 +428,7 @@
         "a": "Minsan naghahatid ang Video 2.5 Flash ng 9:16 na naka-ikot nang 90°. Patayo pa rin ang komposisyon. I-rotate ang file pagkatapos i-download. Kilalang isyu ito ng serbisyo."
       }
     ],
-    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "studioLinkCta": "Multi-scene creative video studio →",
     "copied": "Nakopya",
     "seoModesTitle": "Tatlong pasukan, tatlong resulta",
     "seoHowTitle": "Magsimula sa tatlong hakbang",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "Imahe",
-        "desc": "Ang isang paglalarawan ay nagiging imahe gamit ang agnes-image-2.1-flash: parisukat, landscape, o portrait."
+        "desc": "Ang isang paglalarawan ay nagiging imahe gamit ang agnes-image-2.5-flash: parisukat, landscape, o portrait."
       },
       {
         "tab": "simple",

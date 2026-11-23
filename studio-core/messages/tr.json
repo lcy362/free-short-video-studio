@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: yapay zekâ ile çevrimiçi ücretsiz kısa video oluşturun. Bir fikir girin, yapay zekâ onu 2-5 sahneye böler, metinden video klipleri üretir ve tarayıcınızda birleştirir. Kurulum yok, GPU yok, kredi kartı yok — ücretsiz Agnes API Key yeterli.",
     "seoH1": "Yapay Zekâ ile Çevrimiçi Ücretsiz Kısa Video Oluştur — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio, web tabanlı bir yapay zekâ kısa video oluşturucusudur: bir fikir girin, yapay zekâ onu otomatik olarak 2-5 sahneye böler, her sahne için 5 saniyelik bir video üretir ve tarayıcınızda yerel olarak tek bir kısa videoda birleştirir. Tamamen ücretsiz, çevrimiçi, kurulum yok, yüksek donanımlı GPU yok, kredi kartı yok — yalnızca ücretsiz Agnes API Key'inizi ekleyin.",
-    "betaBadge": "Ücretsiz · Beta",
+    "betaBadge": "Kurulum yok · tek tıklama",
     "title": "Yaratıcı Video Stüdyosu",
     "subtitle": "Yapay Zekâlı Senaryo Yazarı → Çok Parçalı Metinden Videoya → Tarayıcıda Birleştirme",
     "apiKeyRequired": "Lütfen önce API Key'inizi ayarlayın",
     "apiKeyHint": "Ücretsiz Agnes AI API Key ile yaratmaya başlayın. Kredi kartı gerekmez, ödeme gerekmez.",
     "apiKey": {
-      "title": "API Key Ayarları",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "Agnes API Key'inizi girin...",
-      "save": "Kaydet",
+      "save": "Save & start creating",
       "clear": "Temizle",
       "hint": "Ücretsiz API key'inizi şu adresten alın:",
       "show": "Göster",
@@ -31,8 +31,21 @@
       "saved": "Kaydedildi",
       "required": "Lütfen önce API Key'inizi ayarlayın",
       "requiredHint": "Ücretsiz Agnes AI API key'iyle başlayın. Kredi kartı gerekmez, ödeme gerekmez.",
-      "getKey": "Ücretsiz API Key Al",
-      "localOnly": "Key'iniz yalnızca tarayıcınızın localStorage'ında saklanır ve hiçbir sunucuya yüklenmez. Tarayıcı verilerini temizledikten sonra yeniden girmeniz gerekir."
+      "getKey": "Get a free API key",
+      "localOnly": "Key'iniz yalnızca tarayıcınızın localStorage'ında saklanır ve hiçbir sunucuya yüklenmez. Tarayıcı verilerini temizledikten sonra yeniden girmeniz gerekir.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "Yaratıcı Açıklama",
     "ideaPlaceholder": "Video temanızı anlatın, ör.: Şehirde sıcak bir yuva bulan sokak kedisinin iyileştirici hikâyesi",
@@ -186,10 +199,10 @@
       "textToImage": "Görsel Üretimi"
     },
     "apiKey": {
-      "title": "API Anahtarı Ayarları",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Anahtarı",
       "placeholder": "Agnes API Anahtarınızı girin...",
-      "save": "Kaydet",
+      "save": "Save & start creating",
       "clear": "Temizle",
       "hint": "Ücretsiz API anahtarınızı şuradan alın:",
       "show": "Göster",
@@ -197,8 +210,21 @@
       "saved": "Kaydedildi",
       "required": "Lütfen önce API Anahtarınızı ayarlayın",
       "requiredHint": "Ücretsiz bir Agnes AI API anahtarıyla başlayın. Kredi kartı yok, ödeme gerekmez.",
-      "getKey": "Ücretsiz API Anahtarı Alın",
-      "localOnly": "Anahtarınız yalnızca tarayıcınızın localStorage'ında saklanır. Asla hiçbir sunucuya yüklenmez. Tarayıcı verilerini temizledikten sonra yeniden girmeniz gerekir."
+      "getKey": "Get a free API key",
+      "localOnly": "Anahtarınız yalnızca tarayıcınızın localStorage'ında saklanır. Asla hiçbir sunucuya yüklenmez. Tarayıcı verilerini temizledikten sonra yeniden girmeniz gerekir.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "Görsel Oluştur",
@@ -321,7 +347,7 @@
       "longTaskExpired": "{minutes} dakikalık bekleme bütçesi tükendi ve kuyruk hâlâ dolu. Daha sonra görev kimliğiyle kontrol edin."
     },
     "seoTitle": "Çevrimiçi Ücretsiz Yapay Zekâ Video Oluşturucu | Agnes Video Generator",
-    "seoDescription": "Tarayıcıda ücretsiz yapay zeka video ve görsel üretici. Görseller agnes-image-2.1-flash kullanır. Tek klip Video 2.5 Flash kullanır (metin, referans görseller, ilk/son kare, 4–12 sn, altı oran). Çok sahneli kısa videolar web stüdyosundan yaratıcı video sekmesinde açılır: bir fikir 2–5 klibe bölünüp tarayıcıda birleştirilir. Kurulum ve kart yok. API anahtarı tarayıcıda kalır.",
+    "seoDescription": "Tarayıcıda ücretsiz yapay zeka video ve görsel üretici. Görseller agnes-image-2.5-flash kullanır. Tek klip Video 2.5 Flash kullanır (metin, referans görseller, ilk/son kare, 4–12 sn, altı oran). Çok sahneli kısa videolar web stüdyosundan yaratıcı video sekmesinde açılır: bir fikir 2–5 klibe bölünüp tarayıcıda birleştirilir. Kurulum ve kart yok. API anahtarı tarayıcıda kalır.",
     "seoH1": "Ücretsiz Çevrimiçi Yapay Zekâ Video ve Görsel Oluşturucu",
     "seoIntro": "Bu sayfa Agnes Video Generator çalışma alanıdır. Görsel, basit video ve yaratıcı video aynı aracın üç sekmesidir. Varsayılan basit videodur. Web stüdyosu girişi doğrudan yaratıcı videoyu açar. Video modeli sınırlı süre ücretsiz Video 2.5 Flash’tır (agnes-video-2.5-flash). Ücretsiz Agnes API anahtarını üste yapıştırın. Anahtar yalnızca bu tarayıcıda durur.",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "Görsel",
-        "desc": "agnes-image-2.1-flash; kare, yatay veya dikey."
+        "desc": "agnes-image-2.5-flash; kare, yatay veya dikey."
       },
       {
         "title": "Basit video",
@@ -402,7 +428,7 @@
         "a": "Video 2.5 Flash bazen 9:16 sonucu 90° döndürülmüş verir. Kadraj yine dikeydir. İndirdikten sonra dosyayı çevirin. Bu, hizmetin bilinen bir sorunudur."
       }
     ],
-    "studioLinkCta": "Çok sahneli yaratıcı video stüdyosu (Beta) →",
+    "studioLinkCta": "Çok sahneli yaratıcı video stüdyosu →",
     "copied": "Kopyalandı",
     "seoModesTitle": "Üç giriş, üç sonuç",
     "seoHowTitle": "Üç adımda başla",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "Görsel",
-        "desc": "Bir betimleme agnes-image-2.1-flash ile görsele döner: kare, yatay veya dikey."
+        "desc": "Bir betimleme agnes-image-2.5-flash ile görsele döner: kare, yatay veya dikey."
       },
       {
         "tab": "simple",

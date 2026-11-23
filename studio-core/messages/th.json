@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: สร้างวิดีโอสั้นออนไลน์ฟรีด้วย AI ใส่ไอเดีย AI แบ่งเป็น 2-5 ฉาก สร้างคลิปข้อความเป็นวิดีโอ และต่อเข้าด้วยกันในเบราว์เซอร์ของคุณ ไม่ต้องติดตั้ง ไม่ต้องใช้ GPU ไม่ต้องใช้บัตรเครดิต — ต้องใช้คีย์ API Agnes ฟรี",
     "seoH1": "สร้างวิดีโอสั้นออนไลน์ฟรีด้วย AI — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio คือเครื่องมือสร้างวิดีโอสั้น AI บนเว็บ: ใส่ไอเดีย AI แบ่งเป็น 2-5 ฉากโดยอัตโนมัติ สร้างวิดีโอ 5 วินาทีต่อฉาก และต่อเป็นวิดีโอสั้นที่สมบูรณ์ในเครื่องเบราว์เซอร์ของคุณ ฟรี 100% ออนไลน์ ไม่ต้องติดตั้ง ไม่ต้องใช้ GPU ระดับสูง ไม่ต้องใช้บัตรเครดิต — แค่เพิ่มคีย์ API Agnes ฟรีของคุณ",
-    "betaBadge": "ฟรี · Beta",
+    "betaBadge": "ไม่ต้องติดตั้ง · คลิกเดียว",
     "title": "เวิร์กช็อปวิดีโอครีเอทีฟ",
     "subtitle": "นักเขียนบท AI → ข้อความเป็นวิดีโอหลายตอน → การต่อภาพในเบราว์เซอร์",
     "apiKeyRequired": "กรุณาตั้งค่าคีย์ API ของคุณก่อน",
     "apiKeyHint": "เริ่มสร้างด้วยคีย์ API Agnes AI ฟรี ไม่ต้องใช้บัตรเครดิต ไม่ต้องชำระเงิน",
     "apiKey": {
-      "title": "ตั้งค่าคีย์ API",
+      "title": "Add your free key once, then start creating",
       "label": "คีย์ API Agnes",
       "placeholder": "กรอกคีย์ API Agnes ของคุณ...",
-      "save": "บันทึก",
+      "save": "Save & start creating",
       "clear": "ล้าง",
       "hint": "รับคีย์ API ฟรีของคุณจาก:",
       "show": "แสดง",
@@ -31,8 +31,21 @@
       "saved": "บันทึกแล้ว",
       "required": "กรุณาตั้งค่าคีย์ API ของคุณก่อน",
       "requiredHint": "เริ่มต้นด้วยคีย์ API Agnes AI ฟรี ไม่ต้องใช้บัตรเครดิต ไม่ต้องชำระเงิน",
-      "getKey": "รับคีย์ API ฟรี",
-      "localOnly": "คีย์ของคุณถูกเก็บเฉพาะใน localStorage ของเบราว์เซอร์เท่านั้น ไม่ถูกอัปโหลดไปยังเซิร์ฟเวอร์ใด ๆ คุณจะต้องกรอกใหม่หลังจากล้างข้อมูลเบราว์เซอร์"
+      "getKey": "Get a free API key",
+      "localOnly": "คีย์ของคุณถูกเก็บเฉพาะใน localStorage ของเบราว์เซอร์เท่านั้น ไม่ถูกอัปโหลดไปยังเซิร์ฟเวอร์ใด ๆ คุณจะต้องกรอกใหม่หลังจากล้างข้อมูลเบราว์เซอร์",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "คำอธิบายความคิดสร้างสรรค์",
     "ideaPlaceholder": "อธิบายธีมวิดีโอของคุณ เช่น: เรื่องราวฮีลลิ่งของลูกแมวจรจัดที่ได้พบบ้านอบอุ่นในเมือง",
@@ -186,10 +199,10 @@
       "textToImage": "สร้างรูปภาพ"
     },
     "apiKey": {
-      "title": "ตั้งค่าคีย์ API",
+      "title": "Add your free key once, then start creating",
       "label": "คีย์ API Agnes",
       "placeholder": "กรอกคีย์ API Agnes ของคุณ...",
-      "save": "บันทึก",
+      "save": "Save & start creating",
       "clear": "ล้าง",
       "hint": "รับคีย์ API ฟรีของคุณจาก:",
       "show": "แสดง",
@@ -197,8 +210,21 @@
       "saved": "บันทึกแล้ว",
       "required": "กรุณาตั้งค่าคีย์ API ของคุณก่อน",
       "requiredHint": "เริ่มต้นด้วยคีย์ API Agnes AI ฟรี ไม่ต้องใช้บัตรเครดิต ไม่ต้องชำระเงิน",
-      "getKey": "รับคีย์ API ฟรี",
-      "localOnly": "คีย์ของคุณถูกเก็บเฉพาะใน localStorage ของเบราว์เซอร์เท่านั้น ไม่ถูกอัปโหลดไปยังเซิร์ฟเวอร์ใด ๆ คุณจะต้องกรอกใหม่หลังจากล้างข้อมูลเบราว์เซอร์"
+      "getKey": "Get a free API key",
+      "localOnly": "คีย์ของคุณถูกเก็บเฉพาะใน localStorage ของเบราว์เซอร์เท่านั้น ไม่ถูกอัปโหลดไปยังเซิร์ฟเวอร์ใด ๆ คุณจะต้องกรอกใหม่หลังจากล้างข้อมูลเบราว์เซอร์",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "สร้างภาพ",
@@ -321,7 +347,7 @@
       "longTaskExpired": "ใช้งบรอ {minutes} นาทีหมดแล้วแต่คิวยังเต็ม ตรวจสอบภายหลังด้วย ID งาน"
     },
     "seoTitle": "เครื่องมือสร้างวิดีโอ AI ฟรีออนไลน์ | Agnes Video Generator",
-    "seoDescription": "เครื่องมือสร้างวิดีโอและภาพ AI ฟรีในเบราว์เซอร์ ภาพใช้ agnes-image-2.1-flash คลิปเดียวใช้ Video 2.5 Flash (ข้อความ ภาพอ้างอิง เฟรมแรก/ท้าย 4–12 วินาที 6 อัตราส่วน) วิดีโอหลายฉากเปิดจากสตูดิโอเว็บที่แท็บวิดีโอสร้างสรรค์: หนึ่งไอเดียถูกแบ่งเป็น 2–5 คลิปแล้วต่อในเบราว์เซอร์ ไม่ต้องติดตั้ง ไม่ใช้บัตร API key อยู่เฉพาะในเบราว์เซอร์",
+    "seoDescription": "เครื่องมือสร้างวิดีโอและภาพ AI ฟรีในเบราว์เซอร์ ภาพใช้ agnes-image-2.5-flash คลิปเดียวใช้ Video 2.5 Flash (ข้อความ ภาพอ้างอิง เฟรมแรก/ท้าย 4–12 วินาที 6 อัตราส่วน) วิดีโอหลายฉากเปิดจากสตูดิโอเว็บที่แท็บวิดีโอสร้างสรรค์: หนึ่งไอเดียถูกแบ่งเป็น 2–5 คลิปแล้วต่อในเบราว์เซอร์ ไม่ต้องติดตั้ง ไม่ใช้บัตร API key อยู่เฉพาะในเบราว์เซอร์",
     "seoH1": "เครื่องมือสร้างวิดีโอและภาพ AI ฟรีออนไลน์",
     "seoIntro": "หน้านี้คือพื้นที่ทำงานของ Agnes Video Generator ภาพ วิดีโอง่าย และวิดีโอสร้างสรรค์เป็นสามแท็บของเครื่องมือเดียวกัน ค่าเริ่มต้นคือวิดีโอง่าย ทางเข้าสตูดิโอเว็บเปิดวิดีโอสร้างสรรค์ทันที โมเดลวิดีโอคือ Video 2.5 Flash (agnes-video-2.5-flash) ฟรีช่วงเวลาจำกัด วาง API key ของ Agnes ที่ได้ฟรีไว้ด้านบน คีย์อยู่เฉพาะเบราว์เซอร์นี้",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "ภาพ",
-        "desc": "agnes-image-2.1-flash ขนาดจัตุรัส แนวนอน หรือแนวตั้ง"
+        "desc": "agnes-image-2.5-flash ขนาดจัตุรัส แนวนอน หรือแนวตั้ง"
       },
       {
         "title": "วิดีโอง่าย",
@@ -402,7 +428,7 @@
         "a": "Video 2.5 Flash บางครั้งส่งไฟล์ 9:16 ที่ถูกหมุน 90 องศา องค์ประกอบยังเป็นแนวตั้ง หมุนไฟล์หลังดาวน์โหลด นี่เป็นปัญหาที่รู้แล้วจากบริการต้นทาง"
       }
     ],
-    "studioLinkCta": "สตูดิโอวิดีโอครีเอทีฟหลายฉาก (Beta) →",
+    "studioLinkCta": "สตูดิโอวิดีโอครีเอทีฟหลายฉาก →",
     "copied": "คัดลอกแล้ว",
     "seoModesTitle": "สามทางเข้า สามผลลัพธ์",
     "seoHowTitle": "เริ่มในสามขั้น",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "ภาพ",
-        "desc": "หนึ่งคำบรรยายกลายเป็นภาพด้วย agnes-image-2.1-flash จัตุรัส แนวนอน หรือแนวตั้ง"
+        "desc": "หนึ่งคำบรรยายกลายเป็นภาพด้วย agnes-image-2.5-flash จัตุรัส แนวนอน หรือแนวตั้ง"
       },
       {
         "tab": "simple",

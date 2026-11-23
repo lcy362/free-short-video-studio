@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: tạo video ngắn trực tuyến miễn phí bằng AI. Nhập một ý tưởng, AI chia thành 2-5 cảnh, tạo clip text-to-video và ghép nối ngay trong trình duyệt của bạn. Không cài đặt, không GPU, không thẻ tín dụng — chỉ cần khóa API Agnes miễn phí.",
     "seoH1": "Tạo video ngắn trực tuyến miễn phí bằng AI — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio là trình tạo video ngắn AI chạy trên web: nhập một ý tưởng, AI tự động chia thành 2-5 cảnh, tạo video 5 giây cho mỗi cảnh và ghép nối thành video ngắn hoàn chỉnh ngay trong trình duyệt của bạn. Hoàn toàn miễn phí, trực tuyến, không cài đặt, không GPU cao cấp, không thẻ tín dụng — chỉ cần thêm khóa API Agnes miễn phí của bạn.",
-    "betaBadge": "Miễn phí · Beta",
+    "betaBadge": "Không cần cài đặt · một cú nhấp",
     "title": "Xưởng video sáng tạo",
     "subtitle": "Biên kịch AI → Text-to-Video nhiều phân đoạn → Ghép nối trong trình duyệt",
     "apiKeyRequired": "Vui lòng đặt khóa API của bạn trước",
     "apiKeyHint": "Bắt đầu sáng tạo với khóa API Agnes AI miễn phí. Không cần thẻ tín dụng, không cần thanh toán.",
     "apiKey": {
-      "title": "Cài đặt khóa API",
+      "title": "Add your free key once, then start creating",
       "label": "Khóa API Agnes",
       "placeholder": "Nhập khóa API Agnes của bạn...",
-      "save": "Lưu",
+      "save": "Save & start creating",
       "clear": "Xóa",
       "hint": "Lấy khóa API miễn phí tại:",
       "show": "Hiện",
@@ -31,8 +31,21 @@
       "saved": "Đã lưu",
       "required": "Vui lòng đặt khóa API của bạn trước",
       "requiredHint": "Bắt đầu với khóa API Agnes AI miễn phí. Không cần thẻ tín dụng, không cần thanh toán.",
-      "getKey": "Lấy khóa API miễn phí",
-      "localOnly": "Khóa của bạn chỉ được lưu trong localStorage của trình duyệt. Không bao giờ được tải lên máy chủ nào. Bạn sẽ cần nhập lại sau khi xóa dữ liệu trình duyệt."
+      "getKey": "Get a free API key",
+      "localOnly": "Khóa của bạn chỉ được lưu trong localStorage của trình duyệt. Không bao giờ được tải lên máy chủ nào. Bạn sẽ cần nhập lại sau khi xóa dữ liệu trình duyệt.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "Mô tả sáng tạo",
     "ideaPlaceholder": "Mô tả chủ đề video của bạn, ví dụ: Câu chuyện chữa lành về một chú mèo hoang tìm được mái ấm giữa thành phố",
@@ -186,10 +199,10 @@
       "textToImage": "Tạo hình ảnh"
     },
     "apiKey": {
-      "title": "Cài đặt khóa API",
+      "title": "Add your free key once, then start creating",
       "label": "Khóa API Agnes",
       "placeholder": "Nhập khóa API Agnes của bạn...",
-      "save": "Lưu",
+      "save": "Save & start creating",
       "clear": "Xóa",
       "hint": "Lấy khóa API miễn phí tại:",
       "show": "Hiện",
@@ -197,8 +210,21 @@
       "saved": "Đã lưu",
       "required": "Vui lòng đặt khóa API của bạn trước",
       "requiredHint": "Bắt đầu với khóa API Agnes AI miễn phí. Không cần thẻ tín dụng, không cần thanh toán.",
-      "getKey": "Lấy khóa API miễn phí",
-      "localOnly": "Khóa của bạn chỉ được lưu trong localStorage của trình duyệt. Không bao giờ được tải lên máy chủ nào. Bạn sẽ cần nhập lại sau khi xóa dữ liệu trình duyệt."
+      "getKey": "Get a free API key",
+      "localOnly": "Khóa của bạn chỉ được lưu trong localStorage của trình duyệt. Không bao giờ được tải lên máy chủ nào. Bạn sẽ cần nhập lại sau khi xóa dữ liệu trình duyệt.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "Tạo hình ảnh",
@@ -321,7 +347,7 @@
       "longTaskExpired": "Đã dùng hết ngân sách chờ {minutes} phút mà hàng đợi vẫn đầy. Kiểm tra lại sau bằng ID tác vụ."
     },
     "seoTitle": "Trình tạo video AI miễn phí trực tuyến | Agnes Video Generator",
-    "seoDescription": "Trình tạo video và ảnh AI miễn phí ngay trên trình duyệt. Ảnh dùng agnes-image-2.1-flash. Một đoạn dùng Video 2.5 Flash (chữ, ảnh tham chiếu, khung đầu/cuối, 4–12 giây, 6 tỷ lệ). Video nhiều cảnh mở từ bản web ở tab video sáng tạo: một ý tưởng tách thành 2–5 đoạn rồi ghép trong trình duyệt. Không cài đặt, không thẻ. API key chỉ nằm trong trình duyệt.",
+    "seoDescription": "Trình tạo video và ảnh AI miễn phí ngay trên trình duyệt. Ảnh dùng agnes-image-2.5-flash. Một đoạn dùng Video 2.5 Flash (chữ, ảnh tham chiếu, khung đầu/cuối, 4–12 giây, 6 tỷ lệ). Video nhiều cảnh mở từ bản web ở tab video sáng tạo: một ý tưởng tách thành 2–5 đoạn rồi ghép trong trình duyệt. Không cài đặt, không thẻ. API key chỉ nằm trong trình duyệt.",
     "seoH1": "Trình tạo video & hình ảnh AI miễn phí trực tuyến",
     "seoIntro": "Trang này là bàn làm việc của Agnes Video Generator. Ảnh, video đơn và video sáng tạo là ba tab của cùng một công cụ. Mặc định là video đơn. Cổng bản web mở thẳng video sáng tạo. Mô hình video là Video 2.5 Flash (agnes-video-2.5-flash), miễn phí trong thời gian có hạn. Dán API key Agnes miễn phí ở phía trên. Key chỉ lưu trên trình duyệt này.",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "Tạo ảnh",
-        "desc": "agnes-image-2.1-flash, vuông, ngang hoặc dọc."
+        "desc": "agnes-image-2.5-flash, vuông, ngang hoặc dọc."
       },
       {
         "title": "Video đơn",
@@ -402,7 +428,7 @@
         "a": "Video 2.5 Flash đôi khi trả 9:16 bị xoay 90°. Bố cục vẫn là dọc. Xoay tệp sau khi tải. Đây là lỗi đã biết từ phía dịch vụ."
       }
     ],
-    "studioLinkCta": "Studio video sáng tạo nhiều cảnh (Beta) →",
+    "studioLinkCta": "Studio video sáng tạo nhiều cảnh →",
     "copied": "Đã sao chép",
     "seoModesTitle": "Ba lối vào, ba kết quả",
     "seoHowTitle": "Bắt đầu trong ba bước",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "Ảnh",
-        "desc": "Một câu mô tả thành ảnh với agnes-image-2.1-flash: vuông, ngang hoặc dọc."
+        "desc": "Một câu mô tả thành ảnh với agnes-image-2.5-flash: vuông, ngang hoặc dọc."
       },
       {
         "tab": "simple",

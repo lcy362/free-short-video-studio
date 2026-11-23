@@ -24,7 +24,7 @@
 - **Multi-scene editing** — edit scene prompts, re-generate individual scenes, swap scene order before rendering.
 - **13 languages** — Chinese, English, Russian, Japanese, Korean, Malay, Indonesian, German, French, Dutch, Spanish, Portuguese, Italian.
 
-> ⚠️ **Status: under active construction** — core generation & stitching work; more features are being built continuously.
+> ✅ **Status: production-ready and publicly available** — the online creator is a finished product, not a beta or a work in progress. Open it in a browser, paste a free API key and export an MP4: no install, no signup, no setup. It is the **Web Version**, one of the two independent editions of Agnes Video Generator (see Related Projects below).
 
 ## 🛠 Quick Start
 
@@ -64,14 +64,15 @@ free-short-video-studio/
 └── functions/api/video-download/[[path]].ts   # Video-download CORS proxy
 ```
 
-## 🔗 Related Projects
+## 🔗 Two Independent Editions of Agnes Video Generator
 
-Both projects are **completely free**. Pick whichever fits your workflow:
+The website presents **two independent editions**, both production-ready and free — pick whichever fits your workflow; they are alternatives, not an upgrade path. The agent skill below is a supplementary channel, not a third button on the site.
 
-| Project | Run Where | Features | Links |
-|---------|-----------|----------|-------|
-| **[FreeShortVideoStudio](https://github.com/lcy362/free-short-video-studio)** (this project) | Fully online, in the browser | Lightweight, zero install — **features under construction** | [Website](https://video.lichuanyang.top/studio) · [GitHub](https://github.com/lcy362/free-short-video-studio) |
-| **[Agnes Video Generator](https://github.com/lcy362/agnes-video-generator)** | Download & run locally | **More powerful** — TTS narration, auto subtitles, digital anchor, image-to-video, keyframes, manuscript-to-video, checkpoint resume & more | [GitHub](https://github.com/lcy362/agnes-video-generator) |
+| Way | Run Where | What you need to do | Links |
+|-----|-----------|---------------------|-------|
+| **① Web Version** (browser workspace, this project) | Fully online, in the browser | **No install, no signup, no setup** — open the page and generate. This is the finished public product | [Website](https://video.lichuanyang.top/studio) · [GitHub](https://github.com/lcy362/free-short-video-studio) |
+| **② Downloadable Version** (self-hosted full app) | On your own machine | Self-hosted, but **one-command install** (`npx free-short-video`, Docker or `start.sh`) and then a Web UI — no technical background or command-line experience needed | [Agnes Video Generator](https://github.com/lcy362/agnes-video-generator) |
+| **③ `agnes-video` agent skill** (supplementary channel) | Driven by an AI coding agent | Install one skill, describe the outcome — the agent runs the **entire pipeline** (install, generate, deliver, diagnose) | [Skill repository](https://github.com/lcy362/agnes-video-generator-skills) |
 
 ## 📄 License
 

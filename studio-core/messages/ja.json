@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio：AIで無料オンライン動画生成。アイデアを入力するとAIが2〜5シーンに自動分割し、テキストから動画を生成してブラウザ内で結合。インストール不要、GPU不要、クレジットカード不要。",
     "seoH1": "AIで無料オンライン動画生成 — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studioはブラウザで完結するAIショート動画ジェネレーターです：アイデアを入力するとAIが2〜5シーンに自動分割し、各シーンの5秒動画を生成、最後にブラウザ内で結合して完成。完全無料・オンライン即利用・インストール不要・高性能GPU不要・クレジットカード不要。",
-    "betaBadge": "無料 · Beta",
+    "betaBadge": "インストール不要 · ワンクリック",
     "title": "クリエイティブ動画スタジオ",
     "subtitle": "AI脚本家 → マルチセグメント テキスト→動画 → ブラウザ結合",
     "apiKeyRequired": "先にAPI Keyを設定してください",
     "apiKeyHint": "無料のAgnes AI API Keyで创作を開始。クレジットカード不要。",
     "apiKey": {
-      "title": "API Key 設定",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "API Keyを入力...",
-      "save": "保存",
+      "save": "Save & start creating",
       "clear": "削除",
       "hint": "無料API Keyの取得先:",
       "show": "表示",
@@ -31,8 +31,21 @@
       "saved": "保存済み",
       "required": "最初にAPI Keyを設定してください",
       "requiredHint": "Agnes AIの無料APIキーで始めましょう。クレカ不要。",
-      "getKey": "無料API Keyを取得",
-      "localOnly": "Key はブラウザの localStorage にのみ保存され、サーバーにアップロードされることはありません。ブラウザデータをクリアした後は再入力が必要です。"
+      "getKey": "Get a free API key",
+      "localOnly": "Key はブラウザの localStorage にのみ保存され、サーバーにアップロードされることはありません。ブラウザデータをクリアした後は再入力が必要です。",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "アイデア記述",
     "ideaPlaceholder": "動画のテーマを描述してください。例：野良猫が街から温かい家を見つける癒しの物語",
@@ -185,10 +198,10 @@
       "textToImage": "画像生成"
     },
     "apiKey": {
-      "title": "API Key 設定",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "API Keyを入力...",
-      "save": "保存",
+      "save": "Save & start creating",
       "clear": "削除",
       "hint": "無料API Keyの取得先:",
       "show": "表示",
@@ -196,8 +209,21 @@
       "saved": "保存済み",
       "required": "最初にAPI Keyを設定してください",
       "requiredHint": "Agnes AIの無料APIキーで始めましょう。クレカ不要。",
-      "getKey": "無料API Keyを取得",
-      "localOnly": "Key はブラウザの localStorage にのみ保存され、サーバーにアップロードされることはありません。ブラウザデータをクリアした後は再入力が必要です。"
+      "getKey": "Get a free API key",
+      "localOnly": "Key はブラウザの localStorage にのみ保存され、サーバーにアップロードされることはありません。ブラウザデータをクリアした後は再入力が必要です。",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "画像を生成",
@@ -321,7 +347,7 @@
     },
     "githubNote": "ウェブ版は基本的なテキスト→画像 / テキスト→動画のみ対応しています。完全な機能（クリエイティブ長編動画、原稿動画、AIデジタルアンカー、TTSナレーション、自動字幕、レジューム機能など）は GitHub からデスクトップ版をダウンロードしてください。",
     "seoTitle": "無料オンライン AI 動画ジェネレーター | Agnes Video Generator",
-    "seoDescription": "ブラウザだけで使える無料の AI 動画・画像生成。画像は agnes-image-2.1-flash。単発動画は期間限定無料の Video 2.5 Flash（テキスト、参照画像、開始/終了フレーム、4–12 秒、6 種類の比率）。複数シーンは「ウェブ版」からクリエイティブ動画タブが開き、1 つのアイデアを 2–5 本に分けてブラウザ内で結合します。インストールもクレジットカードも不要。API キーはこのブラウザだけに保存されます。",
+    "seoDescription": "ブラウザだけで使える無料の AI 動画・画像生成。画像は agnes-image-2.5-flash。単発動画は期間限定無料の Video 2.5 Flash（テキスト、参照画像、開始/終了フレーム、4–12 秒、6 種類の比率）。複数シーンは「ウェブ版」からクリエイティブ動画タブが開き、1 つのアイデアを 2–5 本に分けてブラウザ内で結合します。インストールもクレジットカードも不要。API キーはこのブラウザだけに保存されます。",
     "seoH1": "無料オンライン AI 動画・画像ジェネレーター",
     "seoIntro": "このページは Agnes Video Generator の作業台です。画像・シンプル動画・クリエイティブ動画は同じツールの 3 タブです。初期表示はシンプル動画。「ウェブ版」を開くとクリエイティブ動画になります。動画モデルは期間限定無料の Video 2.5 Flash（agnes-video-2.5-flash）です。無料の Agnes API キーを上部に貼り付けてください。キーはこのブラウザにだけ残ります。",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "画像生成",
-        "desc": "agnes-image-2.1-flash。正方形、横、縦の 3 サイズ。"
+        "desc": "agnes-image-2.5-flash。正方形、横、縦の 3 サイズ。"
       },
       {
         "title": "シンプル動画",
@@ -402,7 +428,7 @@
         "a": "Video 2.5 Flash の 9:16 は、ときに 90 度回転して届きます。構図自体は縦です。ダウンロード後に回転してください。上流の既知の問題です。"
       }
     ],
-    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "studioLinkCta": "Multi-scene creative video studio →",
     "copied": "コピーしました",
     "seoModesTitle": "3 つの入口、3 つの結果",
     "seoHowTitle": "3 ステップで始める",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "画像生成",
-        "desc": "一文の描写から agnes-image-2.1-flash で画像を作ります。正方形、横、縦。"
+        "desc": "一文の描写から agnes-image-2.5-flash で画像を作ります。正方形、横、縦。"
       },
       {
         "tab": "simple",

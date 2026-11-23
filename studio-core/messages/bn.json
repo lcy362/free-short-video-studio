@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: AI দিয়ে ফ্রিতে অনলাইনে শর্ট ভিডিও তৈরি করুন। একটি আইডিয়া লিখুন, AI তা ২-৫টি দৃশ্যে ভাগ করে, টেক্সট-টু-ভিডিও ক্লিপ জেনারেট করে এবং আপনার ব্রাউজারেই জোড়া দেয়। ইনস্টল নেই, GPU নেই, ক্রেডিট কার্ড নেই — শুধু ফ্রি Agnes API কী দরকার।",
     "seoH1": "AI দিয়ে ফ্রিতে অনলাইনে শর্ট ভিডিও তৈরি করুন — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio একটি ওয়েব-ভিত্তিক AI শর্ট ভিডিও জেনারেটর: একটি আইডিয়া লিখুন, AI স্বয়ংক্রিয়ভাবে তা ২-৫টি দৃশ্যে ভাগ করে, প্রতিটি দৃশ্যের জন্য ৫-সেকেন্ডের ভিডিও জেনারেট করে এবং আপনার ব্রাউজারেই লোকালি একটি সম্পূর্ণ শর্ট ভিডিওতে জোড়া দেয়। সম্পূর্ণ ফ্রি, অনলাইন, ইনস্টল নেই, উন্নত GPU নেই, ক্রেডিট কার্ড নেই — শুধু আপনার ফ্রি Agnes API কী যোগ করুন।",
-    "betaBadge": "ফ্রি · বিটা",
+    "betaBadge": "ইনস্টল ছাড়াই · এক ক্লিক",
     "title": "ক্রিয়েটিভ ভিডিও ওয়ার্কশপ",
     "subtitle": "AI স্ক্রিনরাইটার → মাল্টি-সেগমেন্ট টেক্সট-টু-ভিডিও → ব্রাউজারে কনক্যাটেনেশন",
     "apiKeyRequired": "আগে আপনার API কী সেট করুন",
     "apiKeyHint": "ফ্রি Agnes AI API কী দিয়ে তৈরি শুরু করুন। ক্রেডিট কার্ড নেই, পেমেন্ট নেই।",
     "apiKey": {
-      "title": "API কী সেটিংস",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API কী",
       "placeholder": "আপনার Agnes API কী লিখুন...",
-      "save": "সংরক্ষণ",
+      "save": "Save & start creating",
       "clear": "মুছুন",
       "hint": "আপনার ফ্রি API কী পান:",
       "show": "দেখান",
@@ -31,8 +31,21 @@
       "saved": "সংরক্ষিত হয়েছে",
       "required": "আগে আপনার API কী সেট করুন",
       "requiredHint": "ফ্রি Agnes AI API কী দিয়ে শুরু করুন। ক্রেডিট কার্ড নেই, কোনো পেমেন্ট লাগবে না।",
-      "getKey": "ফ্রি API কী পান",
-      "localOnly": "আপনার কী শুধু আপনার ব্রাউজারের localStorage-এ সংরক্ষিত থাকে। এটি কখনো কোনো সার্ভারে আপলোড হয় না। ব্রাউজার ডেটা মুছলে আপনাকে আবার লিখতে হবে।"
+      "getKey": "Get a free API key",
+      "localOnly": "আপনার কী শুধু আপনার ব্রাউজারের localStorage-এ সংরক্ষিত থাকে। এটি কখনো কোনো সার্ভারে আপলোড হয় না। ব্রাউজার ডেটা মুছলে আপনাকে আবার লিখতে হবে।",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "ক্রিয়েটিভ বর্ণনা",
     "ideaPlaceholder": "আপনার ভিডিওর থিম বর্ণনা করুন, যেমন: শহরে উষ্ণ একটি বাড়ি খুঁজে পাওয়া এক বিপথগামী বিড়ালছানার হিলিং গল্প",
@@ -186,10 +199,10 @@
       "textToImage": "ছবি তৈরি"
     },
     "apiKey": {
-      "title": "API কী সেটিংস",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API কী",
       "placeholder": "আপনার Agnes API কী লিখুন...",
-      "save": "সংরক্ষণ",
+      "save": "Save & start creating",
       "clear": "মুছুন",
       "hint": "আপনার ফ্রি API কী পান:",
       "show": "দেখান",
@@ -197,8 +210,21 @@
       "saved": "সংরক্ষিত হয়েছে",
       "required": "আগে আপনার API কী সেট করুন",
       "requiredHint": "ফ্রি Agnes AI API কী দিয়ে শুরু করুন। ক্রেডিট কার্ড নেই, কোনো পেমেন্ট লাগবে না।",
-      "getKey": "ফ্রি API কী পান",
-      "localOnly": "আপনার কী শুধু আপনার ব্রাউজারের localStorage-এ সংরক্ষিত থাকে। এটি কখনো কোনো সার্ভারে আপলোড হয় না। ব্রাউজার ডেটা মুছলে আপনাকে আবার লিখতে হবে।"
+      "getKey": "Get a free API key",
+      "localOnly": "আপনার কী শুধু আপনার ব্রাউজারের localStorage-এ সংরক্ষিত থাকে। এটি কখনো কোনো সার্ভারে আপলোড হয় না। ব্রাউজার ডেটা মুছলে আপনাকে আবার লিখতে হবে।",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "ইমেজ জেনারেট করুন",
@@ -321,7 +347,7 @@
       "longTaskExpired": "{minutes} মিনিটের অপেক্ষার বাজেট শেষ, সারি এখনও ভরা। পরে টাস্ক ID দিয়ে দেখুন।"
     },
     "seoTitle": "ফ্রি AI ভিডিও জেনারেটর অনলাইন | Agnes Video Generator",
-    "seoDescription": "ব্রাউজারে বিনামূল্যের AI ভিডিও ও ছবি জেনারেটর। ছবি agnes-image-2.1-flash। একটি ক্লিপ Video 2.5 Flash (টেক্সট, রেফারেন্স ছবি, প্রথম/শেষ ফ্রেম, ৪–১২ সেকেন্ড, ৬ অনুপাত)। একাধিক দৃশ্যের শর্ট ওয়েব স্টুডিওর ক্রিয়েটিভ ভিডিও ট্যাবে খোলে: একটি ধারণা ২–৫ ক্লিপে ভাগ হয়ে ব্রাউজারে জোড়া লাগে। ইনস্টল বা কার্ড লাগে না। API কী ব্রাউজারেই থাকে।",
+    "seoDescription": "ব্রাউজারে বিনামূল্যের AI ভিডিও ও ছবি জেনারেটর। ছবি agnes-image-2.5-flash। একটি ক্লিপ Video 2.5 Flash (টেক্সট, রেফারেন্স ছবি, প্রথম/শেষ ফ্রেম, ৪–১২ সেকেন্ড, ৬ অনুপাত)। একাধিক দৃশ্যের শর্ট ওয়েব স্টুডিওর ক্রিয়েটিভ ভিডিও ট্যাবে খোলে: একটি ধারণা ২–৫ ক্লিপে ভাগ হয়ে ব্রাউজারে জোড়া লাগে। ইনস্টল বা কার্ড লাগে না। API কী ব্রাউজারেই থাকে।",
     "seoH1": "ফ্রি অনলাইন AI ভিডিও ও ইমেজ জেনারেটর",
     "seoIntro": "এই পৃষ্ঠা Agnes Video Generator-এর কাজের জায়গা। ছবি, সহজ ভিডিও ও ক্রিয়েটিভ ভিডিও একই টুলের তিনটি ট্যাব। সহজ ভিডিও ডিফল্ট। ওয়েব স্টুডিও সরাসরি ক্রিয়েটিভ ভিডিও খোলে। ভিডিও মডেল সীমিত সময়ের জন্য বিনামূল্যের Video 2.5 Flash (agnes-video-2.5-flash)। উপরে বিনামূল্যের Agnes API কী বসান। কী শুধু এই ব্রাউজারে থাকে।",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "ছবি",
-        "desc": "agnes-image-2.1-flash, বর্গ, আনুভূমিক বা উল্লম্ব।"
+        "desc": "agnes-image-2.5-flash, বর্গ, আনুভূমিক বা উল্লম্ব।"
       },
       {
         "title": "সহজ ভিডিও",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "ছবি",
-        "desc": "একটি বর্ণনা agnes-image-2.1-flash দিয়ে ছবি হয়: বর্গ, আনুভূমিক বা উল্লম্ব।"
+        "desc": "একটি বর্ণনা agnes-image-2.5-flash দিয়ে ছবি হয়: বর্গ, আনুভূমিক বা উল্লম্ব।"
       },
       {
         "tab": "simple",

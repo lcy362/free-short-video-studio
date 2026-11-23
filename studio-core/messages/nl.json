@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: gratis AI-korte video's online genereren. Voer een idee in, AI splitst het in 2-5 scènes, genereert video's en voegt ze samen in de browser. Geen installatie, geen GPU, geen creditcard.",
     "seoH1": "Gratis AI-korte video's online genereren — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio is een webversie AI-kortevideogenerator: voer een idee in, AI splitst het automatisch in 2-5 scènes, genereert per scène een 5-secondenvideo en voegt ze in uw browser samen tot een complete korte video. Volledig gratis, geen installatie, geen GPU, geen creditcard — voeg gewoon een gratis Agnes API-sleutel toe.",
-    "betaBadge": "Gratis · Beta",
+    "betaBadge": "Geen installatie · één klik",
     "title": "Creatieve Video Workshop",
     "subtitle": "AI-Scenarioschrijver → Multi-Segment Tekst-naar-Video → Browser Samenvoeging",
     "apiKeyRequired": "Stel eerst uw API Key in",
     "apiKeyHint": "Begin met een gratis Agnes AI API Key. Geen creditcard.",
     "apiKey": {
-      "title": "API-sleutelinstellingen",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API-sleutel",
       "placeholder": "Voer uw Agnes API-sleutel in...",
-      "save": "Opslaan",
+      "save": "Save & start creating",
       "clear": "Wissen",
       "hint": "Haal uw gratis API-sleutel van:",
       "show": "Tonen",
@@ -31,8 +31,21 @@
       "saved": "Opgeslagen",
       "required": "Stel eerst uw API-sleutel in",
       "requiredHint": "Begin met een gratis Agnes AI API-sleutel.",
-      "getKey": "Gratis API-sleutel verkrijgen",
-      "localOnly": "Uw sleutel wordt alleen opgeslagen in de localStorage van uw browser."
+      "getKey": "Get a free API key",
+      "localOnly": "Uw sleutel wordt alleen opgeslagen in de localStorage van uw browser.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "Creatieve Beschrijving",
     "ideaPlaceholder": "Beschrijf uw videowerk, bijv.: Een helend verhaal van een zwerfkatten die een warm thuis vindt",
@@ -186,10 +199,10 @@
       "textToImage": "Afbeelding genereren"
     },
     "apiKey": {
-      "title": "API-sleutelinstellingen",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API-sleutel",
       "placeholder": "Voer uw Agnes API-sleutel in...",
-      "save": "Opslaan",
+      "save": "Save & start creating",
       "clear": "Wissen",
       "hint": "Haal uw gratis API-sleutel van:",
       "show": "Tonen",
@@ -197,8 +210,21 @@
       "saved": "Opgeslagen",
       "required": "Stel eerst uw API-sleutel in",
       "requiredHint": "Begin met een gratis Agnes AI API-sleutel.",
-      "getKey": "Gratis API-sleutel verkrijgen",
-      "localOnly": "Uw sleutel wordt alleen opgeslagen in de localStorage van uw browser."
+      "getKey": "Get a free API key",
+      "localOnly": "Uw sleutel wordt alleen opgeslagen in de localStorage van uw browser.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "Afbeelding genereren",
@@ -321,7 +347,7 @@
       "longTaskExpired": "Wachtbudget van {minutes} minuten verbruikt en de wachtrij is nog vol. Controleer later met de taak-ID."
     },
     "seoTitle": "Gratis online AI-videogenerator | Agnes Video Generator",
-    "seoDescription": "Gratis AI-video- en beeldgenerator in de browser. Beelden: agnes-image-2.1-flash. Eén clip: Video 2.5 Flash (tekst, referentiebeelden, eerste/laatste frame, 4–12 s, zes verhoudingen). Meerdere scènes openen via de webstudio op het tabblad creatieve video: één idee wordt 2–5 clips en in de browser aan elkaar gezet. Geen installatie, geen kaart. De API-sleutel blijft in de browser.",
+    "seoDescription": "Gratis AI-video- en beeldgenerator in de browser. Beelden: agnes-image-2.5-flash. Eén clip: Video 2.5 Flash (tekst, referentiebeelden, eerste/laatste frame, 4–12 s, zes verhoudingen). Meerdere scènes openen via de webstudio op het tabblad creatieve video: één idee wordt 2–5 clips en in de browser aan elkaar gezet. Geen installatie, geen kaart. De API-sleutel blijft in de browser.",
     "seoH1": "Gratis online AI-video- & afbeeldingengenerator",
     "seoIntro": "Deze pagina is de werkplek van Agnes Video Generator. Beeld, eenvoudige video en creatieve video zijn drie tabbladen van hetzelfde gereedschap. Standaard is eenvoudige video. De webstudio opent meteen creatieve video. Het videomodel is het tijdelijk gratis Video 2.5 Flash (agnes-video-2.5-flash). Plak bovenaan een gratis Agnes-API-sleutel. Die blijft alleen in deze browser.",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "Beeld",
-        "desc": "agnes-image-2.1-flash, vierkant, liggend of staand."
+        "desc": "agnes-image-2.5-flash, vierkant, liggend of staand."
       },
       {
         "title": "Eenvoudige video",
@@ -402,7 +428,7 @@
         "a": "Video 2.5 Flash levert 9:16 soms 90° gedraaid. De compositie is nog steeds staand. Draai het bestand na het downloaden. Dit is een bekend probleem van de dienst."
       }
     ],
-    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "studioLinkCta": "Multi-scene creative video studio →",
     "copied": "Gekopieerd",
     "seoModesTitle": "Drie ingangen, drie resultaten",
     "seoHowTitle": "Begin in drie stappen",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "Beeld",
-        "desc": "Eén beschrijving wordt een beeld met agnes-image-2.1-flash: vierkant, liggend of staand."
+        "desc": "Eén beschrijving wordt een beeld met agnes-image-2.5-flash: vierkant, liggend of staand."
       },
       {
         "tab": "simple",

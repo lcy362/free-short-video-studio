@@ -26,7 +26,13 @@ import {
   type VideoRatio,
 } from '../lib/demo-types';
 import { fetchWithFailback } from '../lib/api-client';
-import { trackDemoError, trackGenerationStart, trackGenerationSuccess } from '../lib/analytics';
+import {
+  trackApiKeyPanelFocus,
+  trackDemoError,
+  trackGenerationStart,
+  trackGenerationSuccess,
+  trackGetKeyClick,
+} from '../lib/analytics';
 import { useGenerationAbandon } from '../lib/use-generation-abandon';
 import { readPrefillPrompt } from '../lib/prompt-prefill';
 import {
@@ -1024,7 +1030,31 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
       {status !== 'completed' && status !== 'generating' && (
         <>
           {!apiKey && (
-            <p className="text-sm text-muted text-center">{t('apiKey.requiredHint')}</p>
+            <div className="rounded-xl border border-accent/25 bg-accent/5 p-3 space-y-2 text-center">
+              <p className="text-sm text-ink-2">{t('apiKey.noKeyTitle')}</p>
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    trackApiKeyPanelFocus({ tab: 'simple' });
+                    document.getElementById('api-key-panel')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    document.getElementById('api-key-input')?.focus();
+                  }}
+                  className="text-sm font-medium text-accent hover:underline"
+                >
+                  {t('apiKey.noKeyCta')} →
+                </button>
+                <a
+                  href="https://platform.agnes-ai.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackGetKeyClick({ from: 'generate' })}
+                  className="text-xs text-muted hover:text-ink transition"
+                >
+                  {t('apiKey.noKeyGet')}
+                </a>
+              </div>
+            </div>
           )}
           <GenerateButton
             onClick={handleGenerate}

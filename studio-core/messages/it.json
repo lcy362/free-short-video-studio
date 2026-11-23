@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: crea video brevi online gratis con l'IA. Inserisci un'idea, l'IA la divide in 2-5 scene, genera i video e li concatena nel browser. Nessuna installazione, nessuna GPU, nessuna carta di credito.",
     "seoH1": "Creare video brevi online gratis con l'IA — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio è un generatore di video brevi IA in versione web: inserisci un'idea, l'IA la divide automaticamente in 2-5 scene, genera un video di 5 secondi per scena e li concatena in un video breve completo nel tuo browser. Completamente gratuito, senza installazione, senza GPU, senza carta di credito — basta aggiungere una chiave Agnes API gratuita.",
-    "betaBadge": "Gratuito · Beta",
+    "betaBadge": "Nessuna installazione · un clic",
     "title": "Laboratorio Video Creativo",
     "subtitle": "Sceneggiatore IA → Testo-a-Video Multi-Segmento → Concatenazione Browser",
     "apiKeyRequired": "Prima imposta la API Key",
     "apiKeyHint": "Inizia con una API Key Agnes AI gratuita. Senza carta di credito.",
     "apiKey": {
-      "title": "Impostazioni API Key",
+      "title": "Add your free key once, then start creating",
       "label": "Chiave API Agnes",
       "placeholder": "Inserisci la tua chiave API Agnes...",
-      "save": "Salva",
+      "save": "Save & start creating",
       "clear": "Cancella",
       "hint": "Ottieni la tua chiave API gratuita da:",
       "show": "Mostra",
@@ -31,8 +31,21 @@
       "saved": "Salvato",
       "required": "Imposta prima la tua chiave API",
       "requiredHint": "Inizia con una chiave API gratuita di Agnes AI.",
-      "getKey": "Ottieni chiave API gratuita",
-      "localOnly": "La tua chiave è memorizzata solo nel localStorage del browser."
+      "getKey": "Get a free API key",
+      "localOnly": "La tua chiave è memorizzata solo nel localStorage del browser.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "Descrizione Creativa",
     "ideaPlaceholder": "Descrivi il tema del video, es: Una storia toccante di un gattino randagio che trova una casa calda",
@@ -186,10 +199,10 @@
       "textToImage": "Generazione immagini"
     },
     "apiKey": {
-      "title": "Impostazioni API Key",
+      "title": "Add your free key once, then start creating",
       "label": "Chiave API Agnes",
       "placeholder": "Inserisci la tua chiave API Agnes...",
-      "save": "Salva",
+      "save": "Save & start creating",
       "clear": "Cancella",
       "hint": "Ottieni la tua chiave API gratuita da:",
       "show": "Mostra",
@@ -197,8 +210,21 @@
       "saved": "Salvato",
       "required": "Imposta prima la tua chiave API",
       "requiredHint": "Inizia con una chiave API gratuita di Agnes AI.",
-      "getKey": "Ottieni chiave API gratuita",
-      "localOnly": "La tua chiave è memorizzata solo nel localStorage del browser."
+      "getKey": "Get a free API key",
+      "localOnly": "La tua chiave è memorizzata solo nel localStorage del browser.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "Genera immagine",
@@ -321,7 +347,7 @@
       "longTaskExpired": "Budget di attesa di {minutes} minuti esaurito e la coda è ancora piena. Controlla più tardi con l’ID attività."
     },
     "seoTitle": "Generatore di video IA gratuito online | Agnes Video Generator",
-    "seoDescription": "Generatore gratuito di video e immagini IA nel browser. Immagini: agnes-image-2.1-flash. Una clip: Video 2.5 Flash (testo, immagini di riferimento, primo/ultimo fotogramma, 4–12 s, sei formati). I corti multi-scena si aprono dallo studio web nella scheda video creativo: un’idea diventa 2–5 clip e viene unita nel browser. Nessuna installazione, nessuna carta. La chiave API resta nel browser.",
+    "seoDescription": "Generatore gratuito di video e immagini IA nel browser. Immagini: agnes-image-2.5-flash. Una clip: Video 2.5 Flash (testo, immagini di riferimento, primo/ultimo fotogramma, 4–12 s, sei formati). I corti multi-scena si aprono dallo studio web nella scheda video creativo: un’idea diventa 2–5 clip e viene unita nel browser. Nessuna installazione, nessuna carta. La chiave API resta nel browser.",
     "seoH1": "Generatore di video e immagini IA online gratuito",
     "seoIntro": "Questa pagina è lo spazio di Agnes Video Generator. Immagine, video semplice e video creativo sono tre schede dello stesso strumento. Il video semplice è l’ingresso predefinito. Lo studio web apre subito il video creativo. Il modello video è Video 2.5 Flash (agnes-video-2.5-flash), gratis a tempo limitato. Incolla una chiave Agnes gratuita in alto. Resta solo in questo browser.",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "Immagine",
-        "desc": "agnes-image-2.1-flash, quadrata, orizzontale o verticale."
+        "desc": "agnes-image-2.5-flash, quadrata, orizzontale o verticale."
       },
       {
         "title": "Video semplice",
@@ -402,7 +428,7 @@
         "a": "Video 2.5 Flash a volte consegna il 9:16 ruotato di 90°. L’inquadratura resta verticale. Ruota il file dopo il download. È un problema noto del servizio."
       }
     ],
-    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "studioLinkCta": "Multi-scene creative video studio →",
     "copied": "Copiato",
     "seoModesTitle": "Tre ingressi, tre risultati",
     "seoHowTitle": "Iniziare in tre passi",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "Immagine",
-        "desc": "Una descrizione diventa un’immagine con agnes-image-2.1-flash: quadrata, orizzontale o verticale."
+        "desc": "Una descrizione diventa un’immagine con agnes-image-2.5-flash: quadrata, orizzontale o verticale."
       },
       {
         "tab": "simple",

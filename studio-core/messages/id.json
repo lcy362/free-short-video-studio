@@ -14,16 +14,16 @@
     "seoDescription": "FreeShortVideo Studio: buat video pendek online gratis dengan AI. Masukkan ide, AI membaginya menjadi 2-5 adegan, membuat video, dan menggabungkannya di browser. Tanpa instalasi, tanpa GPU, tanpa kartu kredit.",
     "seoH1": "Buat Video Pendek Online Gratis dengan AI — FreeShortVideo Studio",
     "seoIntro": "FreeShortVideo Studio adalah generator video pendek AI versi web: masukkan ide, AI otomatis membaginya menjadi 2-5 adegan, membuat video 5 detik per adegan, lalu menggabungkannya menjadi video pendek lengkap di browser. Sepenuhnya gratis, tanpa instalasi, tanpa GPU, tanpa kartu kredit — cukup tambahkan kunci Agnes API gratis.",
-    "betaBadge": "Gratis · Beta",
+    "betaBadge": "Tanpa instalasi · satu klik",
     "title": "Workshop Video Kreatif",
     "subtitle": "AI Penulis Skenario → Teks-ke-Video Multi-Segmen → Gabungan Browser",
     "apiKeyRequired": "Silakan atur API Key terlebih dahulu",
     "apiKeyHint": "Mulai dengan API Key Agnes AI gratis. Tanpa kartu kredit.",
     "apiKey": {
-      "title": "Pengaturan API Key",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "Masukkan API Key Anda...",
-      "save": "Simpan",
+      "save": "Save & start creating",
       "clear": "Hapus",
       "hint": "Dapatkan API Key gratis dari:",
       "show": "Tampilkan",
@@ -31,8 +31,21 @@
       "saved": "Tersimpan",
       "required": "Silakan atur API Key terlebih dahulu",
       "requiredHint": "Mulai dengan API key Agnes AI gratis. Tanpa kartu kredit.",
-      "getKey": "Dapatkan API Key Gratis",
-      "localOnly": "Kunci hanya disimpan di localStorage browser Anda dan tidak pernah diunggah ke server mana pun. Anda perlu memasukkannya kembali setelah menghapus data browser."
+      "getKey": "Get a free API key",
+      "localOnly": "Kunci hanya disimpan di localStorage browser Anda dan tidak pernah diunggah ke server mana pun. Anda perlu memasukkannya kembali setelah menghapus data browser.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "ideaLabel": "Deskripsi Kreatif",
     "ideaPlaceholder": "Deskripsikan tema video, mis: Kisah penyembuhan anak kucing liar menemukan rumah hangat di kota",
@@ -185,10 +198,10 @@
       "textToImage": "Pembuatan Gambar"
     },
     "apiKey": {
-      "title": "Pengaturan API Key",
+      "title": "Add your free key once, then start creating",
       "label": "Agnes API Key",
       "placeholder": "Masukkan API Key Anda...",
-      "save": "Simpan",
+      "save": "Save & start creating",
       "clear": "Hapus",
       "hint": "Dapatkan API Key gratis dari:",
       "show": "Tampilkan",
@@ -196,8 +209,21 @@
       "saved": "Tersimpan",
       "required": "Silakan atur API Key terlebih dahulu",
       "requiredHint": "Mulai dengan API key Agnes AI gratis. Tanpa kartu kredit.",
-      "getKey": "Dapatkan API Key Gratis",
-      "localOnly": "Kunci hanya disimpan di localStorage browser Anda dan tidak pernah diunggah ke server mana pun. Anda perlu memasukkannya kembali setelah menghapus data browser."
+      "getKey": "Get a free API key",
+      "localOnly": "Kunci hanya disimpan di localStorage browser Anda dan tidak pernah diunggah ke server mana pun. Anda perlu memasukkannya kembali setelah menghapus data browser.",
+      "intro": "Takes about 3 minutes to sign up. Free, no credit card.",
+      "getKeyNote": "Opens in a new tab — copy the key, then paste it back here",
+      "savedHint": "Saved on this device. Just hit Generate.",
+      "trustFree": "Free: no credit card, ~3 min signup",
+      "trustLocal": "Stays on this device: never uploaded, removable anytime",
+      "trustOnce": "Saved once, remembered next time",
+      "advanced": "Advanced: API domain",
+      "advancedNote": "Uses the global endpoint by default. Usually no change needed; other lines are tried automatically if the network fails.",
+      "noKeyTitle": "One step left: add your free API key (~3 min)",
+      "noKeyCta": "Add key",
+      "noKeyGet": "No key yet? Get one free",
+      "disabledHint": "Add a key to enable generation",
+      "guideLink": "New here? Follow the step-by-step visual guide (~3 min)"
     },
     "image": {
       "generate": "Hasilkan Gambar",
@@ -321,7 +347,7 @@
     },
     "githubNote": "Demo web ini hanya menyediakan fungsi dasar teks-ke-gambar dan teks-ke-video. Untuk fitur lengkap (video kreatif panjang, video naskah, pembawa acara digital AI, narasi TTS, subtitle otomatis, lanjutkan, dan lainnya), unduh aplikasi desktop dari GitHub.",
     "seoTitle": "Generator Video AI Gratis Online | Agnes Video Generator",
-    "seoDescription": "Pembuat video dan gambar AI gratis di browser. Gambar memakai agnes-image-2.1-flash. Satu klip memakai Video 2.5 Flash (teks, gambar referensi, bingkai awal/akhir, 4–12 detik, 6 rasio). Video banyak adegan dibuka dari studio web pada tab video kreatif: satu ide dipecah menjadi 2–5 klip lalu digabung di browser. Tanpa instal dan tanpa kartu. API key tetap di browser.",
+    "seoDescription": "Pembuat video dan gambar AI gratis di browser. Gambar memakai agnes-image-2.5-flash. Satu klip memakai Video 2.5 Flash (teks, gambar referensi, bingkai awal/akhir, 4–12 detik, 6 rasio). Video banyak adegan dibuka dari studio web pada tab video kreatif: satu ide dipecah menjadi 2–5 klip lalu digabung di browser. Tanpa instal dan tanpa kartu. API key tetap di browser.",
     "seoH1": "Generator Video & Gambar AI Online Gratis",
     "seoIntro": "Halaman ini adalah meja kerja Agnes Video Generator. Gambar, video sederhana, dan video kreatif adalah tiga tab alat yang sama. Video sederhana adalah pintu bawaan. Studio web langsung membuka video kreatif. Model video adalah Video 2.5 Flash (agnes-video-2.5-flash) yang gratis untuk waktu terbatas. Tempel API key Agnes gratis di atas. Key hanya tersimpan di browser ini.",
     "seoFeatures": [
@@ -335,7 +361,7 @@
       },
       {
         "title": "Gambar",
-        "desc": "agnes-image-2.1-flash, persegi, lanskap, atau potret."
+        "desc": "agnes-image-2.5-flash, persegi, lanskap, atau potret."
       },
       {
         "title": "Video sederhana",
@@ -402,7 +428,7 @@
         "a": "Video 2.5 Flash kadang mengirim 9:16 yang terputar 90°. Komposisinya tetap vertikal. Putar berkas setelah diunduh. Ini masalah yang sudah diketahui di layanan hulu."
       }
     ],
-    "studioLinkCta": "Multi-scene creative video studio (Beta) →",
+    "studioLinkCta": "Multi-scene creative video studio →",
     "copied": "Disalin",
     "seoModesTitle": "Tiga pintu, tiga hasil",
     "seoHowTitle": "Mulai dalam tiga langkah",
@@ -415,7 +441,7 @@
       {
         "tab": "image",
         "title": "Gambar",
-        "desc": "Satu deskripsi menjadi gambar dengan agnes-image-2.1-flash: persegi, lanskap, atau potret."
+        "desc": "Satu deskripsi menjadi gambar dengan agnes-image-2.5-flash: persegi, lanskap, atau potret."
       },
       {
         "tab": "simple",

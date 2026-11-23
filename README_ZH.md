@@ -19,7 +19,7 @@
 - **多场景编辑** —— 编辑场景提示词、单独重新生成某个场景、渲染前调整场景顺序。
 - **13 种语言** —— 中文、英文、俄文、日文、韩文、马来文、印尼文、德文、法文、荷兰文、西班牙文、葡萄牙文、意大利文。
 
-> ⚠️ **状态：功能建设中** —— 核心生成与拼接已可用，更多功能正在持续开发。
+> ✅ **状态：已正式上线，可直接使用** —— 在线创作台是成品，不是 Beta 也不是在建项目。打开浏览器、填入免费 API Key 即可导出 MP4：零安装、无需注册、零配置。它是 Agnes Video Generator 的**网页版**，两种独立方式之一（见下方「关联项目」）。
 
 ## 🛠 本地开发
 
@@ -59,14 +59,15 @@ free-short-video-studio/
 └── functions/api/video-download/[[path]].ts   # 视频下载 CORS 代理
 ```
 
-## 🔗 关联项目
+## 🔗 Agnes Video Generator 的两种独立方式
 
-两个项目**均完全免费**，按需选择：
+官网呈现**两种独立方式**，都已正式上线、均完全免费；两者是并列选择，不是「体验版 → 完整版」的升级阶梯。下方的 Agent 技能是补充渠道，不是官网第三个并列入口。
 
-| 项目 | 运行方式 | 功能定位 | 链接 |
-|------|---------|---------|------|
-| **[FreeShortVideoStudio](https://github.com/lcy362/free-short-video-studio)**（本项目） | 完全在线、浏览器内运行 | 轻量免安装，**功能建设中** | [在线体验](https://video.lichuanyang.top/studio) · [GitHub](https://github.com/lcy362/free-short-video-studio) |
-| **[Agnes Video Generator](https://github.com/lcy362/agnes-video-generator)** | 下载后本地运行 | **功能更强大** —— TTS 配音、自动字幕、数字人、图生视频、关键帧动画、文章成片、断点续传等 | [GitHub](https://github.com/lcy362/agnes-video-generator) |
+| 方式 | 运行方式 | 你实际要做什么 | 链接 |
+|------|---------|--------------|------|
+| **① 网页版**（在线创作台，本项目） | 完全在线、浏览器内运行 | **零安装、无需注册、零配置**——打开页面就能出片，已正式上线 | [在线使用](https://video.lichuanyang.top/studio) · [GitHub](https://github.com/lcy362/free-short-video-studio) |
+| **② 下载版**（源产品 · 自托管完整版） | 部署在自己的机器上 | 自托管，但**一条命令即可安装**（`npx free-short-video` / Docker / `start.sh`），之后是图形界面操作，不需要强动手能力或命令行经验 | [Agnes Video Generator](https://github.com/lcy362/agnes-video-generator) |
+| **③ `agnes-video` Agent 技能**（补充渠道） | 交给 AI 编程 Agent 运行 | 装一个技能、描述想要的结果，Agent 跑完**全流程**（装服务 / 生成 / 交付 / 排障） | [技能库仓库](https://github.com/lcy362/agnes-video-generator-skills) |
 
 ## 📄 License
 
