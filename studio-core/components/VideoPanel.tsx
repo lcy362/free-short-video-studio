@@ -27,6 +27,7 @@ import {
 } from '../lib/demo-types';
 import { fetchWithFailback } from '../lib/api-client';
 import { trackDemoError, trackGenerationStart, trackGenerationSuccess } from '../lib/analytics';
+import { useGenerationAbandon } from '../lib/use-generation-abandon';
 import { readPrefillPrompt } from '../lib/prompt-prefill';
 import {
   DEFAULT_FAST_RETRY_SETTINGS,
@@ -225,6 +226,15 @@ export default function TextToVideo({ apiKey }: Readonly<{ apiKey: string }>) {
   const fastSettingsRef = useRef(fastSettings);
   // 可被「手动开启快速重试」提前唤醒的等待器
   const sleepRef = useRef<{ timer: ReturnType<typeof setTimeout>; resolve: () => void } | null>(null);
+
+  // 页面卸载时单镜流程仍在跑 → abandon，解释「有 start 无终态」
+  useGenerationAbandon({
+    active: status === 'submitting' || status === 'generating',
+    tab: 'simple',
+    model,
+    startedAt: startTimeRef.current,
+    hasVideoId: !!videoId,
+  });
 
   const messages = useMessages() as any;
   const samplePrompts: string[] = messages?.demo?.video?.samplePrompts ?? [

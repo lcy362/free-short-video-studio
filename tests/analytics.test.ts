@@ -1,10 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   trackDemoError,
+  trackGenerationAbandon,
   trackGenerationStart,
   trackGenerationSuccess,
   trackImageError,
   trackSceneError,
+  trackSceneResumeError,
   trackSceneStart,
   trackSceneSuccess,
 } from '@/studio-core/lib/analytics';
@@ -123,6 +125,35 @@ describe('图像漏斗', () => {
       'event',
       'demo_image_error',
       expect.objectContaining({ tab: 'image', code: 'no_image_url' }),
+    );
+  });
+});
+
+describe('任务放弃与续轮询失败（2026-11-23 口径修正）', () => {
+  it('页面卸载时视频 / 图像分别上报 abandon，并带 has_video_id、reason', () => {
+    trackGenerationAbandon({ tab: 'simple', model: 'm', elapsed_s: 12, has_video_id: true });
+    expect(gtag).toHaveBeenLastCalledWith(
+      'event',
+      'demo_video_abandon',
+      expect.objectContaining({
+        tab: 'simple', elapsed_s: 12, has_video_id: true, reason: 'pagehide',
+      }),
+    );
+
+    trackGenerationAbandon({ tab: 'image' });
+    expect(gtag).toHaveBeenLastCalledWith(
+      'event',
+      'demo_image_abandon',
+      expect.objectContaining({ tab: 'image', has_video_id: false, reason: 'pagehide' }),
+    );
+  });
+
+  it('续轮询失败走独立事件，不污染 scene_error / scene_start 口径', () => {
+    trackSceneResumeError({ scene: 2, scene_total: 3, code: 'pollTimeout' });
+    expect(gtag).toHaveBeenLastCalledWith(
+      'event',
+      'demo_video_scene_resume_error',
+      expect.objectContaining({ tab: 'creative', scene: 2, scene_total: 3, code: 'pollTimeout' }),
     );
   });
 });

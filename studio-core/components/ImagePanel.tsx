@@ -15,6 +15,7 @@ import {
 } from '../lib/analytics';
 import { readPrefillPrompt } from '../lib/prompt-prefill';
 import { createLibraryItem, updateLibraryItem } from '../lib/library-store';
+import { useGenerationAbandon } from '../lib/use-generation-abandon';
 import DemoErrorLinks from './DemoErrorLinks';
 
 const IMAGE_MODEL = 'agnes-image-2.1-flash';
@@ -47,6 +48,14 @@ export default function TextToImage({ apiKey }: Readonly<{ apiKey: string }>) {
   const startedAtRef = useRef(0);
   // 作品库记录 id
   const libraryItemIdRef = useRef('');
+
+  // 页面卸载时出图仍在跑 → abandon
+  useGenerationAbandon({
+    active: status === 'generating',
+    tab: 'image',
+    model: IMAGE_MODEL,
+    startedAt: startedAtRef.current,
+  });
 
   const handleGenerate = async () => {
     if (!prompt.trim() || !apiKey) return;

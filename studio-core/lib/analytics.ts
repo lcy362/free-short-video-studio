@@ -8,6 +8,8 @@
  * 事件契约（上线后禁止改名，否则 GA 历史数据断裂，见 docs/plans/traffic-optimization-plan.md §3）：
  *   demo_video_start / demo_video_success / demo_video_error   —— 视频任务级（单镜 + 多镜）
  *   demo_video_scene_start / _success / _error                 —— 多镜成片的分段级（真实上游生成次数）
+ *   demo_video_scene_resume_error                             —— 续轮询（无新提交）失败，不进分段成功率口径
+ *   demo_video_abandon / demo_image_abandon                   —— 页面卸载时仍未出片，解释「有 start 无终态」
  *   demo_image_start / demo_image_success / demo_image_error   —— 图像
  *   api_key_saved    / get_key_click                           —— 转化前置动作
  *
@@ -15,6 +17,8 @@
  * - 任务成功率 = demo_video_success / demo_video_start
  *   start 在每次用户发起或重试时 +1（含刷新后用 ?video_id= 恢复），success 在最终出片时 +1。
  * - 分段成功率 = demo_video_scene_success / demo_video_scene_start（仅多镜成片，每段首次提交 +1）。
+ *   scene_error 只允许出现在本轮有 scene_start 的段上（error <= start）；续轮询失败另报
+ *   demo_video_scene_resume_error，避免用户反复重试失败场景把 error 数刷成 start 的数倍。
  */
 
 type EventParams = Record<string, string | number | boolean | undefined>;
@@ -206,5 +210,44 @@ export function trackSceneError(p: GenerationSceneParams & { code: string }): vo
     scene_total: p.scene_total,
     model: p.model,
     code: p.code,
+  });
+}
+
+/**
+ * 多镜成片：续轮询失败（场景已有 video_id、本轮没有新提交）。
+ * 单独事件，不进 scene_success / scene_start 口径，但保留失败码可下钻。
+ */
+export function trackSceneResumeError(p: GenerationSceneParams & { code: string }): void {
+  trackEvent('demo_video_scene_resume_error', {
+    ...baseParams('creative'),
+    scene: p.scene,
+    scene_total: p.scene_total,
+    model: p.model,
+    code: p.code,
+  });
+}
+
+export interface GenerationAbandonParams {
+  tab: StudioTab;
+  model?: string;
+  /** 从提交到页面卸载的秒数 */
+  elapsed_s?: number;
+  /** 是否已有 video_id（有则可凭 ?video_id= 回查结果） */
+  has_video_id?: boolean;
+  reason?: 'pagehide' | 'visibility_hidden';
+}
+
+/**
+ * 页面卸载时任务仍无终态：解释「start - success - error」的缺口。
+ * 只由 useGenerationAbandon 在 pagehide 时调用，切后台不视为放弃。
+ */
+export function trackGenerationAbandon(p: GenerationAbandonParams): void {
+  const name = p.tab === 'image' ? 'demo_image_abandon' : 'demo_video_abandon';
+  trackEvent(name, {
+    ...baseParams(p.tab),
+    model: p.model,
+    elapsed_s: p.elapsed_s,
+    has_video_id: !!p.has_video_id,
+    reason: p.reason ?? 'pagehide',
   });
 }

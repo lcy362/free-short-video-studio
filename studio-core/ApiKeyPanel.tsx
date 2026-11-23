@@ -119,7 +119,8 @@ export default function ApiKeyPanel({
             <button
               onClick={() => {
                 const key = inputValue.trim();
-                if (!key) return;
+                // 重复保存同一个 Key 不是新转化：历史数据里 api_key_saved 人均 2.92 次主要来自这里
+                if (!key || key === apiKey) return;
                 saveKey(key);
                 trackApiKeySaved({ source: 'manual' });
               }}

@@ -8,6 +8,8 @@ import { trackRetentionEvent } from '../lib/analytics';
 export type BookmarkPlace = 'library' | 'waiting' | 'prompt';
 
 const DISMISS_KEY = 'agnes-bookmark-nudge-dismissed';
+/** 曝光按「会话 × 位置」去重：组件随状态反复挂载时不应把 shown 刷成人均 6~7 次 */
+const SHOWN_PREFIX = 'agnes-bookmark-nudge-shown:';
 
 /**
  * 浏览器收藏引导。
@@ -47,7 +49,15 @@ export default function BookmarkNudge({
   const visible = active && !dismissed;
 
   useEffect(() => {
-    if (visible) trackRetentionEvent('bookmark_nudge_shown', { place });
+    if (!visible) return;
+    try {
+      const key = SHOWN_PREFIX + place;
+      if (sessionStorage.getItem(key) === '1') return;
+      sessionStorage.setItem(key, '1');
+    } catch {
+      // 隐私模式下写不了 sessionStorage，退化为「本次挂载上报一次」
+    }
+    trackRetentionEvent('bookmark_nudge_shown', { place });
   }, [place, visible]);
 
   const handleDismiss = () => {

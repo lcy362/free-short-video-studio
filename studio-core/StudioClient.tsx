@@ -32,9 +32,11 @@ import {
   trackGenerationStart,
   trackGenerationSuccess,
   trackSceneError,
+  trackSceneResumeError,
   trackSceneStart,
   trackSceneSuccess,
 } from './lib/analytics';
+import { useGenerationAbandon } from './lib/use-generation-abandon';
 import {
   loadProjects,
   saveProject,
@@ -182,6 +184,16 @@ export default function StudioClient({
   });
   const persistTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingProjectRef = useRef<StudioProject | null>(null);
+
+  // 页面卸载时多镜流程仍在跑 → abandon，解释「有 start 无终态」的缺口
+  useGenerationAbandon({
+    active: phase === 'script_generating' || phase === 'videos_generating'
+      || phase === 'ffmpeg_loading' || phase === 'concatenating',
+    tab: 'creative',
+    model,
+    startedAt: genStartedAtRef.current,
+    hasVideoId: scenes.some((s) => !!s.videoId),
+  });
 
   useEffect(() => { currentProjectIdRef.current = currentProjectId; }, [currentProjectId]);
   useEffect(() => {
@@ -354,12 +366,17 @@ export default function StudioClient({
           }
           if (patch.status === 'error' && !sceneDoneRef.current.has(i)) {
             sceneDoneRef.current.add(i);
-            trackSceneError({
+            const params = {
               scene: i + 1,
               scene_total: initialScenes.length,
               model: useModel,
               code: patch.error || 'sceneFailed',
-            });
+            };
+            // 只有本轮真实提交过的段才进分段成功率口径（error <= start）。
+            // 续轮询（重试失败场景 / 刷新恢复）没有新提交，单独记 resume_error，
+            // 否则用户反复点重试会把 scene_error 刷成 scene_start 的数倍。
+            if (sceneStartedRef.current.has(i)) trackSceneError(params);
+            else trackSceneResumeError(params);
           }
           setScenes((prev) => {
             const next = [...prev];
