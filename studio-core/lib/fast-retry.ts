@@ -102,7 +102,15 @@ export const EMPTY_FAST_RETRY_RUN: FastRetryRun = {
 };
 
 export const DEFAULT_FAST_RETRY_SETTINGS: FastRetrySettings = {
-  auto: false,
+  // auto = true since 2026-11-25: queue saturation is the dominant *real* generation
+  // failure (task-level `queue_full` was the #1 code at 341 events / 2 days, and the
+  // 503s behind scene `submitFailed` add ~500 more). With auto off, a web visitor only
+  // got 5 x 30s of slow retry and then gave up -- they had to discover and flip a
+  // toggle that the site itself advertises as "the 503 fix". Probing during the
+  // upstream `video_queue_full` phase is documented as safe (no 429, no render quota),
+  // so engaging fast retry automatically is the intended mitigation.
+  // Users who explicitly turned it off keep their stored choice (see loadFastRetrySettings).
+  auto: true,
   perMinute: FAST_RETRY_DEFAULT_PER_MINUTE,
   minutes: FAST_RETRY_DEFAULT_MINUTES,
   intervalMinutes: FAST_RETRY_DEFAULT_INTERVAL_MINUTES,

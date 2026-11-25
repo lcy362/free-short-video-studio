@@ -42,7 +42,13 @@ export type SceneErrorCode =
   | 'aborted'
   | 'invalidApiKey'
   | 'rateLimited'
-  | 'network';
+  | 'network'
+  // Telemetry fidelity (2026-11-25): do not collapse upstream busy-rail / unknown
+  // upstream errors / missing video_id into `submitFailed`, otherwise the dominant
+  // failure class (503 queue saturation) is invisible in GA.
+  | 'queue_full'
+  | 'upstream_error'
+  | 'no_video_id';
 
 /** 构造日志 scope */
 function sceneScope(index: number): string {
@@ -408,10 +414,13 @@ export class VideoOrchestrator {
           return 'rateLimited';
         case 'network':
           return 'network';
-        case 'upstream_error':
+        case 'queue_full':
+          return 'queue_full';
         case 'no_video_id':
+          return 'no_video_id';
+        case 'upstream_error':
         default:
-          return 'submitFailed';
+          return 'upstream_error';
       }
     }
     return 'submitFailed';

@@ -19,6 +19,14 @@
  * - 分段成功率 = demo_video_scene_success / demo_video_scene_start（仅多镜成片，每段首次提交 +1）。
  *   scene_error 只允许出现在本轮有 scene_start 的段上（error <= start）；续轮询失败另报
  *   demo_video_scene_resume_error，避免用户反复重试失败场景把 error 数刷成 start 的数倍。
+ *
+ * RESERVED-NAME BAN (incident fixed 2026-11-25):
+ * Never use a GA4 reserved event-parameter name as an event param. GA4 parses
+ * `source` / `medium` / `campaign` / `term` / `content` as built-in traffic-source
+ * fields, so the value lands in the "Session source" dimension: within the 5 days
+ * after the 11-20 release, `new` / `retry` / `resume` / `manual` polluted 14.9% of
+ * sessions and 42.7% of key events (see docs/GA_REVIEW_2026-11-25.md section 6).
+ * Hence: "generation origin" is `gen_source`, "key entry origin" is `key_source`.
  */
 
 type EventParams = Record<string, string | number | boolean | undefined>;
@@ -72,7 +80,7 @@ export interface GenerationStartParams {
   /** 是否带了参考图 / 音频 / 首尾帧等素材（只报布尔，不报内容） */
   has_ref_media?: boolean;
   /** 发起来源；缺省 new。retry / resume 用于区分人工重试与 ?video_id= 恢复 */
-  source?: GenerationSource;
+  source?: GenerationSource; // 上报到 GA 的参数名为 gen_source(source 是 GA4 保留名)
 }
 
 /** 一次生成尝试开始（用户点「生成」/ 手动重试 / ?video_id= 恢复） */
@@ -85,7 +93,7 @@ export function trackGenerationStart(p: GenerationStartParams): void {
     duration_s: p.duration_s,
     ratio: p.ratio,
     has_ref_media: p.has_ref_media,
-    source: p.source ?? 'new',
+    gen_source: p.source ?? 'new',
   });
 }
 
@@ -134,7 +142,8 @@ export function trackDemoError(p: GenerationErrorParams): void {
 
 /** 用户保存了自己的 API Key（只报事件，绝不报 Key 内容） */
 export function trackApiKeySaved(p: { source?: 'manual' | 'prefill' } = {}): void {
-  trackEvent('api_key_saved', { surface: currentSurface(), source: p.source ?? 'manual' });
+  // 参数名用 key_source:GA4 的 `source` 是保留名,会污染会话来源(见文件头说明)
+  trackEvent('api_key_saved', { surface: currentSurface(), key_source: p.source ?? 'manual' });
 }
 
 /** 用户点击「去获取 Key」（Key 门槛的关键流失点） */

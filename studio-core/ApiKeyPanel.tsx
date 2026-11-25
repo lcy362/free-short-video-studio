@@ -4,8 +4,20 @@ import { useState, useEffect, useCallback } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { AGNES_DOMAINS, type AgnesDomainId } from './lib/api-domains';
 import { trackApiKeyGuideClick, trackApiKeySaved, trackGetKeyClick } from './lib/analytics';
+import step1Image from './assets/api-key/01-platform-login.png';
+import step2Image from './assets/api-key/03-create-key.png';
+import step3Image from './assets/api-key/04-paste-key.png';
 
 const STORAGE_KEY = 'agnes_api_key';
+const PLATFORM_URL = 'https://platform.agnes-ai.com';
+const STEPS = [
+  { image: step1Image, titleKey: 'apiKey.step1', altKey: 'apiKey.stepAlt1' },
+  { image: step2Image, titleKey: 'apiKey.step2', altKey: 'apiKey.stepAlt2' },
+  { image: step3Image, titleKey: 'apiKey.step3', altKey: 'apiKey.stepAlt3' },
+];
+
+const PRIMARY_CTA = 'bg-accent hover:bg-accent/90 text-accent-ink';
+const SECONDARY_CTA = 'border border-accent/40 text-accent hover:bg-accent/10';
 
 export function useApiKey() {
   const [apiKey, setApiKey] = useState<string>('');
@@ -49,12 +61,14 @@ export default function ApiKeyPanel({
 }>) {
   const t = useTranslations('studio');
   const locale = useLocale();
-  // 国内站 / 备用线路只对中文用户有意义，其他语言不展示、也不提「中国站」
-  const isZh = locale === 'zh';
   const [inputValue, setInputValue] = useState(apiKey);
   const [showKey, setShowKey] = useState(false);
   const [expanded, setExpanded] = useState(!hasKey);
   const [advancedOpen, setAdvancedOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  // 还没领到 Key 时，用户真正要做的动作是「去注册」，不是「保存」。
+  // 输入框一旦有内容（已复制 Key 回来），主次立刻反转回「保存」。
+  const getKeyIsPrimary = !hasKey && !inputValue.trim();
 
   useEffect(() => {
     setInputValue(apiKey);
@@ -64,6 +78,16 @@ export default function ApiKeyPanel({
   useEffect(() => {
     if (hasKey) setExpanded(false);
   }, [hasKey]);
+
+  const copyUrl = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(PLATFORM_URL);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // 剪贴板不可用时仍可选中文本手动复制，不阻断流程
+    }
+  }, []);
 
   return (
     <div id="api-key-panel" className="card-surface rounded-2xl p-4 sm:p-6">
@@ -99,13 +123,39 @@ export default function ApiKeyPanel({
 
       <div
         id="apikey-panel-body"
-        className={`overflow-hidden transition-all duration-300 ${expanded ? 'mt-4 max-h-[44rem] opacity-100' : 'max-h-0 opacity-0'}`}
+        className={`overflow-hidden transition-all duration-300 ${expanded ? 'mt-4 max-h-[68rem] opacity-100' : 'max-h-0 opacity-0'}`}
       >
         <div className="space-y-3">
           <div>
             <p className="text-sm font-semibold text-ink">{t('apiKey.title')}</p>
             <p className="mt-1 text-xs text-muted leading-relaxed">{t('apiKey.trustFree')}</p>
           </div>
+
+          {/* 三步缩略图：把「注册很长」的直觉拆成看得见的三个动作 */}
+          {!hasKey && (
+            <div className="rounded-xl border border-rule bg-paper-3/50 p-3">
+              <div className="flex items-baseline justify-between gap-2">
+                <p className="text-xs font-semibold text-ink">{t('apiKey.stepsTitle')}</p>
+                <p className="text-xs text-muted">{t('apiKey.stepsHint')}</p>
+              </div>
+              <ol className="mt-2.5 grid grid-cols-3 gap-2">
+                {STEPS.map((step, i) => (
+                  <li key={step.titleKey} className="min-w-0">
+                    <img
+                      src={step.image.src}
+                      alt={t(step.altKey)}
+                      loading="lazy"
+                      className="w-full h-16 sm:h-20 object-cover object-top rounded-md border border-rule bg-paper"
+                    />
+                    <p className="mt-1.5 flex items-start gap-1 text-[11px] leading-tight text-ink-2">
+                      <span className="shrink-0 inline-flex h-4 w-4 items-center justify-center rounded-full bg-accent/10 text-[10px] font-semibold text-accent" aria-hidden="true">{i + 1}</span>
+                      <span>{t(step.titleKey)}</span>
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
 
           <div className="flex-1 relative">
             <input
@@ -145,23 +195,23 @@ export default function ApiKeyPanel({
                 trackApiKeySaved({ source: 'manual' });
               }}
               disabled={!inputValue.trim()}
-              className="px-4 py-2 text-sm font-medium bg-accent hover:bg-accent/90 disabled:opacity-40 disabled:cursor-not-allowed rounded-lg transition-all text-accent-ink"
+              className={`px-4 py-2 text-sm font-medium rounded-lg transition-all disabled:opacity-40 disabled:cursor-not-allowed ${getKeyIsPrimary ? `order-2 ${SECONDARY_CTA}` : `order-1 ${PRIMARY_CTA}`}`}
             >
               {t('apiKey.save')}
             </button>
             <a
-              href="https://platform.agnes-ai.com"
+              href={PLATFORM_URL}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackGetKeyClick({ from: 'panel' })}
-              className="px-4 py-2 text-sm font-medium border border-accent/40 text-accent hover:bg-accent/10 rounded-lg transition"
+              className={`px-4 py-2 text-sm font-medium rounded-lg transition ${getKeyIsPrimary ? `order-1 ${PRIMARY_CTA}` : `order-2 ${SECONDARY_CTA}`}`}
             >
               {t('apiKey.getKey')} ↗
             </a>
             {hasKey && (
               <button
                 onClick={clearKey}
-                className="px-2 py-2 text-xs text-muted hover:text-danger transition"
+                className="order-3 px-2 py-2 text-xs text-muted hover:text-danger transition"
               >
                 {t('apiKey.clear')}
               </button>
@@ -171,7 +221,18 @@ export default function ApiKeyPanel({
           {hasKey ? (
             <p className="text-xs text-success">{t('apiKey.savedHint')}</p>
           ) : (
-            <p className="text-xs text-muted">{t('apiKey.getKeyNote')}</p>
+            <div className="flex items-center gap-2 rounded-lg border border-rule bg-paper px-2.5 py-1.5">
+              <span className="text-xs text-muted shrink-0">{t('apiKey.getKeyNote')}</span>
+              <code className="min-w-0 flex-1 truncate text-xs text-accent" title={PLATFORM_URL}>{PLATFORM_URL}</code>
+              <button
+                type="button"
+                onClick={copyUrl}
+                className="shrink-0 rounded border border-accent/40 px-2 py-0.5 text-xs font-medium text-accent hover:bg-accent/10 transition"
+                aria-label={t('apiKey.copyLink')}
+              >
+                {copied ? t('apiKey.copied') : t('apiKey.copyLink')}
+              </button>
+            </div>
           )}
 
           {/* 图文教程入口：注册/创建 Key 的每一步都有截图，放在面板里方便边看边操作 */}
@@ -206,9 +267,10 @@ export default function ApiKeyPanel({
             </li>
           </ul>
 
-          {/* 域名配置：默认国际站，收进高级选项；国内站相关说明只在中文展示 */}
+          {/* 域名配置：默认国际站，收进高级选项；三种线路对所有语言开放 */}
           <div className="border-t border-rule pt-3">
             <button
+              type="button"
               onClick={() => setAdvancedOpen(!advancedOpen)}
               className="flex items-center gap-1.5 text-xs text-muted hover:text-ink-2 transition"
               aria-expanded={advancedOpen}
@@ -220,29 +282,25 @@ export default function ApiKeyPanel({
             </button>
             {advancedOpen && (
               <div className="mt-2 space-y-2">
-                {isZh ? (
-                  <>
-                    <div className="flex gap-2">
-                      {AGNES_DOMAINS.map((d) => (
-                        <button
-                          key={d.id}
-                          onClick={() => onDomainChange(d.id)}
-                          className={`flex-1 py-1.5 text-xs rounded-lg border transition ${
-                            domain === d.id
-                              ? 'bg-accent border-accent text-accent-ink shadow-sm'
-                              : 'bg-paper border-rule text-muted hover:text-ink-2 hover:bg-paper-3'
-                          }`}
-                          aria-pressed={domain === d.id}
-                        >
-                          {t(d.labelKey)}
-                        </button>
-                      ))}
-                    </div>
-                    <p className="text-xs text-muted leading-relaxed">{t('apiKey.domainHint')}</p>
-                  </>
-                ) : (
-                  <p className="text-xs text-muted leading-relaxed">{t('apiKey.advancedNote')}</p>
-                )}
+                <span className="block text-xs text-muted">{t('domainLabel')}</span>
+                <div className="flex gap-2">
+                  {AGNES_DOMAINS.map((d) => (
+                    <button
+                      key={d.id}
+                      type="button"
+                      onClick={() => onDomainChange(d.id)}
+                      className={`flex-1 py-1.5 text-xs rounded-lg border transition ${
+                        domain === d.id
+                          ? 'bg-accent border-accent text-accent-ink shadow-sm'
+                          : 'bg-paper border-rule text-muted hover:text-ink-2 hover:bg-paper-3'
+                      }`}
+                      aria-pressed={domain === d.id}
+                    >
+                      {t(d.labelKey)}
+                    </button>
+                  ))}
+                </div>
+                <p className="text-xs text-muted leading-relaxed">{t('domainHint')}</p>
               </div>
             )}
           </div>

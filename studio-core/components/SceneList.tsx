@@ -25,7 +25,19 @@ const ERROR_CODES = [
   'invalidApiKey',
   'rateLimited',
   'network',
+  // 更精确的采集码(orchestrator 2026-11-25 起不再塌缩成 submitFailed)。
+  // 用户可读提示复用 submitFailed 的一句话「稍后重试」,不新增 22 语言键。
+  'queue_full',
+  'upstream_error',
+  'no_video_id',
 ] as const;
+
+/** 采集用精确码 → 展示用的已有文案码(shared copy, no new i18n keys). */
+const ERROR_LABEL_ALIAS: Record<string, string> = {
+  queue_full: 'submitFailed',
+  upstream_error: 'submitFailed',
+  no_video_id: 'submitFailed',
+};
 
 export default function SceneList({
   scenes,
@@ -168,7 +180,7 @@ function SceneCard({ scene }: Readonly<{ scene: Scene }>) {
       return t('retryingHint', { n, s });
     }
     if ((ERROR_CODES as readonly string[]).includes(scene.error)) {
-      return t(`errors.${scene.error}`);
+      return t(`errors.${ERROR_LABEL_ALIAS[scene.error] ?? scene.error}`);
     }
     return scene.error;
   };

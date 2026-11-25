@@ -28,9 +28,11 @@ import { VideoOrchestrator } from './lib/orchestrator';
 import { submitLimiter } from './lib/rate-limiter';
 import { studioLogger } from './lib/logger';
 import {
+  trackApiKeyPanelFocus,
   trackDemoError,
   trackGenerationStart,
   trackGenerationSuccess,
+  trackGetKeyClick,
   trackSceneError,
   trackSceneResumeError,
   trackSceneStart,
@@ -114,6 +116,7 @@ function extractErrorCode(errorMsg: string): string | null {
     'scriptFailed', 'videoFailed', 'pollTimeout',
     'concatFailed', 'network', 'invalidApiKey', 'rateLimited',
     'aborted', 'maxConsecutiveFailures', 'submitFailed', 'downloadFailed',
+    'queue_full', 'upstream_error', 'no_video_id',
   ];
   for (const c of codes) {
     if (errorMsg === c) return c;
@@ -346,6 +349,11 @@ export default function StudioClient({
       apiKey, useRatio,
       {
         onSceneUpdate: (i, patch) => {
+          // Superseded run (retry / resume / new project / unmount): drop every callback.
+          // Otherwise the previous run's in-flight scenes are recorded as failures, which
+          // flooded `aborted` (682 events in 2 days) and inflated the failure rate, and it
+          // also clobbered the fresh state the new run had just set.
+          if (ac.signal.aborted) return;
           // 分段级埋点：首次提交 / 出片 / 失败各计一次
           // （有 videoId 的续轮询跳过提交，不会重复计 scene_start）
           if (patch.status === 'submitting' && !sceneStartedRef.current.has(i)) {
@@ -384,8 +392,17 @@ export default function StudioClient({
             return next;
           });
         },
-        onPhaseChange: (p) => { metaRef.current.phase = p; setPhase(p); },
-        onPersist: (sc) => persist(sc),
+        onPhaseChange: (p) => {
+          // Same rule as onSceneUpdate: a superseded run must not drive the page state.
+          if (ac.signal.aborted) return;
+          metaRef.current.phase = p;
+          setPhase(p);
+        },
+        onPersist: (sc) => {
+          // A superseded run must not overwrite the new run's persisted project.
+          if (ac.signal.aborted) return;
+          persist(sc);
+        },
       },
       ac.signal,
       useDuration,
@@ -398,6 +415,10 @@ export default function StudioClient({
 
     try {
       const { ok, failedIndices } = await orch.runAll(initialScenes);
+      // Superseded / cancelled run: skip every follow-up side effect (phase, persist,
+      // failure telemetry). Whoever replaced us (retry / resume / new project / cancel)
+      // owns the UI state -- and this run must never be counted as a generation failure.
+      if (ac.signal.aborted) return;
       flushPersist();
 
       // 全部失败 → 整页错误；部分失败 → 仍进 all_videos_ready（场景卡片里单独标红 + 可重试）
@@ -537,6 +558,11 @@ export default function StudioClient({
     abortRef.current?.abort();
     flushPersist();
     studioLogger.warn('system', 'User cancelled generation');
+    // onSceneUpdate now ignores callbacks from an aborted run, so mark the still-running
+    // scenes here explicitly (UI only -- no failure telemetry for a deliberate cancel).
+    setScenes((prev) => prev.map((s) => (
+      s.status === 'completed' ? s : { ...s, status: 'error', error: 'aborted' }
+    )));
     metaRef.current.phase = 'error';
     setPhase('error');
     setErrorMsg('aborted');
@@ -646,19 +672,49 @@ export default function StudioClient({
       )}
 
       {(phase === 'idle' || phase === 'script_generating') && (
-            <IdeaInput
-              idea={idea} setIdea={setIdea}
-              sceneCount={sceneCount} setSceneCount={setSceneCount}
-              ratio={ratio} setRatio={setRatio}
-              duration={duration} setDuration={setDuration}
-              style={style} setStyle={setStyle}
-              enableWatermark={enableWatermark} setEnableWatermark={setEnableWatermark}
-              model={model} setModel={handleModelChange}
-              loading={phase === 'script_generating'}
-              canSubmit={hasKey}
-              onGenerate={handleSplitScenes}
-            />
+        <>
+          {/* 没填 Key 时按钮只是静默禁用，必须给出可操作的下一步（与图像/单镜 tab 一致） */}
+          {!hasKey && (
+            <div className="rounded-xl border border-accent/25 bg-accent/5 p-3 space-y-2 text-center">
+              <p className="text-sm text-ink-2">{t('apiKey.noKeyTitle')}</p>
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    trackApiKeyPanelFocus({ tab: 'creative' });
+                    document.getElementById('api-key-panel')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    document.getElementById('api-key-input')?.focus();
+                  }}
+                  className="text-sm font-medium text-accent hover:underline"
+                >
+                  {t('apiKey.noKeyCta')} →
+                </button>
+                <a
+                  href="https://platform.agnes-ai.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackGetKeyClick({ from: 'generate' })}
+                  className="text-xs text-muted hover:text-ink transition"
+                >
+                  {t('apiKey.noKeyGet')}
+                </a>
+              </div>
+            </div>
           )}
+          <IdeaInput
+            idea={idea} setIdea={setIdea}
+            sceneCount={sceneCount} setSceneCount={setSceneCount}
+            ratio={ratio} setRatio={setRatio}
+            duration={duration} setDuration={setDuration}
+            style={style} setStyle={setStyle}
+            enableWatermark={enableWatermark} setEnableWatermark={setEnableWatermark}
+            model={model} setModel={handleModelChange}
+            loading={phase === 'script_generating'}
+            canSubmit={hasKey}
+            onGenerate={handleSplitScenes}
+          />
+        </>
+      )}
 
           {(phase === 'script_ready' || phase === 'videos_generating' || phase === 'all_videos_ready') && (
             <SceneList

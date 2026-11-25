@@ -91,6 +91,13 @@ async function submitOnce(
   if (resp.status === 429) {
     throw new VideoApiError('rate_limited', 'API rate limited, please retry later', 429);
   }
+  // Busy rail: upstream free-queue saturation (503 video_queue_full) / request timeout.
+  // Kept as its own code instead of `upstream_error`, otherwise the dominant failure
+  // class gets collapsed into `submitFailed` and becomes invisible in analytics
+  // (2026-11-25 review: 503s were the single biggest real failure class).
+  if (resp.status === 503 || resp.status === 408 || resp.status === 425) {
+    throw new VideoApiError('queue_full', `HTTP ${resp.status}`, resp.status);
+  }
   if (!resp.ok) {
     const data = await resp.json().catch(() => ({}));
     const errMsg = data?.error?.message || data?.error || `HTTP ${resp.status}`;
