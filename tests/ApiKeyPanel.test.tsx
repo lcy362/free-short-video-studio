@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('next-intl', () => ({
+  useLocale: () => 'zh',
   useTranslations: () => (key: string) => key,
 }));
 
@@ -47,10 +48,10 @@ describe('ApiKeyPanel', () => {
     onDomainChange: vi.fn(),
   };
 
-  it('无 key 时默认展开，含输入框与域名选择', () => {
+  it('无 key 时默认展开，含输入框与三步引导', () => {
     render(<ApiKeyPanel {...baseProps} />);
     expect(screen.getByLabelText('apiKey.label')).toBeInTheDocument();
-    expect(screen.getByText('domainLabel')).toBeInTheDocument();
+    expect(screen.getByText('apiKey.stepsTitle')).toBeInTheDocument();
     expect(screen.getByText('apiKey.localOnly')).toBeInTheDocument();
   });
 
@@ -89,11 +90,11 @@ describe('ApiKeyPanel', () => {
     // 折叠是 CSS 收起（max-h-0），内容仍挂在 DOM 里
     const body = container.querySelector('#apikey-panel-body') as HTMLElement;
     expect(body.className).toContain('max-h-0');
-    expect(screen.getByLabelText('apiKey.saved')).toBeInTheDocument();
+    expect(screen.getByText('apiKey.saved')).toBeInTheDocument();
 
-    // 头部按钮的可访问名称含「apiKey.title apiKey.saved」（内含带 aria-label 的状态点），用正则匹配
-    await user.click(screen.getByRole('button', { name: /apiKey.title/ }));
-    expect(body.className).toContain('max-h-[36rem]');
+    // 头部按钮的可访问名称含「API Key apiKey.saved」，用正则匹配
+    await user.click(screen.getByRole('button', { name: /API Key/ }));
+    expect(body.className).toContain('max-h-[68rem]');
     expect(screen.getByText('apiKey.clear')).toBeInTheDocument();
   });
 
@@ -101,7 +102,7 @@ describe('ApiKeyPanel', () => {
     const user = userEvent.setup();
     const clearKey = vi.fn();
     render(<ApiKeyPanel {...baseProps} apiKey="sk-saved" hasKey={true} clearKey={clearKey} />);
-    await user.click(screen.getByRole('button', { name: /apiKey.title/ }));
+    await user.click(screen.getByRole('button', { name: /API Key/ }));
     await user.click(screen.getByText('apiKey.clear'));
     expect(clearKey).toHaveBeenCalledTimes(1);
   });
@@ -110,6 +111,7 @@ describe('ApiKeyPanel', () => {
     const user = userEvent.setup();
     const onDomainChange = vi.fn();
     render(<ApiKeyPanel {...baseProps} domain="com" onDomainChange={onDomainChange} />);
+    await user.click(screen.getByText('apiKey.advanced'));
 
     const comBtn = screen.getByRole('button', { name: 'domainCom' });
     const cnBtn = screen.getByRole('button', { name: 'domainCn' });

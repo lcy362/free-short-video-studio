@@ -25,7 +25,7 @@ afterEach(() => {
 });
 
 describe('任务级视频漏斗', () => {
-  it('start 默认 source=new，并区分 surface / tab', () => {
+  it('start 默认 gen_source=new，并区分 surface / tab', () => {
     trackGenerationStart({
       tab: 'simple',
       model: 'agnes-video-2.5-flash',
@@ -41,24 +41,24 @@ describe('任务级视频漏斗', () => {
         tab: 'simple',
         model: 'agnes-video-2.5-flash',
         duration_s: 5,
-        source: 'new',
+        gen_source: 'new',
       }),
     );
   });
 
-  it('重试与恢复分别标记 source=retry / resume', () => {
+  it('重试与恢复分别标记 gen_source=retry / resume', () => {
     trackGenerationStart({ tab: 'creative', source: 'retry' });
     expect(gtag).toHaveBeenLastCalledWith(
       'event',
       'demo_video_start',
-      expect.objectContaining({ tab: 'creative', source: 'retry' }),
+      expect.objectContaining({ tab: 'creative', gen_source: 'retry' }),
     );
 
     trackGenerationStart({ tab: 'simple', source: 'resume' });
     expect(gtag).toHaveBeenLastCalledWith(
       'event',
       'demo_video_start',
-      expect.objectContaining({ tab: 'simple', source: 'resume' }),
+      expect.objectContaining({ tab: 'simple', gen_source: 'resume' }),
     );
   });
 
@@ -168,7 +168,7 @@ describe('降级路径', () => {
       event: 'demo_video_start',
       surface: 'demo',
       tab: 'simple',
-      source: 'new',
+      gen_source: 'new',
     });
   });
 

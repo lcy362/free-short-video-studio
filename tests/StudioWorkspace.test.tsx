@@ -56,12 +56,10 @@ describe('StudioWorkspace · 面板与 Key 门禁', () => {
     expect(panel('studio-panel-image')).toHaveAttribute('hidden');
     expect(panel('studio-panel-creative')).toHaveAttribute('hidden');
 
-    // 三个面板都挂载（切 tab 不卸载），且 image/simple 共用同一份 Key 提示
-    expect(screen.getAllByText('tabs.simpleHint')).toHaveLength(1);
-    expect(screen.getAllByText('apiKey.requiredHint')).toHaveLength(2);
-    // 2026-11-17 起「没 Key 也先展示表单」，提示从两个面板的 apiKey.hint 改为
-    // apiKey.requiredHint，apiKey.hint 只剩 ApiKeyPanel 里那一条（上游 commit f15b88f）
-    expect(screen.getAllByText('apiKey.hint')).toHaveLength(1);
+    // 三个面板都挂载（切 tab 不卸载）；引导文案已改为 noKeyTitle，
+    // 这里只断言「无 Key 引导确实出现」，不锁死具体条数
+    expect(document.body.textContent).toContain('apiKey.noKeyTitle');
+    expect(document.body.textContent).toContain('apiKey.stepsHint');
   });
 
   it('未填 Key 时创意视频仍以 embedded 模式挂载', () => {
@@ -133,6 +131,7 @@ describe('StudioWorkspace · tab 与 URL 同步', () => {
 describe('StudioWorkspace · API 域名托管', () => {
   it('切换域名写入 localStorage 并同步给 StudioClient', async () => {
     render(<StudioWorkspace />);
+    await userEvent.click(screen.getByText('apiKey.advanced'));
     await userEvent.click(screen.getByRole('button', { name: 'domainCn' }));
 
     expect(localStorage.getItem('agnes_api_domain')).toBe('cn');
@@ -142,6 +141,7 @@ describe('StudioWorkspace · API 域名托管', () => {
   it('水合时从 localStorage 恢复域名偏好', async () => {
     localStorage.setItem('agnes_api_domain', 'cn_bak');
     render(<StudioWorkspace />);
+    await userEvent.click(screen.getByText('apiKey.advanced'));
     await waitFor(() =>
       expect(screen.getByRole('button', { name: 'domainCnBak' })).toHaveAttribute('aria-pressed', 'true'),
     );

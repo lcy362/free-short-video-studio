@@ -170,7 +170,7 @@ describe('VideoOrchestrator', () => {
     const { promise, patches } = runAll([scene()]);
     const result = await promise;
     expect(result.ok).toBe(false);
-    expect(lastPatch(patches, 0)).toMatchObject({ status: 'error', error: 'submitFailed' });
+    expect(lastPatch(patches, 0)).toMatchObject({ status: 'error', error: 'upstream_error' });
   });
 
   it('gives up after consecutive polling failures', async () => {

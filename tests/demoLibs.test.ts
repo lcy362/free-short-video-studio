@@ -134,7 +134,7 @@ describe('analytics.trackEvent', () => {
 
     window.history.replaceState(null, '', '/zh/studio');
     trackApiKeySaved();
-    expect(gtag).toHaveBeenCalledWith('event', 'api_key_saved', { surface: 'studio', source: 'manual' });
+    expect(gtag).toHaveBeenCalledWith('event', 'api_key_saved', { surface: 'studio', key_source: 'manual' });
 
     gtag.mockClear();
     window.history.replaceState(null, '', '/zh/demo');

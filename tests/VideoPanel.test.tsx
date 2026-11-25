@@ -277,7 +277,8 @@ describe('VideoPanel · 提交', () => {
     expect(screen.getByText('0%')).toBeInTheDocument();
   });
 
-  it('重试次数耗尽后给出队列饱和提示', async () => {
+  it('队列饱和时默认自动快速重试，不再停在「耗尽」提示', async () => {
+    localStorage.clear();
     const spy = apiFetch(() => json({ error: { code: 'video_queue_full', message: 'full' } }, 503));
     render(<VideoPanel apiKey="sk-1" />);
     typePrompt('测试');
@@ -285,8 +286,9 @@ describe('VideoPanel · 提交', () => {
     await settle();
     for (let i = 0; i < 5; i += 1) await settle(30_000);
 
-    expect(screen.getByText('errors.queueFullExhausted')).toBeInTheDocument();
-    expect(spy.mock.calls.filter((c) => String(c[0]).includes('/v1/videos'))).toHaveLength(6);
+    // 2026-11-25 起 auto 默认开启：连续忙信号后继续尝试，不会显示旧的耗尽提示
+    expect(screen.queryByText('errors.queueFullExhausted')).toBeNull();
+    expect(spy.mock.calls.filter((c) => String(c[0]).includes('/v1/videos')).length).toBeGreaterThan(6);
   });
 
   it('503 即使没有队列错误码也按繁忙处理', async () => {
@@ -536,8 +538,8 @@ describe('VideoPanel · 首尾帧 / 参考音频（对齐 2.5 接口能力）', 
 });
 
 describe('VideoPanel · 快速重试模式', () => {
-  it('未开自动时连续 2 次忙信号后出现一次性开启按钮', async () => {
-    localStorage.clear();
+  it('显式关闭自动后，连续 2 次忙信号出现一次性开启按钮', async () => {
+    localStorage.setItem('agnes_fast_retry', JSON.stringify({ auto: false, perMinute: 60, minutes: 1 }));
     apiFetch(() => json({ error: { code: 'video_queue_full' } }, 503));
     render(<VideoPanel apiKey="sk-1" />);
     typePrompt('队列满');
