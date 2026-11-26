@@ -50,7 +50,7 @@ describe('LibraryPanel（独立作品库）', () => {
     );
     expect(screen.getByRole('button', { name: 'library.resume' })).toBeInTheDocument();
     expect(screen.getByText('1/3')).toBeInTheDocument();
-    expect(document.querySelector('[data-bookmark-nudge="library"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-bookmark-nudge]')).toBeNull();
   });
 
   it('多镜「继续」通知外层切换 tab，并发出恢复指令', async () => {

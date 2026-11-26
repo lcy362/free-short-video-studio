@@ -14,7 +14,6 @@ import {
   type LibraryStatus,
 } from '../lib/library-store';
 import { trackRetentionEvent } from '../lib/analytics';
-import BookmarkNudge from './BookmarkNudge';
 
 const KIND_KEY: Record<LibraryKind, string> = {
   image: 'kindImage',
@@ -166,8 +165,6 @@ export default function LibraryPanel({
           </li>
         ))}
       </ul>
-
-      <BookmarkNudge place="library" />
     </section>
   );
 }

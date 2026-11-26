@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import BookmarkNudge from './BookmarkNudge';
 
 /**
  * 等待期说明：只在「正在提交 / 轮询 / 编排 / 拼接」时渲染。
@@ -33,7 +32,6 @@ export default function WaitingNotice() {
           {t('library.waitSelfHostLink')}
         </a>
       </p>
-      <BookmarkNudge place="waiting" />
     </div>
   );
 }

@@ -24,36 +24,33 @@ beforeEach(() => {
 
 describe('BookmarkNudge（曝光按会话 × 位置去重）', () => {
   it('同一 place 反复挂载只报一次 shown，不同 place 各报一次', () => {
-    const first = render(<BookmarkNudge place="library" />);
-    expect(mocked).toHaveBeenCalledWith('bookmark_nudge_shown', { place: 'library' });
+    const first = render(<BookmarkNudge place="result" />);
+    expect(mocked).toHaveBeenCalledWith('bookmark_nudge_shown', { place: 'result' });
 
     first.unmount();
-    render(<BookmarkNudge place="library" />);
+    render(<BookmarkNudge place="result" />);
     expect(mocked).toHaveBeenCalledTimes(1);
 
-    render(<BookmarkNudge place="waiting" />);
+    render(<BookmarkNudge place="prompt" />);
     expect(mocked).toHaveBeenCalledTimes(2);
-    expect(mocked).toHaveBeenLastCalledWith('bookmark_nudge_shown', { place: 'waiting' });
+    expect(mocked).toHaveBeenLastCalledWith('bookmark_nudge_shown', { place: 'prompt' });
   });
 
-  it('关闭后上报 dismiss 并全局隐藏；新会话重新计曝光', async () => {
+  it('关闭结果引导不影响提示词引导，两边各自记住', async () => {
     const user = userEvent.setup();
-    const first = render(<BookmarkNudge place="prompt" />);
+    const first = render(<BookmarkNudge place="result" />);
     await user.click(screen.getByText('library.bookmarkDismiss'));
 
-    expect(mocked).toHaveBeenLastCalledWith('bookmark_nudge_dismiss', { place: 'prompt' });
-    expect(localStorage.getItem('agnes-bookmark-nudge-dismissed')).toBe('1');
-    expect(document.querySelector('[data-bookmark-nudge="prompt"]')).toBeNull();
+    expect(mocked).toHaveBeenLastCalledWith('bookmark_nudge_dismiss', { place: 'result' });
+    expect(localStorage.getItem('agnes-bookmark-result-dismissed')).toBe('1');
+    expect(document.querySelector('[data-bookmark-nudge="result"]')).toBeNull();
 
     first.unmount();
     render(<BookmarkNudge place="prompt" />);
-    expect(document.querySelector('[data-bookmark-nudge="prompt"]')).toBeNull();
-    expect(mocked).toHaveBeenCalledTimes(2);
+    expect(document.querySelector('[data-bookmark-nudge="prompt"]')).toBeInTheDocument();
 
-    localStorage.clear();
-    sessionStorage.clear();
-    render(<BookmarkNudge place="prompt" />);
-    expect(mocked).toHaveBeenCalledTimes(3);
-    expect(mocked).toHaveBeenLastCalledWith('bookmark_nudge_shown', { place: 'prompt' });
+    await user.click(screen.getByText('library.bookmarkDismiss'));
+    expect(localStorage.getItem('agnes-bookmark-prompt-dismissed')).toBe('1');
+    expect(document.querySelector('[data-bookmark-nudge="prompt"]')).toBeNull();
   });
 });

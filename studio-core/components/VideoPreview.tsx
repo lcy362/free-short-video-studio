@@ -1,7 +1,9 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { trackRetentionEvent } from '../lib/analytics';
+import BookmarkNudge, { shouldOfferResultBookmark } from './BookmarkNudge';
 
 interface Props {
   readonly url: string;
@@ -10,6 +12,11 @@ interface Props {
 
 export default function VideoPreview({ url, onReset }: Props) {
   const t = useTranslations('studio');
+  const [offerBookmark, setOfferBookmark] = useState(false);
+
+  useEffect(() => {
+    setOfferBookmark(shouldOfferResultBookmark());
+  }, []);
 
   const handleDownload = () => {
     const a = document.createElement('a');
@@ -61,6 +68,7 @@ export default function VideoPreview({ url, onReset }: Props) {
             {t('createAnother')}
           </button>
         </div>
+        <BookmarkNudge place="result" active={offerBookmark} />
       </div>
 
       <div className="bg-accent/5 border border-accent/15 rounded-xl p-4">

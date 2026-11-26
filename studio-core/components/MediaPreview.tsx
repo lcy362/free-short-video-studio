@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { trackRetentionEvent } from '../lib/analytics';
+import BookmarkNudge, { shouldOfferResultBookmark } from './BookmarkNudge';
 
 export default function MediaPreview({
   type,
@@ -25,6 +26,11 @@ export default function MediaPreview({
   const tLib = useTranslations('studio');
   const [isDownloading, setIsDownloading] = useState(false);
   const [videoBlobUrl, setVideoBlobUrl] = useState<string>('');
+  const [offerBookmark, setOfferBookmark] = useState(false);
+
+  useEffect(() => {
+    setOfferBookmark(shouldOfferResultBookmark());
+  }, []);
 
   // For video: fetch with auth headers → blob URL for playback
   useEffect(() => {
@@ -165,6 +171,11 @@ export default function MediaPreview({
           )}
         </button>
       </div>
+      {offerBookmark && (
+        <div className="px-4 pb-4">
+          <BookmarkNudge place="result" active />
+        </div>
+      )}
     </div>
   );
 }

@@ -3,13 +3,31 @@
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { trackRetentionEvent } from '../lib/analytics';
+import { loadLibraryItems } from '../lib/library-store';
 
-/** 收藏引导出现的位置，用于埋点下钻 */
-export type BookmarkPlace = 'library' | 'waiting' | 'prompt';
+/**
+ * 收藏引导出现的位置，用于埋点下钻。
+ * result：工作台第一次做出成品；prompt：示例页复制提示词之后。
+ * 两处关闭记录分开，关掉一处不影响另一处。
+ */
+export type BookmarkPlace = 'result' | 'prompt';
 
-const DISMISS_KEY = 'agnes-bookmark-nudge-dismissed';
+const DISMISS_KEYS: Record<BookmarkPlace, string> = {
+  result: 'agnes-bookmark-result-dismissed',
+  prompt: 'agnes-bookmark-prompt-dismissed',
+};
 /** 曝光按「会话 × 位置」去重：组件随状态反复挂载时不应把 shown 刷成人均 6~7 次 */
 const SHOWN_PREFIX = 'agnes-bookmark-nudge-shown:';
+
+/** 作品库里还没有第二条已完成记录时，才值得在结果卡上提一次收藏。 */
+export function shouldOfferResultBookmark(): boolean {
+  try {
+    const completed = loadLibraryItems().filter((item) => item.status === 'completed').length;
+    return completed <= 1;
+  } catch {
+    return true;
+  }
+}
 
 /**
  * 浏览器收藏引导。
@@ -25,7 +43,7 @@ export default function BookmarkNudge({
   active = true,
 }: Readonly<{
   place: BookmarkPlace;
-  /** 由调用方控制「合适时机」（如复制提示词后、生成中、作品库有记录后） */
+  /** 由调用方控制时机：结果卡只在第一次成功时打开，示例页在复制提示词后打开 */
   active?: boolean;
 }>) {
   const t = useTranslations('studio');
@@ -35,7 +53,7 @@ export default function BookmarkNudge({
 
   useEffect(() => {
     try {
-      setDismissed(localStorage.getItem(DISMISS_KEY) === '1');
+      setDismissed(localStorage.getItem(DISMISS_KEYS[place]) === '1');
     } catch {
       setDismissed(false);
     }
@@ -44,7 +62,7 @@ export default function BookmarkNudge({
       const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent || '');
       setShortcut(isMac ? '⌘ + D' : 'Ctrl + D');
     }
-  }, []);
+  }, [place]);
 
   const visible = active && !dismissed;
 
@@ -62,7 +80,7 @@ export default function BookmarkNudge({
 
   const handleDismiss = () => {
     try {
-      localStorage.setItem(DISMISS_KEY, '1');
+      localStorage.setItem(DISMISS_KEYS[place], '1');
     } catch {
       /* 隐私模式下写不了，本次会话内仍然隐藏 */
     }
@@ -75,7 +93,12 @@ export default function BookmarkNudge({
   const isPrompt = place === 'prompt';
 
   return (
-    <div className="mt-3 rounded-lg border border-accent/20 bg-accent/5 px-3 py-2.5" data-bookmark-nudge={place}>
+    <div
+      className={isPrompt
+        ? 'mt-3 rounded-lg border border-accent/20 bg-accent/5 px-3 py-2.5'
+        : 'mt-3'}
+      data-bookmark-nudge={place}
+    >
       <p className="text-xs font-medium text-ink-2">
         {t(isPrompt ? 'library.bookmarkPromptTitle' : 'library.bookmarkTitle')}
       </p>
